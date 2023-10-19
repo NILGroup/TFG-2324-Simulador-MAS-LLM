@@ -299,7 +299,3 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
-
-
-#Storage files for the simulation runs
-enviroment/frontend_server/*
