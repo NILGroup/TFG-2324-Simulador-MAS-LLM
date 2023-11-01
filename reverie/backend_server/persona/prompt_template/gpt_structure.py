@@ -4,6 +4,7 @@ Author: Joon Sung Park (joonspk@stanford.edu)
 File: gpt_structure.py
 Description: Wrapper functions for calling OpenAI APIs.
 """
+
 import json
 import random
 import google.generativeai as palm
@@ -12,7 +13,7 @@ import time
 from utils import *
 
 palm.configure(api_key=api_key)
-response_model='models/chat-bison-001'
+response_model='models/text-bison-001'
 embedding_model='models/embedding-gecko-001'
 
 def temp_sleep(seconds=0.1):
@@ -181,9 +182,10 @@ def GPT_request(prompt, gpt_parameter):
                 max_output_tokens=gpt_parameter['max_tokens'],
                 top_p=gpt_parameter['top_p'],
                 stop_sequences=gpt_parameter['stop'])
+    
     return response.result
-  except: 
-    print ("TOKEN LIMIT EXCEEDED")
+  except Exception as e: 
+    exit(e.args)
     return "TOKEN LIMIT EXCEEDED"
 
 
