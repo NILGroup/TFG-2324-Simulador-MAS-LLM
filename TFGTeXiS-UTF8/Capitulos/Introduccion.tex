@@ -3,9 +3,7 @@
 
 \chapterquote{La creatividad es únicamente unir conceptos}{Steve Jobs}
 
-Según la normativa  para Trabajos de Fin de Grado\footnote{\url{https://informatica.ucm.es/file/normativatfg-2021-2022?ver} (ver versión actualizada para cada curso académico)}
-
-
+(esta es la introduccion que hizo alberto)
 Las relaciones sociales han sido tema de estudio en múltiples ocasiones a lo largo de los años. El comportamiento de los seres humanos es ciertamente complejo y, en muchos casos, impredecible. Esto es lo que nos hace únicos e inimitables... ¿o no?
 
 En los últimos años, y especialmente en el último, hemos visto un desarrollo fulgurante de las Inteligencias Artificiales. Uno de los casos de uso más interesante de estas tecnologías son los Modelos Grandes del Lenguaje (Large Language Models), de propósito general, los cuales nos permiten interactuar mediante el lenguaje natural directamente con la IA.
@@ -14,10 +12,36 @@ Al desarrollar estos Modelos del Lenguaje, si se tiene una serie de ejemplos lo 
 
 En este momento entra en juego el comportamiento humano. Si tenemos unos Modelos muy grandes, capaces de obedecer a esquemas y crear situaciones únicas, ¿podríamos simular relaciones sociales humanas verosímiles usando estas tecnologías?
 
+(esta es la introduccion que hizo kevin)
 Este experimento fue llevado a cabo en el estudio de \textit{Generative Agents}, en el cual nos hemos basado a la hora de realizar nuestro Trabajo de Fin de Grado. En este experimento logran crear agentes independientes los cuales interaccionan entre ellos, tienen recuerdos de eventos ocurridos y son capaces de desarrollar relaciones sociales entre sí.
+El desarrollo de \mgl en los últimos años ha sido un gran boom, industrial, científico y social.
+
+El potencial que estos tienen aún está siendo explorado, pero entre sus capacidades está la de desempeñar roles que les designemos. Con esta idea en mente surge la posibilidad de utilizar este tipo de herramientas para simular la reacción humana ante diversas situaciones.
+
+Esto, junto al trabajo \ga\footnote{\url{https://arxiv.org/abs/2304.03442}}, nos permite plantear la creacion de un simulador de escenarios realista, tratando, además, de sentar las bases con las que hacerlo accesible, en la medida que los \mgl lo permitan, a cualquier persona.
+
+ Por ello en este proyecto proponemos la creación de una aplicación web, en base al trabajo \ga, que nos permita la simulación de escenarios con agentes que poseen personalidad propia. 
+>>>>>>> 46343764607823faf3b68cad03a68a763d2c6675
 
 \section{Motivación}
-Introducción al tema del TFG.
+En respuesta a las expectativas de las capacidades de los \mgl surge una gran cantidad de investigaciones que exploran los límites de este tipo de software.
+
+Entre estos trabajos se encuentra \ga, en el que se propone una arquitectura basada en el uso de \mgl, con la que crear agentes capaces de simular una personalidad humana. Manteniendo coherencia entre su personalidad, sus interacciones previas y sus motivaciones.
+
+%\href{https://github.com/joonspk-research/generative_agents}{\textbf{generative\_agents}}
+Con una arquitectura como la citada disponemos de lo necesario para crear un entorno en el que intervengan varios agentes e interactúen entre sí. Una implementación de esta idea es la que tenemos en el repositorio \href{https://github.com/joonspk-research/generative_agents}{\textbf{generative\_agents}} creado por los autores del paper mencionado anteriormente.
+
+%\href{https://github.com/OpenBMB/ChatDev}{ChatDev}
+Partiendo de ese misma base vemos otros trabajos como Communicative Agents for Software Development\footnote{\url{https://arxiv.org/abs/2307.07924}}, en los que se explora las capacidades de un grupo de agentes que cumplen el rol de desarrolladores de software en una empresa. Dando lugar al repositorio \href{https://github.com/OpenBMB/ChatDev}{\textbf{ChatDev}}, en el que una simulación es capaz de crear aplicaciones software pasando por varias fases conocidas de desarrollo del software.
+
+Es decir, a partir una simulación se pueden ver dinámicas bien conocidas en el dia a dia de las empresas del software.
+
+A través de trabajos como el anterior se vé la capacidad de explorar la reacción de grupos de agentes, en según qué circunstancias.
+Una herramienta como esta es útil y de interés, sin embargo, actualmente no es posible crear simulaciones en escenarios arbitrarios.
+
+Para remediar esta situación, planteamos crear una aplicación web que facilite la creación de simulaciones en escenarios diseñados por el usuario.
+
+Además de esto buscamos facilitar el acceso ofreciendo la posibilidad de uso de \mgl aportados por el usuario. Con el fin de eliminar la dependencia de software de terceros, como pueden ser las APIs de Google\footnote{\url{https://developers.generativeai.google/products/palm}} u OpenAI\footnote{\url{https://openai.com/product}}
 
 
 \section{Objetivos}
