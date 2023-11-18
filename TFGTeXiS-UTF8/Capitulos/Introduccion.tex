@@ -3,32 +3,33 @@
 
 \chapterquote{Frase célebre dicha por alguien inteligente}{Autor}
 
-Según la normativa  para Trabajos de Fin de Grado\footnote{\url{https://informatica.ucm.es/file/normativatfg-2021-2022?ver} (ver versión actualizada para cada curso académico)}, la memoria incluirá una portada normalizada con la siguiente información: título en castellano, título en inglés, autores, profesor director, codirector si es el caso, curso
-académico e identificación de la asignatura (Trabajo de fin de grado del Grado en -
-nombre del grado correspondiente-, Facultad de Informática, Universidad Complutense de Madrid). Los datos referentes al título y director (y codirector en su caso) deben corresponder a los publicados en la página web de TFG.
+El desarrollo de \mgl en los últimos años ha sido un gran boom, industrial, científico y social.
 
-La memoria debe incluir la descripción detallada de la propuesta hardware/software realizada y ha de contener:
-\begin{enumerate}
-\renewcommand{\theenumi}{\alph{enumi}}
-	\item un índice,
-	\item un resumen y una lista de no más de 10 palabras clave para su búsqueda bibliográfica, ambos en castellano e inglés,
-	\item una introducción con los antecedentes, objetivos y plan de trabajo,
-	\item resultados y discusión crítica y razonada de los mismos, con sus conclusiones,
-	\item bibliografía.
-\end{enumerate}
-Para facilitar la escritura de la memoria siguiendo esta estructura, el estudiante podrá usar las plantillas en LaTeX o Word preparadas al efecto y publicadas en la página web de TFG.
+El potencial que estos tienen aún está siendo explorado, pero entre sus capacidades está la de desempeñar roles que les designemos. Con esta idea en mente surge la posibilidad de utilizar este tipo de herramientas para simular la reacción humana ante diversas situaciones.
 
-La memoria constará de un mínimo de 25 páginas para los proyectos realizados por un único estudiante, y de al menos 5 páginas más por cada integrante adicional del grupo. En este número de páginas solo se tiene en cuenta el contenido correspondiente a los apartados c y d del punto anterior.
+Esto, junto al trabajo \ga\footnote{\url{https://arxiv.org/abs/2304.03442}}, nos permite plantear la creacion de un simulador de escenarios realista, tratando, además, de sentar las bases con las que hacerlo accesible, en la medida que los \mgl lo permitan, a cualquier persona.
 
-La memoria puede estar escrita en castellano o inglés, pero en el primer caso la introducción y las conclusiones deben aparecer también en inglés. Las memorias de los TFG matriculados en el grupo I deberán estar escritas íntegramente en inglés, excepto por lo especificado en los puntos 1 y 2 anteriores (título, resumen y lista de palabras clave).
-
-En caso de trabajos no unipersonales, cada participante indicará en la memoria su contribución al proyecto con una extensión de al menos dos páginas por cada uno de los participantes.
-
-Todo el material no original, ya sea texto o figuras, deberá ser convenientemente citado y referenciado. En el caso de material complementario se deben respetar las licencias y \emph{copyrights} asociados al software y hardware que se emplee. En caso contrario no se autorizará la defensa, sin menoscabo de otras acciones que correspondan.
-
+ Por ello en este proyecto proponemos la creación de una aplicación web, en base al trabajo \ga, que nos permita la simulación de escenarios con agentes que poseen personalidad propia. 
 
 \section{Motivación}
-Introducción al tema del TFG.
+En respuesta a las expectativas de las capacidades de los \mgl surge una gran cantidad de investigaciones que exploran los límites de este tipo de software.
+
+Entre estos trabajos se encuentra \ga, en el que se propone una arquitectura basada en el uso de \mgl, con la que crear agentes capaces de simular una personalidad humana. Manteniendo coherencia entre su personalidad, sus interacciones previas y sus motivaciones.
+
+%\href{https://github.com/joonspk-research/generative_agents}{\textbf{generative\_agents}}
+Con una arquitectura como la citada disponemos de lo necesario para crear un entorno en el que intervengan varios agentes e interactúen entre sí. Una implementación de esta idea es la que tenemos en el repositorio \href{https://github.com/joonspk-research/generative_agents}{\textbf{generative\_agents}} creado por los autores del paper mencionado anteriormente.
+
+%\href{https://github.com/OpenBMB/ChatDev}{ChatDev}
+Partiendo de ese misma base vemos otros trabajos como Communicative Agents for Software Development\footnote{\url{https://arxiv.org/abs/2307.07924}}, en los que se explora las capacidades de un grupo de agentes que cumplen el rol de desarrolladores de software en una empresa. Dando lugar al repositorio \href{https://github.com/OpenBMB/ChatDev}{\textbf{ChatDev}}, en el que una simulación es capaz de crear aplicaciones software pasando por varias fases conocidas de desarrollo del software.
+
+Es decir, a partir una simulación se pueden ver dinámicas bien conocidas en el dia a dia de las empresas del software.
+
+A través de trabajos como el anterior se vé la capacidad de explorar la reacción de grupos de agentes, en según qué circunstancias.
+Una herramienta como esta es útil y de interés, sin embargo, actualmente no es posible crear simulaciones en escenarios arbitrarios.
+
+Para remediar esta situación, planteamos crear una aplicación web que facilite la creación de simulaciones en escenarios diseñados por el usuario.
+
+Además de esto buscamos facilitar el acceso ofreciendo la posibilidad de uso de \mgl aportados por el usuario. Con el fin de eliminar la dependencia de software de terceros, como pueden ser las APIs de Google\footnote{\url{https://developers.generativeai.google/products/palm}} u OpenAI\footnote{\url{https://openai.com/product}}
 
 
 \section{Objetivos}
