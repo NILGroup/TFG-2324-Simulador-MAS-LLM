@@ -3,13 +3,13 @@
 
 \chapterquote{La creatividad es únicamente unir conceptos}{Steve Jobs}
 
-Las relaciones sociales han sido tema de estudio en múltiples ocasiones a lo largo de los años. El comportamiento de los seres humanos es ciertamente complejo y, en muchos casos, impredecible. Esto es lo que nos hace únicos e inimitables... ¿o no?
+Las relaciones sociales han sido tema de estudio en múltiples ocasiones a lo largo del tiempo. El comportamiento de los seres humanos es ciertamente complejo y, en muchos casos, impredecible. Esto es lo que nos hace únicos e inimitables... ¿o no?
 
 En los últimos años, y especialmente en el último, hemos visto un desarrollo fulgurante de las Inteligencias Artificiales. Uno de los casos de uso más interesante de estas tecnologías son los Modelos Grandes de Lenguaje (Large Language Models), de propósito general, los cuales nos permiten interactuar mediante el lenguaje natural directamente con la IA.
 
 Al desarrollar estos Modelos del Lenguaje, si se tiene una serie de ejemplos lo suficientemente grande, el programa podrá generar situaciones completamente únicas y originales, imitando ejemplos ya conocidos pero sin reutilizarlos de manera literal.
 
-En este momento entra en juego el comportamiento humano. Si tenemos unos Modelos muy grandes, capaces de obedecer a esquemas y crear situaciones únicas, ¿podríamos simular relaciones sociales humanas verosímiles usando estas tecnologías?
+En este momento entra en juego el comportamiento humano. Si tenemos unos modelos muy grandes, capaces de obedecer a esquemas de entrada y crear situaciones únicas, ¿podríamos simular relaciones sociales humanas verosímiles usando estas tecnologías?
 
 Este experimento fue llevado a cabo en el estudio de \ga\footnote{\url{https://arxiv.org/abs/2304.03442}}, en el cual nos hemos basado a la hora de realizar nuestro Trabajo de Fin de Grado. En este experimento logran crear agentes independientes los cuales interaccionan entre ellos, tienen recuerdos de eventos ocurridos y son capaces de desarrollar relaciones sociales entre sí.
 
@@ -20,7 +20,7 @@ Entre estos trabajos se encuentra \ga, en el que se propone una arquitectura bas
 
 Con una arquitectura como la citada disponemos de lo necesario para crear un entorno en el que intervengan varios agentes e interactúen entre sí. Una implementación de esta idea es la que tenemos en el repositorio \href{https://github.com/joonspk-research/generative_agents}{\textit{generative\_agents}} creado por los autores del paper mencionado anteriormente.
 
-Disponer de una tecnología capaz de simular el comportamiento humano en contextos sociales nos crea la necesidad de experimentar con estas capacidades en distintas situaciones. Esta necesidad se vé reflejada en trabajos como \textit{Communicative Agents for Software Development}\footnote{\url{https://arxiv.org/abs/2307.07924}}, que pone a prueba las capacidades de \ga, pero en esta ocasión midiendo la capacidad de un grupo de agentes para generar software.
+Disponer de una tecnología capaz de simular el comportamiento humano en contextos sociales nos crea la necesidad de experimentar con estas capacidades en distintas situaciones. Esta necesidad se vé reflejada en trabajos como \textit{Communicative Agents for Software Development}\footnote{\url{https://arxiv.org/abs/2307.07924}}, que pone a prueba las capacidades de \ga, pero en esta ocasión midiendo la capacidad de un grupo de agentes para generar software. En este estudio se comprueba que estos mismos agentes son capaces de asociarse, formar equipos y generar videojuegos funcionales con código real.
 
 Se vé así el potencial de esta tecnología y el interés de la gente por definir sus límites, aplicaciones o simplemente experimentar.
 Sin embargo todas estas motivaciones se ven muy coartadas a la hora de poner en funcionamiento este trabajo en nuevos escenarios.
@@ -28,23 +28,32 @@ Sin embargo todas estas motivaciones se ven muy coartadas a la hora de poner en 
 Es por ello que proponemos en este Trabajo de Fin de Grado facilitar el acceso e interacción con la tecnología que proporcionan en \ga, además de ofrecer nuevas funcionalidades con las que explorar e interactuar con la simulación en tiempo real.
 
 \section{Objetivos}
-El objetivo mencionado anteriormente se puede seccionar en los siguientes:
+Para lograr el objetivo principal del TFG mencionado anteriormente, que es facilitar el acceso e interacción y extender funcionalidades del estudio de  \ga, hemos decidido seccionarlo en los siguientes puntos:
 \begin{itemize}
-\item Creacion de simulaciones configurando agentes y/o escenario.
-\item Permitir la interacción con el estados de los agentes y escenario durante la simulación.
-\item Visión de la simulación, a través de un personaje o de una forma general y sintetizada.
-\item Gestion de las simulaciones, permitiendo el guardado de estas y la creación en base a anteriores.
+\item Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes.
+
+\item Permitir la interacción con el estado de los agentes y escenario durante la simulación. En cualquier momento, el usuario podrá interactuar tanto con los agentes como con distintos elementos del escenario.
+
+\item Visión de la simulación, a través de un personaje o de una forma general y sintetizada. También permitir a los usuarios, una vez finalizada una simulación, poder hacer un resumen de toda la simulación como conjunto o hacerlo desde el punto de vista de uno de los agentes.
+
+\item Gestión de las simulaciones, permitiendo el guardado de estas y la creación en base a anteriores. Esto permitirá poder ver simulaciones repetidas o extenderlas.
+
 \item Integración de todo lo anterior en una interfaz web.
-\item Creacion de sistema que permita usar modelos de lenguaje que se ejecuten de forma local, o APIs en su defecto.
+
+\item Creación de sistema que permita usar modelos de lenguaje que se ejecuten de forma local, o APIs en su defecto. Permitiendo así a los usuarios intercambiar esto modelos de manera sencilla y probar los comportamientos de los agentes con distintos modelos del lenguaje.
 \end{itemize}
 
 
 \section{Plan de trabajo}
-Aquí se describe el plan de trabajo a seguir para la consecución de los objetivos descritos en el apartado anterior.
+Con el fin de cumplir los objetivos planteados en la sección anterior, se ha fijado una planificación dividida en las siguientes etapas:
+
+\textbf{A RELLENAR} 
 
 
 
-\section{Explicaciones adicionales sobre el uso de esta plantilla}
+\section{Estructura del documento}
+El presenta documento está formado por  \textbf{A RELLENAR}  capítulos, incluyendo este capítulo introductorio como el primero de ellos con el fin de conocer la motivación que lleva al desarrollo del proyecto y los objetivos de este. A continuación, se presentan el resto de capítulos que componen la memoria: 
+
 Si quieres cambiar el \textbf{estilo del título} de los capítulos del documento, edita el fichero \verb|TeXiS\TeXiS_pream.tex| y comenta la línea \verb|\usepackage[Lenny]{fncychap}| para dejar el estilo básico de \LaTeX.
 
 Si no te gusta que no haya \textbf{espacios entre párrafos} y quieres dejar un pequeño espacio en blanco, no metas saltos de línea (\verb|\\|) al final de los párrafos. En su lugar, busca el comando  \verb|\setlength{\parskip}{0.2ex}| en \verb|TeXiS\TeXiS_pream.tex| y aumenta el valor de $0.2ex$ a, por ejemplo, $1ex$.
