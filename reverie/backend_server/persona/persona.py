@@ -216,11 +216,19 @@ class Persona:
       new_day = "New day"
     self.scratch.curr_time = curr_time
 
-    # Main cognitive sequence begins here. 
-    perceived = self.perceive(maze)
-    retrieved = self.retrieve(perceived)
-    plan = self.plan(maze, personas, new_day, retrieved)
-    self.reflect()
+    # Main cognitive sequence begins here.
+    if not debug:
+      perceived = self.perceive(maze)
+      retrieved = self.retrieve(perceived)
+      plan = self.plan(maze, personas, new_day, retrieved)
+      self.reflect()
+    else:
+      # Lo que se recibe en "plan" suele ser 
+      # Estos son 3 ejemplos de lo que podemos pasar como valor de plan
+      # f"{act_world}:{act_sector}:{act_arena}"
+      # f"<persona> {init_persona.name}"
+      # f"<waiting> {p.scratch.curr_tile[0]} {p.scratch.curr_tile[1]}"
+      plan= f"<waiting> {self.scratch.curr_tile[0]} {self.scratch.curr_tile[1]}"
 
     # <execution> is a triple set that contains the following components: 
     # <next_tile> is a x,y coordinate. e.g., (58, 9)
@@ -233,40 +241,3 @@ class Persona:
 
   def open_convo_session(self, convo_mode): 
     open_convo_session(self, convo_mode)
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -777,7 +777,6 @@ def _should_react(persona, retrieved, personas):
       return f"wait: {wait_until}"
     elif react_mode == "2":
       return False
-      return "do other things"
     else:
       return False #"keep" 
 
@@ -1003,51 +1002,4 @@ def plan(persona, maze, personas, new_day, retrieved):
   for persona_name, buffer_count in curr_persona_chat_buffer.items():
     if persona_name != persona.scratch.chatting_with: 
       persona.scratch.chatting_with_buffer[persona_name] -= 1
-
   return persona.scratch.act_address
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

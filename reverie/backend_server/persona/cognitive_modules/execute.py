@@ -157,18 +157,3 @@ def execute(persona, maze, personas, plan):
 
   execution = ret, persona.scratch.act_pronunciatio, description
   return execution
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
