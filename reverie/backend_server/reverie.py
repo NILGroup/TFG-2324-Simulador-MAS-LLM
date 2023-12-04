@@ -391,6 +391,8 @@ class ReverieServer:
           movements["meta"]["curr_time"] = (self.curr_time 
                                              .strftime("%B %d, %Y, %H:%M:%S"))
 
+          # We ensure that the movement folder exists
+          create_folder_if_not_there(f"{sim_folder}/movement")
           # We then write the personas' movements to a file that will be sent 
           # to the frontend server. 
           # Example json output: 
