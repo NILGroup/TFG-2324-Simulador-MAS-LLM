@@ -307,7 +307,7 @@ class ReverieServer:
       # Done with this iteration if <int_counter> reaches 0. 
       if int_counter == 0: 
         break
-
+      
       # <curr_env_file> file is the file that our frontend outputs. When the
       # frontend has done its job and moved the personas, then it will put a 
       # new environment file that matches our step count. That's when we run 
@@ -409,7 +409,9 @@ class ReverieServer:
           int_counter -= 1
           
       # Sleep so we don't burn our machines. 
+      print(f"Start sleeping: {self.server_sleep}")
       time.sleep(self.server_sleep)
+      print(f"Finish sleeping: {self.server_sleep}")
 
 
   def open_server(self): 

@@ -217,6 +217,7 @@ class Persona:
     self.scratch.curr_time = curr_time
 
     # Main cognitive sequence begins here.
+    # Para hacer que todo funcione exactamente como antes quitar todo lo que esté fuera del cuerpo de este if
     if not debug:
       perceived = self.perceive(maze)
       retrieved = self.retrieve(perceived)
@@ -228,7 +229,9 @@ class Persona:
       # f"{act_world}:{act_sector}:{act_arena}"
       # f"<persona> {init_persona.name}"
       # f"<waiting> {p.scratch.curr_tile[0]} {p.scratch.curr_tile[1]}"
-      plan= f"<waiting> {self.scratch.curr_tile[0]} {self.scratch.curr_tile[1]}"
+
+      #plan= f"<waiting> {self.scratch.curr_tile[0]} {self.scratch.curr_tile[1]}"
+      plan="the Ville:Hobbs Cafe:cafe"
 
     # <execution> is a triple set that contains the following components: 
     # <next_tile> is a x,y coordinate. e.g., (58, 9)
