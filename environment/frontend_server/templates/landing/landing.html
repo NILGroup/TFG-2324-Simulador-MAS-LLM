@@ -2,9 +2,21 @@
 {% load staticfiles %}
 
 {% block content %}
-<div style="padding:2em">
-<img src="{% static 'img/atlas.png' %}">
-Your environment server is up and running! 
-</div>
-{% endblock content %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
 
+<header>
+    <h1>Interacción entre agentes</h1>
+</header>
+
+<div style="padding:2em">
+    <img src="{% static 'img/atlas.png' %}">
+    ¡El entorno está funcionando!
+</div>
+
+<div class="button-container">
+    <!-- TODO: añadir redirección a simulación y visualización -->
+    <a href="your-simulation-url" class="btn btn-ejecutar-simulacion">Ejecutar nueva simulación</a>
+    <a href="your-visualization-url" class="btn btn-ver-simulacion">Visualizar simulación</a>
+</div>
+
+{% endblock content %}
