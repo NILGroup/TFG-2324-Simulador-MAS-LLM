@@ -3,32 +3,60 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;  
-  }
-  
-  .btn {
+}
+
+.btn {
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     margin: 0 10px;
-  }
-  
-  .btn-ejecutar-simulacion {
-    background: linear-gradient(to left, #007bff, #00c4cc);
-    color: white;
-  }
-  
-  .btn-ver-simulacion {
-    background: linear-gradient(to left, #007bff, #00c4cc);
-    color: white;
-  }
+}
 
-  header {
+.btn-ejecutar-simulacion {
+    background: linear-gradient(to left, #007bff, #00c4cc);
+    color: white;
+}
+
+.btn-ver-simulacion {
+    background: linear-gradient(to left, #007bff, #00c4cc);
+    color: white;
+}
+/* Header */
+header {
     padding: 1rem; 
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     color: white;
     font-weight: 800;
     background: linear-gradient(to left, #007bff, #00c4cc);
+}
+
+header img, 
+header h1 {
+   display: inline-block;
+   vertical-align: middle; /* Vertically align the elements */
+}
+
+.icono-header {
+    margin-right: 1rem;
+}
+
+/* Sección Hero */
+.hero {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
+  
+.hero h1 {
+    font-size: 5rem;
+    font-weight: bold;
+    text-shadow: 0px 0px 20px black;
+}
+
+.hero .lead {
+    font-size: 1.2rem;
+    text-shadow: 0px 0px 10px black;
+}
   
   
   

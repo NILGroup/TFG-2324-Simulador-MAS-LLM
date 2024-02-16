@@ -5,13 +5,18 @@
 <link rel="stylesheet" href="{% static 'css/landing.css' %}">
 
 <header>
+    <img class="icono-header" src="{% static 'img/atlas.png' %}">
     <h1>Interacción entre agentes</h1>
 </header>
 
-<div style="padding:2em">
-    <img src="{% static 'img/atlas.png' %}">
-    ¡El entorno está funcionando!
-</div>
+<section class="container-fluid hero d-flex align-items-center justify-content-center vh-100" style="background-image: url('{% static 'assets/the_ville/visuals/the_ville collision.png' %}');">
+    <div class="container titulos-hero text-center text-light">
+      <h1>¡Simula la interacción entre agentes autónomos!</h1>
+      <p class="lead">Visualiza cómo distintos agentes de IA interactúan, crean relaciones sociales y se desenvuelven con el entorno que les rodea</p>
+    </div>
+  </section>
+
+  <!-- TODO: continuar con la landing, tengo apuntados las siguientes secciones -->
 
 <div class="button-container">
     <!-- TODO: añadir redirección a simulación y visualización -->
