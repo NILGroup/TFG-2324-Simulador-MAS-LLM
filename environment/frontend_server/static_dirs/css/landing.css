@@ -21,19 +21,13 @@
     background: linear-gradient(to left, #007bff, #00c4cc);
     color: white;
 }
+
 /* Header */
-header {
+.navbar { 
     padding: 1rem; 
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    color: white;
     font-weight: 800;
-    background: linear-gradient(to left, #007bff, #00c4cc);
-}
-
-header img, 
-header h1 {
-   display: inline-block;
-   vertical-align: middle; /* Vertically align the elements */
+    background: linear-gradient(to left, #007bff, #00c4cc); 
 }
 
 .icono-header {
@@ -42,6 +36,7 @@ header h1 {
 
 /* Sección Hero */
 .hero {
+    height: 50vh;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -56,6 +51,59 @@ header h1 {
 .hero .lead {
     font-size: 1.2rem;
     text-shadow: 0px 0px 10px black;
+}
+
+/* Sección Acerca de la Aplicación */
+.about img {
+    max-width: 80%;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #00c4cc;
+    font-style: italic;
+}
+
+/* Sección de funcionalidades */
+
+.card {
+    border: none;
+    min-height: 30rem;
+    max-height: 30rem;
+}
+
+.card-body {
+    overflow: auto;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover; 
+}
+
+/* Media queries para hacer el contenido responsive */
+@media (max-width: 768px) {
+    .hero {
+        height: 92vh;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .about img {
+        max-width: 100%; 
+    }
+
+    .card {
+        min-height: auto;
+        max-height: auto;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+    }
 }
   
   
