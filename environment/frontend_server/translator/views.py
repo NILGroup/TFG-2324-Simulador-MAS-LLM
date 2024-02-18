@@ -313,11 +313,13 @@ def path_tester_update(request):
 
   return HttpResponse("received")
 
+# A partir de aquí, las vistas implementadas por nosotros
+def crear_simulacion(request):
+  context = {}
+  template = "home/crear_simulacion.html"
+  return render(request, template, context)
 
-
-
-
-
-
-
-
+def ver_simulacion(request):
+  context = {}
+  template = "home/ver_simulacion.html"
+  return render(request, template, context)
