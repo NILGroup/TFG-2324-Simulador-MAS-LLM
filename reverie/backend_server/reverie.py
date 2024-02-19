@@ -40,6 +40,19 @@ from persona.persona import *
 ##############################################################################
 
 class ReverieServer: 
+
+  def __init__(self, 
+                sim_code):
+    # Creamos una simulación desde 0
+    # Inicialmente asumimos que los datos
+    # que ponemos a la simulación son los datos por defecto
+    # Cogeremos el mapa the_ville y permitimos escoger a las personas
+
+    personas_name = choose_personas()
+
+    self.fork_sim_code = sim_code
+    self.sim_code = sim_code
+
   def __init__(self, 
                fork_sim_code,
                sim_code):
@@ -60,6 +73,7 @@ class ReverieServer:
     with open(f"{sim_folder}/reverie/meta.json") as json_file:  
       reverie_meta = json.load(json_file)
 
+    #En el archivo de la nueva simulación estoy seteando el <dato fork_sim_code>
     with open(f"{sim_folder}/reverie/meta.json", "w") as outfile: 
       reverie_meta["fork_sim_code"] = fork_sim_code
       outfile.write(json.dumps(reverie_meta, indent=2))
@@ -152,6 +166,26 @@ class ReverieServer:
     curr_step["step"] = self.step
     with open(f"{fs_temp_storage}/curr_step.json", "w") as outfile: 
       outfile.write(json.dumps(curr_step, indent=2))
+
+  def available_personas():
+    return os.listdir(available_personas_folder)
+
+  def choose_personas():
+    num_personas = input("Amount of personas in the simulation: ").strip()
+    if ("" == num_personas):
+      return ["Isabella Rodriguez"]
+    num_personas = int(num_personas)
+    available_personas_ = available_personas()
+    for persona_name in available_personas_:
+      print(persona_name)
+    choosen_personas = []
+    for i in range(0,num_personas):
+      persona_name = input(f"{i} - Choose between the personas on the list above: ")
+      while persona_name not in available_personas_:
+        persona_name = input(f"{i} - Choose between the personas on the list above: ")
+      choosen_personas.append(persona_name)
+    return choosen_personas
+
 
 
   def save(self): 
@@ -603,8 +637,13 @@ class ReverieServer:
 
 
 if __name__ == '__main__':
-  origin = input("Enter the name of the forked simulation: ").strip()
-  target = input("Enter the name of the new simulation: ").strip()
+  mode = input(f"1. Create Simulation from zero\n2. Fork a prior simulation\nChoose Option: ").strip().lower()
+  if "create" in mode or "1" in mode:
+    name = input("Name of the new Simulation: ").strip()
+    rs = ReverieServer(name)
+  elif "fork" in mode or "2" in mode:
+    origin = input("Enter the name of the forked simulation: ").strip()
+    target = input("Enter the name of the new simulation: ").strip()
 
-  rs = ReverieServer(origin, target)
-  rs.open_server()
+    rs = ReverieServer(origin, target)
+    rs.open_server()
