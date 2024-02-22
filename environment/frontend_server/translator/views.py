@@ -323,3 +323,8 @@ def ver_simulacion(request):
   context = {}
   template = "home/ver_simulacion.html"
   return render(request, template, context)
+
+def fork_simulacion(request):
+  context = {}
+  template = "home/fork_simulacion.html"
+  return render(request, template, context)

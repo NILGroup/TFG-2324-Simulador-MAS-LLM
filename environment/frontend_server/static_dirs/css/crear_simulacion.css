@@ -1,0 +1,54 @@
+/* Modern style incorporating your image color preferences */
+body {
+    font-family: "Nunito Sans", sans-serif;
+    background-color: #f0f2f5;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-section {
+    margin-bottom: 30px;
+  }
+  
+  #characterContainer .character-form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .character-form h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+  
+  button[type="submit"] {
+    background-color: #4caf50; /* Green from your image */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+  }
+  
