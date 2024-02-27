@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/crear_simulacion.css' %}">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img class="icono-header" src="{% static 'img/atlas.png' %}">
+        <a class="navbar-brand text-white" href="{% url 'landing' %}">SimulAgents</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir Navegador de rutas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'crear_simulacion' %}">Crear nueva simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'ver_simulacion' %}">Visualizar simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'fork_simulacion' %}">Continuar simulación</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container py-5">
+    <h1>Crear Nueva Simulación</h1>
+
+    <form id="simulationForm" method="POST" action="url-form">
+      <div class="form-section">
+        <label for="numCharacters">Número de personajes:</label>
+        <input type="number" id="numCharacters" min="1" max="25" value="1">
+      </div>
+
+      <div id="characterContainer">
+        </div>
+
+      <div class="form-section">
+        <label for="simulationContext">Contexto de simulación:</label>
+        <textarea id="simulationContext" rows="4" required></textarea>
+      </div>
+
+      <button type="submit">Crear simulación</button>
+    </form>
+</main>
+
+{% block js_content %}
+<script src="{% static 'js/crear_simulacion.js' %}"></script> 
+{% endblock js_content %}
+
+{% endblock content %}

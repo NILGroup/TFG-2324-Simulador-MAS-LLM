@@ -2,9 +2,112 @@
 {% load staticfiles %}
 
 {% block content %}
-<div style="padding:2em">
-<img src="{% static 'img/atlas.png' %}">
-Your environment server is up and running! 
-</div>
-{% endblock content %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
 
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img class="icono-header" src="{% static 'img/atlas.png' %}">
+        <a class="navbar-brand text-white" href="{% url 'landing' %}">SimulAgents</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir Navegador de rutas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'crear_simulacion' %}">Crear nueva simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'ver_simulacion' %}">Visualizar simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'fork_simulacion' %}">Continuar simulación</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Sección de hero, con gran imagen de portada y títulos -->
+<section class="container-fluid hero d-flex align-items-center justify-content-center" style="background-image: url('{% static 'assets/the_ville/visuals/the_ville collision.png' %}');">
+    <div class="container titulos-hero text-center text-light">
+        <h1>¡Simula la interacción entre agentes autónomos!</h1>
+        <p class="lead">Visualiza cómo distintos agentes de IA interactúan, crean relaciones sociales y se desenvuelven con el entorno que les rodea</p>
+    </div>
+</section>
+<!-- Sección de Acerca De, en la que se explica el propósito de la aplicación -->
+<section class="container py-5">
+    <div class="row align-items-center">
+        <div class="col-md-6 order-2 order-md-1 about">
+            <img src="{% static 'img/SimulAgents.png' %}" alt="Qué es SimulAgents" class="img-fluid rounded-3 shadow-lg">
+        </div>
+        <div class="col-md-6 order-1 order-md-2">
+            <h2>¿Qué es SimulAgents?</h2>
+            <p>SimulAgents es un proyecto que buscar ampliar y democratizar el uso de una herramienta de 
+                simulación de relaciones sociales entre agentes de IA realizada en el estudio de 
+                <a href="https://arxiv.org/abs/2304.03442" target="_blank">Generative Agents</a>.</p>
+            <p>Nuestro objetivo es permitir que un público más amplio, no solo expertos en programación, 
+                pueda beneficiarse de las capacidades de esta herramienta. Además, hemos implementado
+                algunas extensiones para poder aprovechar todavía más el programa y facilitar la investigación</p>
+        </div>
+    </div>
+</section>
+<!-- Sección de funcionalidades, donde se explica lo que se puede hacer con este programa de manera sencilla y visual -->
+<section class="container mt-5 mb-5">
+    <h2>Funcionalidades</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-lg tarjeta-funcionalidad">
+                <img src="{% static 'img/eye.jpg' %}" class="card-img-top" alt="Feature 1">
+                <div class="card-body">
+                    <h3>Visualización de simulaciones existentes</h3>
+                    <p class="card-text">Haz uso de las simulaciones ya disponibles y visualiza experimentos realizados anteriormente.</p>
+                    <p class="card-text">Además, también podrás seleccionar uno de los personajes en específico y centrarte únicamente en sus interacciones.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-lg tarjeta-funcionalidad">
+                <img src="{% static 'img/new.jpg' %}" class="card-img-top" alt="Feature 1">
+                <div class="card-body">
+                    <h3>Ejecución de nuevas simulaciones</h3>
+                    <p class="card-text">Crea tu propia simulación, y explora en tiempo real los comportamientos de los agentes.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-lg tarjeta-funcionalidad">
+                <img src="{% static 'img/pencil.jpeg' %}" class="card-img-top" alt="Feature 1">
+                <div class="card-body">
+                    <h3>Elección de mapa, personajes y contexto de la simulación</h3>
+                    <p class="card-text">Para cada nueva simulación que crees, podrás seleccionar distintos mapas, añadir contexto a la situación
+                        en la que se encuentran los agentes, y elegir entre una variedad de personajes.</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-lg tarjeta-funcionalidad">
+                <img src="{% static 'img/summary.jpg' %}" class="card-img-top" alt="Feature 1">
+                <div class="card-body">
+                    <h3>Resúmenes de las simulaciones</h3>
+                    <p class="card-text">Al finalizar una simulación, se podrán generar resúmenes tanto desde una visión general como desde el punto 
+                        de vista de cada agente. Estos resúmenes incluirán estadísticas de las interacciones, relaciones y comportamientos de los agentes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-lg tarjeta-funcionalidad">
+                <img src="{% static 'img/click.jpg' %}" class="card-img-top" alt="Feature 1">
+                <div class="card-body">
+                    <h3>Interacción con el escenario</h3>
+                    <p class="card-text">Durante la simulación, los agentes interactúan con ciertos objetos en el escenario. Además de esto, permitiremos
+                        que el usuario pueda interactuar con el escenario, modificando el estado de los objetos y el entorno para observar cómo los agentes
+                        reaccionan a estos cambios.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
