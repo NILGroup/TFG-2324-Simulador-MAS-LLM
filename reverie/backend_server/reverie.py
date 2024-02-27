@@ -41,21 +41,50 @@ from persona.persona import *
 
 class ReverieServer: 
 
-  def __init__(self, 
-                sim_code):
+  def __init__(self,
+               forked, #Boolean == true if we are forking an existing simulation
+               params):#Array with the corresponding parameters
+    if forked:
+      self.fork_sim(fork_sim_code=params[0], sim_code=params[1])
+    else:
+      self.new_sim(sim_name=params[0], personas=params[1])
+
+  def new_sim(self, 
+              sim_name,  #String con el nombre de la nueva simulación
+              personas): #Array con el nombre de las personas
     # Creamos una simulación desde 0
     # Inicialmente asumimos que los datos
     # que ponemos a la simulación son los datos por defecto
     # Cogeremos el mapa the_ville y permitimos escoger a las personas
 
-    personas_name = choose_personas()
+    #Create the folder for the Simulation info
+    sim_folder = f"{fs_storage}/{self.sim_code}"
+    # We create the reverie info
+    self.fork_sim_code = sim_name
+    self.sim_code = sim_name
+    start_of_the_day = datetime.datetime.today().strftime("%B %d, %Y")+", 00:00:00"
+    self.start_time = datetime.datetime.today().strptime(start_of_the_day, "%B %d, %Y, %H:%M:%S")
+    self.curr_time = self.start_time
+    self.sec_per_step = 10
+    self.maze = Maze('the_ville')
+    self.step = 0
+    self.server_sleep = 0.1
+    #We initialize the meta info of the simulation 
 
-    self.fork_sim_code = sim_code
-    self.sim_code = sim_code
+    meta_info = dict()
+    meta_info['fork_sim_code'] = self.fork_sim_code
+    meta_info['sim_code'] = self.sim_code
+    meta_info['start_date'] = self.start_time
+    meta_info['curr_time'] = datetime.date.today().strftime("%B %d, %Y")+", 00:00:00"
+    meta_info['sec_per_step'] = 10
+    meta_info['maze_name'] = "the_ville"
+    meta_info['persona_names'] = personas
+    meta_info['step'] = 0
 
-  def __init__(self, 
+  def fork_sim(self, 
                fork_sim_code,
                sim_code):
+
     # FORKING FROM A PRIOR SIMULATION:
     # <fork_sim_code> indicates the simulation we are forking from. 
     # Interestingly, all simulations must be forked from some initial 
@@ -166,27 +195,6 @@ class ReverieServer:
     curr_step["step"] = self.step
     with open(f"{fs_temp_storage}/curr_step.json", "w") as outfile: 
       outfile.write(json.dumps(curr_step, indent=2))
-
-  def available_personas():
-    return os.listdir(available_personas_folder)
-
-  def choose_personas():
-    num_personas = input("Amount of personas in the simulation: ").strip()
-    if ("" == num_personas):
-      return ["Isabella Rodriguez"]
-    num_personas = int(num_personas)
-    available_personas_ = available_personas()
-    for persona_name in available_personas_:
-      print(persona_name)
-    choosen_personas = []
-    for i in range(0,num_personas):
-      persona_name = input(f"{i} - Choose between the personas on the list above: ")
-      while persona_name not in available_personas_:
-        persona_name = input(f"{i} - Choose between the personas on the list above: ")
-      choosen_personas.append(persona_name)
-    return choosen_personas
-
-
 
   def save(self): 
     """
@@ -636,14 +644,55 @@ class ReverieServer:
         pass
 
 
+def available_personas():
+  result = os.listdir(available_personas_folder)
+  result.sort()
+  return result
+
+def existing_simulations():
+  result = os.listdir(existing_simulations_folder)
+  result.sort()
+  return result
+
+def choose_personas():
+  num_personas = input("Amount of personas in the simulation: ").strip()
+  if ("" == num_personas):
+    return ["Isabella Rodriguez"]
+  num_personas = int(num_personas)
+  _available_personas_ = available_personas()
+  for persona_name in _available_personas_:
+    print(persona_name)
+  choosen_personas = []
+  for i in range(0,num_personas):
+    persona_name = input(f"{i} - Choose between the personas on the list above: ")
+    while persona_name not in _available_personas_:
+      persona_name = input(f"{i} - Choose between the personas on the list above: ")
+    choosen_personas.append(persona_name)
+  return choosen_personas
+
 if __name__ == '__main__':
   mode = input(f"1. Create Simulation from zero\n2. Fork a prior simulation\nChoose Option: ").strip().lower()
+  simulations = existing_simulations()
+  print("Existing simulations:")
+  for s in simulations:
+    if (s[0] != '.'):
+      print(s)
   if "create" in mode or "1" in mode:
     name = input("Name of the new Simulation: ").strip()
-    rs = ReverieServer(name)
+    while (name in existing_simulations()):
+      print(f"There is an existing simulation named {name}")
+      name = input("Enter the name of the forked simulation: ").strip()
+    personas = choose_personas()
+    rs = ReverieServer(forked=False, params=[name, personas])
   elif "fork" in mode or "2" in mode:
     origin = input("Enter the name of the forked simulation: ").strip()
+    while (origin not in existing_simulations()):
+      print(f"There is no simulation named {origin}")
+      origin = input("Enter the name of the forked simulation: ").strip()
     target = input("Enter the name of the new simulation: ").strip()
+    while (target in existing_simulations()):
+      print(f"There is an existing simulation named {target}")
+      target = input("Enter the name of the new simulation: ").strip()
 
-    rs = ReverieServer(origin, target)
+    rs = ReverieServer(forked=True, params=[origin, target])
     rs.open_server()
