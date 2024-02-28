@@ -1,0 +1,46 @@
+En este archivo iremos escribiendo los objetivos a medida que vamos discutiéndolos y avanzando, además de los motivos de cambio de objetivos:
+
+
+
+OBJETIVOS INICIALES
+    1. Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie 
+    de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes.
+    
+    2. Permitir la interacción con el estado de los agentes y escenario durante la simulación. En cualquier momento, el usuario podrá interactuar
+    tanto con los agentes como con distintos elementos del escenario.
+
+    3. Visión de la simulación, a través de un personaje o de una forma general y sintetizada. También permitir a los usuarios, una vez finalizada
+    una simulación, poder hacer un resumen de toda la simulación como conjunto o hacerlo desde el punto de vista de uno de los agentes.
+
+    4. Gestión de las simulaciones, permitiendo el guardado de estas y la creación en base a anteriores. Esto permitirá poder ver simulaciones repetidas o extenderlas.
+
+    5. Integración de todo lo anterior en una interfaz web.
+
+    6. Creación de sistema que permita usar modelos de lenguaje que se ejecuten de forma local, o APIs en su defecto. Permitiendo así a los usuarios intercambiar esto 
+    modelos de manera sencilla y probar los comportamientos de los agentes con distintos modelos del lenguaje.
+
+
+OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
+    1. Permitir crear simulaciones completamente nuevas, aportando personalidades a cada uno de los personajes y un contexto general a la simulación. Además
+    de poder continuar con simulaciones pasadas desde cualquier instante que se desee, tanto donde se dejó por última vez como cualquier punto en el pasado, y 
+    así comparar pequeños cambios en las personalidades, contexto o las interacciones realizadas durante la misma simulación.
+
+    (Aportamos valor permitiendo que los personajes sean plenamente modificables por los usuarios, además, con un nuevo contexto, se podrán simular situaciones en 
+    ambientes distintos. Al permitir al usuario continuar con una simulación desde un punto cualquiera (nuevo), podemos ver diferencias de comportamiento)
+    
+    2. Interacción en tiempo real de simulación con los personajes mediante la interfaz gráfica, pudiendo influir en sus decisiones o simplemente conocer sus
+    pensamientos acerca de algún tema en cada momento.
+
+    (La función de whisper ya existía, hemos hecho que se pueda acceder a ella mediante interfaz gráfica y hemos añadido la funcionalidad de chatear con los 
+    personajes en tiempo de simulación)
+
+    3. Generación automática de resúmenes de simulaciones, tanto cortos para indicar el contexto general de la simulación, como largos, indicando los instantes en los que ocurren
+    los mejores momentos para poder visualizarlos.
+
+    (Funcionalidad nueva que aporta un gran valor a la hora de compartir simulaciones o ver las antiguas)
+
+    4. Realización de una interfaz fácil e intuitiva, usable por usuarios no técnicos como pueden ser perfiles de psicólogos interesados en la herramienta.
+
+    (Engloba los objetivos anteriormente mencionados)
+    
+    5. Permitir a los usuarios usar un LLM alternativo (primero faltaría encontrar el nuestro)
