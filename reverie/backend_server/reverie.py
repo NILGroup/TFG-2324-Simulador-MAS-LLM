@@ -98,9 +98,9 @@ class ReverieServer:
           )
       DESCRIPTION:
         creates all the personas required files
-        and returns the needed info to generate the enviroment
+        returns the dictionary personas_obj{persona_name -> Persona()}
       OUTPUT:
-        personas_position: dict(persona_name -> (pos_x, pos_y))
+        personas_obj: dict(persona_name -> Persona())
       """
       # We convert from personas INPUT to personas_dict{persona_name -> persona_desc}
       persona_names = [list(pers.keys())[0] for pers in personas]
@@ -116,13 +116,13 @@ class ReverieServer:
       
       #Create the personas memory folders and the {personas_position} OUTPUT
 
-      personas_position = dict()
+      personas_obj = dict()
       for name in personas_dict.keys():
         copyanything(f"{available_personas_folder}/{name}", f"{personas_folder}/{name}")
-        persona = Persona(name, f"{personas_folder}/{name}")
-        personas_position[persona.name] = (persona.scratch.ini_x, persona.scratch.ini_y)
+        personas_obj[name] = Persona(name, f"{personas_folder}/{name}")
+        
 
-      return personas_position
+      return personas_obj
 
     """
     INPUT:
@@ -149,8 +149,9 @@ class ReverieServer:
 
     # We create the folders that correspond to this simulation
     generate_reverie_folder()
-    enviroment_data = generate_personas_folder(personas)
-    generate_enviroment_folder(enviroment_data)
+    self.personas = generate_personas_folder(personas)
+    # Usamos el diccionario de personas y devolvemos el diccionario de posiciones de las personas
+    self.personas_tile = generate_enviroment_folder(self.personas)
     # actualizar temp_storage
     print()
 
