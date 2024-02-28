@@ -89,6 +89,41 @@ class ReverieServer:
       with open(meta_f, 'w') as outfile:
         outfile.write(json.dumps(meta_info, indent=2))
 
+    def generate_personas_folder(personas):
+      """
+      INPUT:
+        personas: 
+          list(   -- We have one dict per persona --
+            dict('persona_name' (string) -> 'description' (string))
+          )
+      DESCRIPTION:
+        creates all the personas required files
+        and returns the needed info to generate the enviroment
+      OUTPUT:
+        personas_position: dict(persona_name -> (pos_x, pos_y))
+      """
+      # We convert from personas INPUT to personas_dict{persona_name -> persona_desc}
+      persona_names = [list(pers.keys())[0] for pers in personas]
+      persona_descriptions = [list(pers.values())[0] for pers in personas]
+      personas_dict = dict()
+      for i in range(len(persona_names)):
+        personas_dict[persona_names[i]] = persona_descriptions[i]
+
+      # Create the personas_folder
+      personas_folder = f"{fs_storage}/{self.sim_code}/personas"
+      if not os.path.exists(personas_folder):
+        os.mkdir(personas_folder)
+      
+      #Create the personas memory folders and the {personas_position} OUTPUT
+
+      personas_position = dict()
+      for name in personas_dict.keys():
+        copyanything(f"{available_personas_folder}/{name}", f"{personas_folder}/{name}")
+        persona = Persona(name, f"{personas_folder}/{name}")
+        personas_position[persona.name] = (persona.scratch.ini_x, persona.scratch.ini_y)
+
+      return personas_position
+
     """
     INPUT:
       sim_name: name of the simulation
@@ -112,10 +147,10 @@ class ReverieServer:
     # Define default parameters of the simulation
     define_default_reverie_info()
 
-    # We create the reverie folder and its info - meta.json
+    # We create the folders that correspond to this simulation
     generate_reverie_folder()
-    # personas
-    # enviroment
+    enviroment_data = generate_personas_folder(personas)
+    generate_enviroment_folder(enviroment_data)
     # actualizar temp_storage
     print()
 
@@ -698,7 +733,7 @@ def existing_simulations():
 def choose_personas():
   num_personas = input("Amount of personas in the simulation: ").strip()
   if ("" == num_personas):
-    return ["Isabella Rodriguez"]
+    return [{"Isabella Rodriguez": "default description"}]
   num_personas = int(num_personas)
   _available_personas_ = available_personas()
   for persona_name in _available_personas_:
@@ -708,7 +743,8 @@ def choose_personas():
     persona_name = input(f"{i} - Choose between the personas on the list above: ")
     while persona_name not in _available_personas_:
       persona_name = input(f"{i} - Choose between the personas on the list above: ")
-    choosen_personas.append(persona_name)
+    persona_description = input(f"Describe {persona_name}: ")
+    choosen_personas.append({persona_name: persona_description})
   return choosen_personas
 
 if __name__ == '__main__':
@@ -722,7 +758,7 @@ if __name__ == '__main__':
     name = input("Name of the new Simulation: ").strip()
     while (name in existing_simulations()):
       print(f"There is an existing simulation named {name}")
-      name = input("Enter the name of the forked simulation: ").strip()
+      name = input("Enter the name of the new simulation: ").strip()
     personas = choose_personas()
     rs = ReverieServer(forked=False, params=[name, personas])
   elif "fork" in mode or "2" in mode:
