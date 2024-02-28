@@ -2,28 +2,28 @@
 
 $(document).ready(function() {
     // Por ahora, tenemos nombres predeterminados de la simulación. En el futuro podrán añadir los suyos los usuarios
-    const names = ["Abigail Chen", "Adam Smith", "Arthur Burton", "Ayesha Khan", "Carlos Gomez", "Carmen Ortiz",
+    const nombres = ["Abigail Chen", "Adam Smith", "Arthur Burton", "Ayesha Khan", "Carlos Gomez", "Carmen Ortiz",
                     "Eddy Lin", "Francisco Lopez", "Giorgio Rossi", "Hailey Johnson", "Isabella Rodriguez", "Jane Moreno",
                 "Jennifer Moore", "John Linn", "Klaus Mueller", "Latoya Williams", "Maria Lopez", "Mei Lin",  "Rajiv Patel", 
             "Ryan Park", "Sam Moore", "Tamara Taylor", "Tom Moreno", "Wolfgang Schulz", "Yuriko Yamamoto"];
   
-    $('#numCharacters').on('change', function() {
+    $('#numPersonajes').on('change', function() {
        updateCharacterForms();
     });
   
     function updateCharacterForms() {
-      let numCharacters = parseInt($('#numCharacters').val());
-      $('#characterContainer').empty(); 
+      let numPersonajes = parseInt($('#numPersonajes').val());
+      $('#contenedorPersonaje').empty(); 
   
-      for (let i = 1; i <= numCharacters; i++) { 
-        $('#characterContainer').append(`
+      for (let i = 1; i <= numPersonajes; i++) { 
+        $('#contenedorPersonaje').append(`
           <div class="character-form">
             <h3>Personaje ${i}</h3>
-            <select id="nameSelect${i}" required>
+            <select id="nombre${i}" required>
                 <option value="" disabled selected>Selecciona un nombre</option>
-              ${names.map(name => `<option value="${name}">${name}</option>`)}
+              ${nombres.map(nombre => `<option value="${nombre}">${nombre}</option>`)}
             </select>
-            <textarea required></textarea>
+            <textarea id="contexto${i}" required></textarea>
           </div>
         `);
       }
