@@ -49,6 +49,24 @@ class ReverieServer:
     else:
       self.new_sim(sim_name=params[0], personas=params[1])
 
+  def define_default_reverie_info(self):
+    """
+    We define here
+      start_time
+      curr_time
+      sec_per_step
+      maze
+      step
+      server_sleep
+    """
+    start_of_the_day = datetime.datetime.today().strftime("%B %d, %Y")+", 00:00:00"
+    self.start_time = datetime.datetime.today().strptime(start_of_the_day, "%B %d, %Y, %H:%M:%S")
+    self.curr_time = self.start_time
+    self.sec_per_step = 10
+    self.maze = Maze('the_ville')
+    self.step = 0
+    self.server_sleep = 0.1
+
   def new_sim(self, 
               sim_name,  # String con el nombre de la nueva simulación
               personas): # Array con el nombre de las personas
@@ -62,22 +80,23 @@ class ReverieServer:
     # We create the reverie info
     self.fork_sim_code = sim_name
     self.sim_code = sim_name
-    start_of_the_day = datetime.datetime.today().strftime("%B %d, %Y")+", 00:00:00"
-    self.start_time = datetime.datetime.today().strptime(start_of_the_day, "%B %d, %Y, %H:%M:%S")
-    self.curr_time = self.start_time
-    self.sec_per_step = 10
-    self.maze = Maze('the_ville')
-    self.step = 0
-    self.server_sleep = 0.1
+    
+    # Define default parameters of the simulation
+    self.define_default_reverie_info()
+
     #We initialize the meta info of the simulation 
+
+    # We create the reverie folder and its info - meta.json
+
+    self.generate_reverie_folder()
 
     meta_info = dict()
     meta_info['fork_sim_code'] = self.fork_sim_code
     meta_info['sim_code'] = self.sim_code
-    meta_info['start_date'] = self.start_time
-    meta_info['curr_time'] = datetime.date.today().strftime("%B %d, %Y")+", 00:00:00"
+    meta_info['start_date'] = self.start_time.strftime("%B %d, %Y")
+    meta_info['curr_time'] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
     meta_info['sec_per_step'] = 10
-    meta_info['maze_name'] = "the_ville"
+    meta_info['maze_name'] = self.maze.maze_name
     meta_info['persona_names'] = personas
     meta_info['step'] = 0
 
