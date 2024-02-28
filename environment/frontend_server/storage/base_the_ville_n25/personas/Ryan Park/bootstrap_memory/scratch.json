@@ -1,4 +1,6 @@
 {
+  "ini_x": 65,
+  "ini_y": 19,
   "vision_r": 8, 
   "att_bandwidth": 8, 
   "retention": 8, 

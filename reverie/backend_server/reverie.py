@@ -49,56 +49,76 @@ class ReverieServer:
     else:
       self.new_sim(sim_name=params[0], personas=params[1])
 
-  def define_default_reverie_info(self):
-    """
-    We define here
-      start_time
-      curr_time
-      sec_per_step
-      maze
-      step
-      server_sleep
-    """
-    start_of_the_day = datetime.datetime.today().strftime("%B %d, %Y")+", 00:00:00"
-    self.start_time = datetime.datetime.today().strptime(start_of_the_day, "%B %d, %Y, %H:%M:%S")
-    self.curr_time = self.start_time
-    self.sec_per_step = 10
-    self.maze = Maze('the_ville')
-    self.step = 0
-    self.server_sleep = 0.1
-
   def new_sim(self, 
-              sim_name,  # String con el nombre de la nueva simulación
-              personas): # Array con el nombre de las personas
-    # Creamos una simulación desde 0
-    # Inicialmente asumimos que los datos
-    # que ponemos a la simulación son los datos por defecto
-    # Cogeremos el mapa the_ville y permitimos escoger a las personas
+              sim_name,
+              personas):
+    def define_default_reverie_info():
+      """
+      We define here
+        start_time
+        curr_time
+        sec_per_step
+        maze
+        step
+        server_sleep
+      """
+      start_of_the_day = datetime.datetime.today().strftime("%B %d, %Y")+", 00:00:00"
+      self.start_time = datetime.datetime.today().strptime(start_of_the_day, "%B %d, %Y, %H:%M:%S")
+      self.curr_time = self.start_time
+      self.sec_per_step = 10
+      self.maze = Maze('the_ville')
+      self.step = 0
+      self.server_sleep = 0.1
+    
+    def generate_reverie_folder():
+      # Initialize the meta.json fields
+      meta_info = dict()
+      meta_info['fork_sim_code'] = self.fork_sim_code
+      meta_info['sim_code'] = self.sim_code
+      meta_info['start_date'] = self.start_time.strftime("%B %d, %Y")
+      meta_info['curr_time'] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
+      meta_info['sec_per_step'] = 10
+      meta_info['maze_name'] = self.maze.maze_name
+      meta_info['persona_names'] = personas
+      meta_info['step'] = 0
 
+      reverie_folder = f"{fs_storage}/{self.sim_code}/reverie"
+      if (not os.path.exists(reverie_folder)):
+        os.mkdir(reverie_folder)
+      meta_f = f"{reverie_folder}/meta.json"
+      with open(meta_f, 'w') as outfile:
+        outfile.write(json.dumps(meta_info, indent=2))
+
+    """
+    INPUT:
+      sim_name: name of the simulation
+      personas: Array with [i] -> {"nombre": {persona_name_i}, "descripcion": {description_i}}
+    DESCRIPTION:
+      Create a new simulation with default parameters
+      We assume that there is no other simulation named {sim_name}
+
+      After the execution we have created the needed files to run a simulation
+    OUTPUT:
+      NONE
+    """
     #Create the folder for the Simulation info
-    sim_folder = f"{fs_storage}/{self.sim_code}"
     # We create the reverie info
     self.fork_sim_code = sim_name
     self.sim_code = sim_name
-    
-    # Define default parameters of the simulation
-    self.define_default_reverie_info()
+    sim_folder = f"{fs_storage}/{self.sim_code}"
 
-    #We initialize the meta info of the simulation 
+    create_folder_if_not_there(sim_folder)
+
+    # Define default parameters of the simulation
+    define_default_reverie_info()
 
     # We create the reverie folder and its info - meta.json
+    generate_reverie_folder()
+    # personas
+    # enviroment
+    # actualizar temp_storage
+    print()
 
-    self.generate_reverie_folder()
-
-    meta_info = dict()
-    meta_info['fork_sim_code'] = self.fork_sim_code
-    meta_info['sim_code'] = self.sim_code
-    meta_info['start_date'] = self.start_time.strftime("%B %d, %Y")
-    meta_info['curr_time'] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
-    meta_info['sec_per_step'] = 10
-    meta_info['maze_name'] = self.maze.maze_name
-    meta_info['persona_names'] = personas
-    meta_info['step'] = 0
 
   def fork_sim(self, 
                fork_sim_code,
@@ -124,6 +144,7 @@ class ReverieServer:
     #En el archivo de la nueva simulación estoy seteando el <dato fork_sim_code>
     with open(f"{sim_folder}/reverie/meta.json", "w") as outfile: 
       reverie_meta["fork_sim_code"] = fork_sim_code
+      reverie_meta["sim_code"] = sim_code
       outfile.write(json.dumps(reverie_meta, indent=2))
 
     # LOADING REVERIE'S GLOBAL VARIABLES
@@ -232,6 +253,7 @@ class ReverieServer:
     # Save Reverie meta information.
     reverie_meta = dict() 
     reverie_meta["fork_sim_code"] = self.fork_sim_code
+    reverie_meta["sim_code"] = self.sim_code
     reverie_meta["start_date"] = self.start_time.strftime("%B %d, %Y")
     reverie_meta["curr_time"] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
     reverie_meta["sec_per_step"] = self.sec_per_step
