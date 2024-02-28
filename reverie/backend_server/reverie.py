@@ -50,8 +50,8 @@ class ReverieServer:
       self.new_sim(sim_name=params[0], personas=params[1])
 
   def new_sim(self, 
-              sim_name,  #String con el nombre de la nueva simulación
-              personas): #Array con el nombre de las personas
+              sim_name,  # String con el nombre de la nueva simulación
+              personas): # Array con el nombre de las personas
     # Creamos una simulación desde 0
     # Inicialmente asumimos que los datos
     # que ponemos a la simulación son los datos por defecto
