@@ -44,3 +44,6 @@ OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
     (Engloba los objetivos anteriormente mencionados)
     
     5. Permitir a los usuarios usar un LLM alternativo (primero faltaría encontrar el nuestro)
+
+    6. Aportar documentación clara y en castellano tanto a nivel de usuario (cómo usar la aplicación para usuarios) como a nivel de desarrollador (cómo extender funcionalidades)
+    clara y en castellano para poder adaptar y extender las nuevas funcionalidades
