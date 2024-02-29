@@ -1,7 +1,91 @@
-\chapter{Diferencias entre el sistema original y el actual}
+\chapter{Diferencias entre el Sistema Original y el Actual}
 \label{cap:descripcionTrabajo}
 
-Aquí comienza la descripción del trabajo realizado. Se deben incluir tantos capítulos como sea necesario para describir de la manera más completa posible el trabajo que se ha llevado a cabo. Como muestra la figura \ref{fig:sampleImage}, está todo por hacer.
+
+En el presente capítulo se realizará un análisis y se marcarán las diferencias entre las funcionalidades del sistema originalmente implementadas (la aplicación sobre la que realizamos nuestro desarrollo) y las nuevas características desarrolladas en el marco de este trabajo. Este estudio permitirá comprender de forma precisa la evolución del sistema, destacando las mejoras y avances logrados en términos especialmente de extensibilidad y democratización de su uso.
+
+\section{Funcionalidades preexistentes}
+
+En esta primera sección, se indicarán las funcionalidades más importantes del sistema original. Para cada una de estas se realizará un análisis y el impacto que tienen en el sistema.
+
+\subsection{Creación de simulaciones}
+El sistema inicial ya permitía la creación de simulaciones entre agentes independientes. De hecho, este era el propósito principal del estudio, observar si los agentes independientes eran capaces de compartir y retener información. Finalmente se concluyó que sí, lo cual abre un mundo de posibilidades para realizar estudios con este programa.
+
+Uno de los principales problemas encontrados en la creación de simulaciones era que los personajes estaban muy estrechamente vinculados al propio mapa. Las simulaciones siempre se realizaban con los mismos personajes y sus personalidades eran siempre las mismas, lo cual no permitía ningún tipo de estudio de las relaciones sociales.
+
+\subsection{Ejecución de simulaciones}
+Además de poder crear, el sistema permitía ejecutar las simulaciones creadas. Como estas siempre contenían los mismos personajes, la única interacción real para el estudio era que el ususario se comunicase con los personajes y les indicara qué debían hacer, lo cual también estaba implementado.
+
+El problema con esto es que, tanto la ejecución de cada paso de la simulación como los susurros a los personajes, se realizaban desde la terminal, lo cual no era completamente intuitivo.
+
+\subsection{Visualización de simulaciones pasadas}
+A la hora de visualizar simulaciones pasadas, ya existe un modo conocido como demo, en el cual los usuarios pueden ver el estado actual de cada uno de los personajes, pudiendo visualizar su estado y la acción que están realizando.
+
+El problema de esta visualización, de nuevo, es que deben ser cargadas desde la terminal y están limitadas a simplemente observar lo que hace el personaje en cada momento. 
+
+\subsection{Vistas relacionadas}
+Además de estas funcionalidades anteriormente mencionadas, en la aplicación están disponibles las vistas que acompañan a la visualización y ejecución de simulaciones. 
+Sin embargo, estas vistas no están interconectadas entre sí y no existe una aplicación como tal, sino que desde la terminal se ejecutan ciertas acciones y se accede a algunas de las vistas aisladas.
+
+\section{Funcionalidades ampliadas}
+Sobre estas funcionalidades que ya estaban originalmente desarrolladas, existen algunas nuevas características que se han implantado durante el desarrollo de este trabajo que se basan en ellas para funcionar, las cuales son las mencionadas a continuación.
+
+\subsection{Susurros a los personajes mediante la interfaz}
+Como se mencionó anteriormente, la funcionalidad de susurrar a los personajes ya estaba implementada en el sistema original. Sin embargo, para poder hacer esto era necesario acudir a la terminal y desde ahí seleccionar el personaje y la información. 
+Tal y como se ha extendido, se podrá acceder a uno de los personajes clicando en su persona en la parte inferior de la simulación y una vez hecho esto, habrá un botón en el que el usuario se podrá comunicar directamente y susurrar la acción o la personalidad que quiera que interprete el personaje.
+
+\textcolor{red}{AQUÍ PONER FOTOS DEL BOTÓN DE SUSURRAR EN LA APLICACIÓN}
+
+\subsection{Nuevas vistas}
+Además de las vistas existentes, se han creado nuevas páginas, de modo que la aplicación se pueda usar exclusivamente desde la interfaz gráfica, sin necesidad de acceder a la terminal (esto ayuda a usar la aplicación a las personas no técnicas) y uniéndolas todas en diferentes vistas.
+
+Por un lado, se han creado vistas como la landing, una página para crear simuaciones desde la web, y otras páginas para visualizar y continuar simulaciones para poder acceder directamente desde ahí a ellas, simplemente clicando. Por el otro, también se han enriquecido las vistaas ya existentes añadiendo botones como los de susurrar o chatear con los agentes durante la siulación.
+
+\section{Nuevas funcionalidades}
+Finalmente, existen funcionalidades que no existían en la aplicación original y hemos añadido, aportando así valor al sistema ya existende y reiterando su importancia para el uso en investigación psicológica.
+
+\subsection{Función de chat en tiempo real con los agentes}
+Similar a la funcionalidad de susurro, hemos implementado una nueva característica en la que los usuarios podrán, en medio de una simulación, chatear con cualquiera de los personajes para preguntarles su opinión sobre ciertos temas, para ver cómo va avanzando a medida que avanza la simulación.
+
+En este caso, se diferencia del susurro ya que la interacción en el chat no influirá en el comportamiento del agente en la simulación.
+
+\textcolor{red}{AQUÍ PONER FOTOS DEL BOTÓN DE CHATEAR EN LA APLICACIÓN}
+
+\subsection{Guardado y gestión de nuevas simulaciones}
+
+\subsection{Resúmenes de simulaciones}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textcolor{red}{A PARTIR DE AQUÍ SON EJEMPLOS DE CÓMO AÑADIR IMAGENES Y TABLAS, BORRAR EN EL FUTURO}
+
+
+Como muestra la figura \ref{fig:sampleImage}, está todo por hacer.
 
 \begin{figure}[h]
 	\centering
