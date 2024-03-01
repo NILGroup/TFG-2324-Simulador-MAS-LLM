@@ -2,7 +2,41 @@
 \label{cap:planteamiento}
 \section{Planteamiento inicial}
 
-\section{Ajustes y consideraciones}
+\subsection{Estado tecnológico inicial del sistema}
+
+\section{Ajustes y reconsideraciones}
+
+En esta sección se tratarán las adaptaciones que se han ido realizando a lo largo del desarrollo del proyecto, indicando así cómo han ido cambiando distintas facetas del sistema, tanto en su planificación como en su implementación técnica.
+
+Este análisis permitirá comprender mejor la evolución del proyecto, los desafíos enfrentados y las soluciones implementadas. Además, revelará la capacidad de adaptación y el aprendizaje continuo que han sido fundamentales para el éxito del proyecto.
+
+\subsection{Cambios en los objetivos}
+
+Durante el desarrollo del presente trabajo, nos hemos propuesto una serie de objetivos los cuales hemos ido modificando a medida que se progresaba.
+
+Inicialmente, se fijaron una serie de objetivos sin tener un conocimiento claro sobre la arquiterctura y funcionamiento del sistema. Estos objetivos estaban enfocados en la extensibilidad y modificación de lo previamente existente. A grandes rasgos, los objetivos inicialmente marcados eran los siguientes:
+
+\begin{enumerate}
+	\item Añadir uno o varios mapas complementarios a mayores del existente, además de poder modificar las apariencias, nombres y personalidades de los agentes de la simulación.
+	
+	\item Permitir la interacción directa con los agentes y el entorno, pudiendo clicar directamente sobre el mapa y que se reconociese el objeto que se estaba indicando, para así poder modificar su estado (indicar que se está quemando el objeto, por ejemplo)
+	
+	\item Permitir a los usuarios utilizar su propio modelo del lenguaje, ya sea descargado en local o empleando diferentes APIs externas alternativas al modelo del lenguaje original.
+\end{enumerate}
+
+Tras evaluar todo el sistema, se decidió pivotar sobre estos objetivos iniciales, ya que conllevaban una gran cantidad de trabajo y apenas aportaban valor añadido al programa original, por lo que se propusieron unos nuevos objetivos, sobre los cuales se ha construído la base de los objetivos finales que se pueden consultar en la introducción de este documento. El resultado de pivotar los objetivos fue, en líneas generales, el siguiente:
+
+\begin{enumerate}
+	\item Modificación de las personalidades de los personajes, enfocándose así en la importancia de crear nuevas simulaciones con distintas relaciones sociales, siendo agnósticos al mapa e imagen de los agentes, ya que cambiar esto no aporta tanto valor.
+	
+	\item Interacción en tiempo real con los agentes, mediante un menú en el que poder entrevistar al personaje, así como crearle inquietudes y nuevas memorias para ver cómo reacciona.
+	
+	\item Generación automática de resúmenes
+	
+	\item Englobar todas las funcionalidades en una interfaz sencilla e intuitiva
+\end{enumerate}
+
+\subsection{Limpieza de archivos del repositorio}
 
 \subsection{Selección del modelo de lenguaje}
 
