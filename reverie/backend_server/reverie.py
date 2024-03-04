@@ -83,8 +83,7 @@ class ReverieServer:
       meta_info['step'] = 0
 
       reverie_folder = f"{fs_storage}/{self.sim_code}/reverie"
-      if (not os.path.exists(reverie_folder)):
-        os.mkdir(reverie_folder)
+      create_folder_if_not_there(reverie_folder)
       meta_f = f"{reverie_folder}/meta.json"
       with open(meta_f, 'w') as outfile:
         outfile.write(json.dumps(meta_info, indent=2))
@@ -111,8 +110,7 @@ class ReverieServer:
 
       # Create the personas_folder
       personas_folder = f"{fs_storage}/{self.sim_code}/personas"
-      if not os.path.exists(personas_folder):
-        os.mkdir(personas_folder)
+      create_folder_if_not_there(personas_folder)
       
       #Create the personas memory folders and the {personas_position} OUTPUT
 
@@ -121,9 +119,55 @@ class ReverieServer:
         copyanything(f"{available_personas_folder}/{name}", f"{personas_folder}/{name}")
         personas_obj[name] = Persona(name, f"{personas_folder}/{name}")
         
-
       return personas_obj
 
+    def generate_enviroment_folder(personas):
+      """generate_enviroment_folder description
+      INPUT:
+        personas (persona_name -> Persona())
+      DESCRIPTION:
+        We receive the dictionary with Persona Objs and create the corresponding enviroment folder
+        We return the persona_tile with the initial position of each of them
+      OUTPUT:
+        persona_tiles (persona_name -> (x,y))
+      """
+      
+      """Formato json
+      Creamos el diccionario que llevaremos al enviroment/0.json
+      El formato de este es
+      {
+        "persona_name":
+        {
+        "maze": "the_ville",
+        "x": 15,
+        "y": 16
+        },
+        "personas_name2":...
+      }
+      """
+
+      env_dict = dict()
+      for persona_name in personas.keys():
+        p_x = personas[persona_name].scratch.ini_x
+        p_y = personas[persona_name].scratch.ini_y
+        env_dict[persona_name] = dict()
+        env_dict[persona_name]['x'] = p_x
+        env_dict[persona_name]['y'] = p_y
+        env_dict[persona_name]['maze'] = self.maze.maze_name
+
+      enviroment_folder = f"{fs_storage}/{self.sim_code}/enviroment"
+      create_folder_if_not_there(enviroment_folder)
+      env_f = f"{enviroment_folder}/{self.step}.json"
+      with open(env_f, 'w') as outfile:
+        outfile.write(json.dumps(env_dict))
+      
+      # We generate the output persona_tiles
+      persona_tiles = dict()
+      for persona_name in personas.keys():
+        p_scrt = personas[persona_name].scratch
+        persona_tiles[persona_name] = (p_scrt.ini_x, p_scrt.ini_y)
+
+      return persona_tiles
     """
     INPUT:
       sim_name: name of the simulation
