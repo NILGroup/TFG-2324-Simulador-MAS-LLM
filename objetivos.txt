@@ -5,19 +5,43 @@ En este archivo iremos escribiendo los objetivos a medida que vamos discutiéndo
 OBJETIVOS INICIALES
     1. Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie 
     de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes.
+
+				--Observaciones
+					La elección de escenario la dejaremos aparcado debido a la complicación que genera el tener la información estructurada
+					Solo nos centraremos en nuevas simulaciones configurando a nuestro antojo lo relativo a los Agentes
     
     2. Permitir la interacción con el estado de los agentes y escenario durante la simulación. En cualquier momento, el usuario podrá interactuar
     tanto con los agentes como con distintos elementos del escenario.
+				
+				--Observaciones
+					Interacción con el escenario actual no descartada, habría que profundizar más para decidir si es posible
+					Interacción con cualquier escenario aparcada por el mismo motivo que en el objetivo 1
 
     3. Visión de la simulación, a través de un personaje o de una forma general y sintetizada. También permitir a los usuarios, una vez finalizada
     una simulación, poder hacer un resumen de toda la simulación como conjunto o hacerlo desde el punto de vista de uno de los agentes.
 
+				--Observaciones
+					DO - Visualizar desde punto de vista de personaje
+					DO - Visualizar de forma general
+					DO - Generación del resumen de la simulación al completo
+
     4. Gestión de las simulaciones, permitiendo el guardado de estas y la creación en base a anteriores. Esto permitirá poder ver simulaciones repetidas o extenderlas.
+
+				--Observaciones
+					DO - Gestion de las simulaciones
+					DO - Simulaciones con assets ya cargados
 
     5. Integración de todo lo anterior en una interfaz web.
 
+				--Observaciones
+					DO - La interfaz
+
     6. Creación de sistema que permita usar modelos de lenguaje que se ejecuten de forma local, o APIs en su defecto. Permitiendo así a los usuarios intercambiar esto 
     modelos de manera sencilla y probar los comportamientos de los agentes con distintos modelos del lenguaje.
+				
+				--Observaciones
+					DO - Encontrar uno que podamos usar en local o api
+					DO - Ofrecer varias opciones (api, local) al final
 
 
 OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
@@ -33,6 +57,9 @@ OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
 
     (La función de whisper ya existía, hemos hecho que se pueda acceder a ella mediante interfaz gráfica y hemos añadido la funcionalidad de chatear con los 
     personajes en tiempo de simulación)
+
+		Permitir evalua a un personaje para concocer su evolución respecto a un tema en distintos puntos del tiempo.
+		(Entablar un chat de forma simultanea con varias instancias de un agente pero en momentos distintos del tiempo)
 
     3. Generación automática de resúmenes de simulaciones, tanto cortos para indicar el contexto general de la simulación, como largos, indicando los instantes en los que ocurren
     los mejores momentos para poder visualizarlos.
