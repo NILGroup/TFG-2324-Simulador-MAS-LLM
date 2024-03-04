@@ -121,7 +121,7 @@ class ReverieServer:
         
       return personas_obj
 
-    def generate_enviroment_folder(personas):
+    def generate_environment_folder(personas):
       """generate_enviroment_folder description
       INPUT:
         personas (persona_name -> Persona())
@@ -155,7 +155,7 @@ class ReverieServer:
         env_dict[persona_name]['y'] = p_y
         env_dict[persona_name]['maze'] = self.maze.maze_name
 
-      enviroment_folder = f"{fs_storage}/{self.sim_code}/enviroment"
+      enviroment_folder = f"{fs_storage}/{self.sim_code}/environment"
       create_folder_if_not_there(enviroment_folder)
       env_f = f"{enviroment_folder}/{self.step}.json"
       with open(env_f, 'w') as outfile:
@@ -195,9 +195,9 @@ class ReverieServer:
     generate_reverie_folder()
     self.personas = generate_personas_folder(personas)
     # Usamos el diccionario de personas y devolvemos el diccionario de posiciones de las personas
-    self.personas_tile = generate_enviroment_folder(self.personas)
+    self.personas_tile = generate_environment_folder(self.personas)
     # actualizar temp_storage
-    print()
+    self.signal_front_end()
 
 
   def fork_sim(self, 
@@ -299,7 +299,9 @@ class ReverieServer:
     # <server_sleep> denotes the amount of time that our while loop rests each
     # cycle; this is to not kill our machine. 
     self.server_sleep = 0.1
+    self.signal_front_end()
 
+  def signal_front_end(self):
     # SIGNALING THE FRONTEND SERVER: 
     # curr_sim_code.json contains the current simulation code, and
     # curr_step.json contains the current step of the simulation. These are 
@@ -806,6 +808,7 @@ if __name__ == '__main__':
       name = input("Enter the name of the new simulation: ").strip()
     personas = choose_personas()
     rs = ReverieServer(forked=False, params=[name, personas])
+    rs.open_server()
   elif "fork" in mode or "2" in mode:
     origin = input("Enter the name of the forked simulation: ").strip()
     while (origin not in existing_simulations()):
