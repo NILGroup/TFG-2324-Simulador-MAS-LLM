@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/ver_simulacion.css' %}">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img class="icono-header" src="{% static 'img/atlas.png' %}">
+        <a class="navbar-brand text-white" href="{% url 'landing' %}">SimulAgents</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir Navegador de rutas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'crear_simulacion' %}">Crear nueva simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'ver_simulacion' %}">Visualizar simulación</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container py-5">
+    <h1>Visualizar Simulaciones</h1>
+    
+    <section class="lista-simulaciones">
+        <!-- Esto lo dejo comentado por si en el futuro necesitamos un spinner mientras se cargan las simulaciones -->
+        <!-- <div class="d-flex justify-content-center align-items-center my-3">
+            <div class="spinner-border" role="status"></div>
+            <span class="visually-hidden">Cargando simulaciones...</span>
+        </div>           -->
+        
+        <div class="simulacion mb-3">
+            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
+                <div class="col-4 col-xl-3 simulacion-imagen">
+                    <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
+                    <figcaption class="text-center">The ville</figcaption>
+                </div>
+                <div class="col-8 simulacion-detalles">
+                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
+                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación Isabella, Maria y Klaus</a></h3>
+                    <p class="fecha">Fecha: 28/02/2023</p>
+                    <p class="duracion">Duración: 2 min 30 s</p>
+                    <p class="contexto">Contexto: Situación hipotética en una oficina...</p>
+                </div>
+            </div>
+            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
+                <div class="col-4 col-xl-3 simulacion-imagen">
+                    <img src="{% static 'img/atlas.png' %}" alt="Mapa de la Simulación">
+                    <figcaption class="text-center">Mapa de ejemplo</figcaption>
+                </div>
+                <div class="col-8 simulacion-detalles">
+                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #2</a></h3>
+                    <p class="fecha">Fecha: 28/02/2023</p>
+                    <p class="duracion">Duración: 10 min</p>
+                    <p class="contexto">Contexto: Los agentes se encuentran en la Facultado de Informática de la UCM. De repente,
+                        salta la alarma de incendios y deben realizar una evacuación rápida y eficaz.
+                    </p>
+                </div>
+            </div>
+            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
+                <div class="col-4 col-xl-3 simulacion-imagen">
+                    <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
+                    <figcaption class="text-center">The ville</figcaption>
+                </div>
+                <div class="col-8 simulacion-detalles">
+                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #3</a></h3>
+                    <p class="fecha">Fecha: 28/02/2023</p>
+                    <p class="duracion">Duración: 2 min 30 s</p>
+                    <p class="contexto">Contexto: Los agentes están teniendo un día normal en su pueblo hasta que, de pronto, uno de ellos
+                        entra en pánico y comienza a correr por la calle principal. El resto de agentes, asustados, se extrañan de su comportamiento
+                        y tratan de calmarlo. Sin embargo, este agente está fuera de sí y no responde a las interacciones de los demás.
+                    </p>
+                </div>
+            </div>
+            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
+                <div class="col-4 col-xl-3 simulacion-imagen">
+                    <img src="{% static 'img/mapaNevado.png' %}" alt="Mapa de la Simulación">
+                    <figcaption class="text-center">Mapa nevado</figcaption>
+                </div>
+                <div class="col-8 simulacion-detalles">
+                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #4</a></h3>
+                    <p class="fecha">Fecha: 28/02/2023</p>
+                    <p class="duracion">Duración: 2 min 30 s</p>
+                    <p class="contexto">Contexto: Situación hipotética en una oficina...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
