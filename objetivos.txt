@@ -71,3 +71,14 @@ OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
     (Engloba los objetivos anteriormente mencionados)
     
     5. Permitir a los usuarios usar un LLM alternativo (primero faltaría encontrar el nuestro)
+<<<<<<< HEAD
+=======
+
+    6. Aportar documentación clara y en castellano tanto a nivel de usuario (cómo usar la aplicación para usuarios) como a nivel de desarrollador (cómo extender funcionalidades)
+    clara y en castellano para poder adaptar y extender las nuevas funcionalidades
+
+    7. Limpieza de archivos no utilizados o no importantes para el trabajo, facilitando así la extensibilidad y mantenibilidad del código
+
+    (Inicialmente, había varios archivos y funciones que no están siendo utilizados para nada o solamente servían para debuggear la aplicación. La idea es limpiar estos archivos
+    sabiendo lo que estamos borrando y justificando por qué esto ayuda a futuros desarrolladores)
+>>>>>>> 2206566ab6c3d11c47c085b0a15f4a95b19c3da6
