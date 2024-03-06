@@ -16,6 +16,8 @@ class Scratch:
     # PERSONA HYPERPARAMETERS
     # <vision_r> denotes the number of tiles that the persona can see around 
     # them. 
+    self.ini_x = None
+    self.ini_y = None
     self.vision_r = 4
     # <att_bandwidth> TODO 
     self.att_bandwidth = 3
@@ -162,6 +164,8 @@ class Scratch:
       # If we have a bootstrap file, load that here. 
       scratch_load = json.load(open(f_saved))
 
+      self.ini_x = scratch_load["ini_x"]
+      self.ini_y = scratch_load["ini_y"]
       self.vision_r = scratch_load["vision_r"]
       self.att_bandwidth = scratch_load["att_bandwidth"]
       self.retention = scratch_load["retention"]
@@ -244,6 +248,8 @@ class Scratch:
       None
     """
     scratch = dict() 
+    scratch['ini_x'] = self.ini_x
+    scratch['ini_y'] = self.ini_y
     scratch["vision_r"] = self.vision_r
     scratch["att_bandwidth"] = self.att_bandwidth
     scratch["retention"] = self.retention
@@ -308,6 +314,10 @@ class Scratch:
 
     with open(out_json, "w") as outfile:
       json.dump(scratch, outfile, indent=2) 
+
+
+  def get_ini_pos(self):
+    return (self.ini_x, self.ini_y)
 
 
   def get_f_daily_schedule_index(self, advance=0):

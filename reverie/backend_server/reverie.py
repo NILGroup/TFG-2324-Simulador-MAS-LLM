@@ -40,9 +40,170 @@ from persona.persona import *
 ##############################################################################
 
 class ReverieServer: 
-  def __init__(self, 
+
+  def __init__(self,
+               forked, #Boolean == true if we are forking an existing simulation
+               params):#Array with the corresponding parameters
+    if forked:
+      self.fork_sim(fork_sim_code=params[0], sim_code=params[1])
+    else:
+      self.new_sim(sim_name=params[0], personas=params[1])
+
+  def new_sim(self, 
+              sim_name,
+              personas):
+    def define_default_reverie_info():
+      """
+      We define here
+        start_time
+        curr_time
+        sec_per_step
+        maze
+        step
+        server_sleep
+      """
+      start_of_the_day = datetime.datetime.today().strftime("%B %d, %Y")+", 00:00:00"
+      self.start_time = datetime.datetime.today().strptime(start_of_the_day, "%B %d, %Y, %H:%M:%S")
+      self.curr_time = self.start_time
+      self.sec_per_step = 10
+      self.maze = Maze('the_ville')
+      self.step = 0
+      self.server_sleep = 0.1
+    
+    def generate_reverie_folder():
+      # Initialize the meta.json fields
+      meta_info = dict()
+      meta_info['fork_sim_code'] = self.fork_sim_code
+      meta_info['sim_code'] = self.sim_code
+      meta_info['start_date'] = self.start_time.strftime("%B %d, %Y")
+      meta_info['curr_time'] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
+      meta_info['sec_per_step'] = 10
+      meta_info['maze_name'] = self.maze.maze_name
+      meta_info['persona_names'] = personas
+      meta_info['step'] = 0
+
+      reverie_folder = f"{fs_storage}/{self.sim_code}/reverie"
+      create_folder_if_not_there(reverie_folder)
+      meta_f = f"{reverie_folder}/meta.json"
+      with open(meta_f, 'w') as outfile:
+        outfile.write(json.dumps(meta_info, indent=2))
+
+    def generate_personas_folder(personas):
+      """
+      INPUT:
+        personas: 
+          list(   -- We have one dict per persona --
+            dict('persona_name' (string) -> 'description' (string))
+          )
+      DESCRIPTION:
+        creates all the personas required files
+        returns the dictionary personas_obj{persona_name -> Persona()}
+      OUTPUT:
+        personas_obj: dict(persona_name -> Persona())
+      """
+      # We convert from personas INPUT to personas_dict{persona_name -> persona_desc}
+      persona_names = [list(pers.keys())[0] for pers in personas]
+      persona_descriptions = [list(pers.values())[0] for pers in personas]
+      personas_dict = dict()
+      for i in range(len(persona_names)):
+        personas_dict[persona_names[i]] = persona_descriptions[i]
+
+      # Create the personas_folder
+      personas_folder = f"{fs_storage}/{self.sim_code}/personas"
+      create_folder_if_not_there(personas_folder)
+      
+      #Create the personas memory folders and the {personas_position} OUTPUT
+
+      personas_obj = dict()
+      for name in personas_dict.keys():
+        copyanything(f"{available_personas_folder}/{name}", f"{personas_folder}/{name}")
+        personas_obj[name] = Persona(name, f"{personas_folder}/{name}")
+        
+      return personas_obj
+
+    def generate_environment_folder(personas):
+      """generate_enviroment_folder description
+      INPUT:
+        personas (persona_name -> Persona())
+      DESCRIPTION:
+        We receive the dictionary with Persona Objs and create the corresponding enviroment folder
+        We return the persona_tile with the initial position of each of them
+      OUTPUT:
+        persona_tiles (persona_name -> (x,y))
+      """
+      
+      """Formato json
+      Creamos el diccionario que llevaremos al enviroment/0.json
+      El formato de este es
+      {
+        "persona_name":
+        {
+        "maze": "the_ville",
+        "x": 15,
+        "y": 16
+        },
+        "personas_name2":...
+      }
+      """
+
+      env_dict = dict()
+      for persona_name in personas.keys():
+        p_x = personas[persona_name].scratch.ini_x
+        p_y = personas[persona_name].scratch.ini_y
+        env_dict[persona_name] = dict()
+        env_dict[persona_name]['x'] = p_x
+        env_dict[persona_name]['y'] = p_y
+        env_dict[persona_name]['maze'] = self.maze.maze_name
+
+      enviroment_folder = f"{fs_storage}/{self.sim_code}/environment"
+      create_folder_if_not_there(enviroment_folder)
+      env_f = f"{enviroment_folder}/{self.step}.json"
+      with open(env_f, 'w') as outfile:
+        outfile.write(json.dumps(env_dict))
+      
+      # We generate the output persona_tiles
+      persona_tiles = dict()
+      for persona_name in personas.keys():
+        p_scrt = personas[persona_name].scratch
+        persona_tiles[persona_name] = (p_scrt.ini_x, p_scrt.ini_y)
+
+      return persona_tiles
+    """
+    INPUT:
+      sim_name: name of the simulation
+      personas: Array with [i] -> {"nombre": {persona_name_i}, "descripcion": {description_i}}
+    DESCRIPTION:
+      Create a new simulation with default parameters
+      We assume that there is no other simulation named {sim_name}
+
+      After the execution we have created the needed files to run a simulation
+    OUTPUT:
+      NONE
+    """
+    #Create the folder for the Simulation info
+    # We create the reverie info
+    self.fork_sim_code = sim_name
+    self.sim_code = sim_name
+    sim_folder = f"{fs_storage}/{self.sim_code}"
+
+    create_folder_if_not_there(sim_folder)
+
+    # Define default parameters of the simulation
+    define_default_reverie_info()
+
+    # We create the folders that correspond to this simulation
+    generate_reverie_folder()
+    self.personas = generate_personas_folder(personas)
+    # Usamos el diccionario de personas y devolvemos el diccionario de posiciones de las personas
+    self.personas_tile = generate_environment_folder(self.personas)
+    # actualizar temp_storage
+    self.signal_front_end()
+
+
+  def fork_sim(self, 
                fork_sim_code,
                sim_code):
+
     # FORKING FROM A PRIOR SIMULATION:
     # <fork_sim_code> indicates the simulation we are forking from. 
     # Interestingly, all simulations must be forked from some initial 
@@ -60,8 +221,10 @@ class ReverieServer:
     with open(f"{sim_folder}/reverie/meta.json") as json_file:  
       reverie_meta = json.load(json_file)
 
+    #En el archivo de la nueva simulación estoy seteando el <dato fork_sim_code>
     with open(f"{sim_folder}/reverie/meta.json", "w") as outfile: 
       reverie_meta["fork_sim_code"] = fork_sim_code
+      reverie_meta["sim_code"] = sim_code
       outfile.write(json.dumps(reverie_meta, indent=2))
 
     # LOADING REVERIE'S GLOBAL VARIABLES
@@ -136,7 +299,9 @@ class ReverieServer:
     # <server_sleep> denotes the amount of time that our while loop rests each
     # cycle; this is to not kill our machine. 
     self.server_sleep = 0.1
+    self.signal_front_end()
 
+  def signal_front_end(self):
     # SIGNALING THE FRONTEND SERVER: 
     # curr_sim_code.json contains the current simulation code, and
     # curr_step.json contains the current step of the simulation. These are 
@@ -152,7 +317,6 @@ class ReverieServer:
     curr_step["step"] = self.step
     with open(f"{fs_temp_storage}/curr_step.json", "w") as outfile: 
       outfile.write(json.dumps(curr_step, indent=2))
-
 
   def save(self): 
     """
@@ -171,6 +335,7 @@ class ReverieServer:
     # Save Reverie meta information.
     reverie_meta = dict() 
     reverie_meta["fork_sim_code"] = self.fork_sim_code
+    reverie_meta["sim_code"] = self.sim_code
     reverie_meta["start_date"] = self.start_time.strftime("%B %d, %Y")
     reverie_meta["curr_time"] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
     reverie_meta["sec_per_step"] = self.sec_per_step
@@ -602,9 +767,57 @@ class ReverieServer:
         pass
 
 
-if __name__ == '__main__':
-  origin = input("Enter the name of the forked simulation: ").strip()
-  target = input("Enter the name of the new simulation: ").strip()
+def available_personas():
+  result = os.listdir(available_personas_folder)
+  result.sort()
+  return result
 
-  rs = ReverieServer(origin, target)
-  rs.open_server()
+def existing_simulations():
+  result = os.listdir(existing_simulations_folder)
+  result.sort()
+  return result
+
+def choose_personas():
+  num_personas = input("Amount of personas in the simulation: ").strip()
+  if ("" == num_personas):
+    return [{"Isabella Rodriguez": "default description"}]
+  num_personas = int(num_personas)
+  _available_personas_ = available_personas()
+  for persona_name in _available_personas_:
+    print(persona_name)
+  choosen_personas = []
+  for i in range(0,num_personas):
+    persona_name = input(f"{i} - Choose between the personas on the list above: ")
+    while persona_name not in _available_personas_:
+      persona_name = input(f"{i} - Choose between the personas on the list above: ")
+    persona_description = input(f"Describe {persona_name}: ")
+    choosen_personas.append({persona_name: persona_description})
+  return choosen_personas
+
+if __name__ == '__main__':
+  mode = input(f"1. Create Simulation from zero\n2. Fork a prior simulation\nChoose Option: ").strip().lower()
+  simulations = existing_simulations()
+  print("Existing simulations:")
+  for s in simulations:
+    if (s[0] != '.'):
+      print(s)
+  if "create" in mode or "1" in mode:
+    name = input("Name of the new Simulation: ").strip()
+    while (name in existing_simulations()):
+      print(f"There is an existing simulation named {name}")
+      name = input("Enter the name of the new simulation: ").strip()
+    personas = choose_personas()
+    rs = ReverieServer(forked=False, params=[name, personas])
+    rs.open_server()
+  elif "fork" in mode or "2" in mode:
+    origin = input("Enter the name of the forked simulation: ").strip()
+    while (origin not in existing_simulations()):
+      print(f"There is no simulation named {origin}")
+      origin = input("Enter the name of the forked simulation: ").strip()
+    target = input("Enter the name of the new simulation: ").strip()
+    while (target in existing_simulations()):
+      print(f"There is an existing simulation named {target}")
+      target = input("Enter the name of the new simulation: ").strip()
+
+    rs = ReverieServer(forked=True, params=[origin, target])
+    rs.open_server()

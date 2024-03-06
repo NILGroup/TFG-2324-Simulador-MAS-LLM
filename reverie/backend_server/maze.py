@@ -19,7 +19,7 @@ class Maze:
   def __init__(self, maze_name): 
     # READING IN THE BASIC META INFORMATION ABOUT THE MAP
     self.maze_name = maze_name
-    # Reading in the meta information about the world. If you want tp see the
+    # Reading in the meta information about the world. If you want to see the
     # example variables, check out the maze_meta_info.json file. 
     meta_info = json.load(open(f"{env_matrix}/maze_meta_info.json"))
     # <maze_width> and <maze_height> denote the number of tiles make up the 
@@ -380,37 +380,3 @@ class Maze:
     for event in curr_tile_ev_cp: 
       if event[0] == subject:  
         self.tiles[tile[1]][tile[0]]["events"].remove(event)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
