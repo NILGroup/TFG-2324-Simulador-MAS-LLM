@@ -1,7 +1,93 @@
 En este archivo iremos escribiendo los objetivos a medida que vamos discutiéndolos y avanzando, además de los motivos de cambio de objetivos:
 
+	1. Permitir crear simulaciones completamente nuevas, aportando personalidades a cada uno de los personajes y un contexto general a la simulación. Además de poder continuar con simulaciones pasadas 					desde cualquier instante que se desee, tanto donde se dejó por última vez como cualquier punto en el pasado, y así comparar pequeños cambios en las personalidades, contexto o las interacciones realizadas durante la misma simulación.
 
+		(Aportamos valor permitiendo que los personajes sean plenamente modificables por los usuarios, además, con un nuevo contexto, se podrán simular situaciones en ambientes distintos. Al permitir al usuario continuar con una simulación desde un punto cualquiera (nuevo), podemos ver diferencias de comportamiento)
 
+		--Hablado 6 de marzo
+			El primero en hacerse, es esencial
+			Alberto añadira formas de interactuar con la ejecucion de la simulacion (botones)
+				también dará formato a la información mostrada de cada personaje
+			*Posible objetivo: Añadir contexto general que afecte a todos los personajes
+
+	2. Interacción en tiempo real de simulación con los personajes mediante la interfaz gráfica, pudiendo influir en sus decisiones o simplemente conocer sus pensamientos acerca de algún tema en cada momento.
+
+		(La función de whisper ya existía, hemos hecho que se pueda acceder a ella mediante interfaz gráfica y hemos añadido la funcionalidad de chatear con los personajes en tiempo de simulación)
+
+		--Hablado 6 de marzo
+			También forma parte de lo que consideramos esencial, por lo que comparte bastante con el 1
+			*Posible objetivo: Entablar un chat de forma simultanea con varias instancias de un agente pero en momentos distintos del tiempo
+
+	3. Generación automática de resúmenes de simulaciones, tanto cortos para indicar el contexto general de la simulación, como largos, indicando los instantes en los que ocurren los mejores momentos para poder visualizarlos.
+
+		(Funcionalidad nueva que aporta un gran valor a la hora de compartir simulaciones o ver las antiguas)
+
+		--Hablado 6 de marzo
+			Objetivo que más valor aporta
+			Hacer demo -> Se genera resumen
+			Demo asociada a su simulación
+			Nos cuenta los hechos mas importantes de cada momento y nos los señala en el tiempo
+			*Posible objetivo: Chat con la demo para explorar que cosas han pasado
+
+	4. Realización de una interfaz fácil e intuitiva, usable por usuarios no técnicos como pueden ser perfiles de psicólogos interesados en la herramienta.
+
+		(Engloba los objetivos anteriormente mencionados)
+
+	5. Permitir a los usuarios usar un LLM alternativo (primero faltaría encontrar el nuestro)
+
+		--Hablado 6 de marzo
+			Primero usar la api de openai aunque con limitaciones
+			*Posible objetivo: Añadir LLMs extra
+
+	6. Aportar documentación clara y en castellano tanto a nivel de usuario (cómo usar la aplicación para usuarios) como a nivel de desarrollador (cómo extender funcionalidades) clara y en castellano para poder adaptar y extender las nuevas funcionalidades
+
+		--Hablado 6 de marzo
+			Describir la interfaz, la interaccion con la simulacion y como usarlo
+			Para el desarrollador dar un esquema general de la implementacion y como modificarla
+
+	7. Limpieza de archivos no utilizados o no importantes para el trabajo, facilitando así la extensibilidad y mantenibilidad del código
+
+		(Inicialmente, había varios archivos y funciones que no están siendo utilizados para nada o solamente servían para debuggear la aplicación. La idea es limpiar estos archivos sabiendo lo que estamos borrando y justificando por qué esto ayuda a futuros desarrolladores)
+
+		--Hablado 6 de marzo
+			Lo hacemos a la vez que avanzamos con desarrollo
+
+OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
+    1. Permitir crear simulaciones completamente nuevas, aportando personalidades a cada uno de los personajes y un contexto general a la simulación. Además
+    de poder continuar con simulaciones pasadas desde cualquier instante que se desee, tanto donde se dejó por última vez como cualquier punto en el pasado, y 
+    así comparar pequeños cambios en las personalidades, contexto o las interacciones realizadas durante la misma simulación.
+
+    (Aportamos valor permitiendo que los personajes sean plenamente modificables por los usuarios, además, con un nuevo contexto, se podrán simular situaciones en 
+    ambientes distintos. Al permitir al usuario continuar con una simulación desde un punto cualquiera (nuevo), podemos ver diferencias de comportamiento)
+    
+    2. Interacción en tiempo real de simulación con los personajes mediante la interfaz gráfica, pudiendo influir en sus decisiones o simplemente conocer sus
+    pensamientos acerca de algún tema en cada momento.
+
+    (La función de whisper ya existía, hemos hecho que se pueda acceder a ella mediante interfaz gráfica y hemos añadido la funcionalidad de chatear con los 
+    personajes en tiempo de simulación)
+
+		Permitir evalua a un personaje para concocer su evolución respecto a un tema en distintos puntos del tiempo.
+		(Entablar un chat de forma simultanea con varias instancias de un agente pero en momentos distintos del tiempo)
+
+    3. Generación automática de resúmenes de simulaciones, tanto cortos para indicar el contexto general de la simulación, como largos, indicando los instantes en los que ocurren
+    los mejores momentos para poder visualizarlos.
+
+    (Funcionalidad nueva que aporta un gran valor a la hora de compartir simulaciones o ver las antiguas)
+
+    4. Realización de una interfaz fácil e intuitiva, usable por usuarios no técnicos como pueden ser perfiles de psicólogos interesados en la herramienta.
+
+    (Engloba los objetivos anteriormente mencionados)
+    
+    5. Permitir a los usuarios usar un LLM alternativo (primero faltaría encontrar el nuestro)
+
+    6. Aportar documentación clara y en castellano tanto a nivel de usuario (cómo usar la aplicación para usuarios) como a nivel de desarrollador (cómo extender funcionalidades)
+    clara y en castellano para poder adaptar y extender las nuevas funcionalidades
+
+    7. Limpieza de archivos no utilizados o no importantes para el trabajo, facilitando así la extensibilidad y mantenibilidad del código
+
+    (Inicialmente, había varios archivos y funciones que no están siendo utilizados para nada o solamente servían para debuggear la aplicación. La idea es limpiar estos archivos
+    sabiendo lo que estamos borrando y justificando por qué esto ayuda a futuros desarrolladores)
+    
 OBJETIVOS INICIALES
     1. Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie 
     de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes.
@@ -42,40 +128,3 @@ OBJETIVOS INICIALES
 				--Observaciones
 					DO - Encontrar uno que podamos usar en local o api
 					DO - Ofrecer varias opciones (api, local) al final
-
-
-OBJETIVOS ACTUALES (A 28 DE FEBRERO, FALTA VALIDAR CON TUTORES)
-    1. Permitir crear simulaciones completamente nuevas, aportando personalidades a cada uno de los personajes y un contexto general a la simulación. Además
-    de poder continuar con simulaciones pasadas desde cualquier instante que se desee, tanto donde se dejó por última vez como cualquier punto en el pasado, y 
-    así comparar pequeños cambios en las personalidades, contexto o las interacciones realizadas durante la misma simulación.
-
-    (Aportamos valor permitiendo que los personajes sean plenamente modificables por los usuarios, además, con un nuevo contexto, se podrán simular situaciones en 
-    ambientes distintos. Al permitir al usuario continuar con una simulación desde un punto cualquiera (nuevo), podemos ver diferencias de comportamiento)
-    
-    2. Interacción en tiempo real de simulación con los personajes mediante la interfaz gráfica, pudiendo influir en sus decisiones o simplemente conocer sus
-    pensamientos acerca de algún tema en cada momento.
-
-    (La función de whisper ya existía, hemos hecho que se pueda acceder a ella mediante interfaz gráfica y hemos añadido la funcionalidad de chatear con los 
-    personajes en tiempo de simulación)
-
-		Permitir evalua a un personaje para concocer su evolución respecto a un tema en distintos puntos del tiempo.
-		(Entablar un chat de forma simultanea con varias instancias de un agente pero en momentos distintos del tiempo)
-
-    3. Generación automática de resúmenes de simulaciones, tanto cortos para indicar el contexto general de la simulación, como largos, indicando los instantes en los que ocurren
-    los mejores momentos para poder visualizarlos.
-
-    (Funcionalidad nueva que aporta un gran valor a la hora de compartir simulaciones o ver las antiguas)
-
-    4. Realización de una interfaz fácil e intuitiva, usable por usuarios no técnicos como pueden ser perfiles de psicólogos interesados en la herramienta.
-
-    (Engloba los objetivos anteriormente mencionados)
-    
-    5. Permitir a los usuarios usar un LLM alternativo (primero faltaría encontrar el nuestro)
-
-    6. Aportar documentación clara y en castellano tanto a nivel de usuario (cómo usar la aplicación para usuarios) como a nivel de desarrollador (cómo extender funcionalidades)
-    clara y en castellano para poder adaptar y extender las nuevas funcionalidades
-
-    7. Limpieza de archivos no utilizados o no importantes para el trabajo, facilitando así la extensibilidad y mantenibilidad del código
-
-    (Inicialmente, había varios archivos y funciones que no están siendo utilizados para nada o solamente servían para debuggear la aplicación. La idea es limpiar estos archivos
-    sabiendo lo que estamos borrando y justificando por qué esto ayuda a futuros desarrolladores)
