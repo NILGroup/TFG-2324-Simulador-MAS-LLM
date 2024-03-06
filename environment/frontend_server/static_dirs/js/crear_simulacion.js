@@ -23,6 +23,7 @@ $(document).ready(function() {
                 <option value="" disabled selected>Selecciona un nombre</option>
               ${nombres.map(nombre => `<option value="${nombre}">${nombre}</option>`)}
             </select>
+            <label for="contexto${i}">Personalidad:</label>
             <textarea id="contexto${i}" required></textarea>
           </div>
         `);
