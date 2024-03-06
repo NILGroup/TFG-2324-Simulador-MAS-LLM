@@ -330,8 +330,45 @@ def fork_simulacion(request):
   return render(request, template, context)
 
 def enviar_datos_simulacion(request):
+  def traducir_para_back(post_dict):
+    """
+    INPUT:
+      un diciconario con el siguiente formato:
+      {
+        "numPersonajes": ['2'],
+        "contextoSimulacion": ["..."],
+        
+        "nombre1": ["..."],
+        "currently1": ["..."]
+        "innate1": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
+        "learned1": ["..."]
+        "lifestyle1": ["..."]
+        
+        "nombre2": ["..."],
+        "currently2": ["..."]
+        "innate2": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
+        "learned2": ["..."]
+        "lifestyle2": ["..."]
+      }
+    OUTPUT:
+      {
+        valor_nombre_persona1: {innate: "val1, val2, ...", currently: "...", ...}
+        valor_nombre_persona2: {innate: ...}
+      }
+    """
+    ret_dict = dict()
+    n_pers = int(post_dict["numPersonajes"])
+    for i in range(1, n_pers+1):
+      persona_name = post_dict[f"nombre{i}"][0]
+      ret_dict[persona_name] = dict()
+      ret_dict[persona_name]['innate'] = ', '.join(map(str, post_dict[f"innate{i}"]))
+      ret_dict[persona_name]['currently'] = post_dict[f"currently{i}"][0]
+      ret_dict[persona_name]['learned'] = post_dict[f"learned{i}"][0]
+      ret_dict[persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"][0]
+    return ret_dict
+
   context = {"request": request}
-  print(dict(request.POST))
-  print(request.body)
+  traduccion = traducir_para_back(request.POST)
+  print(traduccion)
   template = "home/ver_datos_sim.html"
   return render(request, template, context)
