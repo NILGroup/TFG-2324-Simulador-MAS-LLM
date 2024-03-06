@@ -19,12 +19,12 @@ $(document).ready(function() {
         $('#contenedorPersonaje').append(`
           <div class="character-form">
             <h3>Personaje ${i}</h3>
-            <select id="nombre${i}" required>
+            <select name="nombre${i}" id="nombre${i}" required>
                 <option value="" disabled selected>Selecciona un nombre</option>
               ${nombres.map(nombre => `<option value="${nombre}">${nombre}</option>`)}
             </select>
             <label for="contexto${i}">Personalidad:</label>
-            <textarea id="contexto${i}" required></textarea>
+            <textarea name="contexto${i}" id="contexto${i}" required></textarea>
           </div>
         `);
       }

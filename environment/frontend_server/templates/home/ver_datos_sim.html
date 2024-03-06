@@ -27,27 +27,7 @@
     </nav>
 </header>
 
-<main class="container py-5">
-    <h1>Crear Nueva Simulación</h1>
-
-    <form id="formSimulacion" method="POST" action="/enviar-datos-simulacion/">
-      <div class="form-section">
-        <label for="numPersonajes">Número de personajes:</label>
-        <input type="number" name="numPersonajes" id="numPersonajes" min="1" max="25" value="1">
-      </div>
-
-      <div id="contenedorPersonaje">
-        </div>
-
-      <div class="form-section">
-        <label for="contextoSimulacion">Contexto de simulación:</label>
-        <textarea name="contextoSimulacion" id="contextoSimulacion" rows="4" required></textarea>
-      </div>
-
-      <button type="submit">Crear simulación</button>
-      {% csrf_token %}
-    </form>
-</main>
+{{request.POST}}
 
 {% block js_content %}
 <script src="{% static 'js/crear_simulacion.js' %}"></script> 

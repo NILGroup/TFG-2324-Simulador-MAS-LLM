@@ -328,3 +328,10 @@ def fork_simulacion(request):
   context = {}
   template = "home/fork_simulacion.html"
   return render(request, template, context)
+
+def enviar_datos_simulacion(request):
+  context = {"request": request}
+  print(dict(request.POST))
+  print(request.body)
+  template = "home/ver_datos_sim.html"
+  return render(request, template, context)
