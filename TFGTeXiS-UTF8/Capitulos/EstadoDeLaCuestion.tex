@@ -237,14 +237,14 @@ Este tipo de Red Neuronal fue propuesta inicialmente en \cite{hopfield1982neural
 
 El elemento fundamental de la red es la neurona recurrente, con funciones de activación en ambos sentidos. Estas neuronas se organizan en capas ocultas, de salida y de entrada. Las capas de entrada y salida se ocupan de recibir la información y mostrar los resultados respectivamente. El análisis de la información y los datos se realiza en las capas ocultas.
 
-Este tipo de redes se encarga de procesar la información de forma secuencial, es decir, la información pasa capa por capa en el mismo orden en que fue recibida. En las capas ocultas las neuronas se nutren de la información que le llega por la entrada, así como la información que había recibido previamente, consiguiendo así una cierta memoria, que utiliza, junto a la información de entrada, para predecir los resultados.
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/RNN_cell.pdf}
 	\caption{Estructura de una neurona de una RNN}%https://en.wikipedia.org/wiki/Recurrent_neural_network
-	\label{fig:LSTM}
+	\label{fig:RNN}
 \end{figure}
+
+Este tipo de redes se encarga de procesar la información de forma secuencial, es decir, la información pasa capa por capa en el mismo orden en que fue recibida, como se puede apreciar en la Figura \ref{fig:RNN}\footnote{Tomada de \url{https://en.wikipedia.org/wiki/Recurrent_neural_network}}. En las capas ocultas las neuronas se nutren de la información que le llega por la entrada, así como la información que había recibido previamente, consiguiendo así una cierta memoria, que utiliza, junto a la información de entrada, para predecir los resultados. 
 
 Este tipo de redes tienen ciertos problemas, entre los que destaca el \textit{Vanishing/Exploding Gradients Problem}, identificado por \cite{hochreiter1991untersuchungen}.  Este problema dificulta el proceso de entrenamiento de las Redes Neuronales Recurrentes, haciendo que la red llegue a un estado de subajuste o que directamente no sea capaz de generalizar la información. El problema surge al acumular el resultado de los inputs previos, escalado con el peso correspondiente a la neurona, haciendo que en los casos en que el peso es menor que uno, la aportación de los estados previos resulte insignificante para los actuales y posteriores. Un problema análogo ocurre con los pesos mayores que uno.
 
@@ -256,7 +256,14 @@ Este modelo (Long Short-term Memory) propuesto en \cite{hochreiter1997long}, es 
 
 La solución que proponen tiene una mayor capacidad de recordar datos antiguos y se basa en ir decidiendo qué información olvidar a la vez que se considera al mismo tiempo el cúmulo de aprendizaje a corto y largo plazo.
 
-Las Celdas de esta arquitectura están conformadas por cuatro tipos de puerta
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/LSTM.pdf}
+	\caption{Estructura de una celda LSTM}%Fuente: https://d2l.ai/chapter_recurrent-modern/lstm.html
+	\label{fig:LSTM}
+\end{figure}
+
+Las Celdas de esta arquitectura están conformadas por cuatro tipos de puerta. Tenemos una ilustración en la Figura \ref{fig:LSTM}\footnote{Tomada de \url{https://d2l.ai/chapter_recurrent-modern/lstm.html}}
 \begin{itemize}
 	\item\textbf{Forget Gate} Se encarga de reajustar la información proveniente de estados antiguos en base al input recibido para decidir cuanta de esta seguirá teniendo en cuenta.
 	\item\textbf{Cell state} Es el componente encargado de transportar la información a lo largo del tiempo.
@@ -264,20 +271,21 @@ Las Celdas de esta arquitectura están conformadas por cuatro tipos de puerta
 	\item\textbf{Output gate} Consigue el resultado final en base a la nueva memoria a largo plazo reajustada en combinación con el input y la memoria a corto plazo. Este resultado será la nueva memoria a corto plazo.
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width = 0.5\textwidth]{Imagenes/Vectorial/LSTM.pdf}
-	\caption{Estructura de una celda LSTM}%Fuente: https://en.wikipedia.org/wiki/Long_short-term_memory
-	\label{fig:LSTM}
-\end{figure}
-
 \subsubsection{Seq2Seq}
 
 Fue propuesto en \cite{sutskever2014sequence}, con el propósito de resolver las dificultades que los modelos estadísticos presentaban a la hora de enfrentarse con la tarea de la traducción, concretamente la traducción de una secuencia de entrada a una secuencia de salida (Sequence 2 Sequence). Para lograr este propósito hacía uso del modelo presentado anteriormente, LSTM, junto a la arquitectura Encoder-Decoder. 
 
 Este modelo se volvió relevante gracias a su mayor rendimiento, en comparación a los modelos estadísticos precedentes, en la tarea de la traducción de idiomas. Una de las razones por las que muestra un mayor desempeño, es que toma en consideración toda la secuencia de entrada para dar cualquier tipo de output. De esta forma es capaz de dar respuestas más coherentes con todo el contexto de la entrada.
 
-La mayor novedad en este modelo es el uso de la arquitectura Encoder-Decoder:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/seq2seq.pdf}
+	\caption{Estructura de una arquitectura seq2seq}%Fuente: https://lena-voita.github.io/nlp_course/seq2seq_and_attention.html
+	\label{fig:seq2seq}
+\end{figure}
+
+La mayor novedad en este modelo es el uso de la arquitectura Encoder-Decoder. Continuamos con una breve explicación de los componentes principales de esta arquitectura, acompañados de una ilustración en la Figura \ref{fig:seq2seq}\footnote{Imáagen tomada de \url{https://lena-voita.github.io/nlp_course/seq2seq_and_attention.html}}:
+
 \begin{itemize}
 	\item \textbf{Encoder} Se encarga de tomar una secuencia de entrada y la transforma en una representación oculta de alta dimensión (\textit{Word Embeddings}), mediante el uso de una \textit{Embedding layer}, con esta representación se trata de capturar el contenido semántico de la oración recibida. A menudo los LSTMs son empleados como Encoders debido a su gran rendimiento al momento de manejar secuencias de datos largas y su capacidad de retentiva a lo largo del tiempo. En el estudio original \citep{sutskever2014sequence} en que se propuso el modelo seq2seq vemos que emplean 4 capas de 1000 celdas LSTMs cada una. Dejando en cada celda su propio conjunto independiente de pesos y sesgos. Y usando cada capa el Output de la capa anterior como Input.
 
@@ -289,69 +297,68 @@ Para interpretar la información de salida de la última capa de celdas LSTMs, e
 
 \end{itemize}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/seq2seq.pdf}
-	\caption{Estructura de una arquitectura seq2seq}%Fuente: https://lena-voita.github.io/nlp_course/seq2seq_and_attention.html
-	\label{fig:seq2seq}
-\end{figure}
-
 Este modelo soluciona varios de los problemas que surgían en modelos anteriores en el campo de la traducción, sin embargo se encuentra con sus propias limitaciones. Entre estas, la más importante, es el problema del \textit{Cuello de botella} que se ocasiona al tener que codificar todo el Input a través del Encoder para así obtener el \textit{Vector de Contexto} con el que inicializamos al Decoder. Otro de los problemas con los que se encuentra este modelo es el limitado contexto al que puede atender en la secuencia de entrada, esto se debe al hecho de que toda la secuencia de entrada se ha de representar mediante el \textit{Vector de Contexto}, llegando a perder mucha información en el caso de secuencias de entrada largas debido al tamaño fijo del \textit{Vector de Contexto}.
 
 Poco después surge el trabajo \cite{bahdanau2014neural} que se centra en introducir los Mecanismos de atención, aliviando el problema de la limitiación en el tamaño de la secuencia de entrada.
 
 Este mecanísmo consigue una mejor selección de la información tenida en cuenta por el \textit{Decoder} a la hora de decodificar la información del \textit{Encoder}. Esto lo hace a través de añadir, al \textit{Decoder}, mecanismos capaces de deducir la similitud entre las repsuestas ofrecidas por el \textit{Encoder} y el \textit{Decoder}.
-
+\newpage
 \subsubsection{Transformers}
 
-Uno de los puntos de inflexión llega con el trabajo \cite{vaswani2017attention} presentado por investigadores de Google, que introduce multitud de conceptos, que, en conjunto, son capaces de ofrecer un modelo superior en rendimiento y desempeño a los anteriores. Una característica principal es el nuevo enfoque que dá, dejando de ser un nuevo paso en el camino trazado por los modelos explicados anteriormente, y proponiendo un modelo que pone la tilde en el mecanismo de atención y construyendo, a partir de este, un sistema capaz, de forma intrínseca, de atender a las relaciones semánticas entre los componentes de las secuencias tratadas (e.g. las palabras de un texto), además de ofrecer la posibilidad de realizar todas las tareas de entrenamiento e inferencia de una forma paralela, abriendo así la posiblidad a un aumento en la escala de este tipo de modelos como no se había visto y en el que aún no terminamos de ver el progreso.
+Uno de los puntos de inflexión llega con el trabajo \cite{vaswani2017attention} presentado por investigadores de Google, que introduce multitud de conceptos, que, en conjunto, son capaces de ofrecer un modelo superior en rendimiento y desempeño a los anteriores. Una característica principal es el nuevo enfoque que dá, dejando de ser un nuevo paso en el camino trazado por los modelos explicados anteriormente, y proponiendo un modelo que pone la tilde en el mecanismo de atención y construyendo, a partir de este, un sistema capaz, de forma intrínseca, de atender a las relaciones semánticas entre los componentes de las secuencias tratadas (e.g. las palabras de un texto), además de ofrecer la posibilidad de realizar todas las tareas de entrenamiento e inferencia de una forma paralela, abriendo así la posiblidad a un aumento en la escala de este tipo de modelos como no se había visto y en el que aún no terminamos de ver el progreso. Ilustración en la Figura \ref{fig:Transformer Architecture}
 
-\begin{figure}
+\begin{figure} [hb]
 	\centering
-	\includegraphics[width = 0.3\textwidth]{Imagenes/Vectorial/Transformer.pdf}
-	\caption{Arquitectura transformer}%Fuente: vaswani2017attention
-	\label{fig:Transformer Architecture}
+	\includegraphics[width = 0.6\textwidth]{Imagenes/Vectorial/Transformer.pdf}
+	\caption{Arquitectura Transformer (Imagen tomada de \cite{vaswani2017attention})}%Fuente: vaswani2017attention
+	\label{fig:Transformer Architecture}	
 \end{figure}
 
-Entre los principales componentes con los que cuenta el modelo propuesto tenemos:
+Entre los principales componentes con los que cuenta el modelo propuesto tenemos:\newpage
 \begin{itemize}
-	\item\textbf{Positional Encoding} Como ya habíamos visto en varios modelos anteriores, a la hora de tratar las secuencias de entrada estas eran convertidas en Tokens correspondientes a un \textit{Word Embedding} con la intención de atrapar el significado semántico.
 
-En este trabajo se añaden mecanismos para atrapar, a la vez que el significado semántico, la relación de orden de aparición entre los Tokens de la secuencia de entrada. Esto lo consiguen mediante la adición de los valores de funciones seno y coseno de frecuencias variando en función de la posición del Token y del tamaño del \textit{Word Embedding} ofreciendo, además, atrapar esta relación de posición para cualquier longitud de cadena de entrada.
-
-\[PE_{pos,2i} = \sin(pos/10000^{2i/d_{model}})\]
-\[PE_{pos,2i+1} = \cos(pos/10000^{2i/d_{model}})\]
-
-Podemos ver cómo actúa el mecanismo mediante la siguiente figura
-
-\begin{figure}
+\begin{figure} [hb]
 	\centering
 	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/PositionalEncoding.pdf}
 	\caption{Visualización del mecanismo \textit{Positional Encoding}}%Fuente: https://datascience.stackexchange.com/questions/51065/what-is-the-positional-encoding-in-the-transformer-model
 	\label{fig:Positional Encoding}
 \end{figure}
 
-	\item\textbf{Self Attention} Busca la similaridad entre una palabra con todas las demás, y con ella misma, en la secuencia de entrada para asignar la importancia que cada una de estas tiene en la palabra en la que nos habíamos enfocado (producto escalar). Para lograr esto introduce con cada palabra tres nuevos valores \textit{Query}, \textit{Key} y \textit{Value}, con el objetivo de lograr una codificación para cada palabra resultado de su relación con las demás, que es el que usará como valor representativo del Token.
+	\item\textbf{Positional Encoding} Como ya habíamos visto en varios modelos anteriores, a la hora de tratar las secuencias de entrada estas eran convertidas en Tokens correspondientes a un \textit{Word Embedding} con la intención de atrapar el significado semántico.
 
-El uso que se le da al valor \textit{Query} es obtener a través de este y todos los demás valores \textit{Key} una serie de valores que, al pasar por una función \textit{Softmax}, obtenemos el peso que damos a cada uno de los valores \textit{Value} de los otros Token, consiguiendo con la suma de todo esto el valor que esperábamos para la palabra de la que empleábamos el \textit{Query}.
+En este trabajo se añaden mecanismos para atrapar, a la vez que el significado semántico, la relación de orden de aparición entre los Tokens de la secuencia de entrada. Esto lo consiguen mediante la adición de los valores de funciones seno y coseno de frecuencias variando en función de la posición del Token y del tamaño del \textit{Word Embedding} permitiendo, además, atrapar esta relación de posición para cualquier longitud de cadena de entrada.
 
-Una gran ventaja de este mecanismo es la paralelización que este ofrece en la fase de codificación, ya que para el cálculo del valor de codificación de cada palabra no necesitas ningún resultado dependiente de las palabras anteriores. Eliminando el problema que tenían modelos anteriores en la obtención del \textit{Vector de Contexto}.
+\[PE_{pos,2i} = \sin(pos/10000^{2i/d_{model}})\]
+\[PE_{pos,2i+1} = \cos(pos/10000^{2i/d_{model}})\]
+
+Podemos ver cómo actúa el mecanismo mediante la Figura \ref{fig:Positional Encoding}\footnote{\url{https://datascience.stackexchange.com/questions/51065/what-is-the-positional-encoding-in-the-transformer-model
+}}. Donde se ilustra en qué forma varía la codificación en relación a la posición del Token.
+
+	\item\textbf{Self Attention} Busca la similaridad entre una palabra con todas las demás, y con ella misma. Actúa sobre la secuencia de entrada para asignar la importancia que cada una de estas tiene en la palabra en la que nos habíamos enfocado inicialmente (producto escalar). Para lograr esto introduce con cada palabra tres nuevos valores \textit{Query}, \textit{Key} y \textit{Value}, con el objetivo de lograr una codificación para cada palabra resultado de su relación con las demás, que es el que usará como valor representativo del Token (ver figura \ref{fig:Scaled Dot-Product Attention}).
+
+El uso que se le da al valor \textit{Query} es obtener a través de este y todos los demás valores \textit{Key} una serie de valores con la que, al pasar por una función \textit{Softmax}, obtenemos el peso que damos a cada uno de los valores \textit{Value} de los otros Token, consiguiendo con la suma de todo esto el valor que esperábamos para la palabra de la que empleábamos el \textit{Query}.
+
+Una gran ventaja de este mecanismo es la paralelización que ofrece en la fase de codificación, ya que para el cálculo del valor de codificación no necesitas ningún resultado dependiente de las palabras anteriores. Eliminando el problema que tenían modelos anteriores en la obtención del \textit{Vector de Contexto}.
+
+La arquitectura puede tener multiples capas de atención. Capturando cada una de ellas distintas relaciones entre las palabras y de forma completamente independiente y paralelizable (ver Figura \ref{fig:Multi-Head Attention}).
 
 \begin{figure}
-	\centering
-	\includegraphics[width = 0.2\textwidth]{Imagenes/Vectorial/ScaledDotProduct.pdf}
-	\caption{Ilustración del mecanismo de \textit{Self-Attention}}%Fuente: vaswani2017attention
-	\label{fig:Scaled Dot-Product Attention}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{Imagenes/Vectorial/ScaledDotProduct.pdf}
+		\caption{Ilustración del mecanismo de \textit{Self-Attention}. Tomada de \cite{vaswani2017attention}}%Fuente: vaswani2017attention
+		\label{fig:Scaled Dot-Product Attention}
+	\end{minipage}
+	\begin{minipage}[b]{0.5\linewidth}
+		\centering
+		\includegraphics[width=0.5\linewidth]{Imagenes/Vectorial/MultiHeadAttention.pdf}
+		\caption{Ilustración de múltiples capas en la fase de atención. Tomada de \cite{vaswani2017attention}}%Fuente: vaswani2017attention
+		\label{fig:Multi-Head Attention}
+	\end{minipage}
 \end{figure}
 
 Además permite añadir múltiples capas con pesos y desvios distintos, de forma que la arquitectura sea capaz de enfocarse en varios tipos de relaciones entre las palabras. En el trabajo presentado por Google propusieron un modelo con 8 capas.
 
-\begin{figure}
-	\centering
-	\includegraphics[width = 0.2\textwidth]{Imagenes/Vectorial/MultiHeadAttention.pdf}
-	\caption{Ilustración de múltiples capas en la fase de atención}%Fuente: vaswani2017attention
-	\label{fig:Multi-Head Attention}
-\end{figure}
 \end{itemize}
 
 Con este último modelo hemos hecho un repaso de la evolución que este campo ha sufrido. Partiendo de modelos formalizados hace más de 4 décadas hasta modelos propuestos hace menos de 5 años y que actualmente nutren las arquitecturas propuestas para llevar a cabo la construcción de sistemas tan presentes y capaces en nuestro día a día. Tenemos ejemplos claros en productos como ChatGPT o la competición que se está viendo en el campo de los LLM involucrando a empresas de primer calibre como Microsoft, Meta, Google u OpenAI, ofreciendonos tanto modelos como asistentes de chat nuevos y más potentes cada pocos meses. Este tipo de modelos es el que más desarrollos ha sufrido y todos ellos se basan en la arquitectura que acabamos de presentar.
