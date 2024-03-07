@@ -26,7 +26,7 @@ $(document).ready(function() {
             <div class="row">
               <div class="col-md-6">
                 <label for="innate${i}" class="fw-bold">Personalidad innata:</label>
-                <select multiple name="innate${i}[]" id="innate${i}" class="mb-0" required> 
+                <select multiple name="innate${i}" id="innate${i}" class="mb-0" required> 
                     <option value="friendly">Amigable</option>
                     <option value="outgoing">Extrovertido</option>
                     <option value="hospitable">Hospitalario</option>
