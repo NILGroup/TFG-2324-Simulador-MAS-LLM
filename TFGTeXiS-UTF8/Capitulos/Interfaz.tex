@@ -1,9 +1,11 @@
 \chapter{Interfaz}
 \label{cap:interfaz}
 
-Uno de los principales objetivos del presente trabajo era aunar todas las funcionalidades de la aplicación original, así como las extensiones implementadas en este desarrollo, en una única interfaz web, mediante la cual el usuario pueda navegar y acceder a todas las funcionalidades disponibles.
+En cuanto a la interfaz de la página web, uno de los principales objetivos del presente trabajo era aunar todas las funcionalidades de la aplicación original, así como las extensiones implementadas en este desarrollo, en una única interfaz web, mediante la cual el usuario pueda navegar y acceder a todas las funcionalidades disponibles.
 
-En cuanto a la movilidad entre páginas, se ha implementado una barra de navegación, la cual compartirán todas las páginas y permitirá navegar entre las diferentes funcionalidades, como se puede apreciar en las figuras \ref{fig:navBarDesktop} y \ref{fig:navBarMobile}.
+El resultado de este objetivo está recogido en este capítulo. Para alcanzarlo, se han creado vistas completamente nuevas y se han modificado algunas de las vistas previamente existentes para simplificarlas o añadir funcionalidades.
+
+Atendiendo a la movilidad entre páginas, se ha implementado una barra de navegación, la cual compartirán todas las páginas y permitirá navegar entre las diferentes funcionalidades, como se puede apreciar en las figuras \ref{fig:navBarDesktop} y \ref{fig:navBarMobile}.
 
 \begin{figure}[h]
 	\centering
@@ -19,7 +21,11 @@ En cuanto a la movilidad entre páginas, se ha implementado una barra de navegac
 	\label{fig:navBarMobile}
 \end{figure}
 
-\section{Vista de Crear nueva simulación}
+\section{Nuevas vistas}
+
+En esta sección se presentan las vistas creadas durante el desarrollo del trabajo, las cuales sirven de apoyo para ejecutar las funcionalidades, tanto nuevas como existentes, de la aplicación.
+
+\subsection{Vista de Crear nueva simulación}
 
 Teniendo en cuenta los objetivos y las funcionalidades implementadas en este trabajo, es evidente la necesidad de un apartado en el que permitir a los usuarios crear sus propias simulaciones. En esta vista, los usuarios primeramente indicarán el número de personajes que quieren que intervengan en la simulación.
 
@@ -36,8 +42,35 @@ Todas estos elementos gráficos se pueden apreciar en la figura \ref{fig:vistaCr
 	\label{fig:vistaCrearSimulacion}
 \end{figure}
 
-\section{Vista de Visualizar simulación}
+\textcolor{red}{CAMBIAR ESTA FOTO POR LA VISTA FINAL REAL}
 
-\section{Vista de Continuar simulación}
+\subsection{Vista de Visualizar simulación}
 
-\section{Vista de Guía de Usuario}
+En esta vista es donde los usuarios pueden seleccionar las simulaciones a visualizar. Esto es, las que se han ejecutado y guardado para visualizarlas previamente.
+
+En cada simulación se puede apreciar cierta información importante sobre la misma, como puede ser el título de la simulación, un link que redirige a la simulación original desde la que ha sido guardada, un resumen de la misma, indicando el mapa en a en el que se ha realizado, los mejores momentos con los steps exactos, \textcolor{red}{PONER LO QUE HABRÁ EN CADA SIMULACIÓN}
+
+Como ejemplo, se proporcionan las figuras (\textcolor{red}{PONER LAS FIGURAS}) para ver cómo aparece esta vista representada en la página web.
+
+
+\subsection{Vista de Continuar simulación}
+
+La vista de continuar simulación es ciertamente similar a la anterior de visualizar simulación, ya que también habrá una lista con simulaciones, y alguna información sobre ellas, en este caso, cada simulación contendrá datos como el título de esta, \textcolor{red}{PONER LO QUE HABRÁ EN CADA SIMULACIÓN}
+
+ En las figuras (\textcolor{red}{PONER LAS FIGURAS}) se puede apreciar el resultado de esta vista
+
+\subsection{Vista de Guía de Usuario}
+
+Además de las vistas creadas para navegar e interactuar con las simulaciones, se ha creado una página que sirve como guía de usuario. 
+
+Como el uso de esta herramienta lo hemos orientado a perfiles no técnicos (como psicólogos o personas que quieran estudiar las interacciones sociales), se ha añadido esta sección en la que se explican todas las funcionalidades de la aplicación, cómo utilizarlas y algunos trucos o consejos de uso, para maximizar el valor del programa.
+
+Algunos ejemplos de esta página son los que se muestran en las figuras (\textcolor{red}{PONER LAS FIGURAS})
+
+\section{Vistas modificadas}
+
+Además de las vistas creadas desde cero, había algunas que ya estaban creadas (como las de la visualización o ejecución de la simulación, que requerían de un motor de videojuego corriendo). Sin embargo, para añadir ciertas funcionalidades, también se han modificado algunas de estas, las cuales se indican en la presente sección.
+
+\subsection{Botones de play y stop al ejecutar simulación}
+
+\subsection{Botones de chat y susurro en la vista del personaje}
