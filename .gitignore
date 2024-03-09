@@ -302,4 +302,5 @@ TSWLatexianTemp*
 #
 *__pycache__*
 
-environment/frontend_server/temp_storage/*
+environment/frontend_server/temp_storage/
+log_ejecucion_llm
