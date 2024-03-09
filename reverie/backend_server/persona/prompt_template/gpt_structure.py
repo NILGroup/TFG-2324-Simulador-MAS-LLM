@@ -22,7 +22,7 @@ def temp_sleep(seconds=0.1):
 def ChatGPT_single_request(prompt): 
   temp_sleep()
 
-  completion = client.chat.completions.create(model="gpt-3.5-turbo", 
+  completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
   messages=[{"role": "user", "content": prompt}])
   return completion.choices[0].message.content
 
@@ -69,7 +69,7 @@ def ChatGPT_request(prompt):
   """
   # temp_sleep()
   try: 
-    completion = client.chat.completions.create(model="gpt-3.5-turbo", 
+    completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
     messages=[{"role": "user", "content": prompt}])
     return completion.choices[0].message.content
   
