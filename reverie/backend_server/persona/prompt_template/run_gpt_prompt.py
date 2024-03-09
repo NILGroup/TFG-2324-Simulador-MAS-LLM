@@ -2739,4 +2739,3 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
-
