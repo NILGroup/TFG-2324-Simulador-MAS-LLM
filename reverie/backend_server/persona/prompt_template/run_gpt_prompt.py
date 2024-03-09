@@ -561,6 +561,10 @@ def run_gpt_prompt_action_sector(action_description,
       return False
     return True
   
+  def __func_clean_up(gpt_response, prompt=""):
+    print ("Por implementar - aprender de las otras implementaciones")
+    return prompt
+
   def get_fail_safe(): 
     fs = ("kitchen")
     return fs
@@ -2635,7 +2639,7 @@ def run_gpt_generate_safety_score(persona, comment, test_input=None, verbose=Fal
   prompt = generate_prompt(prompt_input, prompt_template)
   print (prompt)
   fail_safe = get_fail_safe() 
-  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe,
+  output = ChatGPT_safe_generate_response(prompt, 3, fail_safe,
                         __chat_func_validate, __chat_func_clean_up, verbose)
   if verbose or debug:
     print (f"{__file__}:-:{__name__}")
@@ -2728,7 +2732,7 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
   prompt = generate_prompt(prompt_input, prompt_template)
   print (prompt)
   fail_safe = get_fail_safe() 
-  output = ChatGPT_safe_generate_response_OLD(prompt, 3, fail_safe,
+  output = ChatGPT_safe_generate_response(prompt, 3, fail_safe,
                         __chat_func_validate, __chat_func_clean_up, verbose)
   if verbose or debug:
     print (f"{__file__}:-:{__name__}")

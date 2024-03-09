@@ -188,7 +188,7 @@ def GPT_request(prompt, gpt_parameter):
   """
   temp_sleep()
   try: 
-    response = client.completions.create(model=gpt_parameter["engine"],
+    response = client.completions.create(model='gpt-3.5-turbo-instruct',
     prompt=prompt,
     temperature=gpt_parameter["temperature"],
     max_tokens=gpt_parameter["max_tokens"],
@@ -266,7 +266,7 @@ def get_embedding(text, model="text-embedding-ada-002"):
   text = text.replace("\n", " ")
   if not text: 
     text = "this is blank"
-  return client.embeddings.create(input=[text], model=model)['data'][0]['embedding']
+  return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
 if __name__ == '__main__':
