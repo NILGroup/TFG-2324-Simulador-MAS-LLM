@@ -9,7 +9,8 @@ import random
 import openai
 from openai import OpenAI
 
-client = OpenAI(api_key=api_key)
+client = OpenAI()
+
 import time 
 
 from utils import *
