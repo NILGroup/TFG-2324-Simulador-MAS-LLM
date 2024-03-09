@@ -6,6 +6,7 @@ Description: Wrapper functions for calling OpenAI APIs.
 """
 import json
 import random
+import openai
 from openai import OpenAI
 
 client = OpenAI(api_key=api_key)
@@ -71,8 +72,18 @@ def ChatGPT_request(prompt):
     messages=[{"role": "user", "content": prompt}])
     return completion.choices[0].message.content
   
-  except: 
-    print ("ChatGPT ERROR")
+  except (openai.APIConnectionError, openai.APITimeoutError,
+          openai.AuthenticationError,openai.BadRequestError,
+          openai.ConflictError,openai.InternalServerError,
+          openai.NotFoundError,openai.PermissionDeniedError,
+          openai.UnprocessableEntityError) as e:
+    print ("OPENAI ChatGPT ERROR", e)
+    return "ChatGPT ERROR"
+  except openai.RateLimitError as e:
+    print ("OPENAI RateLimitError ChatGPT ERROR", e)
+    return "ChatGPT ERROR"
+  except Exception as e:
+    print ("NO OPENAI ChatGPT ERROR", e)
     return "ChatGPT ERROR"
 
 
@@ -186,8 +197,18 @@ def GPT_request(prompt, gpt_parameter):
     stream=gpt_parameter["stream"],
     stop=gpt_parameter["stop"])
     return response.choices[0].text
-  except: 
-    print ("TOKEN LIMIT EXCEEDED")
+  except (openai.APIConnectionError, openai.APITimeoutError,
+          openai.AuthenticationError,openai.BadRequestError,
+          openai.ConflictError,openai.InternalServerError,
+          openai.NotFoundError,openai.PermissionDeniedError,
+          openai.UnprocessableEntityError) as e:
+    print ("OPENAI TOKEN LIMIT EXCEEDED", e)
+    return "TOKEN LIMIT EXCEEDED"
+  except openai.RateLimitError as e:
+    print ("OPENAI RateLimitError TOKEN LIMIT EXCEEDED", e)
+    return "TOKEN LIMIT EXCEEDED"
+  except Exception as e:
+    print ("NO OPENAI TOKEN LIMIT EXCEEDED", e)
     return "TOKEN LIMIT EXCEEDED"
 
 
