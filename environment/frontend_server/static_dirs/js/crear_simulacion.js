@@ -19,14 +19,17 @@ $(document).ready(function() {
         $('#contenedorPersonaje').append(`
           <div class="container character-form">
             <h3 class="fw-bold">Personaje ${i}</h3>
-            <select name="nombre${i}" id="nombre${i}" required>
-                <option value="" disabled selected>Selecciona un nombre</option>
-              ${nombres.map(nombre => `<option value="${nombre}">${nombre}</option>`)}
-            </select>
             <div class="row">
               <div class="col-md-6">
+                <label for="name${i}" class="fw-bold">Nombre del agente:</label>
+                <select name="name${i}" id="name${i}" required>
+                  <option value="" disabled selected>Selecciona un nombre</option>
+                  ${nombres.map(nombre => `<option value="${nombre}">${nombre}</option>`)}
+                </select>
+
                 <label for="innate${i}" class="fw-bold">Personalidad innata:</label>
-                <select multiple name="innate${i}" id="innate${i}" class="mb-0" required> 
+                <select name="innate${i}[]" id="innate${i}" required> 
+                    <option value="" disabled selected>Selecciona una personalidad</option>
                     <option value="friendly">Amigable</option>
                     <option value="outgoing">Extrovertido</option>
                     <option value="hospitable">Hospitalario</option>
@@ -35,7 +38,6 @@ $(document).ready(function() {
                     <option value="energetic">Energético</option>
                     <option value="enthusiastic">Entusiasta</option>
                 </select>
-                <small class="text-muted">Selecciona con Ctrl o Cmd hasta un máximo de 3 personalidades</small>
               </div>
               <div class="col-md-6">
                 <label for="lifestyle${i}" class="fw-bold">Estilo de vida:</label>
