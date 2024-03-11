@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/guia_usuario.css' %}">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img class="icono-header" src="{% static 'img/atlas.png' %}">
+        <a class="navbar-brand text-white" href="{% url 'landing' %}">SimulAgents</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir Navegador de rutas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'crear_simulacion' %}">Crear nueva simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'ver_simulacion' %}">Visualizar simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'fork_simulacion' %}">Continuar simulación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'guia_usuario' %}">Guía de Usuario</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container py-5">
+    <h1>Guía de Usuario</h1>
+
+    <section id="crear-simulacion">
+        <h2>Crear una Simulación</h2>
+        <p>
+            Esta página sirve, como su propio nombre indica, para crear una nueva simulación entre agentes. Primero
+            se debe seleccionar el <b>número de agentes</b> que se quieren incluir en la simulación, y después se pueden
+            configurar las características de cada agente.
+        </p>
+        <p>
+            Entre las características de los personajes, tenemos las siguientes:
+        </p>
+        <ul>
+            <li><b>Nombre del agente:</b> Donde indicaremos el nombre que queremos que tenga cada uno de los personajes de la simulación</li>
+            <li><b>Personalidad innata:</b> Se podrá seleccionar una de la lista de personalidades innatas que hay disponibles</li>
+            <li><b>Estilo de vida:</b> Breve texto en el que se indica como se suele comportar el agente en el día a día en cuanto a sus relaciones sociales</li>
+            <li><b>Conocimiento aprendido:</b> Todo lo que el agente conoce al iniciar la simulación y es importante para la misma, es como la <i>memoria</i> del agente</li>
+            <li><b>Estado actual:</b> Situación en la que se encuentra el agente al comenzar la simulación, indicando los siguientes pasos a tomar</li>
+        </ul>
+    </section>
+
+    <section id="visualizar-simulacion">
+        <h2>Visualizar una Simulación</h2>
+        <p>
+            En este apartado se podrán visualizar las simulaciones ejecutadas previamente. En este tipo de simulaciones
+            no se podrá interactuar con el entorno, solamente se podrán visualizar las acciones que los agentes han realizado
+            en esta simulación. Al clicar en una de las simulaciones, se podrá acceder a la vista de visualización de simulación,
+            en la cual podremos ver la simulación repetida.
+        </p>
+    </section>
+
+    <section id="continuar-simulacion">
+        <h2>Continuar una Simulación</h2>
+        <p>
+            Es una página similar a la de visualizar simulación, ya que contiene una lista de simulaciones que han sido comenzadas
+            previamente y que se pueden continuar. La diferencia es que en esta página se redirige a la página de ejecución de la
+            simulación, en la que se puede continuar con la misma.
+        </p>
+    </section>
+
+    <section id="ejecucion-simulacion">
+        <h2>Ejecución de la Simulación</h2>
+        <p>
+            En esta página se podrá ejecutar la simulación que se ha seleccionado previamente. En esta página se podrá interactuar
+            con el entorno. En el momento en que la simulación está pausada, se podrá interactuar con los agentes tanto chateando con 
+            ellos como susurrándoles cuál debe ser la próxima acción a realizar.
+    </section>
+
+    <section id="ejemplos-de-uso">
+        <h2>Ejemplos de Uso</h2>
+    </section>
+</main>
+
+{% endblock content %}
