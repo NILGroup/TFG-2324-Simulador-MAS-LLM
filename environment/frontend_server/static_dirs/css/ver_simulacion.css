@@ -8,22 +8,30 @@ h1 {
     max-height: 11rem;
     border-radius: 1rem;
     object-fit: cover;
-    /* Center the image */
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
 
+.simulacion-imagen {
+    margin-bottom: auto;
 }
 
 .contenedor-simulacion {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
+    max-height: 20rem;
+    overflow: auto;
 }
 
 
 @media (max-width: 768px) {
     .simulacion-imagen {
-        margin-bottom: 10px; /* Stack items vertically on smaller screens */
+        margin-bottom: 10px; /* Items en columnas para pantallas pequeñas */
+    }
+    .contenedor-simulacion {
+        max-height: 35rem;
+        overflow: auto;
     }
 }
