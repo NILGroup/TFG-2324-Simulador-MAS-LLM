@@ -1,6 +1,6 @@
 En este archivo iremos escribiendo los objetivos a medida que vamos discutiéndolos y avanzando, además de los motivos de cambio de objetivos:
 
-OBJETIVOS ACTUALES + Comentarios (A 28 DE FEBRERO)
+OBJETIVOS ACTUALES + Comentarios (a 6 de marzo)
 	1. Permitir crear simulaciones completamente nuevas, aportando personalidades a cada uno de los personajes y un contexto general a la simulación. Además de poder continuar con simulaciones pasadas 					desde cualquier instante que se desee, tanto donde se dejó por última vez como cualquier punto en el pasado, y así comparar pequeños cambios en las personalidades, contexto o las interacciones realizadas durante la misma simulación.
 
 		(Aportamos valor permitiendo que los personajes sean plenamente modificables por los usuarios, además, con un nuevo contexto, se podrán simular situaciones en ambientes distintos. Al permitir al usuario continuar con una simulación desde un punto cualquiera (nuevo), podemos ver diferencias de comportamiento)
