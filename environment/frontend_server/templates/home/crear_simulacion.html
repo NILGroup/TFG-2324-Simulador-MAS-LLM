@@ -35,8 +35,13 @@
 
     <form id="formSimulacion" method="POST" action="/enviar-datos-simulacion/">
       <div class="form-section">
-        <label for="numPersonajes">Número de personajes:</label>
+        <label for="numPersonajes"><b>Número de personajes:</b></label>
         <input type="number" name="numPersonajes" id="numPersonajes" min="1" max="25" value="1">
+      </div>
+
+      <div class="form-section">
+        <label for="sim_code"><b>Nombre de la simulación:</b></label>
+        <input type="text" name="sim_code" id="sim_code">
       </div>
 
       <div id="contenedorPersonaje">
