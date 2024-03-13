@@ -23,8 +23,16 @@ body {
     font-size: 1.2em;
     margin-bottom: 10px;
   }
+
+  #numPersonajes {
+    width: 3rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: .5rem;
+  }
   
-  select, textarea {
+  select, textarea, #sim_code {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
