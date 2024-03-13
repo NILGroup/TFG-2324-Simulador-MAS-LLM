@@ -3,6 +3,11 @@ Author: Joon Sung Park (joonspk@stanford.edu)
 File: views.py
 """
 import os
+import sys
+if __name__ == '__main__':
+  curr_path = os.path.dirname(__file__)
+  sys.path.append(f"{curr_path}/../")
+  os.chdir(f"{curr_path}/../")
 import string
 import random
 import json
@@ -13,12 +18,11 @@ import datetime
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse, JsonResponse
 
-
-
 from global_methods import *
 
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
+
 
 def landing(request): 
   context = {}
@@ -337,7 +341,7 @@ def guia_usuario(request):
   template = "home/guia_usuario.html"
   return render(request, template, context)
 
-def enviar_datos_simulacion(request, debug=False):
+def enviar_datos_simulacion(request):
   def traducir_para_back(post_dict):
     """
     INPUT:
@@ -379,17 +383,7 @@ def enviar_datos_simulacion(request, debug=False):
     return ret_dict
 
   context = {"request": request}
-  if not debug:
-    traduccion = traducir_para_back(request.POST)
-    print(traduccion)
-    template = "home/ver_datos_sim.html"
-    return render(request, template, context)
-  else:
-    print("hey")
-
-    
-
-  
-
-if __name__ == '__main__':
-  pid = enviar_datos_simulacion({}, True)
+  traduccion = traducir_para_back(request.POST)
+  print(traduccion)
+  template = "home/ver_datos_sim.html"
+  return render(request, template, context)
