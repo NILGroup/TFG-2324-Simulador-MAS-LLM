@@ -364,7 +364,7 @@ def enviar_datos_simulacion(request):
     ret_dict = dict()
     n_pers = int(post_dict["numPersonajes"])
     for i in range(1, n_pers+1):
-      persona_name = post_dict[f"nombre{i}"][0]
+      persona_name = post_dict[f"nombre{i}"]
       ret_dict[persona_name] = dict()
       ret_dict[persona_name]['innate'] = post_dict[f"innate{i}"]
       ret_dict[persona_name]['currently'] = post_dict[f"currently{i}"]
