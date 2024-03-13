@@ -329,6 +329,11 @@ def fork_simulacion(request):
   template = "home/fork_simulacion.html"
   return render(request, template, context)
 
+def guia_usuario(request):
+  context = {}
+  template = "home/guia_usuario.html"
+  return render(request, template, context)
+
 def enviar_datos_simulacion(request):
   def traducir_para_back(post_dict):
     """

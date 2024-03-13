@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'fork_simulacion' %}">Continuar simulación</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'guia_usuario' %}">Guía de Usuario</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -38,58 +41,61 @@
         </div>           -->
         
         <div class="simulacion mb-3">
-            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
+            <div class="row mb-3 contenedor-simulacion">
+                <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
                     <figcaption class="text-center">The ville</figcaption>
                 </div>
-                <div class="col-8 simulacion-detalles">
+                <div class="col-md-8 simulacion-detalles">
                     <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación Isabella, Maria y Klaus</a></h3>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 2 min 30 s</p>
-                    <p class="contexto">Contexto: Situación hipotética en una oficina...</p>
+                    <h3><a href="http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/">Simulación Isabella, Maria y Klaus</a></h3>
+                    <!-- TODO: Esto debería redirigir a la simulación de la que hizo fork -->
+                    <p>Hecha a partir de: <a href="http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/">Simulación Isabella, Maria y Klaus</a></p>
+                    <p class="fecha"><b>Fecha:</b> 28/02/2023</p>
+                    <p class="duracion"><b>Duración:</b> 2 min 30 s</p>
+                    <p class="contexto"><b>Resumen:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt libero in, asperiores repellendus dignissimos accusantium tempore reiciendis harum non iusto cupiditate nemo maiores adipisci ipsum perferendis eius quo illo ducimus!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ullam quidem necessitatibus perferendis expedita illo, vel vero quas aspernatur ratione, laudantium ipsa fugiat quibusdam veniam nemo totam consectetur iusto excepturi?</p>
                 </div>
             </div>
             <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
+                <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'img/atlas.png' %}" alt="Mapa de la Simulación">
                     <figcaption class="text-center">Mapa de ejemplo</figcaption>
                 </div>
-                <div class="col-8 simulacion-detalles">
-                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #2</a></h3>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 10 min</p>
-                    <p class="contexto">Contexto: Los agentes se encuentran en la Facultado de Informática de la UCM. De repente,
+                <div class="col-md-8 simulacion-detalles">
+                    <h3><a href="http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/">Simulación de Ejemplo #2</a></h3>
+                    <p class="fecha"><b>Fecha:</b> 28/02/2023</p>
+                    <p class="duracion"><b>Duración:</b> 10 min</p>
+                    <p class="contexto"><b>Resumen:</b> Los agentes se encuentran en la Facultado de Informática de la UCM. De repente,
                         salta la alarma de incendios y deben realizar una evacuación rápida y eficaz.
                     </p>
                 </div>
             </div>
             <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
+                <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
                     <figcaption class="text-center">The ville</figcaption>
                 </div>
-                <div class="col-8 simulacion-detalles">
-                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #3</a></h3>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 2 min 30 s</p>
-                    <p class="contexto">Contexto: Los agentes están teniendo un día normal en su pueblo hasta que, de pronto, uno de ellos
+                <div class="col-md-8 simulacion-detalles">
+                    <h3><a href="http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #3</a></h3>
+                    <p class="fecha"><b>Fecha:</b> 28/02/2023</p>
+                    <p class="duracion"><b>Duración:</b> 2 min 30 s</p>
+                    <p class="contexto"><b>Resumen:</b> Los agentes están teniendo un día normal en su pueblo hasta que, de pronto, uno de ellos
                         entra en pánico y comienza a correr por la calle principal. El resto de agentes, asustados, se extrañan de su comportamiento
                         y tratan de calmarlo. Sin embargo, este agente está fuera de sí y no responde a las interacciones de los demás.
                     </p>
                 </div>
             </div>
             <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
+                <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'img/mapaNevado.png' %}" alt="Mapa de la Simulación">
                     <figcaption class="text-center">Mapa nevado</figcaption>
                 </div>
-                <div class="col-8 simulacion-detalles">
-                    <h3><a href="http://localhost:8000/replay/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #4</a></h3>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 2 min 30 s</p>
-                    <p class="contexto">Contexto: Situación hipotética en una oficina...</p>
+                <div class="col-md-8 simulacion-detalles">
+                    <h3><a href="http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/">Simulación de Ejemplo #4</a></h3>
+                    <p class="fecha"><b>Fecha:</b> 28/02/2023</p>
+                    <p class="duracion"><b>Duración:</b> 2 min 30 s</p>
+                    <p class="contexto"><b>Resumen:</b> Situación hipotética en una oficina...</p>
                 </div>
             </div>
         </div>

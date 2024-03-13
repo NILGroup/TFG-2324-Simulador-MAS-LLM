@@ -36,5 +36,6 @@ urlpatterns = [
     path('crear-simulacion/', translator_views.crear_simulacion, name='crear_simulacion'),
     path('ver-simulacion/', translator_views.ver_simulacion, name='ver_simulacion'),
     path('fork-simulacion/', translator_views.fork_simulacion, name='fork_simulacion'),
+    path('guia-usuario/', translator_views.guia_usuario, name='guia_usuario'),
     path('enviar-datos-simulacion/', translator_views.enviar_datos_simulacion, name='enviar_datos_simulacion')
 ]

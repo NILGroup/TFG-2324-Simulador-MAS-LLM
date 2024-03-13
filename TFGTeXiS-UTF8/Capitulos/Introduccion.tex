@@ -14,13 +14,13 @@ En este momento entra en juego el comportamiento humano. Si tenemos unos modelos
 Este experimento fue llevado a cabo en el estudio de \cite{park2023generative}, en el cual nos hemos basado a la hora de realizar nuestro Trabajo de Fin de Grado. En este experimento logran crear agentes independientes los cuales interaccionan entre ellos, tienen recuerdos de eventos ocurridos y son capaces de desarrollar relaciones sociales entre sí.
 
 \section{Motivación}
-En respuesta a las expectativas de las capacidades de los Modelos Grandes de Lenguaje surgen una gran cantidad de investigaciones que exploran los límites de estas tecnologías.
+La motivación inicial de este trabajo era poder crear historias a partir de simulaciones de agentes de Inteligencia Artificial. Sin embargo, al encontrar el estudio de \ga, decidimos pivotar y centrarnos en cómo gente de perfiles no tecnológicos, especialmente psicólogos, pueden estudiar las relaciones sociales entre humanos, partiendo de una simulación que ya funcionaba y lograba que los personajes tuviesen recuerdos e interaccionasen de manera verosímil.
 
-Entre estos trabajos se encuentra \ga, en el que se propone una arquitectura basada en el uso de Modelos Grandes de Lenguaje, con la que crear agentes capaces de simular una personalidad humana. Manteniendo coherencia entre su personalidad, interacciones previas y motivaciones.
+Por tanto, a partir de ese momento, nuestro principal objetivo se convirtió en crear una aplicación en la cual psicólogos puedan estudiar relaciones sociales indicando diferentes situaciones y facilitando los cambios entre simulaciones para estudiar las diferencias de comportamiento.
 
 Con una arquitectura como la citada disponemos de lo necesario para crear un entorno en el que intervengan varios agentes e interactúen entre sí. Una implementación de esta idea es la que tenemos en el repositorio {\textit{generative\_agents}}\footnote{\url{https://github.com/joonspk-research/generative_agents}} creado por los autores del paper mencionado anteriormente.
 
-Disponer de una tecnología capaz de simular el comportamiento humano en contextos sociales nos crea la necesidad de experimentar con estas capacidades en distintas situaciones. Esta necesidad se ve reflejada en trabajos como \citep{qian2023communicative}, que pone a prueba las capacidades de \citep{park2023generative}, pero en esta ocasión midiendo la capacidad de un grupo de agentes para generar software. En este estudio se comprueba que estos mismos agentes son capaces de asociarse, formar equipos y generar videojuegos funcionales con código real.
+Disponer de una tecnología capaz de simular el comportamiento humano en contextos sociales nos crea la necesidad de experimentar con estas capacidades en distintas situaciones. Esta necesidad se ve reflejada en trabajos como \cite{qian2023communicative}, que también pone a prueba y expande el mismo trabajo, el de \cite{park2023generative}, pero en esta ocasión midiendo la capacidad de un grupo de agentes para generar software. En este estudio se comprueba que estos mismos agentes son capaces de asociarse, formar equipos y generar videojuegos funcionales con código real.
 
 Se ve así el potencial de esta tecnología y el interés de la gente por definir sus límites, aplicaciones o simplemente experimentar.
 Sin embargo todas estas motivaciones se ven muy coartadas a la hora de poner en funcionamiento este trabajo en nuevos escenarios.
@@ -28,6 +28,8 @@ Sin embargo todas estas motivaciones se ven muy coartadas a la hora de poner en 
 Es por ello que proponemos en este Trabajo de Fin de Grado facilitar el acceso e interacción con la tecnología que proporcionan en \ga, además de ofrecer nuevas funcionalidades con las que explorar e interactuar con la simulación en tiempo real.
 
 \section{Objetivos}
+\textcolor{red}{PONER OBJETIVOS FINALES CUANDO LOS TENGAMOS}
+
 Para lograr el objetivo principal del TFG mencionado anteriormente, que es facilitar el acceso e interacción y extender funcionalidades del estudio de  \ga, hemos decidido seccionarlo en los siguientes puntos:
 \begin{itemize}
 \item Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes.
@@ -59,14 +61,20 @@ Con el fin de cumplir los objetivos planteados en la sección anterior, se ha fi
 
 
 \section{Estructura del documento}
-El presenta documento está formado por  \textbf{A RELLENAR}  capítulos, incluyendo este capítulo introductorio como el primero de ellos con el fin de conocer la motivación que lleva al desarrollo del proyecto y los objetivos de este. A continuación, se presentan el resto de capítulos que componen la memoria: 
+El presenta documento está formado por siete capítulos, incluyendo este capítulo introductorio como el primero de ellos con el fin de conocer la motivación que lleva al desarrollo del proyecto y los objetivos de este. Además, hay un último capítulo en el qe cada uno de los estudiantes explicamos el trabajo que hemos realizado individualmente. A continuación, se presentan el resto de capítulos que componen la memoria: 
 
-Si quieres cambiar el \textbf{estilo del título} de los capítulos del documento, edita el fichero \verb|TeXiS\TeXiS_pream.tex| y comenta la línea \verb|\usepackage[Lenny]{fncychap}| para dejar el estilo básico de \LaTeX.
-
-Si no te gusta que no haya \textbf{espacios entre párrafos} y quieres dejar un pequeño espacio en blanco, no metas saltos de línea (\verb|\\|) al final de los párrafos. En su lugar, busca el comando  \verb|\setlength{\parskip}{0.2ex}| en \verb|TeXiS\TeXiS_pream.tex| y aumenta el valor de $0.2ex$ a, por ejemplo, $1ex$.
-
-TFGTeXiS se ha elaborado a partir de la plantilla de TeXiS\footnote{\url{http://gaia.fdi.ucm.es/research/texis/}}, creada por Marco Antonio y Pedro Pablo Gómez Martín para escribir su tesis doctoral. Para explicaciones más extensas y detalladas sobre cómo usar esta plantilla, recomendamos la lectura del documento \texttt{TeXiS-Manual-1.0.pdf} que acompaña a esta plantilla.
-
-El siguiente texto se genera con el comando \verb|\lipsum[2-20]| que viene a continuación en el fichero .tex. El único propósito es mostrar el aspecto de las páginas usando esta plantilla. Quita este comando y, si quieres, comenta o elimina el paquete \textit{lipsum} al final de \verb|TeXiS\TeXiS_pream.tex|
-
-\subsection{Texto de prueba}
+\begin{itemize}
+	
+	\item \textbf{Capítulo 2}: En el Estado de la Cuestión se tratan temas que aportan un contexto importante al presente trabajo. Por una parte se abordan temas técnicos, como los agentes inteligentes, las simulaciones y los modelos de lenguaje, por otro lado, la unión entre la tecnología y el comportamiento humano, con el procesamiento del lenguaje natural y la computación centrada en el humano, y finalmente se tratan temas relacionados puramente con las relaciones sociales y la democratización de sistemas informáticos.
+	
+	\item \textbf{Capítulo 3}: En este capítulo se abordan las diferencias entre las funcionalidades que ya existían en el sistema que empleamos, las que existían pero las ampliamos, y las nuevas que creamos durante el presente trabajo. En este capítulo solo se aborda el trabajo desde un punto de vista de funcionalidades, a alto nivel y no el estado tecnológico a bajo nivel.
+	
+	\item \textbf{Capítulo 4}: En el Planteamiento de la Solución se tratan varios puntos para aportar contexto y recalcar hitos que han ido ocurriendo durante el desarrollo. Por un lado, se aporta desde un punto de vista tecnológico y de bajo nivel el estado del sistema inicialmente. Tras esto, se tratan todos los ajustes, cambios y reconsideraciones que acontecieron mientras se desarrollaba el propio trabajo, así como problemas encontrados y cómo se han solucionado.
+	
+	\item \textbf{Capítulo 5}: En el cual se tratan todas las extensiones que se han realizado al sistema original, a bajo nivel y explicando los cambios, su importancia y el motivo.
+	
+	\item \textbf{Capítulo 6}: Desde el punto de vista de la interfaz, todos los cambios, nuevas vistas y páginas que han sido creadas para que la aplicación pueda ser completamente utilizada desde la web, ya que originalmente había que ejecutar comandos en la terminal para realizar ciertas acciones.
+	
+	\item \textbf{Capítulo 7}: En el capítulo de Conclusiones y Trabajo Futuro se añaden posibles extensiones al sistema u objetivos que habríamos implementado si hubiéramos tenido más tiempo, a tener en cuenta para el futuro.
+	
+\end{itemize}
