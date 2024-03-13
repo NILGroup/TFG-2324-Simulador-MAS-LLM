@@ -12,10 +12,13 @@ import os
 import datetime
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse, JsonResponse
+
+
+
 from global_methods import *
 
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from .models import *
+from translator.models import *
 
 def landing(request): 
   context = {}
@@ -334,14 +337,14 @@ def guia_usuario(request):
   template = "home/guia_usuario.html"
   return render(request, template, context)
 
-def enviar_datos_simulacion(request):
+def enviar_datos_simulacion(request, debug=False):
   def traducir_para_back(post_dict):
     """
     INPUT:
       un diciconario con el siguiente formato:
       {
         "numPersonajes": ['2'],
-        "contextoSimulacion": ["..."],
+        "nombreSimulacion": ["..."],
         
         "nombre1": ["..."],
         "currently1": ["..."]
@@ -363,17 +366,30 @@ def enviar_datos_simulacion(request):
     """
     ret_dict = dict()
     n_pers = int(post_dict["numPersonajes"])
+    sim_code = str(post_dict["sim_code"])
+    personas_dict = dict()
     for i in range(1, n_pers+1):
       persona_name = post_dict[f"nombre{i}"]
-      ret_dict[persona_name] = dict()
-      ret_dict[persona_name]['innate'] = post_dict[f"innate{i}"]
-      ret_dict[persona_name]['currently'] = post_dict[f"currently{i}"]
-      ret_dict[persona_name]['learned'] = post_dict[f"learned{i}"]
-      ret_dict[persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"]
+      personas_dict [persona_name] = dict()
+      personas_dict [persona_name]['innate'] = post_dict[f"innate{i}"]
+      personas_dict [persona_name]['currently'] = post_dict[f"currently{i}"]
+      personas_dict [persona_name]['learned'] = post_dict[f"learned{i}"]
+      personas_dict [persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"]
+    ret_dict = {"sim_code": sim_code, "personas": personas_dict}
     return ret_dict
 
   context = {"request": request}
-  traduccion = traducir_para_back(request.POST)
-  print(traduccion)
-  template = "home/ver_datos_sim.html"
-  return render(request, template, context)
+  if not debug:
+    traduccion = traducir_para_back(request.POST)
+    print(traduccion)
+    template = "home/ver_datos_sim.html"
+    return render(request, template, context)
+  else:
+    print("hey")
+
+    
+
+  
+
+if __name__ == '__main__':
+  pid = enviar_datos_simulacion({}, True)
