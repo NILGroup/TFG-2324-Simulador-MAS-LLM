@@ -42,8 +42,8 @@ from persona.persona import *
 class ReverieServer: 
 
   def __init__(self,
-               forked, #Boolean == true if we are forking an existing simulation
-               params):#Array with the corresponding parameters
+               forked, # Boolean == true if we are forking an existing simulation
+               params):# Array with the corresponding parameters
     if forked:
       self.fork_sim(fork_sim_code=params[0], sim_code=params[1])
     else:
