@@ -21,14 +21,14 @@ $(document).ready(function() {
             <h3 class="fw-bold">Personaje ${i}</h3>
             <div class="row">
               <div class="col-md-6">
-                <label for="name${i}" class="fw-bold">Nombre del agente:</label>
-                <select name="name${i}" id="name${i}" required>
+                <label for="nombre${i}" class="fw-bold">Nombre del agente:</label>
+                <select name="nombre${i}" id="nombre${i}" required>
                   <option value="" disabled selected>Selecciona un nombre</option>
                   ${nombres.map(nombre => `<option value="${nombre}">${nombre}</option>`)}
                 </select>
 
                 <label for="innate${i}" class="fw-bold">Personalidad innata:</label>
-                <select name="innate${i}[]" id="innate${i}" required> 
+                <select name="innate${i}" id="innate${i}" required> 
                     <option value="" disabled selected>Selecciona una personalidad</option>
                     <option value="friendly">Amigable</option>
                     <option value="outgoing">Extrovertido</option>
