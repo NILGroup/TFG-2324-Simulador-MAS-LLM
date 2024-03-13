@@ -366,7 +366,7 @@ def enviar_datos_simulacion(request):
     for i in range(1, n_pers+1):
       persona_name = post_dict[f"nombre{i}"][0]
       ret_dict[persona_name] = dict()
-      ret_dict[persona_name]['innate'] = ', '.join(map(str, post_dict[f"innate{i}"]))
+      ret_dict[persona_name]['innate'] = post_dict[f"innate{i}"]
       ret_dict[persona_name]['currently'] = post_dict[f"currently{i}"][0]
       ret_dict[persona_name]['learned'] = post_dict[f"learned{i}"][0]
       ret_dict[persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"][0]
