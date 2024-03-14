@@ -23,6 +23,8 @@ from global_methods import *
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
 
+from endpoint.ReverieComm import ReverieComm
+
 
 def landing(request): 
   context = {}
@@ -385,5 +387,6 @@ def enviar_datos_simulacion(request):
   context = {"request": request}
   traduccion = traducir_para_back(request.POST)
   print(traduccion)
+  ReverieComm(forked=False, params=[traduccion['sim_code'], traduccion['personas']])
   template = "home/ver_datos_sim.html"
   return render(request, template, context)
