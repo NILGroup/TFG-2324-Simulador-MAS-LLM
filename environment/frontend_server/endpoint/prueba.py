@@ -25,14 +25,12 @@ if __name__ == '__main__':
         while True:
             try:
                 variable = sys.stdin.readline()
-                if not variable:
-                    pass
                 if (len(variable) == 0):
                     time.sleep(1)
                 else:
                     i += 1
-                    print(f"{i}:")
-                    print("Esto es lo que me has dado: ", variable)
+                    print(f"{i}:",flush=True)
+                    print("Esto es lo que me has dado: ", variable, flush=True)
             except Exception as e:
                 """
                 Si ocurre algún error inesperado habría que eliminar el proceso del ReverieServer desde una excepción como esta
