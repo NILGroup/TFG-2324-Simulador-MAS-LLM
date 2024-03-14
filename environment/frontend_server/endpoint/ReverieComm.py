@@ -13,7 +13,11 @@ INPUT_ENDPOINT = f"{local_dir}/reverieInput"
 # Preferiría hacerlo fifo, pero si no hay nadie leyendo se bloquea
 OUTPUT_ENDPOINT = f"{local_dir}/reverieOutput"
 
+# Aquí se enviarán los errores
+ERR_ENDPOINT = f"{local_dir}/reverieError"
+
 from reverie import ReverieServer
 
 class ReverieComm(ReverieServer):
-  pass
+  def __init__():
+    ReverieServer.__ini__()
