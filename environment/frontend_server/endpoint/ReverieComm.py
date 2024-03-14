@@ -41,21 +41,25 @@ class ReverieComm(ReverieServer):
   def __init__(self,
                forked,
                params):
-    # Redirigimos el input output que usará el reverie server a los pipes
-    self.redirect_std()
-
     # Creamos el Reverie Server == Los archivos de la nueva simulación
     ReverieServer.__ini__(forked, params)
 
-    # Guardamos el pid en un fichero para terminar el proceso cuando se termine con la simulacion desde el front
-    with open(PID_INFO_FILE, 'w') as pid_file:
-      pid_file.write(os.getpid())
-    
-    # Si ocurre algun problema desde el back se aborta la ejecución de la simulación y escribimos los fallos en la salida de error
-    try:
-      self.open_server()
-    except Exception as e:
-      print(e.with_traceback, file=sys.stderr)
+  def open_server(self):
+    # Aquí hacemos el nuevo hilo que corra el ReverieServer
+    pid = os.fork()
+
+    if pid == 0:
+
+      # Redirigimos el input output que usará el reverie server a los pipes
+      self.redirect_std()
+      # Iniciamos el server
+      ReverieServer.open_server()
+
+    else:
+      
+      # Guardamos el pid en un fichero para terminar el proceso cuando se termine con la simulacion desde el front
+      with open(PID_INFO_FILE, 'w') as pid_file:
+        pid_file.write(os.getpid())
 
   @staticmethod
   def write_command(command):
