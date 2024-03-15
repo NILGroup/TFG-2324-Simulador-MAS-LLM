@@ -92,14 +92,40 @@ class ReverieServer:
       """
       INPUT:
         personas: 
-          list(   -- We have one dict per persona --
-            dict('persona_name' (string) -> 'description' (string))
-          )
+          {
+            "Isabella Rodriguez": 
+              {
+                "innate": "..",
+                "currently": "..",
+                "learned": ".."
+              },
+            "Tom Moreno":
+              {
+                "innate": "..",
+                "currently": "..",
+                "learned": ".."
+              }
+          }
       DESCRIPTION:
         creates all the personas required files
+        update the description of each persona
         returns the dictionary personas_obj{persona_name -> Persona()}
       OUTPUT:
         personas_obj: dict(persona_name -> Persona())
+      """
+      
+      # Create the personas_folder
+      sim_personas_folder = f"{fs_storage}/{self.sim_code}/personas"
+      create_folder_if_not_there(sim_personas_folder)
+
+      personas_obj = dict()
+
+      for name in personas:
+        persona_folder = f"{sim_personas_folder}/{name}"
+        copyanything(f"{available_personas_folder}/{name}", persona_folder)
+        personas_obj[name] = Persona(name, persona_folder)
+
+      return personas_obj
       """
       # We convert from personas INPUT to personas_dict{persona_name -> persona_desc}
       persona_names = [list(pers.keys())[0] for pers in personas]
@@ -120,6 +146,7 @@ class ReverieServer:
         personas_obj[name] = Persona(name, f"{personas_folder}/{name}")
         
       return personas_obj
+      """
 
     def generate_environment_folder(personas):
       """generate_enviroment_folder description
