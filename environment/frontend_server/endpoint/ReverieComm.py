@@ -53,7 +53,7 @@ class ReverieComm(ReverieServer):
       # Redirigimos el input output que usará el reverie server a los pipes
       self.redirect_std()
       # Iniciamos el server
-      ReverieServer.open_server()
+      super().open_server()
 
     else:
       
