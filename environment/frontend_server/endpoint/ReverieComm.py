@@ -59,7 +59,7 @@ class ReverieComm(ReverieServer):
       
       # Guardamos el pid en un fichero para terminar el proceso cuando se termine con la simulacion desde el front
       with open(PID_INFO_FILE, 'w') as pid_file:
-        pid_file.write(os.getpid())
+        pid_file.write(str(os.getpid()))
 
   @staticmethod
   def write_command(command):
