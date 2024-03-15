@@ -23,7 +23,7 @@ from reverie import ReverieServer
 
 class ReverieComm(ReverieServer):
   def redirect_std(self):
-    if not os.path.exists(ReverieComm.INPUT_ENDPOINT):
+    if not os.path.exists(INPUT_ENDPOINT):
       os.mkfifo(INPUT_ENDPOINT)
 
     fdIn = os.open(INPUT_ENDPOINT, os.O_RDONLY | os.O_CREAT)
@@ -42,7 +42,7 @@ class ReverieComm(ReverieServer):
                forked,
                params):
     # Creamos el Reverie Server == Los archivos de la nueva simulación
-    ReverieServer.__ini__(forked, params)
+    super().__init__(forked, params)
 
   def open_server(self):
     # Aquí hacemos el nuevo hilo que corra el ReverieServer
