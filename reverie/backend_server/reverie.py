@@ -70,7 +70,7 @@ class ReverieServer:
       self.step = 0
       self.server_sleep = 0.1
     
-    def generate_reverie_folder():
+    def generate_reverie_folder(personas):
       # Initialize the meta.json fields
       meta_info = dict()
       meta_info['fork_sim_code'] = self.fork_sim_code
@@ -79,7 +79,7 @@ class ReverieServer:
       meta_info['curr_time'] = self.curr_time.strftime("%B %d, %Y, %H:%M:%S")
       meta_info['sec_per_step'] = 10
       meta_info['maze_name'] = self.maze.maze_name
-      meta_info['persona_names'] = personas
+      meta_info['persona_names'] = [name for name in personas]
       meta_info['step'] = 0
 
       reverie_folder = f"{fs_storage}/{self.sim_code}/reverie"
@@ -192,7 +192,7 @@ class ReverieServer:
     define_default_reverie_info()
 
     # We create the folders that correspond to this simulation
-    generate_reverie_folder()
+    generate_reverie_folder(personas)
     self.personas = generate_personas_folder(personas)
     # Usamos el diccionario de personas y devolvemos el diccionario de posiciones de las personas
     self.personas_tile = generate_environment_folder(self.personas)
