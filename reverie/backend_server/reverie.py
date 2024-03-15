@@ -123,30 +123,23 @@ class ReverieServer:
       for name in personas:
         persona_folder = f"{sim_personas_folder}/{name}"
         copyanything(f"{available_personas_folder}/{name}", persona_folder)
-        personas_obj[name] = Persona(name, persona_folder)
 
-      return personas_obj
-      """
-      # We convert from personas INPUT to personas_dict{persona_name -> persona_desc}
-      persona_names = [list(pers.keys())[0] for pers in personas]
-      persona_descriptions = [list(pers.values())[0] for pers in personas]
-      personas_dict = dict()
-      for i in range(len(persona_names)):
-        personas_dict[persona_names[i]] = persona_descriptions[i]
-
-      # Create the personas_folder
-      personas_folder = f"{fs_storage}/{self.sim_code}/personas"
-      create_folder_if_not_there(personas_folder)
-      
-      #Create the personas memory folders and the {personas_position} OUTPUT
-
-      personas_obj = dict()
-      for name in personas_dict.keys():
-        copyanything(f"{available_personas_folder}/{name}", f"{personas_folder}/{name}")
-        personas_obj[name] = Persona(name, f"{personas_folder}/{name}")
+        """
+        # Abrimos el archivo .json del scratch y lo modificamos con la descripcion recibida
+        with open(f"{persona_folder}/scratch.json") as json_file:  
+          scratch_json = json.load(json_file)
+        scratch_json['innate'] = personas[name]['innate']
+        #En el archivo de la nueva simulación estoy seteando el <dato fork_sim_code>
+        with open(f"{persona_folder}/scratch.json", "w") as outfile: 
+          outfile.write(json.dumps(scratch_json, indent=2))
+        """
         
+        persona = Persona(name, persona_folder)
+        persona.scratch.innate = personas[name]['innate']
+        personas_obj[name] = persona
+
+
       return personas_obj
-      """
 
     def generate_environment_folder(personas):
       """generate_enviroment_folder description
