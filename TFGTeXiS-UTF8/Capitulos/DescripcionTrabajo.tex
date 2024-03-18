@@ -60,7 +60,17 @@ En este caso, se diferencia del susurro ya que la interacción en el chat no inf
 
 \subsection{Guardado y gestión de nuevas simulaciones}
 
+En cuanto al guardado de simulaciones, tal y como estaba organizado inicialmente, mediante el uso de los comandos se podía salir de la ejecución de la simulación y esta se guardaba en una carpeta dentro del propio sistema del usuario. El problema a la hora de volver a estas simulaciones, tanto para visualizarlas como para continuarlas, era que se guardaban todas en la misma carpeta, y era difícil de recuperarlas, ya que tenías que añadir el nombre exacto de la simulación mediante el uso de la consola.
+
+Ahora, las simulaciones se seguirán guardando en el mismo sitio y reteniendo la misma información, pero para recuperarlas y poder ejecutarlas o verlas, estarán disponibles en una sola vista todas las que el usuario tenga guardadas, y con un simple clic podrá acceder a ellas para realizar la acción que desee. Ya sea continuar con la simulación o visualizarla. Además, en el apartado de visualizar simulación, también habrá un link que redirigirá a los usuarios a la simulación de la que parte esa repetición, para que así puedan modificarla a su gusto si quisiesen experimentar con ella.
+
+Además, se añade la funcionalidad de la gestión de las nuevas simulaciones, pudiendo crearlas y editarlas fácilmente, así como visualizarlas, ejecutarlas o modificarlas puramente desde la interfaz gráfica.
+
 \subsection{Resúmenes de simulaciones}
+
+Para aportar valor y contexto a las simulaciones, se ha añadido la función de la generación automática de resúmenes. Una vez el usuario realiza una simulación y la desea guardar para poder visualizarla en el futuro, dentro del proceso de guardado de la simulación y compresión de los datos, también se generará un resumen automáticamente, llamando al modelo de lenguaje para ello, en el que se indique a alto nivel lo ocurrido durante la simulación y los momento en los que ocurren las situaciones más interesantes a estudiar (momentos de interacción entre agentes, en los que el usuario ha interactuado con ellos, en los que cambia algo importante en la simulación, etc.) para que el investigador pueda visualizar los momentos más interesantes o modificar la simulación desde ese punto.
+
+Estos resúmenes estarán disponibles una vez se finalice y se guarde la simulación, a modo de indicativo sobre lo que ha ocurrido durante esta a alto nivel. Si tras leer el resumen el usuario quiere modificar la simulación, puede tomar uno de los tiempos de referencia y editar la simulación desde ese punto, para así estudiar las diferencias dependiendo de qué cambie a partir de ciertas modificaciones en determinados puntos clave de la simulación.\\
 
 
 
