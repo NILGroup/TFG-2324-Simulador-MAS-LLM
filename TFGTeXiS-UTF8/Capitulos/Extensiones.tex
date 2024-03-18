@@ -22,5 +22,5 @@ Como se aprecia en el diagrama, realmente siguen existiendo las llamadas de los 
 
 El flujo siempre comienza desde la propia interfaz, el front end. Mediante esta se hacen peticiones a django, que es el primero de los back ends, el que se encarga de cargar los datos, redirigir las vistas y comunicarse con el segundo de los backends (el que hemos llamado Reverie en el diagrama). Tras las llamadas a django, este se comunicará con una nueva clase, conocida como ReverieComm, para ejecutar los comandos mediante el uso de pipes. En una pipe habrá un fichero FIFO en el que se escribirán los comandos que deben de ser ejecutados, y el backend Reverie los leerá y ejecutará en orden, escribiendo la respuesta del modelo de lenguaje en otro fichero, para que sea leído por la clase ReverieComm y transmitido a Django, para que finalmente sea mostrado por pantalla mediante el front end.
 
-De esta manera, logramos solucionar el problema de que los usuarios tengan que interactuar directamente con la terminal y al mismo tiempo no modificamos la arquitectura, ya que los comandos seguirán siendo ejecutados.
+De esta manera, logramos solucionar el problema de que los usuarios tengan que interactuar directamente con la terminal y al mismo tiempo no modificamos la arquitectura, ya que los comandos seguirán siendo ejecutados. 
 
