@@ -124,15 +124,17 @@ class ReverieServer:
         persona_folder = f"{sim_personas_folder}/{name}"
         copyanything(f"{available_personas_folder}/{name}", persona_folder)
 
-        """
+        scratch_file = f"{persona_folder}/bootstrap_memory/scratch.json"
         # Abrimos el archivo .json del scratch y lo modificamos con la descripcion recibida
-        with open(f"{persona_folder}/scratch.json") as json_file:  
+        with open(scratch_file) as json_file:  
           scratch_json = json.load(json_file)
         scratch_json['innate'] = personas[name]['innate']
-        #En el archivo de la nueva simulación estoy seteando el <dato fork_sim_code>
-        with open(f"{persona_folder}/scratch.json", "w") as outfile: 
+        scratch_json['currently'] = personas[name]['currently']
+        scratch_json['learned'] = personas[name]['learned']
+        scratch_json['lifestyle'] = personas[name]['lifestyle']
+        print(scratch_json['innate'])
+        with open(scratch_file, "w") as outfile: 
           outfile.write(json.dumps(scratch_json, indent=2))
-        """
         
         persona = Persona(name, persona_folder)
         persona.scratch.innate = personas[name]['innate']
