@@ -629,8 +629,8 @@ class ReverieServer:
       ret_str = ""
 
       try: 
-        if sim_command.lower() in ["buenas"]:
-          print("Estoy funcionando")
+        if sim_command.lower() in ["comando_prueba"]:
+          print("El comando de prueba se está ejecutando")
         elif sim_command.lower() in ["f", "fin", "finish", "save and finish"]: 
           # Finishes the simulation environment and saves the progress. 
           # Example: fin
