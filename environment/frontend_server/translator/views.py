@@ -386,7 +386,6 @@ def enviar_datos_simulacion(request):
 
   context = {"request": request}
   traduccion = traducir_para_back(request.POST)
-  print(traduccion)
   rc = ReverieComm(forked=False, params=[traduccion['sim_code'], traduccion['personas']])
   rc.open_server()
   template = "home/ver_datos_sim.html"

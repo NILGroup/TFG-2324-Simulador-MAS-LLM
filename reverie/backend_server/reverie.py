@@ -132,7 +132,6 @@ class ReverieServer:
         scratch_json['currently'] = personas[name]['currently']
         scratch_json['learned'] = personas[name]['learned']
         scratch_json['lifestyle'] = personas[name]['lifestyle']
-        print(scratch_json['innate'])
         with open(scratch_file, "w") as outfile: 
           outfile.write(json.dumps(scratch_json, indent=2))
         
@@ -630,7 +629,9 @@ class ReverieServer:
       ret_str = ""
 
       try: 
-        if sim_command.lower() in ["f", "fin", "finish", "save and finish"]: 
+        if sim_command.lower() in ["buenas"]:
+          print("Estoy funcionando")
+        elif sim_command.lower() in ["f", "fin", "finish", "save and finish"]: 
           # Finishes the simulation environment and saves the progress. 
           # Example: fin
           self.save()
