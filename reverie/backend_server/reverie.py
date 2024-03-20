@@ -35,6 +35,15 @@ from utils import *
 from maze import *
 from persona.persona import *
 
+"""
+LO DE AQUI ABAJO HAY QUE BORRARLO
+"""
+from openai import OpenAI
+client = OpenAI()
+"""
+LO DE AQUI ARRIBA HAY QUE BORRARLO
+"""
+
 ##############################################################################
 #                                  REVERIE                                   #
 ##############################################################################
@@ -630,7 +639,14 @@ class ReverieServer:
 
       try: 
         if sim_command.lower() in ["comando_prueba"]:
-          print("El comando de prueba se está ejecutando")
+          print(f"Enviando peticion a LLM con api_key: {api_key}")
+          completion = client.chat.completions.create(model="gpt-3.5-turbo-0125",
+                               max_tokens=50,
+                               messages=[
+                                          {"role": "system", "content": "You are a helpful assistant."},
+                                          {"role": "user", "content": "Dame un poco de texto de prueba"}
+                                        ])
+          print(f"Respuesta: {completion.choices[0].message.content}")
         elif sim_command.lower() in ["f", "fin", "finish", "save and finish"]: 
           # Finishes the simulation environment and saves the progress. 
           # Example: fin
