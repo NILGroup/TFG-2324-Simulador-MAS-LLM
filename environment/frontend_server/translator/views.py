@@ -384,9 +384,23 @@ def enviar_datos_simulacion(request):
     ret_dict = {"sim_code": sim_code, "personas": personas_dict}
     return ret_dict
 
-  context = {"request": request}
+  def create_context(rc):
+    context = {"sim_code": rc.sim_code,
+            "step": rc.step,
+            "mode": "simulate"}
+    
+    persona_names = [(name, name.replace(" ", "_")) for name in rc.personas]
+    context['persona_names'] = persona_names
+
+    persona_init_pos = [[name, rc.personas_tile[name][0], rc.personas_tile[name][1]] for name in rc.personas_tile]
+    context['persona_init_pos'] = persona_init_pos
+    
+    return context
+
   traduccion = traducir_para_back(request.POST)
   rc = ReverieComm(forked=False, params=[traduccion['sim_code'], traduccion['personas']])
+  context = {"request": request}
+  context = create_context(rc)
   rc.open_server()
-  template = "home/ver_datos_sim.html"
+  template = "home/home.html"
   return render(request, template, context)
