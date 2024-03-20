@@ -7,11 +7,14 @@ Description: Wrapper functions for calling OpenAI APIs.
 import json
 import random
 import openai
+from openai import OpenAI
+
+client = OpenAI()
+
 import time 
 
 from utils import *
 
-openai.api_key = api_key
 
 def temp_sleep(seconds=0.1):
   time.sleep(seconds)
@@ -19,11 +22,9 @@ def temp_sleep(seconds=0.1):
 def ChatGPT_single_request(prompt): 
   temp_sleep()
 
-  completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
-    messages=[{"role": "user", "content": prompt}]
-  )
-  return completion["choices"][0]["message"]["content"]
+  completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
+  messages=[{"role": "user", "content": prompt}])
+  return completion.choices[0].message.content
 
 
 # ============================================================================
@@ -45,11 +46,9 @@ def GPT4_request(prompt):
   temp_sleep()
 
   try: 
-    completion = openai.ChatCompletion.create(
-    model="gpt-4", 
-    messages=[{"role": "user", "content": prompt}]
-    )
-    return completion["choices"][0]["message"]["content"]
+    completion = client.chat.completions.create(model="gpt-4", 
+    messages=[{"role": "user", "content": prompt}])
+    return completion.choices[0].message.content
   
   except: 
     print ("ChatGPT ERROR")
@@ -70,14 +69,22 @@ def ChatGPT_request(prompt):
   """
   # temp_sleep()
   try: 
-    completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", 
-    messages=[{"role": "user", "content": prompt}]
-    )
-    return completion["choices"][0]["message"]["content"]
+    completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
+    messages=[{"role": "user", "content": prompt}])
+    return completion.choices[0].message.content
   
-  except: 
-    print ("ChatGPT ERROR")
+  except (openai.APIConnectionError, openai.APITimeoutError,
+          openai.AuthenticationError,openai.BadRequestError,
+          openai.ConflictError,openai.InternalServerError,
+          openai.NotFoundError,openai.PermissionDeniedError,
+          openai.UnprocessableEntityError) as e:
+    print ("OPENAI ChatGPT ERROR", e)
+    return "ChatGPT ERROR"
+  except openai.RateLimitError as e:
+    print ("OPENAI RateLimitError ChatGPT ERROR", e)
+    return "ChatGPT ERROR"
+  except Exception as e:
+    print ("NO OPENAI ChatGPT ERROR", e)
     return "ChatGPT ERROR"
 
 
@@ -163,33 +170,6 @@ def ChatGPT_safe_generate_response(prompt,
 
   return False
 
-
-def ChatGPT_safe_generate_response_OLD(prompt, 
-                                   repeat=3,
-                                   fail_safe_response="error",
-                                   func_validate=None,
-                                   func_clean_up=None,
-                                   verbose=False): 
-  if verbose: 
-    print ("CHAT GPT PROMPT")
-    print (prompt)
-
-  for i in range(repeat): 
-    try: 
-      curr_gpt_response = ChatGPT_request(prompt).strip()
-      if func_validate(curr_gpt_response, prompt=prompt): 
-        return func_clean_up(curr_gpt_response, prompt=prompt)
-      if verbose: 
-        print (f"---- repeat count: {i}")
-        print (curr_gpt_response)
-        print ("~~~~")
-
-    except: 
-      pass
-  print ("FAIL SAFE TRIGGERED") 
-  return fail_safe_response
-
-
 # ============================================================================
 # ###################[SECTION 2: ORIGINAL GPT-3 STRUCTURE] ###################
 # ============================================================================
@@ -208,19 +188,28 @@ def GPT_request(prompt, gpt_parameter):
   """
   temp_sleep()
   try: 
-    response = openai.Completion.create(
-                model=gpt_parameter["engine"],
-                prompt=prompt,
-                temperature=gpt_parameter["temperature"],
-                max_tokens=gpt_parameter["max_tokens"],
-                top_p=gpt_parameter["top_p"],
-                frequency_penalty=gpt_parameter["frequency_penalty"],
-                presence_penalty=gpt_parameter["presence_penalty"],
-                stream=gpt_parameter["stream"],
-                stop=gpt_parameter["stop"],)
+    response = client.completions.create(model='gpt-3.5-turbo-instruct',
+    prompt=prompt,
+    temperature=gpt_parameter["temperature"],
+    max_tokens=gpt_parameter["max_tokens"],
+    top_p=gpt_parameter["top_p"],
+    frequency_penalty=gpt_parameter["frequency_penalty"],
+    presence_penalty=gpt_parameter["presence_penalty"],
+    stream=gpt_parameter["stream"],
+    stop=gpt_parameter["stop"])
     return response.choices[0].text
-  except: 
-    print ("TOKEN LIMIT EXCEEDED")
+  except (openai.APIConnectionError, openai.APITimeoutError,
+          openai.AuthenticationError,openai.BadRequestError,
+          openai.ConflictError,openai.InternalServerError,
+          openai.NotFoundError,openai.PermissionDeniedError,
+          openai.UnprocessableEntityError) as e:
+    print ("OPENAI TOKEN LIMIT EXCEEDED", e)
+    return "TOKEN LIMIT EXCEEDED"
+  except openai.RateLimitError as e:
+    print ("OPENAI RateLimitError TOKEN LIMIT EXCEEDED", e)
+    return "TOKEN LIMIT EXCEEDED"
+  except Exception as e:
+    print ("NO OPENAI TOKEN LIMIT EXCEEDED", e)
     return "TOKEN LIMIT EXCEEDED"
 
 
@@ -277,8 +266,7 @@ def get_embedding(text, model="text-embedding-ada-002"):
   text = text.replace("\n", " ")
   if not text: 
     text = "this is blank"
-  return openai.Embedding.create(
-          input=[text], model=model)['data'][0]['embedding']
+  return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
 if __name__ == '__main__':
@@ -309,23 +297,3 @@ if __name__ == '__main__':
                                  True)
 
   print (output)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

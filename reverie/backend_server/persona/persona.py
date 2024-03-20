@@ -217,8 +217,9 @@ class Persona:
     self.scratch.curr_time = curr_time
 
     # Main cognitive sequence begins here.
-    # Para hacer que todo funcione exactamente como antes quitar todo lo que esté fuera del cuerpo de este if
-    if not debug:
+    # if debug === usa LLM
+    # if not debug === no usa LLM
+    if debug:
       perceived = self.perceive(maze)
       retrieved = self.retrieve(perceived)
       plan = self.plan(maze, personas, new_day, retrieved)
