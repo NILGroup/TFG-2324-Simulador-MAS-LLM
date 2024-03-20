@@ -219,7 +219,7 @@ class Persona:
     # Main cognitive sequence begins here.
     # if debug === usa LLM
     # if not debug === no usa LLM
-    if debug:
+    if not debug:
       perceived = self.perceive(maze)
       retrieved = self.retrieve(perceived)
       plan = self.plan(maze, personas, new_day, retrieved)
@@ -232,6 +232,7 @@ class Persona:
       # f"<waiting> {p.scratch.curr_tile[0]} {p.scratch.curr_tile[1]}"
 
       #plan= f"<waiting> {self.scratch.curr_tile[0]} {self.scratch.curr_tile[1]}"
+      print("Modo debug no hay interaccion con el LLM")
       plan="the Ville:Hobbs Cafe:cafe"
 
     # <execution> is a triple set that contains the following components: 
