@@ -67,7 +67,7 @@ class ReverieComm(ReverieServer):
       in_file.write(command)
 
   @staticmethod
-  def run(n_steps):
+  def run(n_steps=1):
     """
     Ejecuta el numero de pasos especificado
     """
