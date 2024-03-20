@@ -641,7 +641,7 @@ class ReverieServer:
         if sim_command.lower() in ["comando_prueba"]:
           print(f"Enviando peticion a LLM con api_key: {api_key}")
           completion = client.chat.completions.create(model="gpt-3.5-turbo-0125",
-                               max_tokens=50,
+                               max_tokens=10,
                                messages=[
                                           {"role": "system", "content": "You are a helpful assistant."},
                                           {"role": "user", "content": "Dame un poco de texto de prueba"}
