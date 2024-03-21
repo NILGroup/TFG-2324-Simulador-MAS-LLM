@@ -630,6 +630,7 @@ class ReverieServer:
     sim_folder = f"{fs_storage}/{self.sim_code}"
 
     while True: 
+      print("Command: ")
       sim_command = sys.stdin.readline()
       if not sim_command or len(sim_command) == 0:
         time.sleep(1)
