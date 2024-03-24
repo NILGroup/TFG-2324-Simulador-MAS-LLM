@@ -823,7 +823,7 @@ def existing_simulations():
 def choose_personas():
   num_personas = input("Amount of personas in the simulation: ").strip()
   if ("" == num_personas):
-    return [{"Isabella Rodriguez": "default description"}]
+      return {"Isabella Rodriguez": {"innate": "friendly", "currently": "brushing teeth", "learned": "chocobollo", "lifestyle": "madrugar"}}
   num_personas = int(num_personas)
   _available_personas_ = available_personas()
   for persona_name in _available_personas_:
