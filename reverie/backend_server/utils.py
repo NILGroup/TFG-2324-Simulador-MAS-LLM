@@ -15,4 +15,7 @@ existing_simulations_folder = f"{fs_storage}"
 collision_block_id = "32125"
 
 # Verbose 
-debug = True
+if ('debug' in dict(os.environ).keys() and os.environ['debug'] == 'false'):
+    debug = False
+else:
+    debug = True
