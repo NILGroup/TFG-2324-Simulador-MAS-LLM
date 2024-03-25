@@ -134,12 +134,13 @@ def ChatGPT_safe_generate_response(prompt,
                                    fail_safe_response="error",
                                    func_validate=None,
                                    func_clean_up=None,
-                                   verbose=False): 
+                                   verbose=True): 
   # prompt = 'GPT-3 Prompt:\n"""\n' + prompt + '\n"""\n'
-  prompt = '"""\n' + prompt + '\n"""\n'
-  prompt += f"Output the response to the prompt above in json. {special_instruction}\n"
-  prompt += "Example output json:\n"
-  prompt += '{"output": "' + str(example_output) + '"}'
+  if special_instruction and example_output:
+    prompt = '"""\n' + prompt + '\n"""\n'
+    prompt += f"Output the response to the prompt above in json. {special_instruction}\n"
+    prompt += "Example output json:\n"
+    prompt += '{"output": "' + str(example_output) + '"}'
 
   if verbose: 
     print ("CHAT GPT PROMPT")
