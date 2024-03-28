@@ -71,6 +71,10 @@ def ChatGPT_request(prompt):
   try: 
     completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
     messages=[{"role": "user", "content": prompt}])
+    if debug :
+      print(f"DEBUG::{__file__}:-:{__name__}")
+      print(f"INPUT::{prompt}")
+      print(f"OUTPUT::{completion.choices[0].message.content}")
     return completion.choices[0].message.content
   
   except (openai.APIConnectionError, openai.APITimeoutError,
@@ -267,7 +271,12 @@ def get_embedding(text, model="text-embedding-3-small"):
   text = text.replace("\n", " ")
   if not text: 
     text = "this is blank"
-  return client.embeddings.create(input=[text], model=model).data[0].embedding
+  response = client.embeddings.create(input=[text], model=model).data[0].embedding
+  if debug :
+    print(f"DEBUG::{__file__}:-:{__name__}")
+    print(f"INPUT::{text}")
+    print(f"OUTPUT::{response}")
+  return response
 
 
 if __name__ == '__main__':
