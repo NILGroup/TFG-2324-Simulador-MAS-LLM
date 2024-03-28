@@ -2688,14 +2688,10 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
     prompt_input = [init_iss, init_persona.scratch.name, retrieved_str, prev_convo_insert,
       curr_location, curr_context, init_persona.scratch.name, target_persona.scratch.name,
       convo_str, init_persona.scratch.name, target_persona.scratch.name,
-      init_persona.scratch.name, init_persona.scratch.name,
-      init_persona.scratch.name
-      ]
+      init_persona.scratch.name]
     return prompt_input
 
   def __chat_func_clean_up(gpt_response, prompt=""): 
-    gpt_response = extract_first_json_dict(gpt_response)
-
     cleaned_dict = dict()
     cleaned = []
     for key, val in gpt_response.items(): 
@@ -2709,17 +2705,17 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
 
   def __chat_func_validate(gpt_response, prompt=""): 
     print ("ugh...")
-    try: 
-      # print ("debug 1")
-      # print (gpt_response)
-      # print ("debug 2")
-
-      print (extract_first_json_dict(gpt_response))
-      # print ("debug 3")
-
+    """
+    INPUT
+      dictionary with keys: ["utterance", "end"]
+    OUTPUT
+      true -> it containts those keys
+      false -> any other case
+    """
+    if ('utterance' in gpt_response.keys()) and ('end' in gpt_response.keys()):
       return True
-    except:
-      return False 
+    else:
+      return False
 
   def get_fail_safe():
     cleaned_dict = dict()
@@ -2732,8 +2728,11 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
   prompt = generate_prompt(prompt_input, prompt_template)
   print (prompt)
   fail_safe = get_fail_safe() 
-  output = ChatGPT_safe_generate_response(prompt, None, None, 3, fail_safe,
-                        __chat_func_validate, __chat_func_clean_up, verbose)
+  example_output = """{"utterance": "Hey Glady! I'm so glad of receiving such a gift from you. I really appreciate it","end": false}"""
+  special_instructions = """The above format should be inside a json like this:
+{"output": <content of above json data>}"""
+  output = ChatGPT_safe_generate_response(prompt, example_output, special_instructions, 3, fail_safe,
+                                          __chat_func_validate, __chat_func_clean_up, verbose)
   if verbose or debug:
     print (f"{__file__}:-:{__name__}")
     print (output)

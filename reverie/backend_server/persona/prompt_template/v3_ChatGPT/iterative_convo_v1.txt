@@ -41,6 +41,6 @@ Task: Given the above, what should !<INPUT 9>! say to !<INPUT 10>! next in the c
 
 Output format: Output a json of the following format: 
 {
-"!<INPUT 11>!": "<!<INPUT 12>!'s utterance>",
-"Did the conversation end with !<INPUT 13>!'s utterance?": "<json Boolean>"
+"utterance": "<!<INPUT 11>!'s utterance>",
+"end": "<json Boolean>"
 }
