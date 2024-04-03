@@ -21,8 +21,13 @@ h1 {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
-    max-height: 20rem;
+    max-height: 25rem;
     overflow: auto;
+}
+
+.info-ver-sim {
+    margin-top: 1rem;
+
 }
 
 
@@ -33,5 +38,11 @@ h1 {
     .contenedor-simulacion {
         max-height: 35rem;
         overflow: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .boton-ver-sim {
+        margin-top: 1rem;
     }
 }

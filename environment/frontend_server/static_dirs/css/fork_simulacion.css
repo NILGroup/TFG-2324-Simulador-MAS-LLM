@@ -21,9 +21,19 @@ h1 {
     padding: 15px;
 }
 
+.info-cont-sim {
+    margin-top: 1rem;
+}
+
 
 @media (max-width: 768px) {
     .simulacion-imagen {
         margin-bottom: 10px; /* Stack items vertically on smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .boton-ver-sim {
+        margin-top: 1rem;
     }
 }
