@@ -648,6 +648,7 @@ class ReverieServer:
                                           {"role": "user", "content": "Dame un poco de texto de prueba"}
                                         ])
           print(f"Respuesta: {completion.choices[0].message.content}")
+          print(f"Objeto completo: {completion}")
         elif sim_command.lower() in ["f", "fin", "finish", "save and finish"]: 
           # Finishes the simulation environment and saves the progress. 
           # Example: fin
