@@ -49,7 +49,7 @@ class ReverieComm(ReverieServer):
     pid = os.fork()
 
     if pid == 0:
-
+      os.close(4)
       # Redirigimos el input output que usará el reverie server a los pipes
       self.redirect_std()
       # Iniciamos el server
