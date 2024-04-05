@@ -384,6 +384,19 @@ def enviar_datos_simulacion(request):
     ret_dict = {"sim_code": sim_code, "personas": personas_dict}
     return ret_dict
 
+def comenzar_demo_simulacion(request):
+  if request.method == 'POST':
+      simulation_id = request.POST.get('simulation_id')
+      step = request.POST.get('step-select')  # Field name updated
+      speed = request.POST.get('speed-select') # Field name updated 
+      print("hola")
+
+      # ... Lógica de la redirección
+
+      return redirect('http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/')
+  else:
+      return HttpResponse('Request method must be POST.')
+
   def create_context(rc):
     context = {"sim_code": rc.sim_code,
             "step": rc.step,
