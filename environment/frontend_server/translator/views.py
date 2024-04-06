@@ -21,7 +21,6 @@ from translator.models import *
 
 from endpoint.ReverieComm import ReverieComm
 
-
 def landing(request): 
   context = {}
   template = "landing/landing.html"
@@ -367,9 +366,14 @@ def manejador_acciones_simulacion(request):
           # ... Lógica del "guardar_continuar"
           pass
       elif action == 'salir':
+          # reverie_pid_file = "./endpoint/reverie_pid"
+          # with open(reverie_pid_file) as reverie_pid_f:
+          #   reverie_pid = json.load(reverie_pid_f)["pid"]
+          # print("reverie pid: ", reverie_pid, "django pid: ", os.getpid())
+
           # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
           # ... Hay que terminar el proceso del ReverieServer
-          pass
+          ReverieComm.exit()
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
           pass

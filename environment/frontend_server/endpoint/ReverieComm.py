@@ -56,7 +56,7 @@ class ReverieComm(ReverieServer):
       self.redirect_std()
       # Iniciamos el server
       super().open_server()
-
+      sys.exit()
     else:
       
       # Guardamos el pid en un fichero para terminar el proceso cuando se termine con la simulacion desde el front
