@@ -369,8 +369,6 @@ def manejador_acciones_simulacion(request):
           reverie_pid_file = "./endpoint/reverie_pid"
           with open(reverie_pid_file) as reverie_pid_f:
             reverie_pid = int(json.load(reverie_pid_f)["pid"])
-          # print("reverie pid: ", reverie_pid, "django pid: ", os.getpid())
-
           # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
           # ... Hay que terminar el proceso del ReverieServer
           ReverieComm.exit()
@@ -438,7 +436,7 @@ def enviar_datos_simulacion(request):
       personas_dict [persona_name]['currently'] = post_dict[f"currently{i}"]
       personas_dict [persona_name]['learned'] = post_dict[f"learned{i}"]
       personas_dict [persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"]
-    ret_dict = {"sim_code": sim_code, "personas": personas_dict}
+    ret_dict = {"sim_code": sim_code.replace(" ", "_"), "personas": personas_dict}
     return ret_dict
 
   def create_context(rc):
