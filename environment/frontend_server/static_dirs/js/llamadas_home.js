@@ -46,7 +46,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-            url: '/manejador_acciones_simulacion/', 
+            url: '/manejador-acciones-simulacion/', 
             type: 'POST',
             data: dataToSend,
             dataType: 'json',

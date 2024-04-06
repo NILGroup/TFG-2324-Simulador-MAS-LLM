@@ -40,5 +40,5 @@ urlpatterns = [
     path('enviar-datos-simulacion/', translator_views.enviar_datos_simulacion, name='enviar_datos_simulacion'),
     path('comenzar-demo-simulacion/', translator_views.comenzar_demo_simulacion, name='comenzar_demo_simulacion'),
     path('simulacion/', translator_views.simulacion, name='simulacion'),
-    path('manejador-acciones-simulacion/', translator_views.manejador_acciones_simulacion, name='manejador-acciones-simulacion')
+    path('manejador-acciones-simulacion/', translator_views.manejador_acciones_simulacion, name='manejador_acciones_simulacion')
 ]
