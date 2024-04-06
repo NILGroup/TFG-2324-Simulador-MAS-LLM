@@ -349,6 +349,38 @@ def simulacion(request):
   template = "home/home.html"
   return render(request, template, context)
 
+# Manejador de ruta para los botones que gestionan la simulación (play, pause, guardar...)
+def manejador_acciones_simulacion(request):
+  if request.method == 'POST':
+      action = request.POST.get('action')
+
+      # TODO: Procesar la acción correspondiente
+      if action == 'play':
+          # ... Lógica del "play" (hacer un run)
+          pass 
+      elif action == 'pause':
+          # ... Lógica del "pause"
+          pass
+      elif action == 'guardar_ver':
+          # ... Lógica del "guardar_ver"
+          pass
+      elif action == 'guardar_continuar':
+          # ... Lógica del "guardar_continuar"
+          pass
+      elif action == 'salir':
+          # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
+          pass
+      elif action == 'chat':
+          # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
+          pass
+      elif action == 'susurro':
+          # ... Lógica del "susurro" (también se recibirá el id o nombre del personaje al que quiere susurrar)
+          pass
+
+      return JsonResponse({'success': True})
+  else:
+      return HttpResponse('Request method must be POST.')
+
 def enviar_datos_simulacion(request):
   def traducir_para_back(post_dict):
     """
@@ -392,16 +424,16 @@ def enviar_datos_simulacion(request):
 
 def comenzar_demo_simulacion(request):
   if request.method == 'POST':
-      simulation_id = request.POST.get('simulation_id')
-      step = request.POST.get('step-select')  # Field name updated
-      speed = request.POST.get('speed-select') # Field name updated 
-      print("hola")
+    simulation_id = request.POST.get('simulation_id')
+    step = request.POST.get('step-select')  # Field name updated
+    speed = request.POST.get('speed-select') # Field name updated 
+    print("hola")
 
-      # ... Lógica de la redirección
+    # ... Lógica de la redirección
 
-      return redirect('http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/')
+    return redirect('http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/')
   else:
-      return HttpResponse('Request method must be POST.')
+    return HttpResponse('Request method must be POST.')
 
   def create_context(rc):
     context = {"sim_code": rc.sim_code,
