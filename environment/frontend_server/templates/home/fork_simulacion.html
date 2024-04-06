@@ -49,8 +49,15 @@
                 <div class="col-8 simulacion-detalles">
                     <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
                     <h3 class="fw-bold">Simulación Isabella, Maria y Klaus</h3>
-                    <div class="select-wrapper info-cont-sim row">
-                        <div class="col-sm-4">
+                    <form method="POST" action="/simulacion/" class="row">
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
+                        <div class="col-sm-6">
+                            <label for="step-select">Forkear simulación desde el step:</label>
                             <select class="form-select" name="step-select">
                                 <option value="1">Step 1</option>
                                 <option value="2">Step 2</option>
@@ -59,10 +66,9 @@
                                 <option value="5">Step 5</option>
                             </select>
                         </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                    </div>
+                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
+                        {% csrf_token %}
+                    </form>
                     <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
                     <div class="duracion info-cont-sim">Duración: 2 min 30 s</div>
                 </div>
@@ -73,9 +79,17 @@
                     <figcaption class="text-center">Mapa de ejemplo</figcaption>
                 </div>
                 <div class="col-8 simulacion-detalles">
+                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
                     <h3 class="fw-bold">Simulación de Ejemplo #2</h3>
-                    <div class="select-wrapper info-cont-sim row">
-                        <div class="col-sm-4">
+                    <form method="POST" action="/simulacion/" class="row">
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
+                        <div class="col-sm-6">
+                            <label for="step-select">Forkear simulación desde el step:</label>
                             <select class="form-select" name="step-select">
                                 <option value="1">Step 1</option>
                                 <option value="2">Step 2</option>
@@ -84,23 +98,30 @@
                                 <option value="5">Step 5</option>
                             </select>
                         </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                    </div>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 10 min</p>
+                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
+                        {% csrf_token %}
+                    </form>
+                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
+                    <div class="duracion info-cont-sim">Duración: 10 min</div>
                 </div>
             </div>
             <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
                 <div class="col-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">The ville</figcaption>
+                    <figcaption class="text-center">Mapa de ejemplo</figcaption>
                 </div>
                 <div class="col-8 simulacion-detalles">
+                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
                     <h3 class="fw-bold">Simulación de Ejemplo #3</h3>
-                    <div class="select-wrapper info-cont-sim row">
-                        <div class="col-sm-4">
+                    <form method="POST" action="/simulacion/" class="row">
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
+                        <div class="col-sm-6">
+                            <label for="step-select">Forkear simulación desde el step:</label>
                             <select class="form-select" name="step-select">
                                 <option value="1">Step 1</option>
                                 <option value="2">Step 2</option>
@@ -109,12 +130,11 @@
                                 <option value="5">Step 5</option>
                             </select>
                         </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                    </div>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 2 min 30 s</p>
+                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
+                        {% csrf_token %}
+                    </form>
+                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
+                    <div class="duracion info-cont-sim">Duración: 5 min 15 s</div>
                 </div>
             </div>
             <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
@@ -123,9 +143,17 @@
                     <figcaption class="text-center">Mapa nevado</figcaption>
                 </div>
                 <div class="col-8 simulacion-detalles">
-                    <h3 class="fw-bold">Simulación de Ejemplo #4</h3>
-                    <div class="select-wrapper info-cont-sim row">
-                        <div class="col-sm-4">
+                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
+                    <h3 class="fw-bold">Simulación de Ejemplo #3</h3>
+                    <form method="POST" action="/simulacion/" class="row">
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
+                        <div class="col-sm-6">
+                            <label for="step-select">Forkear simulación desde el step:</label>
                             <select class="form-select" name="step-select">
                                 <option value="1">Step 1</option>
                                 <option value="2">Step 2</option>
@@ -134,12 +162,11 @@
                                 <option value="5">Step 5</option>
                             </select>
                         </div>
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                    </div>
-                    <p class="fecha">Fecha: 28/02/2023</p>
-                    <p class="duracion">Duración: 2 min 30 s</p>
+                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
+                        {% csrf_token %}
+                    </form>
+                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
+                    <div class="duracion info-cont-sim">Duración: 5 min 35 s</div>
                 </div>
             </div>
         </div>
