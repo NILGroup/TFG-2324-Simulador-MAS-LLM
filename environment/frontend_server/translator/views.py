@@ -335,7 +335,8 @@ def ver_simulacion(request):
 
 def fork_simulacion(request):
   simulaciones_disponibles = os.listdir('storage')
-  simulaciones_disponibles.remove('.gitignore')
+  if '.gitignore' in simulaciones_disponibles:
+    simulaciones_disponibles.remove('.gitignore')
   context = {"simulaciones": simulaciones_disponibles}
   template = "home/fork_simulacion.html"
   return render(request, template, context)
