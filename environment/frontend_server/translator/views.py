@@ -379,7 +379,7 @@ def manejador_acciones_simulacion(request):
       elif action == 'guardar_ver':
           # ... Lógica del "guardar_ver"
           pass
-      elif action == 'guardar_continuar':
+      elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
           pass
       elif action == 'salir':

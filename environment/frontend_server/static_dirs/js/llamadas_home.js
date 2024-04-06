@@ -19,7 +19,7 @@ $(document).ready(function() {
     
     $('#boton_guardar_y_salir').click(function() {
         console.log("Guardando la simulación para continuar después")
-        sendAjaxCall('guardar_continuar');
+        sendAjaxCall('guardar_salir');
     });
 
     $('#boton_salir').click(function() {
