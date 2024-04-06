@@ -329,10 +329,27 @@ def ver_simulacion(request):
   return render(request, template, context)
 
 def fork_simulacion(request):
-  simulaciones_disponibles = os.listdir('storage')
-  if '.gitignore' in simulaciones_disponibles:
-    simulaciones_disponibles.remove('.gitignore')
-  context = {"simulaciones": simulaciones_disponibles}
+  def obtener_info_simulaciones_disponibles():
+    simulaciones_disponibles = os.listdir('storage')
+    if '.gitignore' in simulaciones_disponibles:
+      simulaciones_disponibles.remove('.gitignore')
+    
+    info_simulaciones = []
+
+    for simu in simulaciones_disponibles:
+      simu_f = f"./storage/{simu}"
+      meta_f = f"{simu_f}/reverie/meta.json"
+      with open(meta_f) as meta_content:
+        simu_meta = json.load(meta_content)
+        
+        simu_dict = {"step": simu_meta['step'],
+                     "tiempo_creacion_simulacion": "[Debug] February 13, 2023, 14:12:50",
+                     "tiempo_actual_simulacion": "[Debug] February 14, 2023, 14:12:50",
+                     "duracion_simulacion": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
+        info_simulaciones.append({simu: simu_dict})
+    return info_simulaciones
+  
+  context = {"simulaciones": obtener_info_simulaciones_disponibles()}
   template = "home/fork_simulacion.html"
   return render(request, template, context)
 
