@@ -153,10 +153,12 @@
 
 <div style="padding-bottom:15em"> </div>
 
+{% block js_content %}
+<script src="{% static 'js/llamadas_home.js' %}"></script> 
+{% endblock js_content %}
 
 <!-- partial -->
 <script src='https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js'></script>
-<script src="{% static 'js/llamadas_home.js' %}"></script> 
 {% include 'home/main_script.html' %}
 {% endblock content %}
 
