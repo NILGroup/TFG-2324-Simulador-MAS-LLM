@@ -17,7 +17,7 @@ $(document).ready(function() {
         sendAjaxCall('guardar_ver');
     });
     
-    $('#boton_guardar_continuar').click(function() {
+    $('#boton_guardar_y_salir').click(function() {
         console.log("Guardando la simulación para continuar después")
         sendAjaxCall('guardar_continuar');
     });
