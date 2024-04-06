@@ -334,7 +334,7 @@ def ver_simulacion(request):
   return render(request, template, context)
 
 def fork_simulacion(request):
-  context = {}
+  context = {"simulaciones": os.listdir('storage')}
   template = "home/fork_simulacion.html"
   return render(request, template, context)
 
