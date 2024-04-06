@@ -4,10 +4,6 @@ File: views.py
 """
 import os
 import sys
-if __name__ == '__main__':
-  curr_path = os.path.dirname(__file__)
-  sys.path.append(f"{curr_path}/../")
-  os.chdir(f"{curr_path}/../")
 import string
 import random
 import json
@@ -372,6 +368,7 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'salir':
           # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
+          # ... Hay que terminar el proceso del ReverieServer
           pass
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
