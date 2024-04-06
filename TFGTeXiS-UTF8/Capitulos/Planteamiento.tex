@@ -40,6 +40,50 @@ Tras evaluar todo el sistema, se decidió pivotar sobre estos objetivos iniciale
 
 \subsection{Selección del modelo de lenguaje}
 
+La herramienta que plantea desarrollar este trabajo requiere del uso de un LLM, tanto para alguna fase del desarrollo como para hacer uso del trabajo final. Actualmente este tipo de herramientas, a pesar de estar viviendo de los mayores avances, no está disponible ampliamente debido a los requisitos técnicos que suponen estos modelos. Esta restricción surge principalmente por el tamaño que tienen los modelos, ofreciendo dos alternativas. La primera de ellas es el uso de APIs como la de OpenAI, obligandote a depender de terceros en la generación de lenguaje. Sin embargo sigue siendo de las mejores opciones, debido a que la alternativa restante es emplear modelos Open Source de forma local, lo cual es posible, pero complicado, ya que los modelos capaces de realizar las tareas necesarias 
+Desde paper vimos costes de decenas de miles de \$
+Para herramienta como la que hemos propuesto -> Necesario un Modelo
+Durante el desarrollo Sería necesario en funcionalidades extendidas - lo más inmediato sería continuar con GPT3.5
+	Obj 3 -> Resumen que señale los instantes más relevantes de la simulación
+Para la herramienta final sería necesario proporcionar soporte para diferentes APIs o incluso para LLMs locales
+
+En primer lugar comentaremos lo relativo al modelo usado para el desarrollo
+	Problema inicial
+	No había aporte monetario de ningun tipo por parte de la facultad en cuanto al uso de APIs como la de OpenAI
+	Primera alternativa -> Uso de Modelos OpenSource (Llama 2 de varios tamaños)
+	Primer problema -> Requisitos Hardware privativos -> Demasiada memoria virtual necesaria
+		Dependía del tamaño del modelo, en el caso de Llama variaba desde el 70B hasta 7B requiriendo de 140GB a 14GB de memoria 
+		Lo que se vuelve inabarcable para muchos dispositivos incluso con el modelo mas sencillo
+	Segunda alternativa -> https://huggingface.co/roneneldan/TinyStories-33M
+		Se encuentra el paper TinyStories: How Small Can Language Models Be and Still Speak Coherent English?
+		En el que proponen entrenar modelos de tamaños muchísimo menores a los tamaños de Modelos competitivos como GPT4 o BERT
+		A pesar de su incomparable tamaño, proponiendo modelos de entre 1 y 28 Millones de parámetros, (3 ordenes de magnitud por debajo de los SOA LLMs), conseguian resultados con un mínimo razonamiento y casi perfecta gramática. Llegando a superar a las variantes de menor tamaño de estos LLMs, estando aún así 3 ordenes de magnitud por encima.
+		Por ello se consideraron como una primera alternativa, debido a su pequeño tamaño tendrían una inferencia bastante mas rapido ademas de ser soportable por una gran cantidad de dispositivos
+		Además se podria plantear realizar fine tuning para ampliar vocabulario o aumentar la creatividad
+	Problemas de Tiny Stories
+		Con los modelos más pequeños (1-8.3M parameters) se obtenian resultados incoherentes en cualquier tipo de prompt que usase nuestro sistema
+		Con los modelos mas grandes se veian mejores resultados pero de ninguna forma se lograba hacer que siguieran algún tipo de estructura.
+		A esto habría que añadirle su pequeña ventana de contexto, de 512 bytes
+	
+	No se pueden usar estos modelos, demasiadas limitaciones
+	Volvemos a enfocarnos en Llama
+		Encontramos https://github.com/ggerganov/llama.cpp?tab=readme-ov-file
+		Que ofrece una forma de ejecutar multitud de modelos con distintos quantizations, permitiendo ejecutar incluso Llama2 13B en un CPU con 16GB de RAM
+	Problemas con Llama
+		Sin embargo el tiempo de inferencia es alto, de 3 Tokens por segundo ~= 2 palabras por segundo
+		Los resultados tampoco son muy coherentes debido a la perdida de fidelidad al cuantizar los modelos
+
+	En ese entonces sale PaLM, Probamos a usar PaLM
+		Adaptamos el sistema para que funcione con la API de PaLM
+		La API no ofrece servicio en España
+		Con VPN hay mucha latencia ~= de 2s + tpo inferencia por query
+		Los resultados tampoco son capaces de seguir los Prompts diseñados
+
+	Solo nos queda probar con GPT3.5 a pesar de los costes que suponga
+		Debido a los Rate Limits que imponen es imposible ejecutarlo, debido a los modelos usados por la arquitectura, y el user tier que teniamos estabamos con limites de 2 request por minuto, llegando a enviar 800 request por timestep por agente.
+	
+	Debido a esas complicaciones el uso de un LLM durante el desarrollo y como alternativa para el usuario final quedó en Stand By
+		Se dejó como opción el dejarlo con soporte para varias apis, con el prerquisito de que el usuario de la API tuviera suficientes permisos como para hacer frente a las limitaciones con que nos encontramos en su momento
 
 \section{Problemas encontrados}
 
