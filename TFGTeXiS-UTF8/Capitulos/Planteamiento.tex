@@ -40,6 +40,42 @@ Tras evaluar todo el sistema, se decidió pivotar sobre estos objetivos iniciale
 
 \subsection{Selección del modelo de lenguaje}
 
+---Estructura actual-----
+
+Para el correcto funcionamiento de SimulAgents es necesario contar con un LLM adecuado. Permitiendo, en el mejor de los casos, una ejecucion rápida, barata y con una calidad generativa considerable.
+
+Desafortunadamente, el desarrollo LLMs en cotas tan altas como las actuales es reciente, por lo que el acceso a esta tecnología, en pleno desarrollo, es limitado.
+
+Partimos del uso de GPT-3.5 que, para una simulacion de 25 agentes y dos dias, implicó un coste de miles de dolares en créditos de tokens y varios dias para completar la simulación(citado en el paper de Generative Agents Apartado 8.2 Parrafo 1).
+
+SimulAgents pretende ofrecer al público general este tipo de simulaciones.
+Por ello el LLM a usar es un punto fundamental ya que implica un gran compromiso entre Tiempo de simulacion, Calidad generativa y Coste.
+
+Al tomar en consideración la fase de desarrollo de SimulAgents también se nos volvía necesario contar con un LLM con el que poner a prueba las funcionalidades añadidas.
+Esto nos llevó a buscar alternativas OpenSource, ya que no se cuenta con apoyo financiero por parte de la universidad.
+Las alternativas encontradas no cumplian con lo mínimo para funcionar en SimulAgents
+
+Por ello también consideramos otras alternativas a OpenAI, que por diversos motivos tampoco se adaptaban a nuestras necesidades.
+
+A continuación detallaremos las alternativas que consideramos y los problemas que acarreaban.
+
+\subsubsection{Alternativas OpenSource}
+ - Tiny Histories
+ - Llama
+ - Quantization
+\subsubsection{Otras APIs}
+ - PaLM
+ - Vuelta a OpenAI
+ 	- Rate limits muy restrictivos -> Stand by
+ 	- Asumimos usar GPT-3.5
+ 	 - Cambio en la version de la API que conlleva la adaptación a la nueva API
+ 	 - Todo funciona a excepción de ciertos errores en templates ofrecidos por Paper
+ 	 - La velocidad de ejecución es muy limitada
+ 	 - Proponemos ofrecer acceso a varias APIs
+
+---Estructura actual-----
+
+------Datos antiguos-----
 La herramienta que plantea desarrollar este trabajo requiere del uso de un LLM, tanto para alguna fase del desarrollo como para hacer uso del trabajo final. Actualmente este tipo de herramientas, a pesar de estar viviendo de los mayores avances, no está disponible ampliamente debido a los requisitos técnicos que suponen estos modelos. Esta restricción surge principalmente por el tamaño que tienen los modelos, ofreciendo dos alternativas. La primera de ellas es el uso de APIs como la de OpenAI, obligandote a depender de terceros en la generación de lenguaje. Sin embargo sigue siendo de las mejores opciones, debido a que la alternativa restante es emplear modelos Open Source de forma local, lo cual es posible, pero complicado, ya que los modelos capaces de realizar las tareas necesarias 
 Desde paper vimos costes de decenas de miles de \$
 Para herramienta como la que hemos propuesto -> Necesario un Modelo
@@ -84,6 +120,8 @@ En primer lugar comentaremos lo relativo al modelo usado para el desarrollo
 	
 	Debido a esas complicaciones el uso de un LLM durante el desarrollo y como alternativa para el usuario final quedó en Stand By
 		Se dejó como opción el dejarlo con soporte para varias apis, con el prerquisito de que el usuario de la API tuviera suficientes permisos como para hacer frente a las limitaciones con que nos encontramos en su momento
+
+------Datos antiguos-----
 
 \section{Problemas encontrados}
 
