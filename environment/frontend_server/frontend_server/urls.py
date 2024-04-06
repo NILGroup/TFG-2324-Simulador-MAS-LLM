@@ -38,5 +38,6 @@ urlpatterns = [
     path('fork-simulacion/', translator_views.fork_simulacion, name='fork_simulacion'),
     path('guia-usuario/', translator_views.guia_usuario, name='guia_usuario'),
     path('enviar-datos-simulacion/', translator_views.enviar_datos_simulacion, name='enviar_datos_simulacion'),
-    path('comenzar-demo-simulacion/', translator_views.comenzar_demo_simulacion, name='comenzar_demo_simulacion')
+    path('comenzar-demo-simulacion/', translator_views.comenzar_demo_simulacion, name='comenzar_demo_simulacion'),
+    path('simulacion/', translator_views.simulacion, name='simulacion')
 ]

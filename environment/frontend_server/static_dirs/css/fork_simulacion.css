@@ -25,6 +25,16 @@ h1 {
     margin-top: 1rem;
 }
 
+form {
+    margin-top: 3rem;
+}
+
+.boton-fork-sim {
+    width: 3rem;
+    max-height: 3rem;
+    margin-top: auto;
+}
+
 
 @media (max-width: 768px) {
     .simulacion-imagen {
@@ -35,5 +45,10 @@ h1 {
 @media (max-width: 576px) {
     .boton-cont-sim {
         margin-top: 1rem;
+    }
+
+    .boton-fork-sim {
+        margin-left: .8rem;
+        margin-top: .5rem;
     }
 }

@@ -343,6 +343,12 @@ def guia_usuario(request):
   template = "home/guia_usuario.html"
   return render(request, template, context)
 
+# A esta función llegan llamadas tanto de crear simulación como de continuar y fork. Se distinguirá por casos y se redirigirá a la vista correspondiente
+def simulacion(request):
+  context = {}
+  template = "home/home.html"
+  return render(request, template, context)
+
 def enviar_datos_simulacion(request):
   def traducir_para_back(post_dict):
     """
