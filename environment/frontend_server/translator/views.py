@@ -381,6 +381,8 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
+          ReverieComm.save()
+          print("Save hecho")
           pass
       elif action == 'salir':
           reverie_pid_file = "./endpoint/reverie_pid"
