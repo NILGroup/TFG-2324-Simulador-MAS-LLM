@@ -1,5 +1,7 @@
 import os
 import sys
+import datetime
+import json
 local_dir = os.path.dirname(os.path.abspath(__file__))
 frontend_dir = os.path.join(local_dir, '../')
 backend_dir = os.path.join(frontend_dir, '../../reverie/backend_server/')
@@ -58,8 +60,12 @@ class ReverieComm(ReverieServer):
     else:
       
       # Guardamos el pid en un fichero para terminar el proceso cuando se termine con la simulacion desde el front
+      pid_file_meta = dict()
+      pid_file_meta['reverie_server_creation_time'] = datetime.datetime.today().strftime("%B %d, %Y, %H:%M:%S")
+      pid_file_meta['pid'] = str(pid)
       with open(PID_INFO_FILE, 'w') as pid_file:
-        pid_file.write(str(pid))
+        pid_file.write(json.dumps(pid_file_meta, indent=2))
+        
 
   @staticmethod
   def write_command(command):
