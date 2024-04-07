@@ -41,134 +41,41 @@
         </div>           -->
         
         <div class="simulacion mb-3">
-            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">The ville</figcaption>
+            {% for simulacion in simulaciones %}
+                <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
+                    <div class="col-4 col-xl-3 simulacion-imagen">
+                        <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
+                        <figcaption class="text-center">The ville</figcaption>
+                    </div>
+                    <div class="col-8 simulacion-detalles">
+                        <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
+                        <h3 class="fw-bold">{{ simulacion.sim_code }}</h3>
+                        <form method="POST" action="/simulacion/" class="row">
+                            <div class="col-sm-8">
+                                <input type="hidden" name="sim_code" value="{{ simulacion.sim_code }}">
+                                <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
+                            </div>
+                            {% csrf_token %}
+                        </form>
+                        <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
+                            <input type="hidden" name="parent_sim_code" value="{{ simulacion.sim_code }}">
+                            <div class="col-sm-5">
+                                <label for="step-select">Forkear simulación desde el step:</label>
+                                <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{simulacion.step}} value="{{simulacion.step}}">
+                            </div>
+                            <div class="col-sm-5">
+                                <label for="forked-sim_code">Nombre de la simulación forkeada:</label>
+                                <input type="text" class="form-control" name="forked-sim_code" id="forked-sim_code">
+                            </div>
+                            <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
+                            {% csrf_token %}
+                        </form>
+                        <div class="fecha info-cont-sim">Tiempo creación: {{ simulacion.tiempo_creacion_simulacion }}</div>
+                        <div class="tiempo_actual info-cont-sim">Tiempo actual: {{ simulacion.tiempo_actual_simulacion }}</div>
+                        <div class="duracion info-cont-sim">Tiempo actual: {{ simulacion.duracion_simulacion }}</div>
+                    </div>
                 </div>
-                <div class="col-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación Isabella, Maria y Klaus</h3>
-                    <form method="POST" action="/simulacion/" class="row">
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                        {% csrf_token %}
-                    </form>
-                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
-                        <div class="col-sm-6">
-                            <label for="step-select">Forkear simulación desde el step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
-                        {% csrf_token %}
-                    </form>
-                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
-                    <div class="duracion info-cont-sim">Duración: 2 min 30 s</div>
-                </div>
-            </div>
-            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'img/atlas.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">Mapa de ejemplo</figcaption>
-                </div>
-                <div class="col-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación de Ejemplo #2</h3>
-                    <form method="POST" action="/simulacion/" class="row">
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                        {% csrf_token %}
-                    </form>
-                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
-                        <div class="col-sm-6">
-                            <label for="step-select">Forkear simulación desde el step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
-                        {% csrf_token %}
-                    </form>
-                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
-                    <div class="duracion info-cont-sim">Duración: 10 min</div>
-                </div>
-            </div>
-            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">Mapa de ejemplo</figcaption>
-                </div>
-                <div class="col-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación de Ejemplo #3</h3>
-                    <form method="POST" action="/simulacion/" class="row">
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                        {% csrf_token %}
-                    </form>
-                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
-                        <div class="col-sm-6">
-                            <label for="step-select">Forkear simulación desde el step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
-                        {% csrf_token %}
-                    </form>
-                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
-                    <div class="duracion info-cont-sim">Duración: 5 min 15 s</div>
-                </div>
-            </div>
-            <div class="row flex-column flex-md-row align-items-center mb-3 contenedor-simulacion">
-                <div class="col-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'img/mapaNevado.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">Mapa nevado</figcaption>
-                </div>
-                <div class="col-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación de Ejemplo #3</h3>
-                    <form method="POST" action="/simulacion/" class="row">
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
-                        </div>
-                        {% csrf_token %}
-                    </form>
-                    <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
-                        <div class="col-sm-6">
-                            <label for="step-select">Forkear simulación desde el step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
-                        {% csrf_token %}
-                    </form>
-                    <div class="fecha info-cont-sim">Fecha: 28/02/2023</div>
-                    <div class="duracion info-cont-sim">Duración: 5 min 35 s</div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 </main>
