@@ -342,11 +342,12 @@ def fork_simulacion(request):
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
         
-        simu_dict = {"step": simu_meta['step'],
+        simu_dict = {"sim_code": simu,
+                     "step": simu_meta['step'],
                      "tiempo_creacion_simulacion": "[Debug] February 13, 2023, 14:12:50",
                      "tiempo_actual_simulacion": "[Debug] February 14, 2023, 14:12:50",
                      "duracion_simulacion": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
-        info_simulaciones.append({simu: simu_dict})
+        info_simulaciones.append(simu_dict)
     return info_simulaciones
   
   context = {"simulaciones": obtener_info_simulaciones_disponibles()}
