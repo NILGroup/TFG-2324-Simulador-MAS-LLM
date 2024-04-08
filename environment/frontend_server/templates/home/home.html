@@ -11,13 +11,18 @@
 	<div style="width:55%; margin: 0 auto; margin-top:4.5em">
 		<h3 style="margin-bottom:-0.5em; font-size:1.5em">Current Time:</h3>
 		<div class="row">
-			<div class="col-md-8" id="game-time" style="">
+			<div class="col-md-8" id="game-time">
 				<h2><span id="game-time-content"></span></h2> 
 			</div>
 			<div class="col-md-4">
 				
-				<h2 style="text-align: right;">
-				  <button id="play_button" type="button" class="btn btn-default">
+				<div style="text-align: right;">
+				  <strong style=" font-size:1 rem">
+					<label for="step-select">Número de steps a ejecutar:</label>
+				  </strong>
+                  <input type="number" class="form-control" name="step-select" id="step-select" min="0" max="10" value="5">
+				  
+				  <button id="boton_play" type="button" class="btn btn-default">
 				    <strong style=" font-size:1.2em">
 						Play
 					</strong>
@@ -26,8 +31,8 @@
 						<path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
 					</svg>
 				  </button>
-				  
-				  <button id="pause_button" type="button" class="btn btn-default">
+
+				  <!-- <button id="pause_button" type="button" class="btn btn-default">
 				    <strong style=" font-size:1.2em">
 						Pause
 					</strong>
@@ -35,7 +40,7 @@
 						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 						<path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0z"/>
 					</svg>
-				  </button>
+				  </button> -->
 
 				  <button id="boton_guardar_ver" type="button" class="btn btn-default">
 				    <a style="font-size:1.2em" href="{% url 'ver_simulacion' %}">
@@ -65,7 +70,7 @@
 						</a>
 				  </button>
 
-				</h2>
+				</div>
 				
 			</div>
 		</div>

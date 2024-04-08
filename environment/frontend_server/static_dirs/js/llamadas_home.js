@@ -2,9 +2,14 @@
 // (play, pase, guardar para ver, guardar para continuar y salir sin guardar)
 
 $(document).ready(function() {
-    $('#play_button').click(function() {
+    $('#boton_play').click(function() {
+        // get the value from the input number field
+        let values = {};
+        let steps = $('#step-select').val();
+        values['steps'] = steps;
+        console.log(steps)
         console.log("Iniciando la simulación")
-        sendAjaxCall('play');
+        sendAjaxCall('play', values);
     });
 
     $('#pause_button').click(function() {
@@ -39,10 +44,10 @@ $(document).ready(function() {
         sendAjaxCall('susurro');
     });
 
-    function sendAjaxCall(action) {
+    function sendAjaxCall(action, values = {}) {
         const dataToSend = {
             action: action,
-            // Añadir resto de la información que sea necesaria para la simulación
+            values: values
         };
 
         $.ajax({
