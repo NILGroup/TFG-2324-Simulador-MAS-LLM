@@ -32,16 +32,30 @@ $(document).ready(function() {
         sendAjaxCall('salir');
     });
 
-    $('#boton_chat').click(function() {
-        // TODO: En este caso, hay que coger también el id o nombre del personaje con el que se quiere chatear
-        console.log("Chateando con un personaje")
-        sendAjaxCall('chat');
+    $('.boton_chat').click(function() {
+        const chat = $(this).closest('.modal').find('textarea').val(); 
+        const personaName = $(this).closest('.modal').find('input').val();
+
+        console.log("chateando");
+
+        let values = {};
+        values['persona_name'] = personaName;
+        values['chat'] = chat;
+        console.log(values);
+
+        sendAjaxCall('chat', values);
     });
 
-    $('#boton_susurro').click(function() {
-        // TODO: En este caso, hay que coger también el id o nombre del personaje al que susurrar
-        console.log("Susurrando a un personaje")
-        sendAjaxCall('susurro');
+    $('.boton_susurro').click(function() {
+        const susurro = $(this).closest('.modal').find('textarea').val(); 
+        const personaName = $(this).closest('.modal').find('input').val();
+
+        let values = {};
+        values['persona_name'] = personaName;
+        values['susurro'] = susurro;
+        console.log(values);
+
+        sendAjaxCall('susurro', values);
     });
 
     function sendAjaxCall(action, values = {}) {
