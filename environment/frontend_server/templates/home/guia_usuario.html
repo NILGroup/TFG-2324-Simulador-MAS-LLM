@@ -57,8 +57,12 @@
         <p>
             En este apartado se podrán visualizar las simulaciones ejecutadas previamente. En este tipo de simulaciones
             no se podrá interactuar con el entorno, solamente se podrán visualizar las acciones que los agentes han realizado
-            en esta simulación. Al clicar en una de las simulaciones, se podrá acceder a la vista de visualización de simulación,
-            en la cual podremos ver la simulación repetida.
+            en esta simulación.
+        </p>
+        <p>
+            Podremos ver la lista de las simulaciones que actualmente están disponibles para visualizar. Antes de visualizar una 
+            simulación, se podrá seleccionar el step desde el que se desea comenzar a ver la simulación, así como la velocidad 
+            de reproducción de la repetición.
         </p>
     </section>
 
@@ -69,6 +73,21 @@
             previamente y que se pueden continuar. La diferencia es que en esta página se redirige a la página de ejecución de la
             simulación, en la que se puede continuar con la misma.
         </p>
+        <p>
+            Como se puede apreciar, en esta página hay 2 botones: uno para continuar con la simulación y otro para forkear la simulación
+            desde un punto concreto.
+        </p>
+        <h4>Continuar una simulación</h4>
+        <p>
+            En el caso de continuar simulación, se continuará la simulación desde el punto en que se dejó, y al 
+            guardarla, se hará con el mismo nombre que tenía la simulación original.
+        </p>
+        <h4>Forkear una simulación</h4>
+        <p>
+            A la hora de forkear una simulación, el usuario podrá elegir el step desde el que quiere continuar la simulación,
+            así como el nombre de esta nueva simulación. De esta forma, se podrá continuar la simulación desde un punto concreto
+            y guardarla con un nombre diferente para así poder comparar los resultados de ambas simulaciones.
+        </p>
     </section>
 
     <section id="ejecucion-simulacion">
@@ -76,7 +95,43 @@
         <p>
             En esta página se podrá ejecutar la simulación que se ha seleccionado previamente. En esta página se podrá interactuar
             con el entorno. En el momento en que la simulación está pausada, se podrá interactuar con los agentes tanto chateando con 
-            ellos como susurrándoles cuál debe ser la próxima acción a realizar.
+            ellos como susurrándoles cuál debe ser la próxima acción a realizar. Además, a la hora de salir de la simulación, hay varios 
+            modos, por lo que vayamos analizándolos uno por uno:
+        </p>
+
+        <h4>Guardar para ver</h4>
+        <p>
+            Al guardar la simulación para verla, se guardará la repetición de la simulación (por lo que podrá ser accedida desde la página 
+            de visualizar simulación) y también para poder continuarla o forkearla en el futuro (podrá ser accedida desde la página de continuar simulación).
+        </p>
+        <p>Además, al presionar este botón, se redirigirá directamente a la página de visualizar simulación</p>
+        <h4>Guardar y salir</h4>
+        <p>
+            Cuando se guarda y se sale, la simulación solamente se guarda para poder continuarla o forkearla en el futuro. Es decir, Esta 
+            simulación solamente estará accesible desde la página de continuar simulación, no se podrá ver la repetición hasta que no se guarde para ver.
+        </p>
+        <p>Al presionar este botón, el usuario será redirigido a la página de continuar simulación</p>
+        <h4>Salir sin guardar</h4>
+        <p>
+            Si el usuario no quiere guardar la simulación que está ejecutando, presionará este botón, el cual eliminará la simulación que se está 
+            ejecutando y redirigirá al usuario a la página de landing
+        </p>
+        <h4>Chatear</h4>
+        <p>
+            El botón de chat está disponible para cada uno de los personajes de la simulación, en la parte de abajo de la página, y al presionarlo
+            se abrirá una pantalla con la que se podrá chatear con el agente en ese instante. Es decir, podremos interactuar con el agente y él nos
+            responderá con las memorias e información que tenga en ese momento, en ese step preciso.
+        </p>
+        <p>
+            Esto es interesante para comparar los chats a medida que va avanzando la simulación. Para así comparar cómo las respuestas de un personaje
+            pueden ir variando respecto avanza el tiempo.
+        </p>
+        <h4>Susurrar</h4>
+        <p>
+            Similar a cómo ocurre con el chat, al pulsar este botón, que también está situado en la sección de personajes, al lado de cada personaje, 
+            el usuario podrá "susurar" algo al agente en particular. Cuando un usuario susurra algo a un personaje, es como si este personaje recibiese
+            una información divina, una voz en su cabeza, de modo que hará caso a lo que se le diga mediante este método.
+        </p>
     </section>
 
     <section id="ejemplos-de-uso">
