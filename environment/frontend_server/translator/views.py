@@ -361,6 +361,15 @@ def guia_usuario(request):
 
 # A esta función llegan llamadas tanto de crear simulación como de continuar y fork. Se distinguirá por casos y se redirigirá a la vista correspondiente
 def simulacion(request):
+  print("Buenas--------------------------")
+  print(request.POST)
+  print("Buenas--------------------------")
+
+  if (request.POST['nueva'] == "si"):
+    return nueva_simulacion(request)
+  else:
+    print(request.POST)
+
   context = {}
   template = "home/home.html"
   return render(request, template, context)
@@ -418,7 +427,7 @@ def comenzar_demo_simulacion(request):
   else:
     return HttpResponse('Request method must be POST.')
 
-def enviar_datos_simulacion(request):
+def nueva_simulacion(request):
   def traducir_para_back(post_dict):
     """
     INPUT:
