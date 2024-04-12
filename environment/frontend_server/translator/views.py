@@ -328,7 +328,7 @@ def ver_simulacion(request):
   template = "home/ver_simulacion.html"
   return render(request, template, context)
 
-def fork_simulacion(request):
+def continuar_simulacion(request):
   def obtener_info_simulaciones_disponibles():
     simulaciones_disponibles = os.listdir('storage')
     if '.gitignore' in simulaciones_disponibles:
@@ -367,8 +367,10 @@ def simulacion(request):
 
   if (request.POST['nueva'] == "si"):
     return nueva_simulacion(request)
-  else:
-    print(request.POST)
+  elif request.POST['forked'] == "si":
+    return fork_simulacion(request)
+  elif request.POST['forked'] == "no":
+    continuar_simulacion(request)
 
   context = {}
   template = "home/home.html"

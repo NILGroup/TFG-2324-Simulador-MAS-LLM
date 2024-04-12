@@ -35,7 +35,7 @@ urlpatterns = [
     # a partit de aquí, las urls definidas por nosotros
     path('crear-simulacion/', translator_views.crear_simulacion, name='crear_simulacion'),
     path('ver-simulacion/', translator_views.ver_simulacion, name='ver_simulacion'),
-    path('fork-simulacion/', translator_views.fork_simulacion, name='fork_simulacion'),
+    path('continuar-simulacion/', translator_views.continuar_simulacion, name='continuar_simulacion'),
     path('guia-usuario/', translator_views.guia_usuario, name='guia_usuario'),
     path('comenzar-demo-simulacion/', translator_views.comenzar_demo_simulacion, name='comenzar_demo_simulacion'),
     path('simulacion/', translator_views.simulacion, name='simulacion'),
