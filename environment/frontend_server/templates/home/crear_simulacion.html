@@ -34,6 +34,7 @@
     <h1>Crear Nueva Simulación</h1>
 
     <form id="formSimulacion" method="POST" action="/enviar-datos-simulacion/">
+      <input type="hidden" name="nueva" value="si">
       <div class="form-section">
         <label for="numPersonajes"><b>Número de personajes:</b></label>
         <input type="number" name="numPersonajes" id="numPersonajes" min="1" max="25" value="1">

@@ -52,20 +52,24 @@
                         <h3 class="fw-bold">{{ simulacion.sim_code }}</h3>
                         <form method="POST" action="/simulacion/" class="row">
                             <div class="col-sm-8">
+                                <input type="hidden" name="nueva" value="no">
+                                <input type="hidden" name="forked" value="no">
                                 <input type="hidden" name="sim_code" value="{{ simulacion.sim_code }}">
                                 <button type="submit" class="btn btn-primary view-simulation-btn boton-cont-sim" data-simulation-id="idEjemplo">Continuar simulación</button>
                             </div>
                             {% csrf_token %}
                         </form>
                         <form method="POST" action="/simulacion/" class="select-wrapper info-fork-sim row mt-4 mb-1">
-                            <input type="hidden" name="parent_sim_code" value="{{ simulacion.sim_code }}">
+                            <input type="hidden" name="nueva" value="no">
+                            <input type="hidden" name="forked" value="si">
+                            <input type="hidden" name="fork_sim_code" value="{{ simulacion.sim_code }}">
                             <div class="col-sm-5">
                                 <label for="step-select">Forkear simulación desde el step:</label>
                                 <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{simulacion.step}} value="{{simulacion.step}}">
                             </div>
                             <div class="col-sm-5">
-                                <label for="forked-sim_code">Nombre de la simulación forkeada:</label>
-                                <input type="text" class="form-control" name="forked-sim_code" id="forked-sim_code">
+                                <label for="sim_code">Nombre de la simulación forkeada:</label>
+                                <input type="text" class="form-control" name="sim_code" id="sim_code">
                             </div>
                             <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
                             {% csrf_token %}
