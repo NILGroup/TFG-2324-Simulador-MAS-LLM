@@ -6,6 +6,7 @@ En cuanto a la interfaz de la página web, uno de los principales objetivos del 
 El resultado de este objetivo está recogido en este capítulo. Para alcanzarlo, se han creado vistas completamente nuevas y se han modificado algunas de las vistas previamente existentes para simplificarlas o añadir funcionalidades.
 
 Atendiendo a la movilidad entre páginas, se ha implementado una barra de navegación, la cual compartirán todas las páginas y permitirá navegar entre las diferentes funcionalidades, como se puede apreciar en las figuras \ref{fig:navBarDesktop} y \ref{fig:navBarMobile}.
+\textcolor{red}{PONER LAS FOTOS CON LA GUÍA DE USUARIO}
 
 \begin{figure}[h]
 	\centering
@@ -25,13 +26,29 @@ Atendiendo a la movilidad entre páginas, se ha implementado una barra de navega
 
 En esta sección se presentan las vistas creadas durante el desarrollo del trabajo, las cuales sirven de apoyo para ejecutar las funcionalidades, tanto nuevas como existentes, de la aplicación.
 
+Estas vistas no existían previamente en la aplicación, y se ha realizado un proceso de ingeniería inversa de las vistas preexistentes para poder adaptar las interfaces y que se comuniquen de manera efectiva con el back end.
+
 \subsection{Vista de Crear nueva simulación}
 
 Teniendo en cuenta los objetivos y las funcionalidades implementadas en este trabajo, es evidente la necesidad de un apartado en el que permitir a los usuarios crear sus propias simulaciones. En esta vista, los usuarios primeramente indicarán el número de personajes que quieren que intervengan en la simulación.
 
-Dependiendo del número de personajes deseados, mediante el uso de la tecnología JQuery, se mostrarán u ocultarán las casillas de relleno de la información de los personajes. Para cada uno de los agentes, los usuarios indicarán el nombre que le quieren dar y la personalidad de los mismos. En el apartado de personalidad ,se indican todas sus relaciones sociales preexistentes en lenguaje natural, así como los pensamientos y pretensiones que el agente tiene al inicio de la simulación.
+Dependiendo del número de personajes deseados, mediante el uso de la tecnología JQuery, se mostrarán u ocultarán las casillas de relleno de la información de los personajes. Para cada uno de los agentes, los usuarios indicarán el nombre que le quieren dar y la personalidad de los mismos. Como se puede ver en la figura \ref{fig:vistaCrearSimulacion}, el apartado de personalidad viene separado por los siguientes conceptos:
 
-Por último, hay un apartado de contexto de la simulación, en el cual los usuarión deberán insertar todo el contexto de la situación en la que se ejecute la simulación. En esta información entraría el día en el que se ejecuta, la situación en la que se encuentran los personajes y todo tipo de información que pueda aportar contexto a la simulación.
+\begin{itemize}
+	
+	\item \textbf{Personalidad innata}: El usuario escogerá entre un grupo de personalidades innatas preestablecidas, las cuales darán cierta profundidad a los personajes y constan de una sola palabra, que define simplemente el carácter de cada personaje.
+	
+	\item \textbf{Estilo de vida}: Aquí se explicará sobre cómo es el estilo de vida en general del personaje. Se dará una mayor profundidad al carácter, explicando sus hábitos, costumbres, vicios y virtudes.
+	
+	\item \textbf{Conocimiento aprendido}: Consistirá en una recopilación de todas las vivencias recopiladas por el personaje que puedan afectar a sus decisiones o su personalidad. Aquí se indicará, por ejemplo, qué tipo de relación tiene con el resto de personajes, si le caen bien o mal, qué experiencias tiene con ellos y demás información relevante para la simulación.
+	
+	\item \textbf{Estado actual}: Finalmente, se indicará la acción que está realizando en el momento de comienzo de la simulación, así como sus preocupaciones más inmediatas y las acciones que tomará en los próximos steps.
+	
+\end{itemize}
+
+Con esta información, se podrá inferir la personalidad completa de cada uno de los personajes para así adaptarlos óptimamente a las simulaciones y tener una mayor granularidad al comparar las diferentes simulaciones, cambiando cierta parte de esta información y viendo cómo cambian los comportamientos
+
+Si se quisiera aportar un contexto general a toda la simulación, la solución sería indicarlo en los apartados de conocimiento aprendido y estado actual de todos los personajes. Si todos ellos tienen una pieza de conocimiento aprendido común, podrán inferir la situación en la que se encuentran e interactuar con los demás porque también estarán en la misma situación.
 
 Todas estos elementos gráficos se pueden apreciar en la figura \ref{fig:vistaCrearSimulacion}.
 
@@ -46,16 +63,28 @@ Todas estos elementos gráficos se pueden apreciar en la figura \ref{fig:vistaCr
 
 \subsection{Vista de Visualizar simulación}
 
-En esta vista es donde los usuarios pueden seleccionar las simulaciones a visualizar. Esto es, las que se han ejecutado y guardado para visualizarlas previamente.
+En esta vista es donde los usuarios pueden seleccionar las simulaciones a visualizar. Esto es, las que se han ejecutado y guardado para visualizarlas previamente. Una vez se selecciona una de estas vistas, se accede a la interfaz de visualización de una simulación, la cual está explicada en profundidad en la subsección  \ref{sec:vistaSimulacion}.
 
-En cada simulación se puede apreciar cierta información importante sobre la misma, como puede ser el título de la simulación, un link que redirige a la simulación original desde la que ha sido guardada, un resumen de la misma, indicando el mapa en a en el que se ha realizado, los mejores momentos con los steps exactos, \textcolor{red}{PONER LO QUE HABRÁ EN CADA SIMULACIÓN}
+Esta era una de las interfaces que no existían y tenían todo el sentido en nuestra aplicación. Antes, el usuario debía interactuar directamente con los ficheros y acceder a sus simulaciones mediante la terminal, ahora esto se gestiona automáticamente y se puede acceder mediante un par de clicks.
+
+En este listado de simulaciones finalizadas, se muestra información útil para el usuario como el título de la información, el título de la simulación padre (para que el usuario pueda acceder a ella y continuarla o modificarla), el step desde el que se desea comenzar a visualizar la simulación o la velocidad de reproducción de la misma.
+
+Además de esta información, también se genera un resumen automático mediante una llamada al LLM cada vez que se guarda una simulación, el cual se incluye en cada una de las simulaciones, indicando a grandes rasgos lo que ocurre y los steps más interesantes a visualizar.
 
 Como ejemplo, se proporcionan las figuras (\textcolor{red}{PONER LAS FIGURAS}) para ver cómo aparece esta vista representada en la página web.
 
 
 \subsection{Vista de Continuar simulación}
 
-La vista de continuar simulación es ciertamente similar a la anterior de visualizar simulación, ya que también habrá una lista con simulaciones, y alguna información sobre ellas, en este caso, cada simulación contendrá datos como el título de esta, \textcolor{red}{PONER LO QUE HABRÁ EN CADA SIMULACIÓN}
+La vista de continuar simulación es ciertamente similar a la anterior de visualizar simulación, ya que también habrá una lista con simulaciones. Sin embargo, la diferencia crucial entre las simulaciones que se pueden ver y aquellas que se pueden continuar, es que en las segundas, el usuario podrá interactuar directamente con la simulación y alterar el curso de la misma.
+
+De nuevo, es una vista que tenía sentido que existiese, ya que son funcionalidades que estaban muy escondidas y eran difíciles de ejecutar anteriormente, y lo hemos simplificado, permitiendo acceder a ellas mediante una interfaz intuitiva y usable.
+
+En este caso, dado el listado de simulaciones, los usuarios tendrán la opción de continuar la simulación o forkearla, comentaremos las diferencias:
+
+Cuando se continúa una simulación, esta sigue con el mismo nombre y se continúa siempre desde el mismo step. Esta funcionalidad ya estaba disponible, y sirve para continuar una simulación desde el punto en el que el usuario lo había dejado, como indica el nombre.
+
+Sin embargo, al forkear una simulación, se creará una nueva, tomando como base la original. Es por este motivo por el cual, cuando un usuario va a forkear una simulación, se le pide el step desde el que quiere forkearla y se pide que se de un nombre nuevo (ya que será guardada como una nueva simulación en la lista).
 
  En las figuras (\textcolor{red}{PONER LAS FIGURAS}) se puede apreciar el resultado de esta vista
 
@@ -65,17 +94,21 @@ Además de las vistas creadas para navegar e interactuar con las simulaciones, s
 
 Como el uso de esta herramienta lo hemos orientado a perfiles no técnicos (como psicólogos o personas que quieran estudiar las interacciones sociales), se ha añadido esta sección en la que se explican todas las funcionalidades de la aplicación, cómo utilizarlas y algunos trucos o consejos de uso, para maximizar el valor del programa.
 
+En esta guía se hace un repaso extensivo de las vistas existentes en la aplicación, cómo usarlas y para qué sirve cada uno de los botones.
+
 Algunos ejemplos de esta página son los que se muestran en las figuras (\textcolor{red}{PONER LAS FIGURAS})
 
 \section{Vistas modificadas}
 
-Además de las vistas creadas desde cero, había algunas que ya estaban creadas (como las de la visualización o ejecución de la simulación, que requerían de un motor de videojuego corriendo). Sin embargo, para añadir ciertas funcionalidades, también se han modificado algunas de estas, las cuales se indican en la presente sección.
+Además de las vistas creadas desde cero, había algunas que ya estaban creadas (como las de la visualización o ejecución de la simulación, que requerían de un motor de videojuego corriendo). Sin embargo, para añadir ciertas funcionalidades, también se han modificado, las cuales se indican en la presente sección.
 
 \subsection{Vista de landing}
 
-Originalmente, cuando el usuario arrancaba el servidor, existía una página de landing a la que se le redirigía, donde se indicaba que el servidor se encontraba en funcionamiento. Como esta página era muy rudimentaria y tan solo contenía una línea de información, se decidió rediseñar la landing completamente, indicando las principales funcionalidades de la aplicación desde una interfaz intuitiva, sencilla y accesible.
+Esta vista se podría considerar como nueva, ya que fue modificada por completo para el propósito de este trabajo.
 
-El resultado de cómo se ve la vista de landing actualmente se puede ver en la figura \ref{fig:landing}
+Originalmente, cuando el usuario arrancaba el servidor, existía una página de landing a la que se le redirigía, donde solamente se indicaba que el servidor se encontraba en funcionamiento con un texto. Como esta página era muy rudimentaria y tan solo contenía una línea de información, se decidió rediseñar la landing completamente, indicando las principales funcionalidades de la aplicación desde una interfaz intuitiva, sencilla y accesible.
+
+Como se puede apreciar en la figura \ref{fig:landing}, hay una breve explicación del trabajo y algunas tarjetas con la información más importante de lo que puede hacer esta aplicación. Se trata de una págia meramente informativa desde la que el usuario puede navegar hacia el resto.
 
 \begin{figure}[h]
 	\centering
@@ -84,6 +117,56 @@ El resultado de cómo se ve la vista de landing actualmente se puede ver en la f
 	\label{fig:landing}
 \end{figure}
 
-\subsection{Botones de play y stop al ejecutar simulación}
+\subsection{Vista de visualización de una simulación}
+\label{sec:vistaSimulacion}
 
-\subsection{Botones de chat y susurro en la vista del personaje}
+Esta es una de las dos vistas principales que ya existían en la aplicación inicialmente. Esta vista, así como la de ejecución de simulación, existían para que el usuario pudiese ver la simulación y lo que estaba ocurriendo, no estaban pensadas para que el usuario interactuase con ellas y dejarían de tener sentido una vez se pausase la simulación.
+
+Sin embargo, como hemos centralizado todo en un front end común, estas vistas ahora se convierten en algo crucial. Lo más importante de estas vistas es que cogen la información de la simulación y utilizan el motor de juegos Phaser 3.0 para representar el mapa, los personajes y sus movimientos.
+
+El trabajo que hemos realizado en esta vista fue básicamente el de simplificación de la misma (eliminación de botones para ver el estado en profundidad de los personajes) así como la integración de esta vista con el resto de la aplicación (añadido el navbar para navegar en ella).
+
+Un ejemplo de esta vista es el de la figura
+(\textcolor{red}{PONER LAS FIGURAS})
+
+
+\subsection{Vista de ejecución de simulación}
+
+Como ya se mencionó, esta vista es bastante similar a la comentada en el apartado anterior. Era una vista que ya existía, representando la ejecución de una simulación en tiempo real, con el mismo motor de juegos que se usa a la hora de visualizar una simulación, Phaser 3.0.
+
+No obstante, en esta vista sí que hemos modificado varios elementos y añadido funcionalidades críticas en esta vista, para que el usuario pueda tener una mayor interacción con el sistema en tiempo real.
+
+En la figura (\textcolor{red}{PONER LAS FIGURAS}) podemos ver un ejemplo de esta página en ejecución.
+
+Las modificaciones que hemos realizado se explican a continuación:
+
+\subsubsection{Botón de play}
+
+Antes, para ejecutar steps de una simulación, era necesario ir a la terminal y ejecutar el comando "run <número de steps>". Ahora, hemos implementado un botón de play, situado al lado de un input de tipo número, que indicará el número de steps a ejecutar. 
+
+Por ejemplo, si el usuario quiere ejecutar 3 steps, insertará el número en el input y le dará a play, ejecutando así 3 steps y pudiendo verlos en tiempo real en la ventana que contiene la simulación.
+
+\subsubsection{Botones de guardado y salida}
+
+Una vez el usuario considera que ha terminado la simulación, tiene 3 diferentes opciones, que servirán para distintas finalidades, explicadas a continuación:
+
+\begin{itemize}
+	
+	\item \textbf{Guardar para ver}: Si el usuario desea guardar la simulación y que esté disponible entre aquellas que se pueden visualizar (desde la página de visualizar simulación) deberá darle a este botón. Una vez clicado, se guardará la repetición, la simulación también estará disponible para ser continuada y se redirigirá al usuario a la página de "visualizar simulación", par que pueda ver la nueva repetición.
+	
+	\item \textbf{Guardar y salir}: Si el usuario quiere guardar la simulación, pero no la repetición, deberá clicar este botón. Al hacerlo, se guardará la simulación para poder continuarla o forkearla, y se redirigirá al usuario a la página de continuar simulación.
+	
+	\item \textbf{Salir sin guardar}: Al pulsar este botón, el usuario considera que ha terminado la simulación y no desea guardarla. Por lo tanto, se le redirigirá a la página de landing y la simulación se eliminará del sistema. Esta es una funcionalidad nueva ya que no estaba implementada en el sistema original.
+
+\end{itemize}
+
+\subsubsection{Botones de chat y susurro en la vista del personaje}
+
+Estos botones están en la sección de personajes. En cada tarjeta de personaje, habrá un botón de chat y otro de susurro. Al clicar en ellos automáticamente se detectará el personaje al cuál se quiere susurrar o con el que se quiere chatear en cada caso, y se procederá a ello.
+
+El botón de susurro permite hablar directamente a los pensamientos del personaje e instarle a tomar ciertas decisiones o realizar ciertas acciones. Esta era una funcionalidad preexistente pero la hemos pasado completamente al front.
+
+Por su parte, el botón de chat abrirá una pantalla para chatear directamente con el personaje en tiempo real. Esta funcionalidad es novedosa y servirá para poder entrevisar a los personajes en cada punto de la simulación, viendo así sus cambios de ideas, pensamientos u opiniones a lo largo de la simulación.
+
+
+
