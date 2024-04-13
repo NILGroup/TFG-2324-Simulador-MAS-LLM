@@ -361,18 +361,17 @@ def guia_usuario(request):
 
 # A esta función llegan llamadas tanto de crear simulación como de continuar y fork. Se distinguirá por casos y se redirigirá a la vista correspondiente
 def simulacion(request):
-  print("Buenas--------------------------")
-  print(request.POST)
-  print("Buenas--------------------------")
-
-  if (request.POST['nueva'] == "si"):
-    return nueva_simulacion(request)
-  elif request.POST['forked'] == "si":
-    return fork_simulacion(request)
-  elif request.POST['forked'] == "no":
-    continuar_simulacion(request)
-
+  """
+  Las tres funciones simplemente deben devolver el context que usaremos en el render
+  """
   context = {}
+  if (request.POST['nueva'] == "si"):
+    context = nueva_simulacion_exe(request)
+  elif request.POST['forked'] == "si":
+    context = fork_simulacion_exe(request)
+  elif request.POST['forked'] == "no":
+    context = continuar_simulacion_exe(request)
+
   template = "home/home.html"
   return render(request, template, context)
 
@@ -429,7 +428,7 @@ def comenzar_demo_simulacion(request):
   else:
     return HttpResponse('Request method must be POST.')
 
-def nueva_simulacion(request):
+def nueva_simulacion_exe(request):
   def traducir_para_back(post_dict):
     """
     INPUT:
@@ -488,5 +487,14 @@ def nueva_simulacion(request):
   context = {"request": request}
   context = create_context(rc)
   rc.open_server()
-  template = "home/home.html"
-  return render(request, template, context)
+  return context
+
+def fork_simulacion_exe(request):
+  print(request.POST)
+  context = {}
+  return context
+
+def continuar_simulacion_exe(request):
+  print(request.POST)
+  context = {}
+  return context
