@@ -469,32 +469,34 @@ def nueva_simulacion_exe(request):
     ret_dict = {"sim_code": sim_code.replace(" ", "_"), "personas": personas_dict}
     return ret_dict
 
-  def create_context(rc):
-    context = {"sim_code": rc.sim_code,
-            "step": rc.step,
-            "mode": "simulate"}
-    
-    persona_names = [(name, name.replace(" ", "_")) for name in rc.personas]
-    context['persona_names'] = persona_names
-
-    persona_init_pos = [[name, rc.personas_tile[name][0], rc.personas_tile[name][1]] for name in rc.personas_tile]
-    context['persona_init_pos'] = persona_init_pos
-    
-    return context
-
   traduccion = traducir_para_back(request.POST)
-  rc = ReverieComm(forked=False, params=[traduccion['sim_code'], traduccion['personas']])
-  context = {"request": request}
+  rc = ReverieComm(new=True, forked=False, params=[traduccion['sim_code'], traduccion['personas']])
+  print(rc.personas)
   context = create_context(rc)
-  rc.open_server()
+  # rc.open_server()
   return context
 
 def fork_simulacion_exe(request):
-  print(request.POST)
-  context = {}
+  rc = ReverieComm(new=False, forked=True, params=[request.POST['fork_sim_code'], request.POST['sim_code']])
+  print(rc.personas)
+  context = create_context(rc)
   return context
 
 def continuar_simulacion_exe(request):
-  print(request.POST)
-  context = {}
+  rc = ReverieComm(new=False, forked=False, params=[request.POST['sim_code']])
+  print(rc.personas)
+  context = create_context(rc)
+  return context
+
+def create_context(rc):
+  context = {"sim_code": rc.sim_code,
+          "step": rc.step,
+          "mode": "simulate"}
+  
+  persona_names = [(name, name.replace(" ", "_")) for name in rc.personas]
+  context['persona_names'] = persona_names
+
+  persona_init_pos = [[name, rc.personas_tile[name][0], rc.personas_tile[name][1]] for name in rc.personas_tile]
+  context['persona_init_pos'] = persona_init_pos
+  
   return context

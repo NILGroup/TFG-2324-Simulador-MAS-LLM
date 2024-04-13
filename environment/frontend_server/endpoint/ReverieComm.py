@@ -41,10 +41,11 @@ class ReverieComm(ReverieServer):
     os.close(fdErr)
 
   def __init__(self,
+               new,
                forked,
                params):
     # Creamos el Reverie Server == Los archivos de la nueva simulación
-    super().__init__(forked, params)
+    super().__init__(new, forked, params)
 
   def open_server(self):
     # Aquí hacemos el nuevo hilo que corra el ReverieServer
