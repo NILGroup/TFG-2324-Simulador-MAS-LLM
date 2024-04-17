@@ -188,23 +188,16 @@ def cargar_reverieServer(json_path):
   return rc
 
 def configurar_comunicacion(o_f):
-  log = open('log', 'a')
   if not os.path.exists(INPUT_ENDPOINT):
     os.mkfifo(INPUT_ENDPOINT)
   if not os.path.exists(OUTPUT_ENDPOINT):
     os.mkfifo(OUTPUT_ENDPOINT)
 
   fdIn = open(INPUT_ENDPOINT, 'r')
-  log.write(f"In abierto nombre: {fdIn.fileno()} fd: {fdIn.name}\n")
-  log.flush()
 
   fdOut = open(OUTPUT_ENDPOINT, 'w')
-  log.write(f"Out abierto nombre: {fdOut.fileno()} fd: {fdOut.name}\n")
-  log.flush()
 
   fdErr = open(ERR_ENDPOINT, 'w')
-  log.write(f"Err abierto nombre: {fdErr.fileno()} fd: {fdErr.name}\n")
-  log.flush()
   
   o_f.append(fdErr.fileno()+1)
   o_f.append(fdErr.fileno()+2)
@@ -249,17 +242,12 @@ def exec_command(rc):
 if __name__ == '__main__':
   # Recibo ruta de json con
   # new, forked, params: {sim_code, fork_sim_code, personas}
-  fa = open('a','w')
   json_path = sys.argv[1]
   rc = cargar_reverieServer(json_path=json_path)
-  fa = open('b','w')
   os.remove(json_path)
   old_fds = []
-  fa = open('c','w')
   while not rc.stopped:
-    fa = open('d','w')
     configurar_comunicacion(old_fds)
-    fa = open('e','w')
     exec_command(rc)
     cerrar_comunicacion(old_fds)
     time.sleep(0.5)
