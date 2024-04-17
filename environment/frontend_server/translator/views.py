@@ -386,7 +386,7 @@ def manejador_acciones_simulacion(request):
           rc = ReverieComm()
           rc.save()
           print("Save hecho")
-          pass
+          
       elif action == 'salir':
           with open(PID_INFO_FILE) as reverie_pid_f:
             reverie_pid = int(json.load(reverie_pid_f)["pid"])
