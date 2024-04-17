@@ -140,11 +140,12 @@ def generar_back(post_dict):
   pid = generar_nuevo_proceso()
   guardar_pid(pid)
 
-  i = 0
-  while i < 10 and os.path.exists(PARAMS_IN_FILE):
-    i += 1
+  # Esperamos hasta un minuto tratando de generar el back
+  i = 60
+  while i > 0 and os.path.exists(PARAMS_IN_FILE):
+    i -= 1
     print("Esperando a que se genere el back")
-    time.sleep(0.1)
+    time.sleep(1)
   if i == 10:
     raise Exception("No se pudo crear el ReverieServer")
 
@@ -178,7 +179,7 @@ def cargar_reverieServer(json_path):
     print("Nueva")
     rc = ReverieServer(new, forked, params=[params['sim_code'], params['personas']])
   elif forked:
-    print("forkeada")
+    print("Forkeada")
     rc = ReverieServer(new, forked, params=[params['fork_sim_code'], params['sim_code']])
   else:
     print("Continuacion")
