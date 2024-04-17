@@ -942,6 +942,7 @@ class ReverieServer:
       # Saves the current simulation progress. 
       # Example: save
       self.save()
+      self.stopped = True
       return False
 
     elif command in ["f", "fin", "finish", "save and finish"]: 

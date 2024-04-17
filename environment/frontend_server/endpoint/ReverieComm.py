@@ -35,12 +35,17 @@ PARAMS_IN_FILE = f"{local_dir}/params_in.json"
 from reverie import ReverieServer
 
 class ReverieComm():
-  def __init__():
+  def __init__(self):
     pass
 
   def write_command(self, command):
     with open(INPUT_ENDPOINT, 'w') as in_file:
-      in_file.write(command)
+      with open(OUTPUT_ENDPOINT, 'r') as out_file:
+        time.sleep(1)
+        in_file.write(command)
+        in_file.flush()
+        ret = out_file.readlines()
+        return ret
 
   def run(self, n_steps=1):
     """
@@ -176,15 +181,11 @@ def cargar_reverieServer(json_path):
   forked = params['forked']
   params = params['params']
   if new:
-    print("Nueva")
     rc = ReverieServer(new, forked, params=[params['sim_code'], params['personas']])
   elif forked:
-    print("Forkeada")
     rc = ReverieServer(new, forked, params=[params['fork_sim_code'], params['sim_code']])
   else:
-    print("Continuacion")
     rc = ReverieServer(new, forked, params=[params['sim_code']])
-    print("He creado el reverieServer")
   return rc
 
 def configurar_comunicacion(o_f):
