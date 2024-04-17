@@ -20,6 +20,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
 
 from endpoint.ReverieComm import ReverieComm
+import endpoint.ReverieComm2
 
 def landing(request): 
   context = {}
@@ -361,17 +362,8 @@ def guia_usuario(request):
 
 # A esta función llegan llamadas tanto de crear simulación como de continuar y fork. Se distinguirá por casos y se redirigirá a la vista correspondiente
 def simulacion(request):
-  """
-  Las tres funciones simplemente deben devolver el context que usaremos en el render
-  """
-  context = {}
-  if (request.POST['nueva'] == "si"):
-    context = nueva_simulacion_exe(request)
-  elif request.POST['forked'] == "si":
-    context = fork_simulacion_exe(request)
-  elif request.POST['forked'] == "no":
-    context = continuar_simulacion_exe(request)
-
+  sim_code = endpoint.ReverieComm2.generar_back(request.POST.dict())
+  context = endpoint.ReverieComm2.generar_context(sim_code)
   template = "home/home.html"
   return render(request, template, context)
 
@@ -392,7 +384,8 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
-          ReverieComm.save()
+          rc = ReverieComm()
+          rc.save()
           print("Save hecho")
           pass
       elif action == 'salir':
@@ -401,7 +394,8 @@ def manejador_acciones_simulacion(request):
             reverie_pid = int(json.load(reverie_pid_f)["pid"])
           # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
           # ... Hay que terminar el proceso del ReverieServer
-          ReverieComm.exit()
+          rc = ReverieComm()
+          rc.exit()
           os.waitpid(reverie_pid, 0)
           print("Todo OK")
       elif action == 'chat':
@@ -427,76 +421,3 @@ def comenzar_demo_simulacion(request):
     return redirect('http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/')
   else:
     return HttpResponse('Request method must be POST.')
-
-def nueva_simulacion_exe(request):
-  def traducir_para_back(post_dict):
-    """
-    INPUT:
-      un diciconario con el siguiente formato:
-      {
-        "numPersonajes": ['2'],
-        "nombreSimulacion": ["..."],
-        
-        "nombre1": ["..."],
-        "currently1": ["..."]
-        "innate1": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
-        "learned1": ["..."]
-        "lifestyle1": ["..."]
-        
-        "nombre2": ["..."],
-        "currently2": ["..."]
-        "innate2": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
-        "learned2": ["..."]
-        "lifestyle2": ["..."]
-      }
-    OUTPUT:
-      {
-        valor_nombre_persona1: {innate: "val1, val2, ...", currently: "...", ...}
-        valor_nombre_persona2: {innate: ...}
-      }
-    """
-    ret_dict = dict()
-    n_pers = int(post_dict["numPersonajes"])
-    sim_code = str(post_dict["sim_code"])
-    personas_dict = dict()
-    for i in range(1, n_pers+1):
-      persona_name = post_dict[f"nombre{i}"]
-      personas_dict [persona_name] = dict()
-      personas_dict [persona_name]['innate'] = post_dict[f"innate{i}"]
-      personas_dict [persona_name]['currently'] = post_dict[f"currently{i}"]
-      personas_dict [persona_name]['learned'] = post_dict[f"learned{i}"]
-      personas_dict [persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"]
-    ret_dict = {"sim_code": sim_code.replace(" ", "_"), "personas": personas_dict}
-    return ret_dict
-
-  traduccion = traducir_para_back(request.POST)
-  rc = ReverieComm(new=True, forked=False, params=[traduccion['sim_code'], traduccion['personas']])
-  print(rc.personas)
-  context = create_context(rc)
-  # rc.open_server()
-  return context
-
-def fork_simulacion_exe(request):
-  rc = ReverieComm(new=False, forked=True, params=[request.POST['fork_sim_code'], request.POST['sim_code']])
-  print(rc.personas)
-  context = create_context(rc)
-  return context
-
-def continuar_simulacion_exe(request):
-  rc = ReverieComm(new=False, forked=False, params=[request.POST['sim_code']])
-  print(rc.personas)
-  context = create_context(rc)
-  return context
-
-def create_context(rc):
-  context = {"sim_code": rc.sim_code,
-          "step": rc.step,
-          "mode": "simulate"}
-  
-  persona_names = [(name, name.replace(" ", "_")) for name in rc.personas]
-  context['persona_names'] = persona_names
-
-  persona_init_pos = [[name, rc.personas_tile[name][0], rc.personas_tile[name][1]] for name in rc.personas_tile]
-  context['persona_init_pos'] = persona_init_pos
-  
-  return context
