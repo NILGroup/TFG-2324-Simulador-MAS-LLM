@@ -54,6 +54,7 @@ class ReverieServer:
                new,
                forked, # Boolean == true if we are forking an existing simulation
                params):# Array with the corresponding parameters
+    self.stopped = False
     if new:
       self.new_sim(sim_name=params[0], personas=params[1])
     elif forked:
@@ -314,6 +315,8 @@ class ReverieServer:
     # <server_sleep> denotes the amount of time that our while loop rests each
     # cycle; this is to not kill our machine. 
     self.server_sleep = 0.1
+
+
 
 
   def fork_sim(self, 
@@ -735,6 +738,7 @@ class ReverieServer:
                                         ])
           print(f"Respuesta: {completion.choices[0].message.content}")
           print(f"Objeto completo: {completion}")
+
         elif sim_command.lower() in ["f", "fin", "finish", "save and finish"]: 
           # Finishes the simulation environment and saves the progress. 
           # Example: fin
@@ -896,6 +900,213 @@ class ReverieServer:
         print ("Error.")
         pass
 
+  def exec_command(self, command):
+    """
+    Input:
+      Comando a ejecutar
+    Output:
+      True o False - En funcion de si se ha de tener en cuenta la salida, en otro caso simplemente se deshecha
+      Probablemente sea mejor usarlo para saber si ha ido todo bien pero en ese caso habría que manejar excepciones que a lo mejor ya se están capturando
+    """
+    sim_folder = f"{fs_storage}/{self.sim_code}"
+    command = command.lower().strip()
+    if command in ["test"]:
+      print(f"Enviando peticion a LLM con api_key: {api_key}")
+      completion = client.chat.completions.create(model="gpt-3.5-turbo-0125",
+                            max_tokens=30,
+                            messages=[
+                                      {"role": "system", "content": "You are a helpful assistant."},
+                                      {"role": "user", "content": "Cuentame algo sobre cargadores inalambricos"}
+                                    ])
+      print(f"Respuesta: {completion.choices[0].message.content}")
+      print(f"Objeto completo: {completion}")
+      return True
+
+
+    elif command == "start path tester mode": 
+      # Starts the path tester and removes the currently forked sim files.
+      # Note that once you start this mode, you need to exit out of the
+      # session and restart in case you want to run something else. 
+      shutil.rmtree(sim_folder) 
+      self.start_path_tester_server()
+      return False
+
+    elif command[:3] == "run":  
+      # Runs the number of steps specified in the prompt.
+      # Example: run 1000
+      int_count = int(command.split()[-1])
+      self.start_server(int_count)
+      return False
+
+    elif command == "save": 
+      # Saves the current simulation progress. 
+      # Example: save
+      self.save()
+      return False
+
+    elif command in ["f", "fin", "finish", "save and finish"]: 
+      # Finishes the simulation environment and saves the progress. 
+      # Example: fin
+      self.save()
+      self.stopped = True
+      return False
+
+    elif command == "exit": 
+      # Finishes the simulation environment but does not save the progress
+      # and erases all saved data from current simulation. 
+      # Example: exit 
+      shutil.rmtree(sim_folder) 
+      self.stopped = True
+      return False
+
+    elif ("call -- analysis"  # Interview
+          in command.lower()): 
+      # Starts a stateless chat session with the agent. It does not save 
+      # anything to the agent's memory. 
+      # Ex: call -- analysis Isabella Rodriguez
+      persona_name = command[len("call -- analysis"):].strip() 
+      self.personas[persona_name].open_convo_session("analysis")
+      return False
+
+    elif ("call -- load history" # Whisper
+          in command.lower()): 
+      curr_file = maze_assets_loc + "/" + command[len("call -- load history"):].strip() 
+      # call -- load history the_ville/agent_history_init_n3.csv
+
+      rows = read_file_to_list(curr_file, header=True, strip_trail=True)[1]
+      clean_whispers = []
+      for row in rows: 
+        agent_name = row[0].strip() 
+        whispers = row[1].split(";")
+        whispers = [whisper.strip() for whisper in whispers]
+        for whisper in whispers: 
+          clean_whispers += [[agent_name, whisper]]
+
+      load_history_via_whisper(self.personas, clean_whispers)
+      return False
+    
+    elif ("print persona schedule" 
+          in command[:22].lower()): 
+      # Print the decomposed schedule of the persona specified in the 
+      # prompt.
+      # Example: print persona schedule Isabella Rodriguez
+      ret_str += (self.personas[" ".join(command.split()[-2:])]
+                  .scratch.get_str_daily_schedule_summary())
+      return False
+
+    elif ("print all persona schedule" 
+          in command[:26].lower()): 
+      # Print the decomposed schedule of all personas in the world. 
+      # Example: print all persona schedule
+      for persona_name, persona in self.personas.items(): 
+        ret_str += f"{persona_name}\n"
+        ret_str += f"{persona.scratch.get_str_daily_schedule_summary()}\n"
+        ret_str += f"---\n"
+
+      return False
+
+    elif ("print hourly org persona schedule" 
+          in command.lower()): 
+      # Print the hourly schedule of the persona specified in the prompt.
+      # This one shows the original, non-decomposed version of the 
+      # schedule.
+      # Ex: print persona schedule Isabella Rodriguez
+      ret_str += (self.personas[" ".join(command.split()[-2:])]
+                  .scratch.get_str_daily_schedule_hourly_org_summary())
+      return False
+
+    elif ("print persona current tile" 
+          in command[:26].lower()): 
+      # Print the x y tile coordinate of the persona specified in the 
+      # prompt. 
+      # Ex: print persona current tile Isabella Rodriguez
+      ret_str += str(self.personas[" ".join(command.split()[-2:])]
+                  .scratch.curr_tile)
+      return False
+
+    elif ("print persona chatting with buffer" 
+          in command.lower()): 
+      # Print the chatting with buffer of the persona specified in the 
+      # prompt.
+      # Ex: print persona chatting with buffer Isabella Rodriguez
+      curr_persona = self.personas[" ".join(command.split()[-2:])]
+      for p_n, count in curr_persona.scratch.chatting_with_buffer.items(): 
+        ret_str += f"{p_n}: {count}"
+      return False
+
+    elif ("print persona associative memory (event)" 
+          in command.lower()):
+      # Print the associative memory (event) of the persona specified in
+      # the prompt
+      # Ex: print persona associative memory (event) Isabella Rodriguez
+      ret_str += f'{self.personas[" ".join(command.split()[-2:])]}\n'
+      ret_str += (self.personas[" ".join(command.split()[-2:])]
+                                    .a_mem.get_str_seq_events())
+      return False
+
+    elif ("print persona associative memory (thought)" 
+          in command.lower()): 
+      # Print the associative memory (thought) of the persona specified in
+      # the prompt
+      # Ex: print persona associative memory (thought) Isabella Rodriguez
+      ret_str += f'{self.personas[" ".join(command.split()[-2:])]}\n'
+      ret_str += (self.personas[" ".join(command.split()[-2:])]
+                                    .a_mem.get_str_seq_thoughts())
+      return False
+
+    elif ("print persona associative memory (chat)" 
+          in command.lower()): 
+      # Print the associative memory (chat) of the persona specified in
+      # the prompt
+      # Ex: print persona associative memory (chat) Isabella Rodriguez
+      ret_str += f'{self.personas[" ".join(command.split()[-2:])]}\n'
+      ret_str += (self.personas[" ".join(command.split()[-2:])]
+                                    .a_mem.get_str_seq_chats())
+      return False
+
+    elif ("print persona spatial memory" 
+          in command.lower()): 
+      # Print the spatial memory of the persona specified in the prompt
+      # Ex: print persona spatial memory Isabella Rodriguez
+      self.personas[" ".join(command.split()[-2:])].s_mem.print_tree()
+      return False
+
+    elif ("print current time" 
+          in command[:18].lower()): 
+      # Print the current time of the world. 
+      # Ex: print current time
+      ret_str += f'{self.curr_time.strftime("%B %d, %Y, %H:%M:%S")}\n'
+      ret_str += f'steps: {self.step}'
+      return False
+
+    elif ("print tile event" 
+          in command[:16].lower()): 
+      # Print the tile events in the tile specified in the prompt 
+      # Ex: print tile event 50, 30
+      cooordinate = [int(i.strip()) for i in command[16:].split(",")]
+      for i in self.maze.access_tile(cooordinate)["events"]: 
+        ret_str += f"{i}\n"
+      return False
+
+    elif ("print tile details" 
+          in command.lower()): 
+      # Print the tile details of the tile specified in the prompt 
+      # Ex: print tile event 50, 30
+      cooordinate = [int(i.strip()) for i in command[18:].split(",")]
+      for key, val in self.maze.access_tile(cooordinate).items(): 
+        ret_str += f"{key}: {val}\n"
+      return False
+
+    else:
+      print("Not supported command")
+      return True
+    print (ret_str)
+
+  @staticmethod
+  def instancia_sencilla(sim_code):
+    rc = ReverieServer(new=False,forked=False,params=[sim_code])
+    return rc
+  
 
 def available_personas():
   result = os.listdir(available_personas_folder)
