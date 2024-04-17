@@ -19,7 +19,7 @@ from global_methods import *
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
 
-from endpoint.ReverieComm import generar_back, generar_context, ReverieComm
+from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID_INFO_FILE
 
 def landing(request): 
   context = {}
@@ -388,15 +388,14 @@ def manejador_acciones_simulacion(request):
           print("Save hecho")
           pass
       elif action == 'salir':
-          reverie_pid_file = "./endpoint/reverie_pid"
-          with open(reverie_pid_file) as reverie_pid_f:
+          with open(PID_INFO_FILE) as reverie_pid_f:
             reverie_pid = int(json.load(reverie_pid_f)["pid"])
-          # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
-          # ... Hay que terminar el proceso del ReverieServer
           rc = ReverieComm()
           rc.exit()
+          # La eliminacion de este proceso se deberia hacer desde ReverieComm.py
           os.waitpid(reverie_pid, 0)
           print("Todo OK")
+
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
           pass
