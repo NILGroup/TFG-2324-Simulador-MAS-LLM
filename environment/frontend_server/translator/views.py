@@ -19,7 +19,7 @@ from global_methods import *
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
 
-from endpoint.ReverieComm import ReverieComm
+from endpoint.ReverieComm import generar_back, generar_context, ReverieComm
 
 def landing(request): 
   context = {}
@@ -361,8 +361,8 @@ def guia_usuario(request):
 
 # A esta función llegan llamadas tanto de crear simulación como de continuar y fork. Se distinguirá por casos y se redirigirá a la vista correspondiente
 def simulacion(request):
-  sim_code = endpoint.ReverieComm.generar_back(request.POST.dict())
-  context = endpoint.ReverieComm.generar_context(sim_code)
+  sim_code = generar_back(request.POST.dict())
+  context = generar_context(sim_code)
   template = "home/home.html"
   return render(request, template, context)
 

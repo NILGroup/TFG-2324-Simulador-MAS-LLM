@@ -119,7 +119,7 @@ def generar_back(post_dict):
     if json_dict['new']:
       json_dict['params'] = traducir_para_back(post_dict)
     else:
-      json_dict['params'] = post_dict.dict()
+      json_dict['params'] = post_dict
     
     with open(PARAMS_IN_FILE, 'w') as params_file:
       params_file.write(json.dumps(json_dict))
