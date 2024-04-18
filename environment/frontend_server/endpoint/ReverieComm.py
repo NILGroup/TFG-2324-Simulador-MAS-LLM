@@ -45,7 +45,7 @@ class ReverieComm():
       in_file.flush()
       in_file.close()
       ret = out_file.readlines()
-      return ret
+    return ret
 
   def run(self, n_steps=1):
     """
