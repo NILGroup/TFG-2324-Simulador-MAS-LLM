@@ -39,13 +39,13 @@ class ReverieComm():
     pass
 
   def write_command(self, command):
-    with open(INPUT_ENDPOINT, 'w') as in_file:
-      with open(OUTPUT_ENDPOINT, 'r') as out_file:
-        time.sleep(1)
-        in_file.write(command)
-        in_file.flush()
-        ret = out_file.readlines()
-        return ret
+    in_file = open(INPUT_ENDPOINT, 'w')
+    with open(OUTPUT_ENDPOINT, 'r') as out_file:
+      in_file.write(command)
+      in_file.flush()
+      in_file.close()
+      ret = out_file.readlines()
+      return ret
 
   def run(self, n_steps=1):
     """
