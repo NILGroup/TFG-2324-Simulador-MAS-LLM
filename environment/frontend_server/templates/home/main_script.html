@@ -333,12 +333,14 @@
 		// *** SETUP PLAY AND PAUSE BUTTON *** 
 		let play_context = this;
 		function game_resume() {  
+			game.input.keyboard.enabled = true;
 			play_context.scene.resume();
 		}  
 		play_button.onclick = function(){
 			game_resume();
 		};
 		function game_pause() {  
+			game.input.keyboard.enabled = false;
 			play_context.scene.pause();
 		}  
 		pause_button.onclick = function(){
