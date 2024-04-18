@@ -58,6 +58,7 @@ class ReverieComm():
     Guarda el progreso
     """
     self.write_command("save")
+    self.cerrar_back()
 
   def finish(self):
     """
@@ -72,6 +73,12 @@ class ReverieComm():
     Y elimina toda la información de la simulación
     """
     self.write_command("exit")
+    self.cerrar_back()
+  
+  def cerrar_back(self):
+    with open(PID_INFO_FILE) as reverie_pid_f:
+      reverie_pid = int(json.load(reverie_pid_f)["pid"])
+    os.waitpid(reverie_pid, 0)
 
 def generar_back(post_dict):
   def gen_json(post_dict):

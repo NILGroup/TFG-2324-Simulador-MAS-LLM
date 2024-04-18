@@ -388,13 +388,9 @@ def manejador_acciones_simulacion(request):
           print("Save hecho")
           
       elif action == 'salir':
-          with open(PID_INFO_FILE) as reverie_pid_f:
-            reverie_pid = int(json.load(reverie_pid_f)["pid"])
           rc = ReverieComm()
           rc.exit()
           # La eliminacion de este proceso se deberia hacer desde ReverieComm.py
-          os.waitpid(reverie_pid, 0)
-          print("Todo OK")
 
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
