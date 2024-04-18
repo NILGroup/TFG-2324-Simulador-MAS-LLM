@@ -369,7 +369,9 @@ def simulacion(request):
 # Manejador de ruta para los botones que gestionan la simulación (play, pause, guardar...)
 def manejador_acciones_simulacion(request):
   if request.method == 'POST':
-      action = request.POST.get('action')
+      json_dict = json.load(request)
+      action = json_dict['action']
+      json_dict = json_dict['values']
 
       # TODO: Procesar la acción correspondiente
       if action == 'play':

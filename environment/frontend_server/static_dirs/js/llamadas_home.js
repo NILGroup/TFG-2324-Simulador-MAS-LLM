@@ -67,7 +67,7 @@ $(document).ready(function() {
         $.ajax({
             url: '/manejador-acciones-simulacion/', 
             type: 'POST',
-            data: dataToSend,
+            data: JSON.stringify(dataToSend),
             dataType: 'json',
             success: function(response) {
                 console.log("La acción del botón fue enviada correctamente:", response);
