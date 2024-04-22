@@ -324,15 +324,33 @@ def crear_simulacion(request):
   return render(request, template, context)
 
 def ver_simulacion(request):
-  context = {}
+  def obtener_info_demos_disponibles():
+    demos_disponibles = dirs_from('compressed_storage')
+    
+    info_demos = []
+    for demo in demos_disponibles:
+      simu_f = f"./compressed_storage/{demo}"
+      meta_f = f"{simu_f}/meta.json"
+      with open(meta_f) as meta_content:
+        simu_meta = json.load(meta_content)
+        
+        demo_dict = {"sim_code": demo,
+                     "max_step": simu_meta['step'],
+                     "sim_code": simu_meta['sim_code'],
+                     "fork_sim_code": simu_meta['fork_sim_code'],
+                     "start_time": simu_meta['start_date'],
+                     "curr_time": simu_meta['curr_time'],
+                     "duration": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
+        info_demos.append(demo_dict)
+    return info_demos
+  
+  context = {"demos": obtener_info_demos_disponibles()}
   template = "home/ver_simulacion.html"
   return render(request, template, context)
 
 def continuar_simulacion(request):
   def obtener_info_simulaciones_disponibles():
-    simulaciones_disponibles = os.listdir('storage')
-    if '.gitignore' in simulaciones_disponibles:
-      simulaciones_disponibles.remove('.gitignore')
+    simulaciones_disponibles = dirs_from('storage')
     
     info_simulaciones = []
 
@@ -344,9 +362,10 @@ def continuar_simulacion(request):
         
         simu_dict = {"sim_code": simu,
                      "step": simu_meta['step'],
-                     "tiempo_creacion_simulacion": "[Debug] February 13, 2023, 14:12:50",
-                     "tiempo_actual_simulacion": "[Debug] February 14, 2023, 14:12:50",
-                     "duracion_simulacion": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
+                     "fork_sim_code": simu_meta['fork_sim_code'],
+                     "start_time": "[Debug] February 13, 2023, 14:12:50",
+                     "curr_time": "[Debug] February 14, 2023, 14:12:50",
+                     "duration": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
         info_simulaciones.append(simu_dict)
     return info_simulaciones
   
