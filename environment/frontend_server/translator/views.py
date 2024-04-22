@@ -376,6 +376,9 @@ def manejador_acciones_simulacion(request):
       # TODO: Procesar la acción correspondiente
       if action == 'play':
           # ... Lógica del "play" (hacer un run)
+          steps = json_dict['steps']
+          rc = ReverieComm()
+          rc.run(steps)
           pass 
       elif action == 'pause':
           # ... Lógica del "pause"
@@ -386,8 +389,7 @@ def manejador_acciones_simulacion(request):
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
           rc = ReverieComm()
-          rc.save()
-          print("Save hecho")
+          rc.finish()
           
       elif action == 'salir':
           rc = ReverieComm()

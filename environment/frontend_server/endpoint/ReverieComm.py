@@ -58,13 +58,13 @@ class ReverieComm():
     Guarda el progreso
     """
     self.write_command("save")
-    self.cerrar_back()
 
   def finish(self):
     """
     Termina la simulación y guarda el progreso
     """
     self.write_command("finish")
+    self.cerrar_back()
 
   def exit(self):
     """
@@ -74,11 +74,18 @@ class ReverieComm():
     """
     self.write_command("exit")
     self.cerrar_back()
+
+  def test(self):
+    print("llamando a test")
+    self.write_command("test")
+    print("test terminado")
   
   def cerrar_back(self):
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
     os.waitpid(reverie_pid, 0)
+  
+
 
 def generar_back(post_dict):
   def gen_json(post_dict):
@@ -152,15 +159,6 @@ def generar_back(post_dict):
   pid = generar_nuevo_proceso()
   guardar_pid(pid)
 
-  # Esperamos hasta un minuto tratando de generar el back
-  i = 60
-  while i > 0 and os.path.exists(PARAMS_IN_FILE):
-    i -= 1
-    print("Esperando a que se genere el back")
-    time.sleep(1)
-  if i == 10:
-    raise Exception("No se pudo crear el ReverieServer")
-
   return post_dict['sim_code']
 
 def generar_context(sim_code):
@@ -176,6 +174,15 @@ def generar_context(sim_code):
     context['persona_init_pos'] = persona_init_pos
     
     return context
+
+  # Esperamos hasta un minuto tratando de generar el back
+  i = 60
+  while i > 0 and os.path.exists(PARAMS_IN_FILE):
+    i -= 1
+    print("Esperando a que se genere el back")
+    time.sleep(1)
+  if i == 10:
+    raise Exception("No se pudo crear el ReverieServer")
 
   rc = ReverieServer.instancia_sencilla(sim_code)
   return create_context(rc)
