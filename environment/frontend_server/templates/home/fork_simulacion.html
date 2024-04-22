@@ -74,9 +74,9 @@
                             <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
                             {% csrf_token %}
                         </form>
-                        <div class="fecha info-cont-sim">Tiempo creación: {{ simulacion.tiempo_creacion_simulacion }}</div>
-                        <div class="tiempo_actual info-cont-sim">Tiempo actual: {{ simulacion.tiempo_actual_simulacion }}</div>
-                        <div class="duracion info-cont-sim">Tiempo actual: {{ simulacion.duracion_simulacion }}</div>
+                        <div class="fecha info-cont-sim"><b>Tiempo creación:</b> {{ simulacion.start_time }}</div>
+                        <div class="tiempo_actual info-cont-sim"><b>Tiempo actual:</b> {{ simulacion.curr_time }}</div>
+                        <div class="duracion info-cont-sim"><b>Duracion:</b> {{ simulacion.duration }}</div>
                     </div>
                 </div>
             {% endfor %}

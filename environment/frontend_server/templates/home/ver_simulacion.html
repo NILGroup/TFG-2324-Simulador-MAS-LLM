@@ -41,6 +41,7 @@
         </div>           -->
         
         <div class="simulacion mb-3">
+            {% for demo in demos %}
             <div class="row mb-3 contenedor-simulacion">
                 <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
@@ -48,18 +49,12 @@
                 </div>
                 <div class="col-md-8 simulacion-detalles">
                     <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones, así como el id de la simulación y demás datos -->
-                    <h3 class="fw-bold">Simulación Isabella, Maria y Klaus</h3>
+                    <h3 class="fw-bold">{{ demo.sim_code }}</h3>
                     <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación Isabella, Maria y Klaus</a></p>
                     <form method="POST" action="/comenzar-demo-simulacion/" class="select-wrapper info-ver-sim row">
                         <div class="col-sm-6">
-                            <label for="step-select">Step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
+                            <label for="step-select">Empezar la demo en el Step:</label>
+                            <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}">
                         </div>
                         <div class="col-sm-6">
                             <label for="speed-select" class="col-sm-6">Velocidad:</label>
@@ -74,128 +69,14 @@
                         <button type="submit" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Ver simulación</button>
                         {% csrf_token %}
                     </form>
-                    <div class="fecha info-ver-sim"><b>Fecha:</b> 28/02/2023</div>
-                    <div class="duracion info-ver-sim"><b>Duración:</b> 2 min 30 s</div>
+                    <div class="fecha info-ver-sim"><b>Tiempo creación:</b> {{ demo.start_time }}</div>
+                    <div class="tiempo_actual info-cont-sim"><b>Tiempo actual:</b> {{ demo.curr_time }}</div>
+                    <div class="duracion info-ver-sim"><b>Duración:</b> {{ demo.duration }}</div>
                     <p class="contexto info-ver-sim"><b>Resumen:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt libero in, asperiores repellendus dignissimos accusantium tempore reiciendis harum non iusto cupiditate nemo maiores adipisci ipsum perferendis eius quo illo ducimus!</p>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ullam quidem necessitatibus perferendis expedita illo, vel vero quas aspernatur ratione, laudantium ipsa fugiat quibusdam veniam nemo totam consectetur iusto excepturi?</p>
                 </div>
             </div>
-            <div class="row mb-3 contenedor-simulacion">
-                <div class="col-md-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'img/atlas.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">Mapa de ejemplo</figcaption>
-                </div>
-                <div class="col-md-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación de Ejemplo #2</h3>
-                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación de ejemplo #2</a></p>
-                    <div class="select-wrapper info-ver-sim row">
-                        <div class="col-sm-6">
-                            <label for="step-select">Step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="speed-select" class="col-sm-6">Velocidad:</label>
-                            <select class="form-select" name="speed-select">
-                                <option value="1">1 (Lento)</option>
-                                <option value="2">2 (Lento-Medio)</option>
-                                <option value="3">3 (Medio)</option>
-                                <option value="4">4 (Medio-rápido)</option>
-                                <option value="5">5 (Rápido)</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Ver simulación</button>
-                    </div>
-                    <div class="fecha info-ver-sim"><b>Fecha:</b> 28/02/2023</div>
-                    <div class="duracion info-ver-sim"><b>Duración:</b> 10 min</div>
-                    <p class="contexto info-ver-sim"><b>Resumen:</b> Los agentes se encuentran en la Facultado de Informática de la UCM. De repente,
-                        salta la alarma de incendios y deben realizar una evacuación rápida y eficaz.
-                    </p>
-                </div>
-            </div>
-            <div class="row mb-3 contenedor-simulacion">
-                <div class="col-md-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">The ville</figcaption>
-                </div>
-                <div class="col-md-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación de Ejemplo #3</h3>
-                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación de ejemplo #2</a></p>
-                    <div class="select-wrapper info-ver-sim row">
-                        <div class="col-sm-6">
-                            <label for="step-select">Step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="speed-select" class="col-sm-6">Velocidad:</label>
-                            <select class="form-select" name="speed-select">
-                                <option value="1">1 (Lento)</option>
-                                <option value="2">2 (Lento-Medio)</option>
-                                <option value="3">3 (Medio)</option>
-                                <option value="4">4 (Medio-rápido)</option>
-                                <option value="5">5 (Rápido)</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Ver simulación</button>
-                    </div>
-                    <div class="fecha info-ver-sim"><b>Fecha:</b> 28/02/2023</div>
-                    <div class="duracion info-ver-sim"><b>Duración:</b> 2 min 33 s</div>
-                    <p class="contexto"><b>Resumen:</b> Los agentes están teniendo un día normal en su pueblo hasta que, de pronto, uno de ellos
-                        entra en pánico y comienza a correr por la calle principal. El resto de agentes, asustados, se extrañan de su comportamiento
-                        y tratan de calmarlo. Sin embargo, este agente está fuera de sí y no responde a las interacciones de los demás.
-                    </p>
-                </div>
-            </div>
-            <div class="row mb-3 contenedor-simulacion">
-                <div class="col-md-4 col-xl-3 simulacion-imagen">
-                    <img src="{% static 'img/mapaNevado.png' %}" alt="Mapa de la Simulación">
-                    <figcaption class="text-center">Mapa nevado</figcaption>
-                </div>
-                <div class="col-md-8 simulacion-detalles">
-                    <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones -->
-                    <h3 class="fw-bold">Simulación de Ejemplo #4</h3>
-                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación de ejemplo #4</a></p>
-                    <div class="select-wrapper info-ver-sim row">
-                        <div class="col-sm-6">
-                            <label for="step-select">Step:</label>
-                            <select class="form-select" name="step-select">
-                                <option value="1">Step 1</option>
-                                <option value="2">Step 2</option>
-                                <option value="3">Step 3</option>
-                                <option value="4">Step 4</option>
-                                <option value="5">Step 5</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="speed-select" class="col-sm-6">Velocidad:</label>
-                            <select class="form-select" name="speed-select">
-                                <option value="1">1 (Lento)</option>
-                                <option value="2">2 (Lento-Medio)</option>
-                                <option value="3">3 (Medio)</option>
-                                <option value="4">4 (Medio-rápido)</option>
-                                <option value="5">5 (Rápido)</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Ver simulación</button>
-                    </div>
-                    <div class="fecha info-ver-sim"><b>Fecha:</b> 28/02/2023</div>
-                    <div class="duracion info-ver-sim"><b>Duración:</b> 2 min 33 s</div>
-                    <p class="contexto"><b>Resumen:</b> Situación hipotética en una oficina...</p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 </main>

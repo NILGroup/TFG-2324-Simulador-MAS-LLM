@@ -1,104 +1,187 @@
 import os
 import sys
+import time
 import datetime
 import json
+import subprocess
+
 local_dir = os.path.dirname(os.path.abspath(__file__))
 frontend_dir = os.path.join(local_dir, '../')
 backend_dir = os.path.join(frontend_dir, '../../reverie/backend_server/')
+executable_file = os.path.join(local_dir, 'backendWrapp.py')
 
 sys.path.append(frontend_dir)
 sys.path.append(backend_dir)
 
+__current_file_path__ = f"{local_dir}/{__file__}"
+
 # Este será un fifo
 INPUT_ENDPOINT = f"{local_dir}/reverieInput"
-
-# Este es un regular file
-# Preferiría hacerlo fifo, pero si no hay nadie leyendo se bloquea
+# Es un fifo
 OUTPUT_ENDPOINT = f"{local_dir}/reverieOutput"
 
 # Aquí se enviarán los errores
 ERR_ENDPOINT = f"{local_dir}/reverieError"
 
+# Se encarga de guardar el fichero en el que se almacena el pid del proceso que ejecuta el ReverieServer
 PID_INFO_FILE = f"{local_dir}/reverie_pid"
+
+# Almacena los parametros para ejecutar el nuevo ReverieServer
+PARAMS_IN_FILE = f"{local_dir}/params_in.json"
+
+
 
 from reverie import ReverieServer
 
-class ReverieComm(ReverieServer):
-  def redirect_std(self):
-    if not os.path.exists(INPUT_ENDPOINT):
-      os.mkfifo(INPUT_ENDPOINT)
+class ReverieComm():
+  def __init__(self):
+    pass
 
-    fdIn = os.open(INPUT_ENDPOINT, os.O_RDONLY | os.O_CREAT)
-    os.dup2(fdIn, 0)
-    os.close(fdIn)
-    
-    fdOut = os.open(OUTPUT_ENDPOINT, os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
-    os.dup2(fdOut, 1)
-    os.close(fdOut)
-    
-    fdErr = os.open(ERR_ENDPOINT, os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
-    os.dup2(fdErr, 2)
-    os.close(fdErr)
-
-  def __init__(self,
-               forked,
-               params):
-    # Creamos el Reverie Server == Los archivos de la nueva simulación
-    super().__init__(forked, params)
-
-  def open_server(self):
-    # Aquí hacemos el nuevo hilo que corra el ReverieServer
-    pid = os.fork()
-
-    if pid == 0:
-      os.close(4)
-      os.close(5)
-      # Redirigimos el input output que usará el reverie server a los pipes
-      self.redirect_std()
-      # Iniciamos el server
-      super().open_server()
-      sys.exit()
-    else:
-      
-      # Guardamos el pid en un fichero para terminar el proceso cuando se termine con la simulacion desde el front
-      pid_file_meta = dict()
-      pid_file_meta['reverie_server_creation_time'] = datetime.datetime.today().strftime("%B %d, %Y, %H:%M:%S")
-      pid_file_meta['pid'] = str(pid)
-      with open(PID_INFO_FILE, 'w') as pid_file:
-        pid_file.write(json.dumps(pid_file_meta, indent=2))
-        
-
-  @staticmethod
-  def write_command(command):
-    with open(INPUT_ENDPOINT, 'w') as in_file:
+  def write_command(self, command):
+    in_file = open(INPUT_ENDPOINT, 'w')
+    with open(OUTPUT_ENDPOINT, 'r') as out_file:
       in_file.write(command)
+      in_file.flush()
+      in_file.close()
+      ret = out_file.readlines()
+    return ret
 
-  @staticmethod
-  def run(n_steps=1):
+  def run(self, n_steps=1):
     """
     Ejecuta el numero de pasos especificado
     """
-    ReverieComm.write_command(f"run {n_steps}")
+    self.write_command(f"run {n_steps}")
 
-  @staticmethod
-  def save():
+  def save(self):
     """
     Guarda el progreso
     """
-    ReverieComm.write_command("save")
+    self.write_command("save")
 
-  @staticmethod
-  def finish():
+  def finish(self):
     """
     Termina la simulación y guarda el progreso
     """
-    ReverieComm.write_command("finish")
+    self.write_command("finish")
+    self.cerrar_back()
 
-  @staticmethod
-  def exit():
+  def exit(self):
     """
     Termina la simulación
     No guarda el estado
     Y elimina toda la información de la simulación
     """
-    ReverieComm.write_command("exit")
+    self.write_command("exit")
+    self.cerrar_back()
+
+  def test(self):
+    print("llamando a test")
+    self.write_command("test")
+    print("test terminado")
+  
+  def cerrar_back(self):
+    with open(PID_INFO_FILE) as reverie_pid_f:
+      reverie_pid = int(json.load(reverie_pid_f)["pid"])
+    os.waitpid(reverie_pid, 0)
+  
+
+
+def generar_back(post_dict):
+  def gen_json(post_dict):
+    def traducir_para_back(post_dict):
+      """
+      Es necesario para transformar el input recibido de JS en el diccionario que se espera en el back
+      INPUT:
+        un diciconario con el siguiente formato:
+        {
+          "numPersonajes": ['2'],
+          "nombreSimulacion": ["..."],
+          
+          "nombre1": ["..."],
+          "currently1": ["..."]
+          "innate1": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
+          "learned1": ["..."]
+          "lifestyle1": ["..."]
+          
+          "nombre2": ["..."],
+          "currently2": ["..."]
+          "innate2": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
+          "learned2": ["..."]
+          "lifestyle2": ["..."]
+        }
+      OUTPUT:
+        {
+          valor_nombre_persona1: {innate: "val1, val2, ...", currently: "...", ...}
+          valor_nombre_persona2: {innate: ...}
+        }
+      """
+      ret_dict = dict()
+      n_pers = int(post_dict["numPersonajes"])
+      sim_code = str(post_dict["sim_code"])
+      personas_dict = dict()
+      for i in range(1, n_pers+1):
+        persona_name = post_dict[f"nombre{i}"]
+        personas_dict [persona_name] = dict()
+        personas_dict [persona_name]['innate'] = post_dict[f"innate{i}"]
+        personas_dict [persona_name]['currently'] = post_dict[f"currently{i}"]
+        personas_dict [persona_name]['learned'] = post_dict[f"learned{i}"]
+        personas_dict [persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"]
+      ret_dict = {"sim_code": sim_code.replace(" ", "_"), "personas": personas_dict}
+      return ret_dict
+    """
+    Vuelca los parametros en un archivo .json que leerá el proceso del Back
+    """
+    json_dict = {}
+    json_dict['new'] = True if post_dict['nueva'] == 'si' else False
+    json_dict['forked'] = True if 'forked' in post_dict.keys() and post_dict['forked'] == 'si' else False
+    if json_dict['new']:
+      json_dict['params'] = traducir_para_back(post_dict)
+    else:
+      json_dict['params'] = post_dict
+    
+    with open(PARAMS_IN_FILE, 'w') as params_file:
+      params_file.write(json.dumps(json_dict))
+    return json_dict
+
+  def generar_nuevo_proceso():
+    proceso = subprocess.Popen(["python3", f"{executable_file}", f"{PARAMS_IN_FILE}"])
+    return proceso.pid
+
+  def guardar_pid(pid):
+    pid_file_meta = dict()
+    pid_file_meta['reverie_server_creation_time'] = datetime.datetime.today().strftime("%B %d, %Y, %H:%M:%S")
+    pid_file_meta['pid'] = str(pid)
+    with open(PID_INFO_FILE, 'w') as pid_file:
+      pid_file.write(json.dumps(pid_file_meta, indent=2))
+
+  gen_json(post_dict)
+  pid = generar_nuevo_proceso()
+  guardar_pid(pid)
+
+  return post_dict['sim_code']
+
+def generar_context(sim_code):
+  def create_context(rc):
+    context = {"sim_code": rc.sim_code,
+            "step": rc.step,
+            "mode": "simulate"}
+    
+    persona_names = [(name, name.replace(" ", "_")) for name in rc.personas]
+    context['persona_names'] = persona_names
+
+    persona_init_pos = [[name, rc.personas_tile[name][0], rc.personas_tile[name][1]] for name in rc.personas_tile]
+    context['persona_init_pos'] = persona_init_pos
+    
+    return context
+
+  # Esperamos hasta un minuto tratando de generar el back
+  i = 60
+  while i > 0 and os.path.exists(PARAMS_IN_FILE):
+    i -= 1
+    print("Esperando a que se genere el back")
+    time.sleep(1)
+  if i == 10:
+    raise Exception("No se pudo crear el ReverieServer")
+
+  rc = ReverieServer.instancia_sencilla(sim_code)
+  return create_context(rc)

@@ -19,7 +19,7 @@ from global_methods import *
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
 
-from endpoint.ReverieComm import ReverieComm
+from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID_INFO_FILE
 
 def landing(request): 
   context = {}
@@ -324,15 +324,37 @@ def crear_simulacion(request):
   return render(request, template, context)
 
 def ver_simulacion(request):
-  context = {}
+  def obtener_info_demos_disponibles():
+    demos_disponibles = dirs_from('compressed_storage')
+    
+    info_demos = []
+    for demo in demos_disponibles:
+      simu_f = f"./compressed_storage/{demo}"
+      meta_f = f"{simu_f}/meta.json"
+      with open(meta_f) as meta_content:
+        simu_meta = json.load(meta_content)
+        
+        start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
+        curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
+        diff_time = curr_time - start_time
+
+        demo_dict = {"sim_code": demo,
+                     "max_step": simu_meta['step'],
+                     "sim_code": simu_meta['sim_code'],
+                     "fork_sim_code": simu_meta['fork_sim_code'],
+                     "start_time": simu_meta['start_date'],
+                     "curr_time": simu_meta['curr_time'],
+                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
+        info_demos.append(demo_dict)
+    return info_demos
+  
+  context = {"demos": obtener_info_demos_disponibles()}
   template = "home/ver_simulacion.html"
   return render(request, template, context)
 
 def continuar_simulacion(request):
   def obtener_info_simulaciones_disponibles():
-    simulaciones_disponibles = os.listdir('storage')
-    if '.gitignore' in simulaciones_disponibles:
-      simulaciones_disponibles.remove('.gitignore')
+    simulaciones_disponibles = dirs_from('storage')
     
     info_simulaciones = []
 
@@ -342,11 +364,16 @@ def continuar_simulacion(request):
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
         
+        start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
+        curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
+        diff_time = curr_time - start_time
+
         simu_dict = {"sim_code": simu,
                      "step": simu_meta['step'],
-                     "tiempo_creacion_simulacion": "[Debug] February 13, 2023, 14:12:50",
-                     "tiempo_actual_simulacion": "[Debug] February 14, 2023, 14:12:50",
-                     "duracion_simulacion": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
+                     "fork_sim_code": simu_meta['fork_sim_code'],
+                     "start_time": simu_meta['start_date'],
+                     "curr_time": simu_meta['curr_time'],
+                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
         info_simulaciones.append(simu_dict)
     return info_simulaciones
   
@@ -361,29 +388,24 @@ def guia_usuario(request):
 
 # A esta función llegan llamadas tanto de crear simulación como de continuar y fork. Se distinguirá por casos y se redirigirá a la vista correspondiente
 def simulacion(request):
-  print("Buenas--------------------------")
-  print(request.POST)
-  print("Buenas--------------------------")
-
-  if (request.POST['nueva'] == "si"):
-    return nueva_simulacion(request)
-  elif request.POST['forked'] == "si":
-    return fork_simulacion(request)
-  elif request.POST['forked'] == "no":
-    continuar_simulacion(request)
-
-  context = {}
+  sim_code = generar_back(request.POST.dict())
+  context = generar_context(sim_code)
   template = "home/home.html"
   return render(request, template, context)
 
 # Manejador de ruta para los botones que gestionan la simulación (play, pause, guardar...)
 def manejador_acciones_simulacion(request):
   if request.method == 'POST':
-      action = request.POST.get('action')
+      json_dict = json.load(request)
+      action = json_dict['action']
+      json_dict = json_dict['values']
 
       # TODO: Procesar la acción correspondiente
       if action == 'play':
           # ... Lógica del "play" (hacer un run)
+          steps = json_dict['steps']
+          rc = ReverieComm()
+          rc.run(steps)
           pass 
       elif action == 'pause':
           # ... Lógica del "pause"
@@ -393,18 +415,14 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
-          ReverieComm.save()
-          print("Save hecho")
-          pass
+          rc = ReverieComm()
+          rc.finish()
+          
       elif action == 'salir':
-          reverie_pid_file = "./endpoint/reverie_pid"
-          with open(reverie_pid_file) as reverie_pid_f:
-            reverie_pid = int(json.load(reverie_pid_f)["pid"])
-          # ... Lógica del "salir" (hacer un exit sin más, no guardar ficheros de la simulación)
-          # ... Hay que terminar el proceso del ReverieServer
-          ReverieComm.exit()
-          os.waitpid(reverie_pid, 0)
-          print("Todo OK")
+          rc = ReverieComm()
+          rc.exit()
+          # La eliminacion de este proceso se deberia hacer desde ReverieComm.py
+
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
           pass
@@ -428,65 +446,3 @@ def comenzar_demo_simulacion(request):
     return redirect('http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/')
   else:
     return HttpResponse('Request method must be POST.')
-
-def nueva_simulacion(request):
-  def traducir_para_back(post_dict):
-    """
-    INPUT:
-      un diciconario con el siguiente formato:
-      {
-        "numPersonajes": ['2'],
-        "nombreSimulacion": ["..."],
-        
-        "nombre1": ["..."],
-        "currently1": ["..."]
-        "innate1": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
-        "learned1": ["..."]
-        "lifestyle1": ["..."]
-        
-        "nombre2": ["..."],
-        "currently2": ["..."]
-        "innate2": ["extrovertido", "amigable"...] # por ver, pero asumimos que tendrá ese formato
-        "learned2": ["..."]
-        "lifestyle2": ["..."]
-      }
-    OUTPUT:
-      {
-        valor_nombre_persona1: {innate: "val1, val2, ...", currently: "...", ...}
-        valor_nombre_persona2: {innate: ...}
-      }
-    """
-    ret_dict = dict()
-    n_pers = int(post_dict["numPersonajes"])
-    sim_code = str(post_dict["sim_code"])
-    personas_dict = dict()
-    for i in range(1, n_pers+1):
-      persona_name = post_dict[f"nombre{i}"]
-      personas_dict [persona_name] = dict()
-      personas_dict [persona_name]['innate'] = post_dict[f"innate{i}"]
-      personas_dict [persona_name]['currently'] = post_dict[f"currently{i}"]
-      personas_dict [persona_name]['learned'] = post_dict[f"learned{i}"]
-      personas_dict [persona_name]['lifestyle'] = post_dict[f"lifestyle{i}"]
-    ret_dict = {"sim_code": sim_code.replace(" ", "_"), "personas": personas_dict}
-    return ret_dict
-
-  def create_context(rc):
-    context = {"sim_code": rc.sim_code,
-            "step": rc.step,
-            "mode": "simulate"}
-    
-    persona_names = [(name, name.replace(" ", "_")) for name in rc.personas]
-    context['persona_names'] = persona_names
-
-    persona_init_pos = [[name, rc.personas_tile[name][0], rc.personas_tile[name][1]] for name in rc.personas_tile]
-    context['persona_init_pos'] = persona_init_pos
-    
-    return context
-
-  traduccion = traducir_para_back(request.POST)
-  rc = ReverieComm(forked=False, params=[traduccion['sim_code'], traduccion['personas']])
-  context = {"request": request}
-  context = create_context(rc)
-  rc.open_server()
-  template = "home/home.html"
-  return render(request, template, context)

@@ -18,6 +18,15 @@ import shutil, errno
 
 from os import listdir
 
+def dirs_from(path):
+  if not os.path.isdir(path):
+    return []
+  dirs = []
+  for entry in os.scandir(path):
+    if not entry.name.startswith('.') and entry.is_dir():
+      dirs.append(entry.name)
+  return dirs
+
 def create_folder_if_not_there(curr_path): 
   """
   Checks if a folder in the curr_path exists. If it does not exist, creates
