@@ -334,13 +334,17 @@ def ver_simulacion(request):
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
         
+        start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
+        curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
+        diff_time = curr_time - start_time
+
         demo_dict = {"sim_code": demo,
                      "max_step": simu_meta['step'],
                      "sim_code": simu_meta['sim_code'],
                      "fork_sim_code": simu_meta['fork_sim_code'],
                      "start_time": simu_meta['start_date'],
                      "curr_time": simu_meta['curr_time'],
-                     "duration": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
+                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
         info_demos.append(demo_dict)
     return info_demos
   
@@ -360,12 +364,16 @@ def continuar_simulacion(request):
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
         
+        start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
+        curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
+        diff_time = curr_time - start_time
+
         simu_dict = {"sim_code": simu,
                      "step": simu_meta['step'],
                      "fork_sim_code": simu_meta['fork_sim_code'],
-                     "start_time": "[Debug] February 13, 2023, 14:12:50",
-                     "curr_time": "[Debug] February 14, 2023, 14:12:50",
-                     "duration": "[Debug] 0 Dias 14 Hrs 12 Mins 50 Segs"}
+                     "start_time": simu_meta['start_date'],
+                     "curr_time": simu_meta['curr_time'],
+                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
         info_simulaciones.append(simu_dict)
     return info_simulaciones
   
