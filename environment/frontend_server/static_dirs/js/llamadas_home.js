@@ -4,6 +4,7 @@
 $(document).ready(function() {
     let simulacionCorriendo = true;
 
+    const sim_code = $('#simulacion_en_ejecucion').val();
     const simulationStateText = $('#textoEstadoSimulacion');
     const boton_play = $('#play_button');
     const boton_pause = $('#pause_button');
@@ -64,7 +65,7 @@ $(document).ready(function() {
 
     boton_guardar_ver.click(function() {
         console.log("Guardando la simulación para ver después")
-        sendAjaxCall('guardar_ver');
+        sendAjaxCall('guardar_ver', {sim_code: sim_code});
     });
     
     boton_guardar_y_salir.click(function() {
