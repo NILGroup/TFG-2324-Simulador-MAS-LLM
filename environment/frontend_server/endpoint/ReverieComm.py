@@ -83,10 +83,15 @@ class ReverieComm():
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
     os.waitpid(reverie_pid, 0)
+    os.remove(PID_INFO_FILE)
   
 
 
 def generar_back(post_dict):
+  def eliminar_back_antiguo():
+    if os.path.exists(PID_INFO_FILE):
+      ReverieComm().finish()
+
   def gen_json(post_dict):
     def traducir_para_back(post_dict):
       """
@@ -154,6 +159,7 @@ def generar_back(post_dict):
     with open(PID_INFO_FILE, 'w') as pid_file:
       pid_file.write(json.dumps(pid_file_meta, indent=2))
 
+  eliminar_back_antiguo()
   gen_json(post_dict)
   pid = generar_nuevo_proceso()
   guardar_pid(pid)
