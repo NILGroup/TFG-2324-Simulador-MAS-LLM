@@ -42,7 +42,7 @@
         
         <div class="simulacion mb-3">
             {% for demo in demos %}
-            <div class="row mb-3 contenedor-simulacion">
+            <div class="row mb-3 contenedor-simulacion" id="{{ demo.sim_code }}.id">
                 <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
                     <figcaption class="text-center">The ville</figcaption>
@@ -52,9 +52,10 @@
                     <h3 class="fw-bold">{{ demo.sim_code }}</h3>
                     <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación Isabella, Maria y Klaus</a></p>
                     <form method="POST" action="/comenzar-demo-simulacion/" class="select-wrapper info-ver-sim row">
+                        <input type="hidden" name="sim_code" value="{{ demo.sim_code }}">
                         <div class="col-sm-6">
                             <label for="step-select">Empezar la demo en el Step:</label>
-                            <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}">
+                            <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}" required>
                         </div>
                         <div class="col-sm-6">
                             <label for="speed-select" class="col-sm-6">Velocidad:</label>

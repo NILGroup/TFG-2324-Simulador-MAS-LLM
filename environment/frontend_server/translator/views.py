@@ -436,10 +436,12 @@ def manejador_acciones_simulacion(request):
 
 def comenzar_demo_simulacion(request):
   if request.method == 'POST':
-    simulation_id = request.POST.get('simulation_id')
-    step = request.POST.get('step-select')  # Field name updated
-    speed = request.POST.get('speed-select') # Field name updated 
-    print("hola")
+    datos = request.POST.dict()
+    print(datos)
+    sim_code = datos['sim_code']
+    step = int(datos['step-select'])
+    speed = int(datos['speed-select'])
+    return demo(request, sim_code, step, speed)
 
     # ... Lógica de la redirección
 
