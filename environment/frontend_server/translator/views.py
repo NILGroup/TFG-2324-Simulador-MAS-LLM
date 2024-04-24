@@ -348,6 +348,9 @@ def ver_simulacion(request):
         info_demos.append(demo_dict)
     return info_demos
   
+  print(request.GET.dict())
+  # Esperamos a que se genere la simulacion que queremos
+
   context = {"demos": obtener_info_demos_disponibles()}
   template = "home/ver_simulacion.html"
   return render(request, template, context)
@@ -412,6 +415,11 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'guardar_ver':
           # ... Lógica del "guardar_ver"
+          sim_code = json_dict['sim_code']
+          print(sim_code)
+          # RcComm.sum_up() -> Guarda en scratch el resumen
+          # RcComm.finish() -> Guarda en el meta.json el resumen
+          # Compress -> Emplaza la simulacion comprimida en compressed_storage
           pass
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
