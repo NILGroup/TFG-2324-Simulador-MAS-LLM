@@ -82,9 +82,9 @@ class ReverieServer:
       self.sec_per_step = 10
       self.maze = Maze('the_ville')
       self.step = 0
-      self.server_sleep = 0.1
       self.summary = None
       self.summary_step = None
+      self.server_sleep = 0.1
     
     def generate_reverie_folder(personas):
       # Initialize the meta.json fields
@@ -97,6 +97,8 @@ class ReverieServer:
       meta_info['maze_name'] = self.maze.maze_name
       meta_info['persona_names'] = [name for name in personas]
       meta_info['step'] = 0
+      meta_info['summary'] = self.summary
+      meta_info['summary_step'] = self.summary_step
 
       reverie_folder = f"{fs_storage}/{self.sim_code}/reverie"
       create_folder_if_not_there(reverie_folder)
@@ -349,6 +351,7 @@ class ReverieServer:
 
     self.summary = reverie_meta['summary']
     self.summary_step = reverie_meta['summary_step']
+    self.fork_sim_code = reverie_meta['fork_sim_code']
 
   def signal_front_end(self):
     # SIGNALING THE FRONTEND SERVER: 
@@ -854,6 +857,12 @@ class ReverieServer:
       print(f"Objeto completo: {completion}")
       return True
 
+    elif command == "summ_up":
+      self.summary = "El resumen aun no se solicita al Modelo\nUna vez decidido se enviará la solicitud y en el front se esperará la respuesta"
+      self.summary_step = self.step
+      print(self.summary)
+      print(self.summary_step)
+      return False
 
     elif command == "start path tester mode": 
       # Starts the path tester and removes the currently forked sim files.

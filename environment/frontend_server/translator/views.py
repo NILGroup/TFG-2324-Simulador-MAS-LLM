@@ -414,13 +414,12 @@ def manejador_acciones_simulacion(request):
           # ... Lógica del "pause"
           pass
       elif action == 'guardar_ver':
-          # ... Lógica del "guardar_ver"
           sim_code = json_dict['sim_code']
-          print(sim_code)
-          # RcComm.sum_up() -> Guarda en scratch el resumen
-          # RcComm.finish() -> Guarda en el meta.json el resumen
+          # ... Lógica del "guardar_ver"
+          rc = ReverieComm()
+          rc.sum_up()
+          rc.finish()
           # Compress -> Emplaza la simulacion comprimida en compressed_storage
-          pass
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
           rc = ReverieComm()

@@ -47,6 +47,12 @@ class ReverieComm():
       ret = out_file.readlines()
     return ret
 
+  def sum_up(self):
+    """
+    Solicita el resumen de la simulacion al backend
+    """
+    self.write_command(f"summ_up")
+
   def run(self, n_steps=1):
     """
     Ejecuta el numero de pasos especificado
