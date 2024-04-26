@@ -51,7 +51,7 @@ class ReverieComm():
     """
     Solicita el resumen de la simulacion al backend
     """
-    self.write_command(f"summ_up")
+    return self.write_command(f"summ_up")
 
   def run(self, n_steps=1):
     """
