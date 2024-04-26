@@ -9,8 +9,11 @@ import json
 from global_methods import *
 
 def compress(sim_code):
-  sim_storage = f"../environment/frontend_server/storage/{sim_code}"
-  compressed_storage = f"../environment/frontend_server/compressed_storage/{sim_code}"
+  # Cambiar el valor de raiz si se ejecuta según el MD original
+  # raiz = "../environment/frontend_server"
+  raiz = "."
+  sim_storage = f"{raiz}/storage/{sim_code}"
+  compressed_storage = f"{raiz}/compressed_storage/{sim_code}"
   persona_folder = sim_storage + "/personas"
   move_folder = sim_storage + "/movement"
   meta_file = sim_storage + "/reverie/meta.json"
@@ -61,24 +64,3 @@ def compress(sim_code):
 
 if __name__ == '__main__':
   compress(sys.argv[1])
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
