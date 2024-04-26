@@ -4,6 +4,7 @@ import time
 import datetime
 import json
 import subprocess
+import psutil
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 frontend_dir = os.path.join(local_dir, '../')
@@ -82,7 +83,8 @@ class ReverieComm():
   def cerrar_back(self):
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
-    os.waitpid(reverie_pid, 0)
+    if psutil.pid_exists(reverie_pid):
+      os.waitpid(reverie_pid, 0)
     os.remove(PID_INFO_FILE)
   
 
@@ -90,7 +92,14 @@ class ReverieComm():
 def generar_back(post_dict):
   def eliminar_back_antiguo():
     if os.path.exists(PID_INFO_FILE):
-      ReverieComm().finish()
+      with open(PID_INFO_FILE) as reverie_pid_f:
+        reverie_pid = int(json.load(reverie_pid_f)["pid"])
+      if psutil.pid_exists(reverie_pid):
+        ReverieComm().finish()
+      else:
+        os.remove(PID_INFO_FILE)
+    else:
+      print("No existe")
 
   def gen_json(post_dict):
     def traducir_para_back(post_dict):
