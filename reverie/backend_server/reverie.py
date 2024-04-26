@@ -83,6 +83,8 @@ class ReverieServer:
       self.maze = Maze('the_ville')
       self.step = 0
       self.server_sleep = 0.1
+      self.summary = None
+      self.summary_step = None
     
     def generate_reverie_folder(personas):
       # Initialize the meta.json fields
@@ -345,6 +347,9 @@ class ReverieServer:
     # cycle; this is to not kill our machine. 
     self.server_sleep = 0.1
 
+    self.summary = reverie_meta['summary']
+    self.summary_step = reverie_meta['summary_step']
+
   def signal_front_end(self):
     # SIGNALING THE FRONTEND SERVER: 
     # curr_sim_code.json contains the current simulation code, and
@@ -386,6 +391,8 @@ class ReverieServer:
     reverie_meta["maze_name"] = self.maze.maze_name
     reverie_meta["persona_names"] = list(self.personas.keys())
     reverie_meta["step"] = self.step
+    reverie_meta["summary"] = self.summary
+    reverie_meta["summary_step"] = self.summary_step
     reverie_meta_f = f"{sim_folder}/reverie/meta.json"
     with open(reverie_meta_f, "w") as outfile: 
       outfile.write(json.dumps(reverie_meta, indent=2))

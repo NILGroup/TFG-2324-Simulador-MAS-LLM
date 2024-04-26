@@ -10,5 +10,7 @@
     "Maria Lopez",
     "Klaus Mueller"    
   ],
-  "step": 0
+  "step": 0,
+  "summary": null,
+  "summary_step": null
 }
