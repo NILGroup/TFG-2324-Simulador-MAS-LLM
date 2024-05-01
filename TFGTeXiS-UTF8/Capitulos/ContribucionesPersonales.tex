@@ -2,11 +2,62 @@
 \label{cap:contribucionesPersonales}
 \addcontentsline{toc}{chapter}{Contribuciones Personales}
 
-Como este no es un trabajo unipersonal, se ha añadido este apartado de contribuciones personales, en el cual cada uno de los dos alumnos que hemos realizado este trabajo, añadiremos en qué apartados nos hemos enfocado cada uno.
+Como este no es un trabajo unipersonal, se ha añadido este capítulo de contribuciones personales, en el cual cada uno de los dos alumnos que hemos realizado este trabajo, añadiremos en qué apartados nos hemos enfocado cada uno.
 
 \section*{Estudiante 1: Alberto Ramos Suárez}
-Al menos dos páginas con las contribuciones del estudiante 1.
+
+Tras la división del trabajo, decidimos que yo realizara la parte de frontend, enfocándome más en la interfaz y todo lo relacionado con la interacción del cliente con la página, así como la interacción con el backend, siendo algo más agnóstico de los procesos que tenían lugar por detrás.
+
+A continuación, enunciaré algunos de los puntos en los que más enfoqué mi trabajo y el desarrollo del proyecto.
+
+\subsection*{Diseño de la interfaz}
+
+Todo el frontend está realizado por nosotros (exceptuando los mapas y algunas secciones de las páginas de ejecución de simulación y de demo). Por tanto, esto necesitaba ser diseñado y pensado siguiendo ciertos patrones, para que los usuarios pudiesen interactuar completamente con la web.
+
+Lo primero que diseñé fue la landing page, a la que lo usuarios llegarán al cargar la aplicación. En esta, se muestra información sobre el proyecto que hemos desarrollado, algunas de las características que tiene la aplicación y el propósito de la misma.
+
+Después de esto, era necesaria una barra de navegación, que permitiese a los usuarios moverse entre las distintas páginas de la aplicación fácilmente. Esta barra de navegación permite saltar a las páginas de creación, continuación y visualización de simulación, la guía de usuario y la landing.
+
+Las vistas de continuación y visualización de simulaciones son similares, ya que ambas cargan las simulaciones disponibles en el backend, y permiten elegir una de ellas para las acciones que se deseen tomar. El diseño de estas fue pensado para que los usuarios tuvieran libertad a la hora de elegir qué parte de la simulación quieren ver y de dónde salen las simulaciones, tratando de hacer el proceso lo más intuitivo posible.
+
+En cuanto a la vista de creación de simulación, es una de las más complejas del sistema, ya que es donde los usuarios tendrán que definir varios parámetros para que las simulaciones funcionen sin problemas. Entre estos parámetros están el contexto, personalidad y actitud de cada uno de los personajes, o el contexto de la simulación.
+
+La vista de guía de usuario es muy sencilla y está pensada para enseñar a los usuarios a usar la aplicación, así como dar trucos de cómo optimizar las ejecuciones de simulaciones y experimentos interesantes.
+
+Para conseguir implementar todas estas vistas, también fue necesaria la investigación a fondo del funcionamiento de la aplicación. Comprendiendo el backend de Django para crear nuevas vistas, así como el flujo de información desde y hacia el backend.
+
+\subsection*{Contribuciones a la memoria}
+
+Ambos tuvimos implicación en esta memoria, pero como Kevin tenía una mayor carga en el área de investigación e implementación de las funcionalidades en el backend, me encargué de hacer varias de las secciones que no tenían "dueño", así como la mayoría de las imágenes que sirven para explicar gráficamente los aspectos del diseño de la aplicación en general.
+
+Además, la sección del Estado de la Cuestión la dividimos en 2. Decidimos que yo hiciera las secciones de la 4 a la 7, ya que eran secciones que tenían menos que ver con la lógica por detrás de la aplicación, y más con el propósito general de este trabajo, que es la democratización y accesibilidad de una herramienta para experimentar con la emergencia de relaciones sociales mediante el uso de tecnologías multiagente.
+
+El capítulo 6 de la memoria, en el cuel se tratan las interfaces, también lo realicé yo, ya que es esencialmente el trabajo en el que invertí la mayor parte de mi tiempo. Este capítulo trata esencialmente de las vistas en detalle, mostrando ejemplos del resultado final de las mismas y explicándolas.
+
+Sin embargo, aunque nos hayamos dividido las diferentes secciones de la memoria, tanto Kevin como yo revisamos las secciones realizadas por el otro, para comprobar que no haya errores ortográficos y que la información sea validada por ambos antes de publicarla.
+
+\subsection*{Simplificación del repositorio}
+
+Una de las propuestas que realicé y sobre la que tomé acción personalmente fue la de la eliminación y limpieza de ciertos archivos y carpetas del repositorio. Como se detalla en la sección \ref{limpiezaArchivos}, existían multitud de carpetas y archivos, así como algunas funciones dentro de archivos, que no hacían nada a día de hoy en la aplicación. Muchos de estos eran usados para depurar la aplicación pero no están siendo utilizados y por tanto, decidí eliminarlos, explicando en esa sección el porqué.
+
+Parte de la intención de hacer esto es que el repositorio quede en general más limpio. Permitiendo así que sea más sencillo en el futuro comprender a los desarrolladores qué hace cada función, y que no sea tan difícil encontrar la información valiosa.
+
+\subsection*{Actualización de la documentación}
+
+Otra de las propuestas en las que tomé la iniciativa de implementar fue la creación de una documentación para utilizar la aplicación en castellano y optimizada para el trabajo que habíamos realizado.
+
+La documentación que había inicialmente estaba escrita en inglés y pensada para los usuarios que utilizaban el sistema como estaba inicialmente diseñado. Sin embargo, nosotros hemos cambiado la forma de interactuar con el sistema y por ello sentía que era necesaria la creación de una documentación que explique cómo hacer funcionar esta aplicación.
+
+Al hilo de esto, también decidí incorporar la guía de usuario en la interfaz. La idea principal es que la documentación será necesaria para ejecutar la aplicación e incluirá las especificaciones técnicas de la misma, mientras que la guía de usuario explicará exclusivamente cómo utilizar la aplicación para usuarios nuevos, así como tips y trucos interesantes para realizar experimentos con la aplicación.
+
+\subsection*{Gestión de la comunicación entre el frontend y el backend de Django}
+
+En esta parte del desarrollo contribuímos tanto Kevin como yo. Se trata básicamente del contrato de API entre el front y el back, mediante el cual el frontend le pedirá al backend información, la cual este deberá ejecutar y devolver la respuesta.
+
+En el desarrollo de este contrato intervinimos los dos, pero yo tomé la iniciativa de crear las primeras llamadas (de los comandos, de la creación de simulaciones...) y a partir de ahí luego veíamos qué más información necesitábamos y en qué formato.
 
 \section*{Estudiante 2: Kevin Óscar Arce Vera}
 Al menos dos páginas con las contribuciones del estudiante 2. En caso de que haya más estudiantes, copia y pega una de estas secciones.
+
+\textcolor{red}{A RELLENAR POR KEVIN}
 
