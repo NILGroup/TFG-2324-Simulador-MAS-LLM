@@ -77,19 +77,32 @@ $(document).ready(function() {
         sendAjaxCall('salir');
     });
 
-    boton_chat.click(function() {
-        const chat = $(this).closest('.modal').find('textarea').val(); 
-        const personaName = $(this).closest('.modal').find('input').val();
+    boton_chat.click(function(event) {  
+        event.preventDefault();
 
-        console.log("chateando");
+        const modal = $(this).closest('.modal'); 
+        const chat = modal.find('textarea').val();
+        const personaName = modal.find('input').val();
 
-        let values = {};
-        values['persona_name'] = personaName;
+        mostrarMensaje(chat, 'mensaje-usuario');
+        values = {};
         values['chat'] = chat;
-        console.log(values);
+        values['persona_name'] = personaName;
+        sendAjaxCall('chat', {values});
 
-        sendAjaxCall('chat', values);
+        setTimeout(() => {
+            const botResponse = "Respuesta simulada desde el backend: " + chat;
+            mostrarMensaje(botResponse, 'mensaje-bot');
+        }, 1000);
+
+        modal.find('textarea').val('');
     });
+
+    function mostrarMensaje(message, messageClass) {
+        const messageDiv = $('<div class="chat-message ' + messageClass + '">' + message + '</div>');
+        $('.chat-history').append(messageDiv);
+        $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
+    }
 
     boton_susurro.click(function() {
         const susurro = $(this).closest('.modal').find('textarea').val(); 
@@ -108,6 +121,7 @@ $(document).ready(function() {
             action: action,
             values: values
         };
+        console.log(dataToSend);
 
         $.ajax({
             url: '/manejador-acciones-simulacion/', 

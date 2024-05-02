@@ -153,18 +153,19 @@
 							<h5 class="modal-title" id="exampleModalLabel">Chatear con {{p_name}}</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
-						<div class="modal-body">
-							<form>
+						<div class="modal-body chat-container"> 
+							<div class="chat-history"> 
+							</div>
+							<form class="chat-input">
 								<input type="hidden" class="actual_persona_name" value="{{p_name}}">
 								<div class="mb-3">
-									<label for="texto-chat{{p_name_os}}" class="col-form-label">Mensaje:</label>
 									<textarea class="form-control textarea_afectada" id="texto_chat_{{p_name_os}}"></textarea>
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary boton_chat">Chatear</button>
+							<button type="button" class="btn btn-primary boton_chat">Enviar</button>
 						</div>
 					</div>
 				</div>
