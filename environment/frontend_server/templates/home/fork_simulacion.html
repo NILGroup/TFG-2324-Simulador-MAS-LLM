@@ -65,11 +65,11 @@
                             <input type="hidden" name="fork_sim_code" value="{{ simulacion.sim_code }}">
                             <div class="col-sm-5">
                                 <label for="step-select">Forkear simulación desde el step:</label>
-                                <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{simulacion.step}} value="{{simulacion.step}}">
+                                <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{simulacion.step}} value="{{simulacion.step}}" placeholder="máximo {{simulacion.step}}" required>
                             </div>
                             <div class="col-sm-5">
                                 <label for="sim_code">Nombre de la simulación forkeada:</label>
-                                <input type="text" class="form-control" name="sim_code" id="sim_code">
+                                <input type="text" class="form-control" name="sim_code" id="sim_code" required>
                             </div>
                             <button type="submit" class="btn btn-primary view-simulation-btn boton-fork-sim" data-simulation-id="idEjemplo">Ir</button>
                             {% csrf_token %}

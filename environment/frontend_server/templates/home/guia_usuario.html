@@ -93,10 +93,11 @@
     <section id="ejecucion-simulacion">
         <h2>Ejecución de la Simulación</h2>
         <p>
-            En esta página se podrá ejecutar la simulación que se ha seleccionado previamente. En esta página se podrá interactuar
-            con el entorno. En el momento en que la simulación está pausada, se podrá interactuar con los agentes tanto chateando con 
-            ellos como susurrándoles cuál debe ser la próxima acción a realizar. Además, a la hora de salir de la simulación, hay varios 
-            modos, por lo que vayamos analizándolos uno por uno:
+            En esta página se podrá ejecutar la simulación que se ha seleccionado previamente. Primero de todo, habrá un botón de play o pause. Por defecto, el botón de play estará activado, lo que
+            indica que la simulación se está ejecutando por detrás, lo cual desactivará los botones de salir, chatear y susurrar,
+            solamente se podrá correr la simulación y mover la cámara alrededor del mapa. Por otro lado, si pausamos la simulación, 
+            no se podrá correr la misma ni tampoco mover la cámara alrededor del mapa, pero sí se podrán pulsar todos los demás botones, 
+            los cuales veremos a continuación qué hacen:
         </p>
 
         <h4>Guardar para ver</h4>
@@ -131,6 +132,11 @@
             Similar a cómo ocurre con el chat, al pulsar este botón, que también está situado en la sección de personajes, al lado de cada personaje, 
             el usuario podrá "susurar" algo al agente en particular. Cuando un usuario susurra algo a un personaje, es como si este personaje recibiese
             una información divina, una voz en su cabeza, de modo que hará caso a lo que se le diga mediante este método.
+        </p>
+        <h4>Run</h4>
+        <p>
+            Este botón va acompañado e un input de tipo number, en el que se seleccionan el número de steps que se quieren ejecutar llamando al backend.
+            Solamente se podrá pulsar cuando la simulación se esté ejecutando en el fondo (es decir, cuando esté el botón de play activado).
         </p>
     </section>
 

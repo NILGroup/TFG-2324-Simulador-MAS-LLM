@@ -53,12 +53,12 @@
                     <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación Isabella, Maria y Klaus</a></p>
                     <form method="POST" action="/comenzar-demo-simulacion/" class="select-wrapper info-ver-sim row">
                         <div class="col-sm-6">
-                            <label for="step-select">Empezar la demo en el Step:</label>
-                            <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}">
+                            <label for="step-select">Visualizar la demo desde el Step:</label>
+                            <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}" required>
                         </div>
                         <div class="col-sm-6">
                             <label for="speed-select" class="col-sm-6">Velocidad:</label>
-                            <select class="form-select" name="speed-select">
+                            <select class="form-select" name="speed-select" required>
                                 <option value="1">1 (Lento)</option>
                                 <option value="2">2 (Lento-Medio)</option>
                                 <option value="3">3 (Medio)</option>
