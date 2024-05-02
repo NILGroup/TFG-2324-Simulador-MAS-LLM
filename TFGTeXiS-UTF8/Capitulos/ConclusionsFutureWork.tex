@@ -2,6 +2,43 @@
 \label{cap:conclusions}
 \addcontentsline{toc}{chapter}{Conclusions and Future Work}
 
-Conclusions and future lines of work. This chapter contains the translation of Chapter \ref{cap:conclusiones}.
+This thesis has developed a system that allows access to multi-agent simulations for the study of social relationships and the investigation of the emergence of social phenomena. This will make it a very useful tool for psychologists to analyze simulated human behavior and predict certain situations.
+
+In this chapter, the conclusions after analyzing the work once it has been finalized are described, as well as possible future extensions that would have been included in this work if there had been enough time, as it would be interesting to see them implemented in the future.
+
+\section*{Conclusions}
+
+The initial intention of this Final Degree Project was to democratize the use of a multi-agent simulation system, which already existed previously, so that profiles such as psychologists could study social phenomena and experiment with the relationships between different Artificial Intelligence agents.
+
+To do this, one of the main requirements was to change the application's architecture so that, instead of interacting with the system through a terminal, users would interact through the interface. The interface is one of the main points of the final application, as it is where users now perform all actions, from creating simulations to visualizing them or interacting with agents in real time.
+
+In addition to developing the interface itself, it was necessary to carry out extensive work on the way the application was executed. This involved a total restructuring of the design and part of the system's architecture. This restructuring is due to the fact that it will now be necessary to capture commands through the interface, so we must have a system running that constantly listens to whether the user executes a command and, if so, communicates it to the reverie backend and allows the application to continue running while it calculates the response. Before, this was very different since the user interacted directly with the interface and this problem did not exist.
+
+In addition to focusing on democratizing the use of the system, which was the epicenter of the work, we also concluded that certain extensions to the existing work could be very positive. The features that we finally decided to implement were real-time chat with the character and the automatic generation of summaries after saving a simulation. These two features were not initially implemented and, reusing part of the previously existing code, could be implemented by making a series of calls to the language model. In the chat function, the private memories of a character are used so that they can interact with their knowledge at that time, while in the automatic summaries, the memories of all the characters and the context of what has been happening are used to generate a story at the end of each simulation.
+
+Finally, a final result of the system was reached in which we managed to meet all the objectives set (once they were reconsidered), thus having democratized the use of this new tool for the investigation of social phenomena with Artificial Intelligence agents. It should also be noted that, although the development is carried out, the costs of operating this application today with the OpenAI API as the one we are using are extremely high. This is a problem for all multi-agent systems in general. If in a few years this cost is reduced or there are models that are small and powerful enough to execute this code in a plausible way, it will be a great and extremely powerful tool, but the technological limitations today do not allow us to demonstrate all the capabilities of the application.
+
+\section*{Future Work}
+
+Although we met the objectives and requirements specified at the beginning of development, it is also true that as we progressed with the work, certain ideas emerged that would have had a positive impact on the project if there had been enough time to implement them all.
+
+The decision we made in the middle of development was to prioritize certain objectives and meet those that had been proposed for the framework of this project. Once this prioritization was made, there were some of the objectives that were left out of development due to lack of time, despite how interesting they could be.
+
+The following is a list of some of the objectives that we would have liked to implement and that are a good idea for future work:
+	
+\begin{itemize}
+	\item \textbf{Map Selection and Change}: Given the necessary context, we could make the characters be disconnected from the map. However, as the system was initially designed, each character was closely rooted to the map, as parts of the map itself had the names of the characters. Once the characters have been separated from the map, it would have been a good idea to create some other alternative map, or allow users to create their own maps. This did not have such a high priority since, as we mentioned, the users themselves can make the agents agnostic to the map they are in and simulate any other space.
+	
+	\item \textbf{Personalization of the characters}: As mentioned in section \ref{problemaPersonajes}, the main issue with the characters was that they were directly linked to the map, and their names were crucial for saving simulations and ensuring proper functioning. However, introducing new maps could also enable this change, allowing users to select character names and choose or edit their appearances.
+	
+	\item \textbf{Graphical Interface Enhancement}: Although a specific design has been made for the functionalities of the application, it could have been experimented with another range of colors or static resources to style the different pages of the application, and research with this is undoubtedly a point to improve in the future.
+	
+	\item \textbf{Direct Interaction with the Environment}: In the original application, it was allowed to modify certain parts of the environment. That is, an object could be taken and its state changed (for example, saying that a character's bed was on fire and seeing how they reacted), however, translating this to the interface was extremely complicated, since it would have been necessary to enter the implementation of Phaser, that each object is recognized with the clicks and then make the query of the environment modification with the backend. It is an ambitious goal that would be very interesting to see and would add a lot of value to the application.
+	
+	\item \textbf{Free Choice of LLM}: After investigating a multitude of language models and testing them, we came to the conclusion that today, with the conditions we have, the least bad option to run this system is through the use of the OpenAI API. This does not allow you to make many calls, but it is one of the few that understands how to process the input we send, and that works well today. It would be interesting in the future for users themselves to be able to introduce their language models that they have installed on their computers, or to be able to use any other API that they have at their disposal.
+	
+	\item \textbf{More Summaries}: In addition to the summaries that are automatically generated when saving a simulation, it would be a good idea to save more summaries to help users locate each simulation. It might be a good idea to have summaries that indicate at what timestamps the most interesting events occur, or to have a summary for each of the characters in the application automatically.
+	
+\end{itemize}
 
 

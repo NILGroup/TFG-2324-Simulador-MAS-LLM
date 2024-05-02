@@ -115,6 +115,16 @@ Tras investigar y dar con la raíz del problema, se abrían varias opciones para
 
 La segunda opción, y la que decidimos implementar finalmente, fue la de intentar pausar la ejecución de la simulación para que así Phaser "libere" los recursos y permita a los usuarios usar la barra espaciadora. Esto nos resultó con mayor sentido ya que así el usuario no tendría que estar constantemente cambiand entre vistas y resultaría en una mejor experiencia. Por tanto, implementamos unos botones para pausar y reanudar la simulación, que cuando se pulsan activan y desactivan otros ciertos botones. Por ejemplo, cuando se reanuda la simulación, no se permite al usuario chatear o susurrar con los personajes (se desactivan estos botones), pero cuando se pausa la simulación, el botón que se desactiva es el de ejecutar steps de la simulación.
 
+\subsection{Acoplo de los personajes al mapa original}
+\label{problemaPersonajes}
+Como se ha mencionado en varias ocasiones, el sistema original no estaba pensado para ser extensible en multitud de aspectos. Uno de los aspectos más importantes es que todos los personajes tenían nombres, apariencias y personalidades predefinidas, lo que no permitía a los usuarios modificar los personajes y sus personalidades, por tanto, se verían encorsetados a siempre utilizar los mismos personajes con las mismas relaciones entre ellos y generar experimentos a partir de esto, lo cual limita muchísimo el uso de esta aplicación.
+
+Uno de los mayores retos que nos propusimos fue despegar a los personajes de sus personalidades inherentes, para así poder hacer que los usuarios elijan las personalidades de cada uno y ver así los fenómenos sociales que aparecían.
+
+Al no estar inicialmente pensado el sistema para esto, todos los nombres de los personajes, sus pensamientos, experiencias y objetos en el mapa, estaban directamente "hardcodeados" en el programa. Es decir, que estaban escritos directamente y no se permitía que se cambiasen.
+
+El mayor problema fue hacer que los personajes fuesen agnósticos del mapa en el que se encontraban. El mapa inicial trataba de simular una villa, por lo que cada casa y cada objeto tenía el nombre de la familia o personaje que fuese su dueño, lo cual hacía muy fácil la interacción con los objetos de los distintos personajes. Nuestra solución fue que los personajes mantuviesen los nombres originales, pero que eso no influyese en la simulación, ya que ahora no importarían los objetos dentro de la simulación y los usuarios podrían decidir el contexto en el que se encuentran los persoajes, por lo que el mapa servirá ahora simplemente como un contenedor para visualizar la simulación.
+
 \section{Conclusión final}
 
 Tras ver el estado inicial en el que se encontraba el sistema, tanto desde un punto de vista técnico como desde un punto de vista más general, y teniendo en cuenta todos los problemas encontrados, realizando las reconsideraciones y ajustes necesarios, se termina con un sistema más robusto, usable y amigable.

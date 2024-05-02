@@ -1,8 +1,42 @@
 \chapter{Conclusiones y Trabajo Futuro}
 \label{cap:conclusiones}
 
-Conclusiones del trabajo y líneas de trabajo futuro.
+En el presente trabajo se ha desarrollado un sistema que permite el acceso a la simulación multiagente para el estudio de las relaciones sociales e investigación de la emergencia de fenómenos sociales. Esto permitirá que sea una herramienta muy útil para que psicólogos puedan analizar el comportamiento humano simulado, y se puedan predecir ciertas situaciones.
 
-Antes de la entrega de actas de cada convocatoria, en el plazo que se indica en el calendario de los trabajos de fin de grado, el estudiante entregará en el Campus Virtual la versión final de la memoria en PDF.
+En el presente capítulo, se describen las conclusiones tras analizar el trabajo una vez finalizado, además de posibles futuras extensiones que se habrían incluído en este trabajo si se hubiese dispuesto del tiempo necesario, ya que sería interesante verlas implementadas en el futuro.
 
+\section{Conclusiones}
+
+La intención inicial del presente Trabajo de Fin de Grado era la democratización del uso de un sistema de simulaciones multi agentes, el cual ya existía previamente, para que perfiles como psicólogos pudiesen estudiar los fenómenos sociales y experimentar con las relaciones entre diferentes agentes de Inteligencia Artificial.
+
+Para ello, uno de los requisitos principales era cambiar la arquitectura de la aplicación, de manera que, en lugar de interactuar con el sistema mediante una terminal, los usuarios interactuasen mediante la interfaz. La interfaz es uno de los puntos principales de la aplicación final, ya que es el punto en el que los usuarios realizan todas las acciones ahora, desde crear simulaciones hasta visualizarlas o interactuar con los agentes en tiempo real.
+
+Además del desarrollo de la propia interfaz, fue necesario un exhaustivo trabajo en la manera en la que se ejecutaba la aplicación. Haciendo así una reestructuración total del diseño y parte de la arquitectura del sistema. Esta reestructuración viene dada ya que ahora será necesario capturar los comandos mediante la interfaz, por lo que debemos tener un sistema corriendo el cual escuche constantemente a si el usuario ejecuta un comando y, en caso positivo, comunicarlo al backend de reverie y que la aplicación pueda seguir funcionando mientras este calcula la respuesta. Antes, esto era muy diferente ya que se interactuaba directamente con la interfaz y no existía esta problemática.
+
+Además de centrarnos en la democratización del uso del sistema, que era el epicentro del trabajo, también concluímos que podrían ser muy positivas ciertas extensiones sobre el propio trabajo preexistente. Las características que decidimos implementar finalmente fueron las de chat en tiempo real con el personaje y la generación automática de resúmenes tras guardar una simulación. Estas dos características no estaban inicialmente implementadas y, reaprovechando parte del código previamente existente, se pudieron implementar realizando una serie de llamadas al modelo del lenguaje. En la función de chat se usan los recuerdos particulares de un personaje para así poder interactuar con su conocimiento en ese momento, mientras que en los resúmenes automáticos, se usan las memorias de todos los personajes y el contexto de lo que ha ido ocurriendo para generar una historia al final de cada simulación.
+
+Finalmente, se llegó a un resultado final del sistema en el que logramos cumplir todos los objetivos marcados (una vez se reconsideraron los mismos), habiendo así democratizado el uso de esta nueva herramienta para la investigación de los fenómenos sociales con agentes de Inteligencia Artificial. Cabe recalcar también que, a pesar de que el desarrollo está realizado, los costes de operar esta aplicación a día de hoy con la API de OpenAI como la que estamos usando son sumamente elevados. Esto es un problema para todos los sistemas multi agente en general. Si en unos años este coste se reduce o salen modelos lo suficientemente pequeños y potentes para ejecutar este código de manera verosímil, será una gran herramienta sumamente potente, pero las limitaciones tecnológicas a día de hoy no nos permiten demostrar todas las capacidades de la aplicación.
+
+\section{Trabajo futuro}
+
+A pesar de que cumplimos los objetivos y requisitos epecificados al inicio del desarrollo, también es cierto que a medida que se progresaba con el trabajo, iban surgiendo ciertas ideas que habrían tenido un impacto positivo en el proyecto si hubiese habido suficiente tiempo para implementar todas.
+
+La decisión que tomamo a mitad de desarrollo fue la de priorizar ciertos objetivos y cumplir los que se habían propuesto para el marco de este proyecto. Una vez realizada esta priorización, hubo algunos de los objetivos que se quedaron fuera del desarrollo por falta de tiempo, a pesar de lo interesantes que podrían llegar a ser.
+
+A continuación, se muestra una lista con algunos de los objetivos que nos habría gustado implementar y que son buena idea para realizar trabajos futuros:
+
+\begin{itemize}
+	\item \textbf{Elección y cambio de mapa}: Dado el contexto necesario, podríamos hacer que los personajes estuviesen desconectados del mapa. Sin embargo, tal y como estaba inicialmente el sistema, cada personaje se encontraba estrechamente arraigado al mapa, ya que partes del propio mapa tenían los nombres de los personajes. Una vez que se ha conseguido separar a los personajes del mapa, habría sido buena idea crear algún otro mapa alternativo, o permitir a los propios usuarios que creen sus propios mapas. Esto no tuvo tan alta prioridad ya que, como comentamos, los propios usuarios pueden hacer que los agentes sean agnósticos del mapa en el que están y simulen cualquier otro espacio
+	
+	\item \textbf{Personalización de los personajes}: Como se comentó en la sección \ref{problemaPersonajes}, el gran problema de los personajes es que estaban directamente ligados al mapa, y el nombre de estos era sumamente importante para guardar las simulaciones y que funcionase correctamente. Sin embargo, al añadir nuevos mapas, también se podría cambiar esto, y permitir a los propios usuarios que elijan los nombres de los personajes, así como elegir o editar cómo se verán cada uno de ellos.
+	
+	\item \textbf{Mejora de la interfaz gráfica}:A pesar de que se ha realizado un diseño específico para las funcionalidades de la aplicación, se podría haber experimentado con otra gama de colores o recursos estáticos para estilar las diferentes páginas de la aplicación, y la investigación con esto es sin duda un punto a mejorar en el futuro.
+	
+	\item \textbf{Interacción directa con el entorno}: En la aplicación original se permitía modificar ciertas partes del entorno. Es decir, se podía coger un objeto y cambiar su estado (por ejemplo, decir que la cama de un personaje estaba en llamas y ver cómo reaccionaban), sin embargo, traducir esto a la interfaz era sumamente complicado, ya que habría que entrar en la implementación de Phaser, que se reconozca cada objeto con los clicks y luego realizar la consulta de la modificación del entorno con el backend. Es un objetivo ambicioso que sería muy interesante de ver y aportaría mucho valor a la aplicación.
+	
+	\item \textbf{Libre elección de LLM}: Tras investigar multitud de modelos de lenguaje y probar con ellos, llegamos a la conclusión de que a día de hoy, con las condiciones que tenemos, la opción menos mala para ejecutar este sistema es mediante el uso de la API de OpenAI. Esta no permite realizar muchas llamadas, pero que es una de las pocas que comprende cómo procesar la entrada que enviamos, y que funciona bien a día de hoy. Sería interesante en el futuro que los propios usuarios puedan introducir sus modelos de lenguaje que tengan instalados en sus ordenadores, o que puedan utilizar cualquier otra API que tengan a sus disposición.
+	
+	\item \textbf{Más resúmenes}: Además de los resúmenes que se realizan automáticamente al guardar una simulación, sería buena idea que se guardasen una mayor cantidad de resúmenes para ayudar a los usuarios a ubicar cada simulación. Podría ser una buena idea tener resúmenes que indiquen en qué timestamps ocurren los eventos más interesantes, o que se realice un resumen por cada uno de los personajes de la aplicación automáticamente.
+	
+\end{itemize}
 
