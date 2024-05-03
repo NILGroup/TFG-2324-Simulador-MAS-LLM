@@ -26,7 +26,103 @@ De esta manera, logramos solucionar el problema de que los usuarios tengan que i
 
 \section{Interacción total con el sistema mediante la interfaz gráfica}
 
-\textcolor{red}{POR HACER}
+Uno de los retos para hacer el sistema fácilmente usable fue el cambiar la arquitectura y diseño de la aplicación para que todas las acciones se realizasen a través de la interfaz gráfica.
+
+Consideramos esto algo central, ya que es uno de los pilares del presente trabajo, y algo que realmente aporta valor y ayuda a todos los perfiles como psicólogos, que sin saber cómo utilizar la aplicación, en unos minutos pueden estar experimentando con ella.
+
+Es por ello, que a continuación, en las siguientes tablas, veremos la diferencia de cómo se hacían antes las acciones que ya estaban inicialmente implementadas, y cómo se hacen ahora con las modificaciones (en estas tablas solo se incluyen funcionalidades que ya estaban originalmente disponibles en el sistema original, no las nuevas implementadas en el presente trabajo):
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|} 
+		\hline
+		\textbf{Funcionalidad} & \textbf{Antes} & \textbf{Después} \\ 
+		\hline
+		Crear simulación & En la terminal, insertar el nombre de una simulación base (con personajes predeterminados), elegir el nombre de la nueva simulación y crear la simulación & Desde la interfaz, ir a la pestaña de \textquotesingle Crear simulación\textquotesingle, rellenar las personalidades de los personajes deseados y clicar en \textquotesingle Empezar simulación\textquotesingle, automáticamente se redirije a la ejecución \\ 
+		\hline
+	\end{tabularx}
+	\caption{Diferencias entre crear simulación antes y después}
+	\label{table:tabla1}
+\end{table}
+
+Como se puede ver en la tabla \ref{table:tabla1}, inicialmente la tarea de crear una simulación era algo más complejo. Los usuarios debían acudir a la terminal, y ahí seleccionar una simulación base, la cual no permitía cambiar el número de personajes ni la personalidad de los mismos. Ahora, mediante la interfaz, se podrá seleccionar fácilmente el número de personajes y la personalidad, contexto y experiencias de cada uno.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|} 
+		\hline
+		\textbf{Funcionalidad} & \textbf{Antes} & \textbf{Después} \\ 
+		\hline
+		Ejecutar simulación & Una vez creada una simulación, ir a la terminal y ejecutar el comando \textquotesingle run <número de steps>\textquotesingle, luego, ir a la interfaz y ver el resultado de la ejecución & En la pantalla de ejecución de simulación, darle al botón de run indicando el número de steps deseados, el resultado se verá en la interfaz directamente\\
+		\hline
+	\end{tabularx}
+	\caption{Diferencias entre ejecutar simulación antes y después}
+	\label{table:tabla2}
+\end{table}
+
+en la tabla \ref{table:tabla2} se aprecian las diferencias de cómo era antes ejecutar la simulación y cómo es ahora. Similar a como ocurría al crearla, lo que hemos hecho es evitar que los usuarios tengan que acudir a la terminal a ejecutar los pasos de la simulación, sino que se pueda hacer directamente desde el frontend.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|} 
+		\hline
+		\textbf{Funcionalidad} & \textbf{Antes} & \textbf{Después} \\ 
+		\hline
+		Susurrar a un agente & Con la simulación corriendo, ejecutar en la terminal el comando \textquotesingle whisper <nombre del personaje> <mensaje>\textquotesingle & ir directamente al botón de susurro de cada personaje y añadir el mensaje deseado\\
+		\hline
+	\end{tabularx}
+	\caption{Diferencias entre susurrar a un agente antes y después}
+	\label{table:tabla3}
+\end{table}
+
+En la tercera de las tablas, la \ref{table:tabla3}, vemos cómo cambia la manera en la que susurramos a los agentes. Ahora es mucho más sencillo, desde la interfaz se buscará el agente con el que nos queremos comunicar y se enviará el mensaje a través de un modal. Antes, sin embargo, era necesario introducir también el nombre del personaje desde la interfaz.
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|} 
+		\hline
+		\textbf{Funcionalidad} & \textbf{Antes} & \textbf{Después} \\ 
+		\hline
+		Guardar simulación & En el modo ejecución de simulación, al considerarla terminada, ejecutar el comando \textquotesingle fin\textquotesingle & Al terminar, desde la página de ejecución de la simulación, tendremos la opción de guardar para ver la demo o guardar para continuar la simulación\\
+		\hline
+	\end{tabularx}
+	\caption{Diferencias entre guardar simulación antes y después}
+	\label{table:tabla4}
+\end{table}
+
+En cuanto a las diferencias a la hora de guardar una simulación, se pueden ver en la tabla \ref{table:tabla4}. A pesar de que antes era sencillo guardarlas, había que hacerlo desde la terminal también. Ahora, hemos eliminado eso, además de que se podrá elegir entre guardar para ver (redirige a la pestaña de visualizar) y guardar para continuar (que redirigirá a la pantalla de continuar simulación, para que se siga con la ejecución).
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|} 
+		\hline
+		\textbf{Funcionalidad} & \textbf{Antes} & \textbf{Después} \\ 
+		\hline
+		Salir sin guardar & En el modo ejecución, si ahora no se quiere guardar la simulación, el usuario debería ejecutar el comando \textquotesingle exit\textquotesingle & Al finalizar la simulación, si no se desea guardar, en la página de ejecución de simulación se clicará el botón de \textquotesingle Salir sin guardar\textquotesingle\\
+		\hline
+	\end{tabularx}
+	\caption{Diferencias entre salir sin guardar simulación antes y después}
+	\label{table:tabla5}
+\end{table}
+
+Similar a lo que ocurría con el caso de guardar, tenemos el caso de salir sin guardar, representado en la tabla \ref{table:tabla5}. En este caso, en lugar de guardar, simplemente salimos de la ejecución de la simulación, sin guardar la simulación y redirigiendo al usuario a la página de landing
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|} 
+		\hline
+		\textbf{Funcionalidad} & \textbf{Antes} & \textbf{Después} \\ 
+		\hline
+		Ver una demo & Ir al fichero \textquotesingle compress\_sim\_storage.py\textquotesingle y ejecutar la función compress, seleccionando la simulación deseada que se quiera comprimir. Una vez hecho esto, pegar en el navegador el nombre de la simulación comprimida, así como el step desde el que se quiere visualizar y la velocidad de reproducción, entonces, se mostrará por pantalla  & En la página de \textquotesingle Visualizar simulación\textquotesingle seleccionar la simulación que se desea ver, la velocidad de reproducción y el step desde el que se desea ver. Una vez seleccionado, se redirigirá automáticamente a la página de visualización\\
+		\hline
+	\end{tabularx}
+	\caption{Diferencias entre ver una demo de simulación antes y después}
+	\label{table:tabla6}
+\end{table}
+
+Finalmente, el caso de visualizar la demo de una simulación, reflejado en la tabla \ref{table:tabla6}. Antes era muy compleja la realización de esta acción. Los usuarios debían ejecutar una función para comprimir las simulaciones, encontrar las simulaciones en su propio dispositivo y pegar la dirección url directamente en el navegador. Esto resultaba muy complicado para el usuario. Ahora, simplemente guardando para visualizar en el futuro, los usuarios podrán acceder desde la página de \textquotesingle Visualizar simulación\textquotesingle a todas las simulaciones que tengan guardadas y así poder visualizarlas directamente, con un simple click, el resto de acciones son realizadas automáticamente.
 
 \section{Funcionalidad de chat con los agentes en tiempo real}
 

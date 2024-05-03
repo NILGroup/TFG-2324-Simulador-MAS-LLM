@@ -125,6 +125,18 @@ Al no estar inicialmente pensado el sistema para esto, todos los nombres de los 
 
 El mayor problema fue hacer que los personajes fuesen agnósticos del mapa en el que se encontraban. El mapa inicial trataba de simular una villa, por lo que cada casa y cada objeto tenía el nombre de la familia o personaje que fuese su dueño, lo cual hacía muy fácil la interacción con los objetos de los distintos personajes. Nuestra solución fue que los personajes mantuviesen los nombres originales, pero que eso no influyese en la simulación, ya que ahora no importarían los objetos dentro de la simulación y los usuarios podrían decidir el contexto en el que se encuentran los persoajes, por lo que el mapa servirá ahora simplemente como un contenedor para visualizar la simulación.
 
+\subsection{Problema instalación de requerimientos del proyecto}
+
+Al inicio del proyecto, en la primera fase de investigación de la herramienta, instalamos el proyecto en nuestros dispositivos personales y hubieron algunos problemas. El más importante de estos problemas era que inicialmente, el archivo \textquotesingle requirements.txt\textquotesingle no funcionaba para los Mac con procesador M1.
+
+Tras encontrarnos con este fallo, por problemas de dependencias, estuvimos estancados durante unas semanas, ya que no podíamos ejecutar el sistema y estaba habiendo problemas para solucionarlo por todos los medios.
+
+Primeramente, instalamos un entorno virtual, con la versión de Python exacta que recomendaban los desarrolladores (la 3.9.12) y esto no resultó positivamente. También intentamos resolver las dependencias manualmente, pero surgían otros errores de dependencias al hacer esto, y nunca conseguimos resolverlas todas.
+
+Tras estos fallos y bloqueos, decidimos preguntar a los tutores del TFG para ver qué soluciones alternativas podríamos encontrar, pero no llegamos a una conclusión. 
+
+Tras semanas intentando resolver este problema y avanzando en el trabajo por otras vías (escribiendo la memoria, investigando la arquitectura y diseño del sistema...), encontramos que los propios desarrolladores habían publicado un patch en el que se solucionaba este problema, actualizando así el archivo requirements.txt. Al actualizar e implementar este cambio, las dependencias se resolvieron y pudimos comenzar con el trabajo e investigación práctica, con el sistema corriendo en nuestros dispositivos locales y habiendo avanzado en otras materias.
+
 \section{Conclusión final}
 
 Tras ver el estado inicial en el que se encontraba el sistema, tanto desde un punto de vista técnico como desde un punto de vista más general, y teniendo en cuenta todos los problemas encontrados, realizando las reconsideraciones y ajustes necesarios, se termina con un sistema más robusto, usable y amigable.
