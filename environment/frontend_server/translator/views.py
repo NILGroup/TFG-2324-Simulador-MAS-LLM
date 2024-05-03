@@ -21,6 +21,21 @@ from translator.models import *
 
 from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID_INFO_FILE
 
+sys.path.append('../../reverie')
+
+
+
+
+
+"""
+No encuentra el archivo para comprimir
+# import compressed_sim_storage
+"""
+
+
+
+
+
 def landing(request): 
   context = {}
   template = "landing/landing.html"
@@ -419,6 +434,7 @@ def manejador_acciones_simulacion(request):
           rc = ReverieComm()
           rc.sum_up()
           rc.finish()
+          compressed_storage.compress(sim_code)
           # Compress -> Emplaza la simulacion comprimida en compressed_storage
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
