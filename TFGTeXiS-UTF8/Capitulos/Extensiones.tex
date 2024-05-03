@@ -126,9 +126,36 @@ Finalmente, el caso de visualizar la demo de una simulación, reflejado en la ta
 
 \section{Funcionalidad de chat con los agentes en tiempo real}
 
-\textcolor{red}{POR HACER}
+Una de las funcionalidades novedosas, que no existían inicialmente en el sistema original, es la de chatear con los distintos agentes en tiempo real. Esto es, a medida que se va ejecutando la simulación, los usuarios podrán pausarla e interactuar con cada uno de los agentes mediante un chat. Se dice que este chat es en tiempo real ya que, dependiendo del momento en que el usuario pause la simulación, el agente mantendrá todos los recuerdos y se podrá interactuar con él, dando respuestas basadas en estos recuerdos y conocimientos.
+
+Un caso de ejemplo de esta funcionalidad es si deseamos ver cómo un personaje va madurando y desarrollando una idea a lo largo de la simulación. Inicialmente, el usuario podría indicar al agente que tiene cierta creencia o pensamiento muy arraigado, y durante la simulación, forzar situaciones para que este agente se vea expuesto a otros puntos de vista que puedan modificar sus pensamientos.
+
+A medida que el agente se ve expuesto a ciertas situaciones, puede ser que cambie parte de sus pensamientos y/o creencias. Por ello, es muy interesante esta funcionalidad de chat.
+
+Si al principio de la simulación el usuario interactuase con el agente, este le diría el pensamiento que tan fuertemente había arraigado a su personalidad antes de comenzar la simulación. Sin embargo, a medida que avanza el tiempo, si se interactúa con el agente otras veces, puede que de respuestas diferentes y se vea cómo las ideas pueden ir cambiando y madurando.
+
+La idea inicial de esta nueva funcionalidad era la de permitir a los usuarios como psicólogos puedan apreciar estos sutiles cambios en las mentalidades y traspasar este conocimiento a casos de humanos reales.
+
+Además, otros casos reales de uso puede ser el estudio del resultado que tendría realizar ciertas acciones en algunas personas con cierta personalidad y ver cómo va avanzando el cambio en su personalidad, para saber qué conversaciones debemos tener con las personas para poder reestructurar su personalidad extrayendo los resultados de este experimento.
 
 \section{Funcionalidad de resúmenes de las simulaciones}
 
-\textcolor{red}{POR HACER}
+Otra de las funcionalidades novedosas respecto al sistema inicial es la de generación de resúmenes automáticos al finalizar una simulación. Esta funcionalidad es otra de la que vimos con mayor sentido, ya que permitirá aportar un contexto a las simulaciones guardadas, para poder distinguirlas a simple vista.
+
+Esta funcionalidad se pone en marcha automáticamente cuando el usuario guarda una simulación para visualizarla más tarde. Como se veía en la sección anterior, cuando se guarda una simulación para visualizar la demo, lo que se hace internamente es que la simulación se comprime mediante un script de python, el cual permite que se vean los personajes correctamente y se pueda gestionar la simulación para ser visualizada.
+
+Una vez se comprime la simulación, se aprovecha y se realiza una llamada al modelo de lenguaje, pasando las memorias de todos los personajes con sus puntos de vista. Lo que hará el LLM con toda esta información es extrapolar todo lo que ha ido sucediendo durante la simulación, recogiendo así los momentos más interesantes y generando un resumen que será mostrado con el resto de la información en la vista de visualizar simulación.
+
+El valor fundamental que aporta esta nueva simulación es que, si un usuario guarda varias simulaciones similares y se olvida de lo que había hecho, solamente viendo el nombre sería muy difícil distinguirlas. Sin embargo, con los resúmenes automáticos, podrá leer directamente esta síntesis y así distinguir rápidamente una simulación de la otra.
+
+Estos resúmenes solamente se generan al guardar para simular por dos motivos: el primero es que se comprime la simulación y es más sencillo pasar esta nueva información al modelo de lenguaje, y la segunda es que si un usuario guarda una simulación para continuarla, significa que no la ha terminado completamente, sino que la quiere bifurcar a partir de ese punto, por lo que no se va a generar un resumen de una simulación que no está considerada como terminada.
+
+
+
+
+
+
+
+
+
 
