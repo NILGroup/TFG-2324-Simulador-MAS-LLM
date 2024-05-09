@@ -21,10 +21,9 @@ from translator.models import *
 
 from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID_INFO_FILE
 
-sys.path.append('../../reverie')
+sys.path.append('../../reverie/')
 
-
-
+from compress_sim_storage import compress
 
 
 """
@@ -363,7 +362,7 @@ def ver_simulacion(request):
         info_demos.append(demo_dict)
     return info_demos
   
-  print(request.GET.dict())
+  print("request ver simulación: ", request.GET.dict())
   # Esperamos a que se genere la simulacion que queremos
 
   context = {"demos": obtener_info_demos_disponibles()}
@@ -433,8 +432,9 @@ def manejador_acciones_simulacion(request):
           # ... Lógica del "guardar_ver"
           rc = ReverieComm()
           rc.sum_up()
+          rc.save()
+          compress(sim_code)
           rc.finish()
-          compressed_storage.compress(sim_code)
           # Compress -> Emplaza la simulacion comprimida en compressed_storage
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
@@ -460,7 +460,7 @@ def manejador_acciones_simulacion(request):
 def comenzar_demo_simulacion(request):
   if request.method == 'POST':
     datos = request.POST.dict()
-    print(datos)
+    print("datos de la simulacion", datos)
     sim_code = datos['sim_code']
     step = int(datos['step-select'])
     speed = datos['speed-select']

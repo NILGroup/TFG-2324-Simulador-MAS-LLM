@@ -8,10 +8,14 @@ import shutil
 import json
 from global_methods import *
 
+local_dir = os.path.dirname(os.path.abspath(__file__))
+
 def compress(sim_code):
   # Cambiar el valor de raiz si se ejecuta según el MD original
   # raiz = "../environment/frontend_server"
-  raiz = "."
+  # raiz = "."
+  raiz = os.path.join(local_dir, "../environment/frontend_server")
+
   sim_storage = f"{raiz}/storage/{sim_code}"
   compressed_storage = f"{raiz}/compressed_storage/{sim_code}"
   persona_folder = sim_storage + "/personas"
