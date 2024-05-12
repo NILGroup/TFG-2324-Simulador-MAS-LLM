@@ -860,8 +860,7 @@ class ReverieServer:
     elif command == "summ_up":
       self.summary = "El resumen aun no se solicita al Modelo\nUna vez decidido se enviará la solicitud y en el front se esperará la respuesta"
       self.summary_step = self.step
-      print(self.summary)
-      print(self.summary_step)
+      print("Resumen y step", self.summary, self.summary_step)
       return False
 
     elif command == "start path tester mode": 

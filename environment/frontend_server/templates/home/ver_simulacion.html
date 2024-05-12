@@ -50,7 +50,7 @@
                 <div class="col-md-8 simulacion-detalles">
                     <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones, así como el id de la simulación y demás datos -->
                     <h3 class="fw-bold">{{ demo.sim_code }}</h3>
-                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación Isabella, Maria y Klaus</a></p>
+                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">{{demo.fork_sim_code}}</a></p>
                     <form method="POST" action="/comenzar-demo-simulacion/" class="select-wrapper info-ver-sim row">
                         <input type="hidden" name="sim_code" value="{{ demo.sim_code }}">
                         <div class="col-sm-6">
@@ -74,8 +74,7 @@
                     <div class="fecha info-ver-sim"><b>Tiempo creación:</b> {{ demo.start_time }}</div>
                     <div class="tiempo_actual info-cont-sim"><b>Tiempo actual:</b> {{ demo.curr_time }}</div>
                     <div class="duracion info-ver-sim"><b>Duración:</b> {{ demo.duration }}</div>
-                    <p class="contexto info-ver-sim"><b>Resumen:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt libero in, asperiores repellendus dignissimos accusantium tempore reiciendis harum non iusto cupiditate nemo maiores adipisci ipsum perferendis eius quo illo ducimus!</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ullam quidem necessitatibus perferendis expedita illo, vel vero quas aspernatur ratione, laudantium ipsa fugiat quibusdam veniam nemo totam consectetur iusto excepturi?</p>
+                    <p class="contexto info-ver-sim"><b>Resumen:</b> {{demo.summary}}</p>
                 </div>
             </div>
             {% endfor %}

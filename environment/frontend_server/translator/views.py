@@ -347,6 +347,13 @@ def ver_simulacion(request):
       meta_f = f"{simu_f}/meta.json"
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
+
+        # Indicar que no hay resumen disponible si no se ha podido generar
+        if (simu_meta['summary'] == None or not simu_meta['summary']):
+          simu_meta['summary'] = "No hay resumen disponible para esta simulación"
+
+        if (simu_meta['fork_sim_code'] == None or not simu_meta['fork_sim_code']):
+          simu_meta['fork_sim_code'] = "No disponible"
         
         start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
         curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
@@ -358,7 +365,8 @@ def ver_simulacion(request):
                      "fork_sim_code": simu_meta['fork_sim_code'],
                      "start_time": simu_meta['start_date'],
                      "curr_time": simu_meta['curr_time'],
-                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
+                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos",
+                     "summary": simu_meta['summary']}
         info_demos.append(demo_dict)
     return info_demos
   
@@ -432,6 +440,7 @@ def manejador_acciones_simulacion(request):
           # ... Lógica del "guardar_ver"
           rc = ReverieComm()
           rc.sum_up()
+          print("Después del resumen")
           rc.save()
           compress(sim_code)
           rc.finish()
