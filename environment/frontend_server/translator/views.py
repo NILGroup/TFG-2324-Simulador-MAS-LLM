@@ -440,7 +440,6 @@ def manejador_acciones_simulacion(request):
           # ... Lógica del "guardar_ver"
           rc = ReverieComm()
           rc.sum_up()
-          print("Después del resumen")
           rc.save()
           compress(sim_code)
           rc.finish()
