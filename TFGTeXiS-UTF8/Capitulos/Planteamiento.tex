@@ -103,20 +103,20 @@ En esta sección hemos recogido algunas de estas piezas de código que hemos eli
 
 Para el correcto funcionamiento de SimulAgents es necesario contar con un LLM adecuado. Permitiendo, en el mejor de los casos, una ejecucion rápida, barata y con una calidad generativa considerable.
 
-Desafortunadamente, el desarrollo LLMs en cotas tan altas como las actuales es reciente, por lo que el acceso a esta tecnología, en pleno desarrollo, es limitado.
+Desafortunadamente, el desarrollo de LLMs en cotas tan altas como las actuales es reciente, por lo que el acceso a esta tecnología, en pleno desarrollo, es limitado.
 
-Partimos del uso de GPT-3.5 que, para una simulacion de 25 agentes y dos dias, implicó un coste de miles de dolares en créditos de tokens y varios dias para completar la simulación(citado en el paper de Generative Agents Apartado 8.2 Parrafo 1).
+Partimos del uso de GPT-3.5 que, para una simulacion de 25 agentes y dos dias, implicó un coste de miles de dolares en créditos de tokens para la API, además de varios dias para completar la simulación (se puede consultar en \cite{park2023generative}).
 
 SimulAgents pretende ofrecer al público general este tipo de simulaciones.
 Por ello el LLM a usar es un punto fundamental ya que implica un gran compromiso entre Tiempo de simulacion, Calidad generativa y Coste.
 
-Al tomar en consideración la fase de desarrollo de SimulAgents también se nos volvía necesario contar con un LLM con el que poner a prueba las funcionalidades añadidas.
+Al tomar en consideración la fase de desarrollo de SimulAgents también se nos volvía necesario contar con un LLM con el que poner a prueba las funcionalidades que fueramos integrando.
 Esto nos llevó a buscar alternativas OpenSource, ya que no se cuenta con apoyo financiero por parte de la universidad.
-Las alternativas encontradas no cumplian con lo mínimo para funcionar en SimulAgents
+Las alternativas encontradas no cumplían con lo mínimo para funcionar en SimulAgents
 
-Por ello también consideramos otras alternativas a OpenAI, que por diversos motivos tampoco se adaptaban a nuestras necesidades.
+Por ello también consideramos otras alternativas a OpenAI, que, por motivos que detallaré a continuación, tampoco se adaptaban a nuestras necesidades.
 
-A continuación detallaremos las alternativas que consideramos y los problemas que acarreaban.
+Lo siguiente son las alternativas que consideramos y los problemas que acarreaban:
 
 \subsubsection{Alternativas OpenSource}
  - Tiny Histories
@@ -179,6 +179,8 @@ En primer lugar comentaremos lo relativo al modelo usado para el desarrollo
 	
 	Debido a esas complicaciones el uso de un LLM durante el desarrollo y como alternativa para el usuario final quedó en Stand By
 		Se dejó como opción el dejarlo con soporte para varias apis, con el prerquisito de que el usuario de la API tuviera suficientes permisos como para hacer frente a las limitaciones con que nos encontramos en su momento
+
+Se actualizó la API de GPT3.5, por lo que hubo que realizar una migración
 
 ------Datos antiguos-----
 
