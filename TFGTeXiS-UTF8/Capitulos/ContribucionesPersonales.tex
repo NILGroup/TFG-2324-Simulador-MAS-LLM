@@ -64,12 +64,54 @@ Procedo a detallar cada una de estas actividades a continuación:
 
 \subsection*{Valoracion del uso de LLMs}
 
-Como se comentó en la sección \ref{subsec:Selección del modelo de lenguaje} 
+Como se comentó en la sección \ref{subsec:Selección del modelo de lenguaje}, era necesario contar un LLM que, en el corto plazo, nos permitiera probar las funcionalidades que fuésemos agregando y, en el largo, nos ofreciera la capacidad de ejecutar la aplicación sin mucho tiempo de inferencia, poco coste y de forma local, en el caso ideal.
+
+Por ello surgió el problema de la búsqueda de un LLM, del cual me encargué. La primera de las aproximaciones que planteé fué la de usar el mismo modelo que ya funcionaba en la aplicación, por lo menos durante el desarrollo. Pero debido a la ignorancia del coste que pudiera acarrear y la existencia de modelos Open Source, decidí probar con otros modelos.
+
+La primera de las alternativas que surgieron fué, el recien estrenado, Llama 2. La principal razón era su equidad a modelos que eran referencia en ese momento y también por la variedad de tamaños que ofrecían. La prueba de este modelo la realicé a través de Repositorios que permitían cargar modelos para los que habían adaptado la herramienta, permitiendome evaluar la proximidad de este modelo a los requisitos que exigía nuestra aplicación. Como ya comenté, los diversos problemas que surgian del uso de Llama 2 me decantaron por otras alternativas.
+
+La siguiente fué emplear modelos que habían sido cuantizados, de los que encontré multitud en HuggingFace y, que por suerte, ofrecían versiones de Llama 2, con los que, en principio, se podían solventar los problemas de latencia.
+
+Las prueba de proximidad a los requisitos de la aplicación las realicé manualmente, elaborando consultas tipo que se realizarían al modelo a través de la aplicación y ofreciendoselas a los modelos que estaba evaluando. Para comprobar si eran capaces de estructurar la información de la forma adecuada.
+
+Como ya se vió, no fue posible. En este punto me encontraba sin demasiadas alternativas a modelos Privativos. Hasta que encontré el paper \cite{eldan2023tinystories} . Que ofrecía modelos bastante pequeños, en comparación a los LLM que habían surgido, y con un entrenamiento distinto al de los LLMs convencionales, que parecía ajustarse al tipo de actividad que se realiza en nuestra herramienta y capaces de generar texto con una gramática en inglés rozando el nivel humano. Por ello probé varios de estos modelos por medio de la respuesta a consultas sencillas que les iba haciendo a través de la misma herramienta que use con Llama 2 y los modelos cuantizados.. Pruebas en las que se vieron las grandes carencias generativas que tenían.
+
+También me encargué de la adaptación de las consultas del modelo para que fuera capaz de utilizar la API de PaLM, el LLM de Google en aquel entonces. Teniendo que bordear las restricciones de su uso en España. Finalmente de forma infructuosa debido a que era bastante deficiente también.
+
+Por ello terminamos usando la API de GPT3.5 durante toda la fase de desarrollo. Lo que nos llevó a sufrir la actualización de la API de OpenAI por la que tuve que realizar una migración del código que se comunicaba con la API para emplear la nueva librería.
 
 \subsection*{Adaptacion de la estructura existente a la nueva interfaz}
+
+El trabajo sobre el que empezamos a trabajar ya tenía una aplicación funcionando a través de una web. Sin embargo esta forzaba toda la interacción con la aplicación a ser realizada por medio de un terminal, ajeno a la aplicación. Pensamos que esto podía suponer una gran barrera para la extensión en el uso de esta herramienta, por lo que era necesario ser capaz de acceder a la aplicación a través de un solo punto, eliminando interacciones con elementos ajenos a la aplicación.
+
+Esto conllevaba adaptar los sitemas de comunicación existente, sin afectarlos en gran medida, ya que debido a sus dimensiones no conociamos el alcance del efecto que suponía la modificación. Debido a mi mayor familiaridad con sistemas Linux y a que me encargaba de la parte backend de la aplicación me encargué de diseñar e implementar la estructura mostrada en la figura \ref{fig:DiagramaComandos}
+
+Así me hize cargo de la implementación de los distintos métodos de comunicación desde el Front y de la adaptación de esta estructura para que funcionase con el sistema ya existente.
+
 \subsection*{Implementacion de nuevas funcionalidades}
-\subsection*{Adaptacion de funcionalidades existentes a nuestros requisitos}
-\subsection*{Memoria}
+
+Entre estas nos encontramos 
+\begin{itemize}
+    \item Creacion de simulaciones configurando agentes
+
+En la que también se vió envuelto Alberto debido a la interfaz necesaria. Pero por la parte del backend fué necesario definir las datos esenciales de una simulación y abstraerlos en estructuras que permitieran ejecutar nuevas simulaciones desde la nada.
+
+    \item Generación de resumenes de las simulaciones existentes
+
+En el backend, además de estructurar la información para que se acoplase a la ya existente para una simulación, fué necesario establecer la información prioritaria que se tomaría en cuenta para la generación de un resumen para una simulación.
+
+    \item Interacción con los personajes
+
+También envolvió los dos extremos del desarrollo. La mayor complicación que supuso en el backend fué el diseño correcto del método de comunicación entre back y front, haciendo uso de recursos del sistema de forma correcta y recogiendo la información necesaria en el front por medio de ReverieComm.py.
+
+    \item Bifurcar simulaciones desde cualquier timestep pasado de una simulación existente
+
+Esta es una funcionalidad que supuso idear una forma eficiente de almacenar todos los timesteps de una simulación, sin afectar demasiado al almacenamiento y menos aún a la información concerniente a una simulación. Y que recayó en mí implementarla debido a su naturaleza de backend.
+
+\end{itemize}
+
 \subsection*{Gestión de la comunicación entre el frontend y el backend de Django}
 
+Como comentó Alberto el contrato entre los dos extremos se encontraba aquí, donde contribuímos ambos.
 
+En especial yo contribuí a exponer la información requerida por el front para que pudiera proceder de la forma necesaria. Así mismo fuí el encargado de tratar la información recibida del front y adaptarla al formato requerido por el backend.
