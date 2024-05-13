@@ -367,9 +367,67 @@ Con este último modelo hemos hecho un repaso de la evolución que este campo ha
 
 \subsection{Grandes Modelos de Lenguaje}
 
-Como hemos visto en la sección anterior, una de las grandes ventajas de los Transformers fué la paralelización, abriendo el paso al desarrollo de modelos cada vez más grandes y versátiles. Esta versatilidad ha hecho buscar en este tipo de modelos infinidad de aplicaciones. Sin embargo, esta capacidad viene acompañada de una alta necesidad de cómputo para llevar a cabo un entrenamiento, haciendo muy restrictivo el acceso a dichos modelos. Es por ello que este tipo de tecnologías han sido abordadas por entidades con una gran cantidad de recursos computacionales, como ejemplo Google que introdujo la arquitectura BERT o GPT introducida por OpenAI. Aunque  en ocasiones estos avances se compartían de forma abierta (\cite{touvron2023llama}) y hay multitud de iniciativas que abogan por el desarrollo libre, 
+Como hemos visto en la sección anterior, una de las grandes ventajas de los Transformers fue la paralelización, abriendo el paso al desarrollo de modelos cada vez más grandes y versátiles. Esta versatilidad ha hecho buscar en este tipo de modelos infinidad de aplicaciones. Sin embargo, esta capacidad viene acompañada de una alta necesidad de cómputo para llevar a cabo un entrenamiento, haciendo muy restrictivo el acceso a dichos modelos. Es por ello que este tipo de tecnologías han sido abordadas por entidades con una gran cantidad de recursos computacionales, como ejemplo Google que introdujo la arquitectura BERT o GPT introducida por OpenAI. Aunque  en ocasiones estos avances se compartían de forma abierta (\cite{touvron2023llama}) y hay multitud de iniciativas que abogan por el desarrollo libre, la iniciativa privada a tomado una parte considerable en el desarrollo de estos modelos.
 
-\subsection{Modelos Generativos}
+Llegando a ser estos últimos los Modelos que más han irrumpido en la sociedad debido a sus capacidades.
+
+\subsubsection{Modelos Generativos}
+
+En parte, el interés en estos sistemas ha venido de la mano con su capacidad para generar información valiosa a partir de un entrenamiento. Hasta avances como los Variational Autoencoders \cite{kingma2013auto} y las Redes GANs \cite{goodfellow2014generative}, los modelos eran mayoritariamente estadísticos. dando lugar principalmente a modelos discriminativos para datos más complejos como imágenes o lenguaje Natural. Ejemplos de estos podrían ser los analizadores de sentimientos o clasificadores de imágenes.
+
+Con la llegada de estos avances, en combinación con modelos más desarrollados como los Transformers, empezaron a surgir los primeros Modelos generativos con resultados de un mayor nivel de calidad, entre estos se encuentran, por el lado del Lenguaje, Generative Pre-Trained transformer \cite{radford2018improving}, GPT, donde vemos el primer Modelo del lenguaje creado por OpenAI y que, posteriormente, daría lugar a los sistemas tan asimilados de hoy en día como ChatGPT. Por el lado de la generación de imágenes también cabe destacar la aparición de sistemas como DALL-E o Stable Diffusion, ambos basados en Modelos de difusión \cite{}, pero grandes ejemplos de las capacidades e interés que suscitan los Modelos Generativos.
+
+\subsubsection{Principales LLMs}
+
+A acontinuación comentaremos los principales Modelos de Lenguaje con que se cuenta a día de hoy (a pesar de que la vigencia de estos se vea rápidamente mermada en favor de nuevos y más avanzados modelos en muy poco tiempo). 
+
+\subsubsection{GPT 4}
+
+Este es un modelo multimodal (capaz de procesar imágenes también) privado de la empresa OpenAI, basado en transformers y entrenado tanto con bases de datos públicas como con datos provistos por terceros. Además de la fase de entrenamiento, donde se estima que hubo alrededor de un billón (europeo) de parámetros que calcular, tiene una fase de aprendizaje reforzado con humanos en el que se hace consigue un fine-tuning del modelo con el objetivo de alinearlo a los interéses de la empresa y sus usuarios.
+
+Los detalles técnicos y de implementación no son públicos, sin embargo se piensa que hacen uso de la técnica MoE. Donde se han entrenado múltiples redes, cada una experta en un ámbito concreto, y encargada de dar respuesta a consultas relativas a su ámbito, que en conjunto forman parte del sistema GPT4, permitiendo así segmentar las requisitos computacionales de la inferencia.
+
+\subsubsection{Llama}
+
+Es el LLM creado por Meta. Totalmente abierto y en varios tamaños, también usa los tranformers. La ventaja que trae este modelo es que se trató de conseguir un aumento en la eficacia del mismo, aumentando la cantidad de datos de entrenamiento en lugar del número de parámetros. Consiguiendo así un rendimiento similar a modelos como GPT 3 con una décima parte de su tamaño, lo que permitía el acceso a los más avanzados LLMs incluso en un ámbito local.
+
+Hasta el momento hay 3 versiones de este modelo, la primera de ellas sin ser accesible al público y las dos últimas con la intención de ser accesibles para cualquiera, siendo Open Source.
+
+Llama 2 ofreció 3 tamaños, 6.7B, 13B y 69B. Siendo estos respectivamente de 6.7, 13 y 69 billones (americanos) de parámetros.
+Llama 3 ha ofrecido hasta el momento 2 tamaños, 8B y 70.6B.
+
+\subsubsection{Técnicas de optimización para Grandes Modelos de Lenguaje}
+
+Con el auge de esta tecnología también se ha visto el afloramiento de multitud de técnicas para aumentar la eficiencia de los modelos. Estas técnicas se enfocan en añadir mejoras en el proceso de entrenamiento, como en el paper 1-bit LLMs por \cite{ma2024era}, o en modelos ya entrenados.
+
+\subsubsection{Poda}
+
+Fue una propuesta realizada en los 90 en el paper \cite{lecun1989optimal}, donde explicaba los beneficios que suponian a una red de neuronas, tanto para el proceso de aprendizaje, como para aprovechar mejor los datos de entrenamiento y los recursos computacionales.
+
+Este enfoque se puede adoptar tanto durante como tras el entrenamiento. Ambos enfoques traen la misma ventaja, optimizar el uso de parámetros de la red eliminando aquellos parámetros que no tienen relevancia en la red. Dando lugar a redes más compactas y más enfocadas en su tarea.
+
+Al obtener redes más compactas, se reduce considerablemente el tiempo de inferencia.
+
+\subsubsection{Quantization}
+
+Esta técnica se basa en reducir la cantidad de memoria necesaria para representar un parámetro.  Surgiendo un trade-off en la precisión de los parámetros (y por tanto la información que son capaces de manejar correctamente) y el rendimiento de la red. Este método no afecta a la estructura del modelo, ya que solo atañe a la precisión de los parámetros en el mismo.
+
+Suele llegar a reducir la información desde formatos de representación float de 32 bits hasta representacion de 4bits, viendo un detrimento de la calidad en las respuestas con cada reducción de precisión. Pero ofreciendo un amplio abanico de opciones y bajando el umbral para el uso de estos sistemas.
+
+\subsubsection{Modelos de 1.58 bits}
+
+Este último avance \cite{ma2024era}, surgido este mismo febrero, nos ofrece la posibilidad de reducir al mínimo la cantidad de recursos necesarios (3 valores) para representar a los parámetros de un Modelo de IA. Reduciendo drásticamente el tiempo de inferencia, la energía consumida y la cantidad de memoria necesitada.
+
+\begin{figure}[thb]
+    \centering
+    \includegraphics[width=0.49\textwidth]{Imagenes/Vectorial/plot-latencia.pdf}
+    \includegraphics[width=0.49\textwidth]{Imagenes/Vectorial/plot-memoria.pdf}
+    % \includegraphics[width=0.32\textwidth]{pic/plot-energy.pdf}
+    \caption{Tomada de \cite{ma2024era}}
+    \label{fig:latencia-memoria}
+\end{figure}
+
+En el paper muestran los resultados de haber creado un modelo, BitNet b1.58, implementando su idea y comparandolo a modelos como Llama en vario tamaños distintos, uno de los resultados más destacados de este avance lo mostramos en la figura \ref{fig:latencia-memoria}.
 
 \section{Procesamiento del lenguaje natural}
 
