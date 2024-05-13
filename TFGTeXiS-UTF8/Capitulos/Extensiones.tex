@@ -150,12 +150,26 @@ El valor fundamental que aporta esta nueva simulación es que, si un usuario gua
 
 Estos resúmenes solamente se generan al guardar para simular por dos motivos: el primero es que se comprime la simulación y es más sencillo pasar esta nueva información al modelo de lenguaje, y la segunda es que si un usuario guarda una simulación para continuarla, significa que no la ha terminado completamente, sino que la quiere bifurcar a partir de ese punto, por lo que no se va a generar un resumen de una simulación que no está considerada como terminada.
 
+\section{Creación desde 0 de una simulación}
 
+El sistema que habíamos heredado proporcionaba una serie de archivos que representaban ciertas configuraciones predefinidas de personajes para la simulación.
 
+\begin{itemize}
+	\item{base\_the\_ville\_n25} Contiene los archivos predefinidos para una simulación con 25 personajes.
+	\item{base\_the\_ville\_isabella\_maria\_klaus} Contiene los archivos predefinidos para una simulación con 3 personajes, concretamente los 3 mencionados
+\end{itemize}
 
+Por lo que la creación de una simulación desde 0 como tal no existía, tan solo contabamos con la creación de simulaciones a partir de estas que ya estaban predefinidas, aunque vacías en cuanto a sucesos.
 
+Para ofrecer al usuario la máxima libertad en las simulaciones que quisiera llevar a cabo definimos la información necesaria con la que debería contar una simulación, sin contar con la configuración de los Agentes (que se dejaría a elección del usuario), como sigue:
 
+\begin{itemize}
+	\item{Tiempo actual}: Se inicializó a la fecha en que se creaba la simulación a las 00:00 de la noche.
+	\item{Fecha actual}: Se inicializó a la fecha en que se creaba la simulación.
+	\item{Segundos por timestep}: Se ha fijado la equivalencia de un timestep a 10 segundos de simulación. Variando la equivalencia de timestep a segundos reales en función de las peticiones que se hagan al LLM. La cantidad de peticiones crece linealmente con la cantidad de Agentes simulados
+	\item{Mapa de la simulación}: El mapa que se utiliza es el que recibimos, The\_ville, pero se deja la puerta abierta a la inclusión de nuevos mapas en futuros desarrollos.
+\end{itemize}
 
+Además de estos parametros se necesitan los Agentes que estarán presentes en la misma, estos se crearán a petición del usuario. Permitiendo la configuración del Estilo de vida, personalidad y objetivos vitales. Así tratamos de dar la mayor flexibilidad a la hora de crear el escenario de una simulación y de enfocarlo a recrear o simular las situaciones que sean de interés para el usuario.
 
-
-
+Una vez proporcionada la información necesaria se habrá terminado con la creación de una simulación y se podrá empezar con la simulación en sí de la misma forma que ocurre con las simulaciones ya existentes.

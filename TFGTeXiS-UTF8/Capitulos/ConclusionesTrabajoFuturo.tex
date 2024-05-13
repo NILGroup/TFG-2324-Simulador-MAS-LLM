@@ -37,6 +37,16 @@ A continuación, se muestra una lista con algunos de los objetivos que nos habr�
 	\item \textbf{Libre elección de LLM}: Tras investigar multitud de modelos de lenguaje y probar con ellos, llegamos a la conclusión de que a día de hoy, con las condiciones que tenemos, la opción menos mala para ejecutar este sistema es mediante el uso de la API de OpenAI. Esta no permite realizar muchas llamadas, pero que es una de las pocas que comprende cómo procesar la entrada que enviamos, y que funciona bien a día de hoy. Sería interesante en el futuro que los propios usuarios puedan introducir sus modelos de lenguaje que tengan instalados en sus ordenadores, o que puedan utilizar cualquier otra API que tengan a sus disposición.
 	
 	\item \textbf{Más resúmenes}: Además de los resúmenes que se realizan automáticamente al guardar una simulación, sería buena idea que se guardasen una mayor cantidad de resúmenes para ayudar a los usuarios a ubicar cada simulación. Podría ser una buena idea tener resúmenes que indiquen en qué timestamps ocurren los eventos más interesantes, o que se realice un resumen por cada uno de los personajes de la aplicación automáticamente.
-	
+
+	\item\textbf{Bifurcación de simulaciones en cualquier instante de tiempo}
+
+Con el objetivo de brindar una herramienta que permita crear situaciones pseudo-sociales realistas con el fin de analizar los fenómenos de diversidad de situaciones, vimos un interés singular en permitir la bifurcación de las simulaciones ya hechas en cualquier momento del tiempo.
+
+Con esto se logra la posibilidad de explorar escenarios alternativos desde puntos críticos en el tiempo que, unido a la síntesis ofrecida por los resúmenes, abre la puerta a realizar simulaciones que generen situaciones imprevistas, aunque de interés, y una vez resumidas sean detectadas y objeto de bifurcación para observar el comportamiento del sistema ante cambios provistos por el usuario.
+
+La implementación de esta funcionalidad implica guardar la información necesaria del sistema en cada momento del tiempo. De forma que se pueda replicar cualquier momento del tiempo del sistema. 
+
+La forma naíz de hacerlo es replicar la información existente en cada momento del tiempo. Este enfoque es imposible en la práctica debido al tamaño de memoria que ocuparía una sola simulación. Estimando un poco, en base a una simulación de 3 agentes y un total de 24 horas, es decir, 8640 steps y ocupando un total de 57 MB. Si asumimos que el crecimiento en espacio es lineal respecto al numero de steps, y lo es, esto implicaría un coste cuadrático de espacio en el tiempo simulado. Llevando la simulación de 24 horas de tiempo a aproximádamente 1653 MB de espacio. Lo cual no es viable, más aún habiendo mejores formas de plantear la solución.	
+
 \end{itemize}
 
