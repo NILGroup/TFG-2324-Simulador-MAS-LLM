@@ -3,9 +3,9 @@
 
 \chapterquote{La creatividad es únicamente unir conceptos}{Steve Jobs}
 
-Las relaciones sociales han sido tema de estudio en múltiples ocasiones a lo largo del tiempo. El comportamiento de los seres humanos es ciertamente complejo y, en muchos casos, impredecible. Esto es lo que nos hace únicos e inimitables... ¿o no?
+Las relaciones sociales han sido tema de estudio en múltiples ocasiones a lo largo del tiempo. El comportamiento de los seres humanos es ciertamente complejo y, en muchos casos, impredecible. Por ello, surge la necesidad de tratar de comprender la base de estas relaciones e intentar predecir los comportamientos mediante las simulaciones.
 
-En los últimos años, y especialmente en el último, hemos visto un desarrollo fulgurante de las Inteligencias Artificiales. Uno de los casos de uso más interesante de estas tecnologías son los Modelos Grandes de Lenguaje (Large Language Models), de propósito general, los cuales nos permiten interactuar mediante el lenguaje natural directamente con la IA.
+En los últimos años, y especialmente en el último, hemos visto un desarrollo fulgurante de la Inteligencia Artificial generativa. Uno de los casos de uso más interesante de estas tecnologías son los Modelos Grandes de Lenguaje (Large Language Models), de propósito general, los cuales nos permiten interactuar mediante el lenguaje natural directamente con estos sistemas de IA generativa.
 
 Al desarrollar estos Modelos del Lenguaje, si se tiene una serie de ejemplos lo suficientemente grande, el programa podrá generar situaciones completamente únicas y originales, imitando ejemplos ya conocidos pero sin reutilizarlos de manera literal.
 
@@ -14,35 +14,34 @@ En este momento entra en juego el comportamiento humano. Si tenemos unos modelos
 Este experimento fue llevado a cabo en el estudio de \cite{park2023generative}, en el cual nos hemos basado a la hora de realizar nuestro Trabajo de Fin de Grado. En este experimento logran crear agentes independientes los cuales interaccionan entre ellos, tienen recuerdos de eventos ocurridos y son capaces de desarrollar relaciones sociales entre sí.
 
 \section{Motivación}
-La motivación inicial de este trabajo era poder crear historias a partir de simulaciones de agentes de Inteligencia Artificial. Sin embargo, al encontrar el estudio de \ga, decidimos pivotar y centrarnos en cómo gente de perfiles no tecnológicos, especialmente psicólogos, pueden estudiar las relaciones sociales entre humanos, partiendo de una simulación que ya funcionaba y lograba que los personajes tuviesen recuerdos e interaccionasen de manera verosímil.
+La motivación inicial de este trabajo era poder crear historias a partir de simulaciones de agentes de Inteligencia Artificial. Sin embargo, al encontrar el estudio de \ga \citep{park2023generative}, decidimos cambiar el objetivo y centrarnos en cómo gente de perfiles no tecnológicos, especialmente psicólogos, pueden estudiar las relaciones sociales entre humanos, partiendo de una simulación que ya funcionaba y lograba que los personajes tuviesen recuerdos e interaccionasen de manera verosímil.
 
-Por tanto, a partir de ese momento, nuestro principal objetivo se convirtió en crear una aplicación en la cual psicólogos puedan estudiar relaciones sociales indicando diferentes situaciones y facilitando los cambios entre simulaciones para estudiar las diferencias de comportamiento.
+Por tanto, a partir de ese momento, nuestro principal objetivo se convirtió en crear una aplicación en la cual psicólogos u otro tipo de usuarios puedan estudiar relaciones sociales indicando diferentes situaciones y facilitando los cambios entre simulaciones para estudiar las diferencias de comportamiento.
 
-Con una arquitectura como la citada disponemos de lo necesario para crear un entorno en el que intervengan varios agentes e interactúen entre sí. Una implementación de esta idea es la que tenemos en el repositorio {\textit{generative\_agents}}\footnote{\url{https://github.com/joonspk-research/generative_agents}} creado por los autores del paper mencionado anteriormente.
+Con un sistema como el citado, disponemos de lo necesario para crear un entorno en el que intervengan varios agentes e interactúen entre sí. Una implementación de esta idea es la que tenemos en el repositorio {\textit{generative\_agents}}\footnote{\url{https://github.com/joonspk-research/generative_agents}} creado por los autores del paper mencionado anteriormente.
 
-Disponer de una tecnología capaz de simular el comportamiento humano en contextos sociales nos crea la necesidad de experimentar con estas capacidades en distintas situaciones. Esta necesidad se ve reflejada en trabajos como \cite{qian2023communicative}, que también pone a prueba y expande el mismo trabajo, el de \cite{park2023generative}, pero en esta ocasión midiendo la capacidad de un grupo de agentes para generar software. En este estudio se comprueba que estos mismos agentes son capaces de asociarse, formar equipos y generar videojuegos funcionales con código real.
+Disponer de una tecnología capaz de simular el comportamiento humano en contextos sociales nos crea la necesidad de experimentar con estas capacidades en distintas situaciones. Esta necesidad se ve reflejada en otro estudio, el cual pone a prueba y expande el mismo trabajo original, de \cite{park2023generative}, pero en esta ocasión midiendo la capacidad de un grupo de agentes para generar software \citep{qian2023communicative}. En este estudio se comprueba que estos mismos agentes son capaces de asociarse, formar equipos y generar videojuegos funcionales con código real.
 
-Se ve así el potencial de esta tecnología y el interés de la gente por definir sus límites, aplicaciones o simplemente experimentar.
-Sin embargo todas estas motivaciones se ven muy coartadas a la hora de poner en funcionamiento este trabajo en nuevos escenarios.
+Se ve así el potencial de esta tecnología y el interés de la gente por definir sus límites, aplicaciones o simplemente experimentar. Sin embargo todas estas motivaciones se ven muy coartadas a la hora de poner en funcionamiento este trabajo en nuevos escenarios debido a la complejidad de la ejecución de la aplicación, la cual es difícil de usar para perfiles ajenos al mundo de la programación, y muy difícilmente extensible debido a la situación inicial del código (personajes y mapas preseleccionados y no intercambiables, rigidez a la hora de ejecutar simulaciones, falta de modificación del contexto de la aplicación...).
 
 Es por ello que proponemos en este Trabajo de Fin de Grado facilitar el acceso e interacción con la tecnología que proporcionan en \ga, además de ofrecer nuevas funcionalidades con las que explorar e interactuar con la simulación en tiempo real.
 
 \section{Objetivos}
 
-Para lograr el objetivo principal del TFG mencionado anteriormente, que es facilitar el acceso e interacción y extender funcionalidades del estudio de  \ga, hemos decidido seccionarlo en los siguientes puntos:
+Para lograr el objetivo principal del TFG mencionado anteriormente, que es facilitar el acceso e interacción y extender funcionalidades del estudio de  \ga, hemos decidido estructurarlo en los siguientes puntos:
 
 \begin{itemize}
-\item Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes
+\item Creación de simulaciones configurando agentes y/o el escenario. Ya que actualmente solamente existe un mapa predeterminado y una serie de agentes predefinidos. La finalidad es permitir una mayor interactividad con el entorno, añadiendo mapas y pudiendo personalizar a los agentes.
 
-\item Permitir la interacción con el estado de los agentes durante la simulación. En cualquier momento, el usuario podrá interactuar con los agentes, chateando en tiempo real con ellos o "susurrándoles" las próximas acciones que deben tomar
+\item Permitir la interacción con el estado de los agentes durante la simulación. En cualquier momento, el usuario podrá interactuar con los agentes, chateando en tiempo real con ellos o "susurrándoles" las próximas acciones que deben tomar.
 
-\item Visión de la simulación, a través de un personaje o de una forma general y sintetizada. También permitir a los usuarios, una vez finalizada una simulación, poder hacer un resumen de toda la simulación como conjunto o hacerlo desde el punto de vista de uno de los agentes
+\item Visión de la simulación, a través de un personaje o de una forma general y sintetizada. También permitir a los usuarios, una vez finalizada una simulación, poder hacer un resumen de toda la simulación como conjunto o hacerlo desde el punto de vista de uno de los agentes.
 
-\item Gestión de las simulaciones, permitiendo el guardado de estas y la creación en base a anteriores. Esto permitirá poder ver simulaciones repetidas o extenderlas
+\item Gestión de las simulaciones, permitiendo el guardado de estas y la creación en base a anteriores. Esto permitirá poder ver simulaciones repetidas o extenderlas.
 
-\item Integración de todo lo anterior en una interfaz web novedosa, comunicándose con el back en tiempo real y sin necesidad de usar una terminal para comunicarnos
+\item Integración de todo lo anterior en una interfaz web nueva y creada completamente desde cero, comunicándose con el back en tiempo real y sin necesidad de usar una terminal para comunicarnos.
 
-\item Integración con el modelo de lenguaje y la API de OpenAI actualizada, ya que las llamadas originales usaban una API anterior que no funcionaba correctamente
+\item Integración con el modelo de lenguaje y la API de OpenAI actualizada, ya que las llamadas originales usaban una API anterior que no funcionaba correctamente.
 
 \end{itemize}
 
@@ -52,7 +51,7 @@ Con el fin de cumplir los objetivos planteados en la sección anterior, se ha fi
 
 \begin{itemize}
 	
-	\item \textbf{Etapa de investigación y definición de objetivos}. En esta primera parte del desarrollo, nos centraremos en investigar artículos científicos y libros que traten sobre temas similares a la interacción de agentes de IA, así como definiendo los objetivos básicos, en qué sentido vamos a extender el artículo original de \ga y comenzar a redactar esbozos iniciales de la introducción y estado de la cuestión de la memoria.
+	\item \textbf{Etapa de investigación y definición de objetivos}. En esta primera parte del desarrollo, nos centraremos en investigar artículos científicos y libros que traten sobre temas similares a la interacción de agentes de IA, así como definiendo los objetivos básicos, en qué sentido vamos a extender el trabajo descrito en el artículo original de \ga y comenzar a redactar esbozos iniciales de la introducción y estado de la cuestión de la memoria.
 	
 	\item Tras concluir con las investigaciones iniciales y la adaptación al tema, comenzaremos la fase del \textbf{desarrollo del proyecto}, realizando así los diseños de las distintas interfaces, el desarrollo de las mismas y la producción de los capítulos principales de la memoria.
 	

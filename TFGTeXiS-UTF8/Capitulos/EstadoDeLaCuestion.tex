@@ -10,20 +10,20 @@ Después, se revisarán los desarrollos más destacados en procesamiento del len
 
 Los sistemas informáticos se asumen como obedientes máquinas que siguen todas las instrucciones que les solicitamos o programamos, resultando en un fallo del sistema o pérdida de archivos en el mejor de los casos o en la pérdida de vidas en el peor. Sin embargo hay ciertas aplicaciones o tareas en las que necesitamos una capacidad de resiliencia y decisión que con los sistemas tradicionales no es posible obtener. Sobre todo en entornos de rápido cambio, impredecibles y donde la cantidad de posibles situaciones no permita la posibilidad de plantearse cualquier escenario desde el diseño.
 
-Un típico ejemplo de la necesidad de este tipo de sistemas es el envío de una sonda espacial a una distancia de la tierra que imposibilite el uso de un equipo humano que realice el seguimiento y toma de decisiones ante cualquier eventualidad imprevista, debido al retardo en la comunicación con la sonda debido a la distancia. Estas necesidades llevan a empresas como la NASA a investigar en agentes con más capacidad de autonomía para tener un mejor desempeño y confianza en este tipo de sistemas\footnote{\url{https://s3vi.ndc.nasa.gov/ssri-kb/static/resources/WS02-03-010.pdf}}.
+Un típico ejemplo de la necesidad de este tipo de sistemas es el envío de una sonda espacial a una distancia de la tierra que imposibilite el uso de un equipo humano que realice el seguimiento y toma de decisiones ante cualquier eventualidad imprevista, debido al retardo en la comunicación con la sonda debido a la distancia. Estas necesidades llevan a empresas como la NASA a investigar en agentes con más capacidad de autonomía para tener un mejor desempeño y confianza en este tipo de sistemas \citep{rouff2002autonomy}.
 
-Otro ejemplo, en una situación más cercana, sería la forma en que se localizan, actualizan y registran las páginas web en Internet. Cualquiera que se haya visto envuelto en el desarrollo de una página web probablemente se haya topado con un archivo llamado robots.txt, que es la forma que tienes de comunicarte con los agentes que Google utiliza para registrar o actualizar las páginas a través de Internet\footnote{\url{https://developers.google.com/search/docs/crawling-indexing/robots/intro?hl=es}}.
+Otro ejemplo, en una situación más cercana, sería la forma en que se localizan, actualizan y registran las páginas web en Internet. Cualquiera que se haya visto envuelto en el desarrollo de una página web probablemente se haya topado con un archivo llamado \textit{robots.txt}, que es la forma que tienes de comunicarte con los agentes que Google utiliza para registrar o actualizar las páginas a través de Internet\footnote{\url{https://developers.google.com/search/docs/crawling-indexing/robots/intro?hl=es}}.
 
-A pesar de que \textit{Agente} es un término ampliamente usado en la literatura y los sistemas con los que interactuámos cada día, no hay un consenso en la definición de Agente, el mayor acuerdo que se encuentra en torno a esta definición es la centralidad que ocupa la autonomía para un Agente. Parte del desacuerdo en esta definición se debe al amplio número de sectores en los que es utilizado, teniendo cada uno de estos unas necesidades muy distintas, siendo necesaria alguna característica de los Agentes en ciertos sectores pero totalmente indeseables en otros, un ejemplo sería la capacidad de aprender de los Agentes. En cualquier caso se puede tomar prestada la definición dada en \cite{weiss1999multiagent} para tener una idea más cercana de lo que pretendemos expresar al hablar de Agentes.
+A pesar de que \textit{Agente} es un término ampliamente usado en la literatura y los sistemas con los que interactuámos cada día, no hay un consenso en la definición de Agente, el mayor acuerdo que se encuentra en torno a esta definición es la centralidad que ocupa la autonomía para un Agente. Parte del desacuerdo en esta definición se debe al amplio número de sectores en los que es utilizado, teniendo cada uno de estos unas necesidades muy distintas, siendo necesaria alguna característica de los Agentes en ciertos sectores pero totalmente indeseables en otros, un ejemplo sería la capacidad de aprender de los Agentes. En cualquier caso se puede tomar prestada la definición dada por \cite{weiss1999multiagent} para tener una idea más cercana de lo que pretendemos expresar al hablar de Agentes.
 
 \begin{quote}
-Un Agente es un \textit{sistema computacional} que se encuentra en cierto \textit{entorno}, y es capáz de \textit{actuar} de forma autónoma en este entorno con el fin de cumplir sus objetivos de diseño
+Un Agente es un \textit{sistema computacional} que se encuentra en cierto \textit{entorno}, y es capaz de \textit{actuar} de forma autónoma en este entorno con el fin de cumplir sus objetivos de diseño
 \end{quote}
 
 %Breve descripción
 \subsection{Principios en el diseño}
 
-Entre los factores más importantes a la hora de diseñar un Agente se encuentran los siguiente:
+Entre los factores más importantes a la hora de diseñar un Agente se encuentran los siguientes \citep{russell2016artificial}, \citep{wooldridge2009introduction}:
 
 \begin{itemize}
 	\item\textbf{La capacidad de control del Entorno} En el mejor de los casos el Agente tiene un control parcial sobre el entorno, pero no en la mayoría.
@@ -36,7 +36,7 @@ Con lo dicho hasta el momento damos cabida a un gran número de sistemas, en est
 
 \subsection{Agentes inteligentes}
 
-Una aplicación más buscada y útil son los Agentes Inteligentes, la diferencia con los anteriores es la flexibilidad que estos tienen de actuar de forma autónoma y flexible para cumplir con sus objetivos de diseño. Por flexible entendemos lo descrito en \cite{jennings1998agent}:
+Una aplicación más buscada y útil son los Agentes Inteligentes. La diferencia con los anteriores es la flexibilidad que estos tienen de actuar de forma autónoma y flexible para cumplir con sus objetivos de diseño. Por flexible entendemos lo descrito en \cite{jennings1998agent}:
 
 \begin{itemize}
 	\item\textbf{Sensible a su entorno} siendo capaces de reaccionar en los momentos oportunos en los que su entorno cambia.
@@ -50,21 +50,25 @@ Este tipo de agentes es también un componente central en \cite{park2023generati
 
 \section{Simulaciones basadas en agentes}
 
-En este apartado mostraremos de forma superficial el concepto de Simulaciones basadas en Agentes, así como numerosos ejemplos en los que se ha visto aplicada esta técnica, ya que es un concepto central a la hora de desarrollar el trabajo \cite{park2023generative} en el que se basa nuestro TFG.
-Las Simulaciones basadas en Agentes, o también conocidas como Agent-Based Model (ABM), tratan de dar lugar a sistemas complejos a través del uso de agentes. En base a la interacción, entre agentes y el entorno, se pretende generar comportamientos y patrones a nivel de sistema.
-Este tipo de sistemas se caracteriza por:
+En este apartado mostraremos de forma superficial el concepto de Simulaciones basadas en Agentes, así como numerosos ejemplos en los que se ha visto aplicada esta técnica, ya que es un concepto central a la hora de desarrollar el trabajo en el que se basa nuestro TFG \citep{park2023generative}.
+
+Las Simulaciones basadas en Agentes, o también conocidas como Agent-Based Model (ABM), tratan de dar lugar a sistemas complejos a través del uso de agentes. En base a la interacción, entre agentes y el entorno, se pretende generar comportamientos y patrones a nivel de sistema \citep{bankes2002agent}.
+
+Este tipo de sistema se caracteriza por:
 \begin{itemize}
-	\item Tener un conjunto de agentes que siguen reglas sencillas
-	\item Estos agentes interactúan entre sí de forma continuada
-	\item Hay características a nivel de sistema que ocurren de forma emergente
-	\item Las reglas elegidas para los agentes se entienden como fundamentales
-	\item Una vez establecidas dichas reglas se observa la evolución del sistema (aquí es donde frecuentemente ocurre el fenómeno de la emergencia)
-	\item El dominio de los fenómenos que se pretende recrear son de gran complejidad
+	\item Tener un conjunto de agentes que siguen reglas sencillas.
+	\item Estos agentes interactúan entre sí de forma continuada.
+	\item Hay características a nivel de sistema que ocurren de forma emergente.
+	\item Las reglas elegidas para los agentes se entienden como fundamentales.
+	\item Una vez establecidas dichas reglas se observa la evolución del sistema (aquí es donde frecuentemente ocurre el fenómeno de la emergencia).
+	\item El dominio de los fenómenos que se pretende recrear son de gran complejidad.
 \end{itemize}
 
-Es por esta última característica que la variedad de escenarios o fenómenos recreables se vuelve tan amplio. Permitiendo a una gran cantidad de disciplinas hacer uso de estas técnicas. Tenemos ejemplos en multitud de Ciencias Sociales, Organizacionales, Ecológicas, Económicas, etc...
+Es por esta última característica que la variedad de escenarios o fenómenos recreables se vuelve tan amplio, permitiendo a una gran cantidad de disciplinas hacer uso de estas técnicas. Tenemos ejemplos en multitud de Ciencias Sociales, Organizacionales, Ecológicas, Económicas, etc... \citep{troitzsch2009perspectives}, \citep{heckbert2010agent}.
+
 Unido a esto, tenemos la importancia que se ha conferido al entendimiento de un alto número de sistemas complejos en múltiples ámbitos del conocimiento, por ejemplo tenemos el clima terrestre, la ecología, el cerebro, las relaciones sociales, etc...
-Así se junta una técnica muy versátil con un necesidad, ampliamente extendida, de recrear y analizar sistemas de alta complejidad, los cuales escapan a los clásicos modelos lineales o analíticos.
+
+Así, se junta una técnica muy versátil con un necesidad, ampliamente extendida, de recrear y analizar sistemas de alta complejidad, los cuales escapan a los clásicos modelos lineales o analíticos.
 
 \subsection{Historia de las Simulaciones basadas en agentes}
 
@@ -88,7 +92,7 @@ Aparte de la naturaleza descentralizada del problema, se encuentra el otro compo
 
 Es en la conjunción de estos dos conceptos donde se desvelan los elementos centrales de un Sistema multiagente, estos son, los Protocolos de comunicación entre Agentes, los protocolos de interacción entre Agentes y Entorno y el Entorno.
 
-Estas características se van a explicar basandonos en \cite{weiss1999multiagent}
+Estas características se van a explicar basandonos en un estudio de sistemas multiagente, en el que se discute un enfoque moderno para el diseño de un sistema de IA distribuido \citep{weiss1999multiagent}
 
 \subsubsection{El entorno}
 
@@ -148,7 +152,7 @@ Como ya hemos visto en el apartado anterior, el rango de aplicaciones que este t
 Así vemos, con este trabajo, que en el ámbito del marketing ya se ha buscado la aplicación de este tipo de técnicas.
 	\item \textbf{Psicología Organizacional} El trabajo \cite{hughes2012agent} nos muestra las ventajas y límites que las Simulaciones basadas en Agentes tendría al ser aplicada en la Psicología organizacional, sobre todo en entornos de alto riesgo o investigaciones que conlleven problemas prácticos o éticos.
 
-Esta ventaja se ve aún más potenciada al ser alimentada con comportamientos humanos creibles. Característica que buscan y evaluan en \cite{park2023generative}.
+Esta ventaja se ve aún más potenciada al ser alimentada con comportamientos humanos creíbles. Característica que buscan y evaluan en \cite{park2023generative}.
 	\item \textbf{Gestión de equipos} En este ámbito, la exploración de distintas tomas de decisiones o entornos se vuelve crucial a la hora de decidir cómo organizar un equipo de trabajo. Al ser esta tarea ubicua en cualquier tipo de proyecto han sido múltiples los trabajos que buscan desarrollar o aportar nuevas herramientas a la hora de lidiar con este tipo de situaciones, entre los más destacados encontramos a \cite{crowder2012development}, \cite{boroomand2021hard} y \cite{boroomand2023superiority}, siendo estos dos últimos publicaciones de la revista JASSS, que exploran distintos escenarios y formas de interactuar entre los miembros de equipos que buscan soluciones a diversos problemas, valiéndose del estudio que realizan a una Simulación basada en agentes.
 	\item \textbf{Redes sociales} En este ámbito hay multitud de fenómenos que son de gran interés, entre estos tenemos el de mecanismo de difusión de la información. Cuyo entendimiento nos ofrecería formas de proceder al lidiar con problemas como las Fake News. En este tipo de problemas también vemos un buen desempeño por parte de las Simulaciones Basadas en Agentes.
 
@@ -227,15 +231,15 @@ Vemos así limitaciones intrínsecas a este tipo de modelos.
 
 \subsection{Modelos neuronales}
 
-El último de los enfoques que vamos a presentar es el de los Modelos basados en Redes Neuronales, en concreto . Recorreremos los avances que han afectado a las arquitecturas más extendidas a día de hoy en el campo de los Modelos de Lenguaje.
+El último de los enfoques que vamos a presentar es el de los Modelos basados en Redes Neuronales. Recorreremos los avances que han afectado a las arquitecturas más extendidas a día de hoy en el campo de los Modelos de Lenguaje.
 
 A principios del milenio se publicó el trabajo \cite{bengio2000neural} que se considera fundacional en el campo de la creación de Modelos de Lenguaje modernos. Este fue el siguiente gran paso que se dió avanzando desde los modelos estadísticos basados en N-Gramas, hacia las Arquitecturas Neuronales modernas.
 
-Pasamos a introducir brevemente las principales Arquitecturas Neuronales a las que dió pié el trabajo que acabamos de citar:
+Pasamos a introducir brevemente las principales Arquitecturas Neuronales a las que dió pie el trabajo que acabamos de citar.
 
 \subsubsection{Redes Neuronales Recurrentes}
 
-Este tipo de Red Neuronal fue propuesta inicialmente en \cite{hopfield1982neural}. Se centra en resolver problemas que involucran datos secuenciales, ejemplo de este tipo de problemas es la traducción automática \cite{sutskever2014sequence}, Procesamiento del Lenguaje Natural, Descripción de imágenes \cite{karpathy2015deep} o Reconocimiento de voz \cite{hannun2014deep}.
+Este tipo de Red Neuronal fue propuesta inicialmente en un estudio en 1982 \citep{hopfield1982neural}. Se centra en resolver problemas que involucran datos secuenciales, ejemplo de este tipo de problemas es la traducción automática \citep{sutskever2014sequence}, el Procesamiento del Lenguaje Natural, la descripción de imágenes \citep{karpathy2015deep} o el reconocimiento de voz \citep{hannun2014deep}.
 
 El elemento fundamental de la red es la neurona recurrente, con funciones de activación en ambos sentidos. Estas neuronas se organizan en capas ocultas, de salida y de entrada. Las capas de entrada y salida se ocupan de recibir la información y mostrar los resultados respectivamente. El análisis de la información y los datos se realiza en las capas ocultas.
 
@@ -254,7 +258,7 @@ Posteriormente surgen nuevos trabajos con el propósito de solucionar estos prob
 
 \subsubsection{LSTM}
 
-Este modelo (Long Short-term Memory) propuesto en \cite{hochreiter1997long}, es una evolución de las Redes Neuronales Recurrentes mencionadas anteriormente, que pretende solucionar el \textit{Vanishing/Exploding Gradient Problem}.
+Este modelo (Long Short-term Memory) \citep{hochreiter1997long}  es una evolución de las Redes Neuronales Recurrentes mencionadas anteriormente, que pretende solucionar el \textit{Vanishing/Exploding Gradient Problem} que es un desafío común en el entrenamiento de redes neuronales profundas. Se refiere a la tendencia de los gradientes (valores utilizados para actualizar los pesos de la red durante el entrenamiento) a volverse extremadamente pequeños (evanescentes) o extremadamente grandes (explosivos) a medida que se propagan hacia atrás a través de las capas de la red \citep{goodfellow2016deep}.
 
 La solución que proponen tiene una mayor capacidad de recordar datos antiguos y se basa en ir decidiendo qué información olvidar a la vez que se considera al mismo tiempo el cúmulo de aprendizaje a corto y largo plazo.
 
@@ -265,7 +269,7 @@ La solución que proponen tiene una mayor capacidad de recordar datos antiguos y
 	\label{fig:LSTM}
 \end{figure}
 
-Las Celdas de esta arquitectura están conformadas por cuatro tipos de puerta. Tenemos una ilustración en la Figura \ref{fig:LSTM}\footnote{Tomada de \url{https://d2l.ai/chapter_recurrent-modern/lstm.html}}
+Las Celdas de esta arquitectura están conformadas por cuatro tipos de puerta, como se puede apreciar en la ilustración representada en la Figura \ref{fig:LSTM}\footnote{Tomada de \url{https://d2l.ai/chapter_recurrent-modern/lstm.html}}
 \begin{itemize}
 	\item\textbf{Forget Gate} Se encarga de reajustar la información proveniente de estados antiguos en base al input recibido para decidir cuanta de esta seguirá teniendo en cuenta.
 	\item\textbf{Cell state} Es el componente encargado de transportar la información a lo largo del tiempo.
@@ -286,14 +290,14 @@ Este modelo se volvió relevante gracias a su mayor rendimiento, en comparación
 	\label{fig:seq2seq}
 \end{figure}
 
-La mayor novedad en este modelo es el uso de la arquitectura Encoder-Decoder. Continuamos con una breve explicación de los componentes principales de esta arquitectura, acompañados de una ilustración en la Figura \ref{fig:seq2seq}\footnote{Imáagen tomada de \url{https://lena-voita.github.io/nlp_course/seq2seq_and_attention.html}}:
+La mayor novedad en este modelo es el uso de la arquitectura Encoder-Decoder. Continuamos con una breve explicación de los componentes principales de esta arquitectura, acompañados de una ilustración en la Figura \ref{fig:seq2seq}\footnote{Imagen tomada de \url{https://lena-voita.github.io/nlp_course/seq2seq_and_attention.html}}:
 
 \begin{itemize}
 	\item \textbf{Encoder} Se encarga de tomar una secuencia de entrada y la transforma en una representación oculta de alta dimensión (\textit{Word Embeddings}), mediante el uso de una \textit{Embedding layer}, con esta representación se trata de capturar el contenido semántico de la oración recibida. A menudo los LSTMs son empleados como Encoders debido a su gran rendimiento al momento de manejar secuencias de datos largas y su capacidad de retentiva a lo largo del tiempo. En el estudio original \citep{sutskever2014sequence} en que se propuso el modelo seq2seq vemos que emplean 4 capas de 1000 celdas LSTMs cada una. Dejando en cada celda su propio conjunto independiente de pesos y sesgos. Y usando cada capa el Output de la capa anterior como Input.
 
 Todo esto con el objetivo de producir el llamado \textit{Vector de Contexto}, que se usará como inicialización de memorias de corto y largo plazo para las capas de salida del decoder.
 
-	\item \textbf{Decoder} Este se encarga de utilizar el \textit{Vector de Contexto} como memoria inicial tanto en el largo como corto plazo de sus capas de celdas LSTMs (en el paper \cite{sutskever2014sequence} emplean una red de LSTMs similar a la del decoder).
+	\item \textbf{Decoder} Este se encarga de utilizar el \textit{Vector de Contexto} como memoria inicial tanto en el largo como corto plazo de sus capas de celdas LSTMs (en un estudio de 2014 llevado a cabo investigando esto, emplean una red de LSTMs similar a la del decoder \citep{sutskever2014sequence}).
 
 Para interpretar la información de salida de la última capa de celdas LSTMs, el Decoder utiliza un \textit{Word Embedding} correspondiente al \textit{lenguaje} de salida. Este obtiene su valor a partir de encadenar a la salida de la última capa LSTM una \textit{Fully Connected Layer} seguida de una función \textit{SoftMax} que se encargará de darnos finalmente el Output.
 
@@ -307,7 +311,7 @@ Este mecanísmo consigue una mejor selección de la información tenida en cuent
 \newpage
 \subsubsection{Transformers}
 
-Uno de los puntos de inflexión llega con el trabajo \cite{vaswani2017attention} presentado por investigadores de Google, que introduce multitud de conceptos, que, en conjunto, son capaces de ofrecer un modelo superior en rendimiento y desempeño a los anteriores. Una característica principal es el nuevo enfoque que dá, dejando de ser un nuevo paso en el camino trazado por los modelos explicados anteriormente, y proponiendo un modelo que pone la tilde en el mecanismo de atención y construyendo, a partir de este, un sistema capaz, de forma intrínseca, de atender a las relaciones semánticas entre los componentes de las secuencias tratadas (e.g. las palabras de un texto), además de ofrecer la posibilidad de realizar todas las tareas de entrenamiento e inferencia de una forma paralela, abriendo así la posiblidad a un aumento en la escala de este tipo de modelos como no se había visto y en el que aún no terminamos de ver el progreso. Ilustración en la Figura \ref{fig:Transformer Architecture}
+Uno de los puntos de inflexión llega con el trabajo \cite{vaswani2017attention} presentado por investigadores de Google, que introduce multitud de conceptos, que, en conjunto, son capaces de ofrecer un modelo superior en rendimiento y desempeño a los anteriores. Una característica principal es el nuevo enfoque que dá, dejando de ser un nuevo paso en el camino trazado por los modelos explicados anteriormente, y proponiendo un modelo que pone la tilde en el mecanismo de atención y construyendo, a partir de este, un sistema capaz, de forma intrínseca, de atender a las relaciones semánticas entre los componentes de las secuencias tratadas (e.g. las palabras de un texto), además de ofrecer la posibilidad de realizar todas las tareas de entrenamiento e inferencia de una forma paralela, abriendo así la posiblidad a un aumento en la escala de este tipo de modelos como no se había visto y en el que aún no terminamos de ver el progreso. Esto se puede apreciar en la ilustración que se muestra en la Figura \ref{fig:Transformer Architecture}
 
 \begin{figure} [hb]
 	\centering
@@ -334,7 +338,7 @@ En este trabajo se añaden mecanismos para atrapar, a la vez que el significado 
 \[PE_{pos,2i+1} = \cos(pos/10000^{2i/d_{model}})\]
 
 Podemos ver cómo actúa el mecanismo mediante la Figura \ref{fig:Positional Encoding}\footnote{\url{https://datascience.stackexchange.com/questions/51065/what-is-the-positional-encoding-in-the-transformer-model
-}}. Donde se ilustra en qué forma varía la codificación en relación a la posición del Token.
+}}, donde se ilustra en qué forma varía la codificación en relación a la posición del Token.
 
 	\item\textbf{Self Attention} Busca la similaridad entre una palabra con todas las demás, y con ella misma. Actúa sobre la secuencia de entrada para asignar la importancia que cada una de estas tiene en la palabra en la que nos habíamos enfocado inicialmente (producto escalar). Para lograr esto introduce con cada palabra tres nuevos valores \textit{Query}, \textit{Key} y \textit{Value}, con el objetivo de lograr una codificación para cada palabra resultado de su relación con las demás, que es el que usará como valor representativo del Token (ver figura \ref{fig:Scaled Dot-Product Attention}).
 
@@ -375,7 +379,7 @@ Llegando a ser estos últimos los Modelos que más han irrumpido en la sociedad 
 
 En parte, el interés en estos sistemas ha venido de la mano con su capacidad para generar información valiosa a partir de un entrenamiento. Hasta avances como los Variational Autoencoders \cite{kingma2013auto} y las Redes GANs \cite{goodfellow2014generative}, los modelos eran mayoritariamente estadísticos. dando lugar principalmente a modelos discriminativos para datos más complejos como imágenes o lenguaje Natural. Ejemplos de estos podrían ser los analizadores de sentimientos o clasificadores de imágenes.
 
-Con la llegada de estos avances, en combinación con modelos más desarrollados como los Transformers, empezaron a surgir los primeros Modelos generativos con resultados de un mayor nivel de calidad, entre estos se encuentran, por el lado del Lenguaje, Generative Pre-Trained transformer \cite{radford2018improving}, GPT, donde vemos el primer Modelo del lenguaje creado por OpenAI y que, posteriormente, daría lugar a los sistemas tan asimilados de hoy en día como ChatGPT. Por el lado de la generación de imágenes también cabe destacar la aparición de sistemas como DALL-E o Stable Diffusion, ambos basados en Modelos de difusión \cite{}, pero grandes ejemplos de las capacidades e interés que suscitan los Modelos Generativos.
+Con la llegada de estos avances, en combinación con modelos más desarrollados como los Transformers, empezaron a surgir los primeros Modelos generativos con resultados de un mayor nivel de calidad, entre estos se encuentran, por el lado del Lenguaje, Generative Pre-Trained transformer \citep {radford2018improving}, GPT, donde vemos el primer Modelo del lenguaje creado por OpenAI y que, posteriormente, daría lugar a los sistemas tan asimilados de hoy en día como ChatGPT. Por el lado de la generación de imágenes también cabe destacar la aparición de sistemas como DALL-E o Stable Diffusion, ambos basados en Modelos de difusión \cite{}, pero grandes ejemplos de las capacidades e interés que suscitan los Modelos Generativos.
 
 \subsubsection{Principales LLMs}
 
@@ -472,17 +476,17 @@ Como se ha visto, el procesamiento del lenguaje natural se ha desarrollado enorm
 A pesar de todas estas ventajas que el procesamiento del lenguaje natural ha aportado a la sociedad, existen varios desafíos para que esta tecnología sea capaz de funcionar. Las máquinas requieren una comunicación precisa y exacta, y los humanos hablamos con ambigüedades y de forma poco precisa en el día a día. Además, para poder transcribir a texto las palabras de una persona, es necesario un uso claro y comprensible del lenguaje. Estas solo son algunas de las barreras en las que se está trabajando para poder hacer esta tecnología accesible a todo el mundo.
 
 
-\section{Computación centrada en el humano}
+\section{Computación centrada en el usuario}
 
-La computación centrada en el humano (CCH) es una disciplina que se dedica a  centrar todo el desarrollo de un sistema informátivo en los seres humanos que la usarán, así como estudiar los fenómenos relacionados más significativos. Para esto, la CCH incorpora en sus estudios varios factores humanos en el diseño y prácticas de la informática, como pueden ser circunstancias sociales o culturales, empleando para ello equipos multidisciplinares para resolver los desafíos, más que equipos puramente tecnológicos.
+La computación centrada en el usuario (CCU) es una disciplina que se dedica a  centrar todo el desarrollo de un sistema informátivo en los seres humanos que la usarán, así como estudiar los fenómenos relacionados más significativos. Para esto, la CCU incorpora en sus estudios varios factores humanos en el diseño y prácticas de la informática, como pueden ser circunstancias sociales o culturales, empleando para ello equipos multidisciplinares para resolver los desafíos, más que equipos puramente tecnológicos.
 
-Este tema es abordado desde hace muchos años, analizando el artículo de \cite{Card1983ThePO}, vemos que estos abogan por una perspectiva que no solo se centre en la eficiencia técnica del sistema, argumentando que ''un buen diseño de sistema se debe evaluar en términos de la eficacia con la cual el sistema ayuda a los usuarios a alcanzar sus metas''. Lo cual subraya la importancia de no solo medir el éxito de un programa informático en términos de rendimiento, sino también en la capacidad del sistema para ser comprensible, usable y facilite las tareas del humano que lo usa.
+Este tema es abordado desde hace muchos años, analizando el artículo de \cite{Card1983ThePO}, vemos que estos abogan por una perspectiva que no solo se centre en la eficiencia técnica del sistema, argumentando que ''un buen diseño de sistema se debe evaluar en términos de la eficacia con la cual el sistema ayuda a los usuarios a alcanzar sus metas''. Lo cual subraya la importancia de no solo medir el éxito de un programa informático en términos de rendimiento, sino también en la capacidad del sistema para ser comprensible, usable y facilite las tareas del usuario que lo usa.
 
 Además, otro de los objetivos de la computación centrada en el humapno es crear sistemas que sean adaptables a los requerimientos cambiantes del usuario. No es solamente hacer un sistema optimizado y usable por los humanos, sino que también se pueda amoldar a las necesidades cambiantes de los futuros usuarios.
 
 \subsection{Interacción Persona-Ordenador }
 
-La Interacción Persona-Ordenador (IPO) es un área más específica que la computación centrada en el humano, ya que esta se focaliza especialmente en la relación entre el sistema y el humano, y no se centra tanto en factores externos más globales.
+La Interacción Persona-Ordenador (IPO) es un área más específica que la computación centrada en el usuario, ya que esta se focaliza especialmente en la relación entre el sistema y el humano, y no se centra tanto en factores externos más globales.
 
 Los ordenadores llegaron a nuestras vidas en la década de 1940, y la ciencia de la interacción entre las personas y ordenadores llegó en la década de 1980. Entonces, ¿entre 1940 y 1980 no había interacción entre personas y ordenadores? No exactamente. En aquellas épocas, los ordenadores no estaban tan masificadamente disponibles como lo están a día de hoy, por lo que solo un selecto grupo de personas podían ''comunicarse'' con ellos. Estas personas eran perfiles técnicos como ingenieros y científicos, por ello la interacción era muy compleja y un amplio conocimiento técnico era necesario. \citep{mackenzie2012human}.
 
@@ -492,11 +496,11 @@ La usabilidad, en particular, ha sido un tema central en la IPO. Este concepto s
 
 Además de la usabilidad, la experiencia de usuario (UX por sus siglas en inglés) también ha sido un área de interés en este ámbito. La UX se refiere a las percepciones y respuestas de una persona que resultan del uso o de un producto, sistema o servicio. En resumen, el estudio de las vivencias de los usuarios con el programa informático. Don Norman, en su libro \cite{norman2013design}, introdujo el concepto de ''diseño centrado en el usuario'', donde enfatizó la importancia de diseñar productos que se alineen con la forma en que las personas piensan.
 
-\subsection{Proceso de diseño centrado en el humano}
+\subsection{Proceso de diseño centrado en el usuario}
 
-El diseño centrado en el humano es un enfoque de desarrollo de productos (en nuestro caso, de software) que pone al usuario en el centro del proceso de diseño. Reconoce la importancia de comprender las necesidades, capacidades y preferencias de los usuarios finales.
+El diseño centrado en el usuario es un enfoque de desarrollo de productos (en nuestro caso, de software) que pone al usuario en el centro del proceso de diseño. Reconoce la importancia de comprender las necesidades, capacidades y preferencias de los usuarios finales.
 
-El proceso de diseño centrado en el humano generalmente sigue una serie de etapas iterativas que incluyen investigación, diseño, prototipado, evaluación y refinamiento.
+El proceso de diseño centrado en el usuario generalmente sigue una serie de etapas iterativas que incluyen investigación, diseño, prototipado, evaluación y refinamiento.
 
 La investigación de usuarios es una etapa fundamental. Esta etapa implica la recopilación y análisis de información sobre los usuarios finales, incluyendo sus características demográficas, necesidades, comportamientos y preferencias.
 
@@ -508,16 +512,16 @@ Finalmente, basándose en los resultados de la evaluación, los diseñadores ref
 
 \subsection{Computación afectiva}
 
-La computación afectiva es el estudio y desarrollo de sistemas y dispositivos que reconocen, interpretan, procesan y simulan el afecto humano. Está muy relacionada con la computación centrada en los humanos, ya que hace especial hincapié en las emociones de los humanos al desarrollar sistemas informáticos. Esta rama de la computación se corresponde a un campo interdisciplinar que abarca tanto las ciencias de computación, psicología y ciencias cognitivas. Esta ciencia comenzó a ser analizada a partir del artículo científico publicado de \cite{picard1995computer}, en el cual se estudiaban maneras de aplicar la subjetividad humana a los computadores.
+La computación afectiva es el estudio y desarrollo de sistemas y dispositivos que reconocen, interpretan, procesan y simulan el afecto humano. Está muy relacionada con la computación centrada en los usuarios, ya que hace especial hincapié en las emociones de los humanos al desarrollar sistemas informáticos. Esta rama de la computación se corresponde a un campo interdisciplinar que abarca tanto las ciencias de computación, psicología y ciencias cognitivas. Esta ciencia comenzó a ser analizada a partir del artículo científico publicado de \cite{picard1995computer}, en el cual se estudiaban maneras de aplicar la subjetividad humana a los computadores.
 
 Dos de las áreas de la computación afectiva son la detección y reconocimiento de información emocional y la emoción en las máquinas. La primera área comienza con sensores que capturan datos sobre el estado físico o comportamiento de la persona, sin interpretar los datos de entrada. Estos sensores son análogos a las técnicas que utilizan los humanos para detectar las emociones en otras personas (expresiones faciales, posturas, temperatura corporal, etc.). En cuanto al área de la emoción en las máquinas, se estudia la capacidad que tienen estos computadores de convencer y simular emociones humanas. En el libro de \cite{minsky2007emotion} se propone que las emociones "no con específicamente tan diferentes de otros procesos a los que consideramos 'pensamiento'", por lo que podría ser que estas lleguen a simular sentimientos mediante un proceso de lógica.
 
-\subsection{Ejemplos reales de CCH }
+\subsection{Ejemplos reales de CCU }
 
 El campo de la computación, existen varios temas del mundo real a los que se puede aplicar, algunos ejemplos de esto son los siguientes:
 
 \begin{itemize}
-	\item \textbf{Solución de problemas en entornos distribuidos}: Abarcando sistemas de información basados en Internet, redes de información basadas en sensores o dispositivos de información móviles y vestibles (relojes inteligentes, por ejemplo). Todos estos sistemas han de ser diseñados considerando al humano como centro del estudio.
+	\item \textbf{Solución de problemas en entornos distribuidos}: Abarcando sistemas de información basados en Internet, redes de información basadas en sensores o dispositivos de información móviles y vestibles (relojes inteligentes, por ejemplo). Todos estos sistemas han de ser diseñados considerando al usuario como centro del estudio.
 	
 	\item \textbf{Sistemas multi-agente} que controlan y coordinan acciones para resolver problemas complejos, como es el caso en el que nos basamos para el presente trabajo, extendiendo y adaptando el sistema multi-agente desarrollado en es estudio de \cite{park2023generative}.
 	
@@ -531,7 +535,7 @@ Otro de los ejemplos es el Centro de Computación Cognitiva Ubicua (CUbiC) de la
 
 \section{Relaciones sociales}
 
-El artículo de \cite{park2023generative} sobre el que se ha basado la realización de este trabajo de fin de grado, está muy enfocado en el estudio del comportamiento humano y las finalidades que podría tener el hecho de simular relaciones sociales entre agentes de inteligenicia artificial. Algunos de los casos de uso de este estudio podrían ser la incorporación a personajes no jugables en videojuegos o la simulación de entornos reales para ver cómo afectaría la introducción de cambios en el ambiente, tal y como se menciona en el artículo.
+El artículo sobre el que se ha basado la realización de este trabajo de fin de grado \citep{park2023generative}, está muy enfocado en el estudio del comportamiento humano y las finalidades que podría tener el hecho de simular relaciones sociales entre agentes de inteligenicia artificial. Algunos de los casos de uso de este estudio podrían ser la incorporación a personajes no jugables en videojuegos o la simulación de entornos reales para ver cómo afectaría la introducción de cambios en el ambiente, tal y como se menciona en el artículo.
 
 Sin embargo, las relaciones sociales son un tema importante en la psicología y se han estudiado desde diferentes perspectivas. En la informática, el estudio de las relaciones sociales se ha centrado en la creación de sistemas que permitan la interacción social en línea. Es por eso que se divide el estudio de las relaciones sociales en estos dos campos, abordando en cada uno el contexto, la historia e investigaciones anteriores relacionadas con las relaciones sociales desde dos ámbitos diferentes.
 
@@ -572,7 +576,7 @@ Además de estos ejemplos en los que se estudian las relaciones sociales y compo
 
 Las redes sociales se han convertido en una parte integral de la vida en línea. Estas permiten a los usuarios conectarse con amigos y familiares, compartir información y contenido, y participar en comunidades en línea. Esto favorece por tanto las relaciones sociales a distancia usando las tecnologías de la informática.
 
-En 1997, Andrew Weinreich creó el sitio web 'SixDegrees.com', que se considera la primera red social de la historia, en la cual los usuarios podían configurar su página de perfil, crear listas de ocnexiones y enviar mensajes entre sus contactos.
+En 1997, Andrew Weinreich creó el sitio web 'SixDegrees.com', que se considera la primera red social de la historia, en la cual los usuarios podían configurar su página de perfil, crear listas de conexiones y enviar mensajes entre sus contactos.
 
 \begin{figure}[h]
 	\centering
