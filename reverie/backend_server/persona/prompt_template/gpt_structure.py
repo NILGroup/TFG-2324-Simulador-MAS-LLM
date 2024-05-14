@@ -75,7 +75,8 @@ def ChatGPT_request(prompt):
       print(f"DEBUG::{__file__}:-:{__name__}")
       print(f"INPUT::{prompt}")
       print(f"OUTPUT::{completion.choices[0].message.content}")
-    return completion.choices[0].message.content
+    answer = completion.choices[0].message.content
+    return answer
   
   except (openai.APIConnectionError, openai.APITimeoutError,
           openai.AuthenticationError,openai.BadRequestError,
@@ -90,45 +91,6 @@ def ChatGPT_request(prompt):
   except Exception as e:
     print ("NO OPENAI ChatGPT ERROR", e)
     return "ChatGPT ERROR"
-
-
-def GPT4_safe_generate_response(prompt, 
-                                   example_output,
-                                   special_instruction,
-                                   repeat=3,
-                                   fail_safe_response="error",
-                                   func_validate=None,
-                                   func_clean_up=None,
-                                   verbose=False): 
-  prompt = 'GPT-3 Prompt:\n"""\n' + prompt + '\n"""\n'
-  prompt += f"Output the response to the prompt above in json. {special_instruction}\n"
-  prompt += "Example output json:\n"
-  prompt += '{"output": "' + str(example_output) + '"}'
-
-  if verbose: 
-    print ("CHAT GPT PROMPT")
-    print (prompt)
-
-  for i in range(repeat): 
-
-    try: 
-      curr_gpt_response = GPT4_request(prompt).strip()
-      end_index = curr_gpt_response.rfind('}') + 1
-      curr_gpt_response = curr_gpt_response[:end_index]
-      curr_gpt_response = json.loads(curr_gpt_response)["output"]
-      
-      if func_validate(curr_gpt_response, prompt=prompt): 
-        return func_clean_up(curr_gpt_response, prompt=prompt)
-      
-      if verbose: 
-        print ("---- repeat count: \n", i, curr_gpt_response)
-        print (curr_gpt_response)
-        print ("~~~~")
-
-    except: 
-      pass
-
-  return False
 
 
 def ChatGPT_safe_generate_response(prompt, 
@@ -257,7 +219,7 @@ def safe_generate_response(prompt,
     print (prompt)
 
   for i in range(repeat): 
-    curr_gpt_response = GPT_request(prompt, gpt_parameter)
+    curr_gpt_response = ChatGPT_request(prompt).strip()
     if func_validate(curr_gpt_response, prompt=prompt): 
       return func_clean_up(curr_gpt_response, prompt=prompt)
     if verbose: 
