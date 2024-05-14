@@ -74,6 +74,7 @@ def run_gpt_prompt_wake_up_hour(persona, test_input=None, verbose=False):
     return prompt_input
 
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = int(gpt_response.strip().lower().split("am")[0])
     return cr
   
@@ -96,13 +97,6 @@ def run_gpt_prompt_wake_up_hour(persona, test_input=None, verbose=False):
 
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-    
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -133,6 +127,7 @@ def run_gpt_prompt_daily_plan(persona,
     return prompt_input
 
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = []
     _cr = gpt_response.split(")")
     for i in _cr: 
@@ -168,15 +163,8 @@ def run_gpt_prompt_daily_plan(persona,
 
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   output = ([f"wake up and complete the morning routine at {wake_up_hour}:00 am"]
               + output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-    
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -239,6 +227,7 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
     return prompt_input
 
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     if cr[-1] == ".":
       cr = cr[:-1]
@@ -302,13 +291,6 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-    
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -375,10 +357,8 @@ def run_gpt_prompt_task_decomp(persona,
     return prompt_input
 
   def __func_clean_up(gpt_response, prompt=""):
-    print ("TOODOOOOOO")
-    print (gpt_response)
-    print ("-==- -==- -==- ")
-
+    print_template(gpt_response, prompt_template, prompt)
+    print_fail_clean_up(gpt_response, prompt_template, prompt)
     # TODO SOMETHING HERE sometimes fails... See screenshot
     temp = [i.strip() for i in gpt_response.split("\n")]
     _cr = []
@@ -454,9 +434,6 @@ def run_gpt_prompt_task_decomp(persona,
 
   output = safe_generate_response(prompt, gpt_param, 5, get_fail_safe(),
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   # TODO THERE WAS A BUG HERE... 
   # This is for preventing overflows...
   """
@@ -488,11 +465,6 @@ def run_gpt_prompt_task_decomp(persona,
   for decomp_task, duration in task_decomp: 
     ret += [[f"{task} ({decomp_task})", duration]]
   output = ret
-
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-    
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -562,7 +534,8 @@ def run_gpt_prompt_action_sector(action_description,
     return True
   
   def __func_clean_up(gpt_response, prompt=""):
-    print ("Por implementar - aprender de las otras implementaciones")
+    print_template(gpt_response, prompt_template, prompt)
+    print_fail_clean_up(gpt_response, prompt_template, prompt)
     return prompt
 
   def get_fail_safe(): 
@@ -614,12 +587,6 @@ def run_gpt_prompt_action_sector(action_description,
   if output not in x: 
     # output = random.choice(x)
     output = persona.scratch.living_area.split(":")[1]
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -678,6 +645,7 @@ def run_gpt_prompt_action_arena(action_description,
     return prompt_input
 
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cleaned_response = gpt_response.split("}")[0]
     return cleaned_response
 
@@ -704,17 +672,6 @@ def run_gpt_prompt_action_arena(action_description,
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  print (output)
-  # y = f"{act_world}:{act_sector}"
-  # x = [i.strip() for i in persona.s_mem.get_str_accessible_sector_arenas(y).split(",")]
-  # if output not in x: 
-  #   output = random.choice(x)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -738,6 +695,7 @@ def run_gpt_prompt_action_game_object(action_description,
     return prompt_input
   
   def __func_validate(gpt_response, prompt=""): 
+    print_template(gpt_response, prompt_template, prompt)
     if len(gpt_response.strip()) < 1: 
       return False
     return True
@@ -763,16 +721,9 @@ def run_gpt_prompt_action_game_object(action_description,
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   x = [i.strip() for i in persona.s_mem.get_str_accessible_arena_game_objects(temp_address).split(",")]
   if output not in x: 
     output = random.choice(x)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -784,6 +735,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     if len(cr) > 3:
       cr = cr[:3]
@@ -804,6 +756,7 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     if len(cr) > 3:
       cr = cr[:3]
@@ -850,9 +803,6 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
   fail_safe = get_fail_safe()
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -867,6 +817,7 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     cr = [i.strip() for i in cr.split(")")[0].split(",")]
     return cr
@@ -924,14 +875,7 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
   fail_safe = get_fail_safe(persona) ########
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   output = (persona.name, output[0], output[1])
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -945,6 +889,7 @@ def run_gpt_prompt_act_obj_desc(act_game_object, act_desp, persona, verbose=Fals
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     if cr[-1] == ".": cr = cr[:-1]
     return cr
@@ -962,6 +907,8 @@ def run_gpt_prompt_act_obj_desc(act_game_object, act_desp, persona, verbose=Fals
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
+    print_fail_clean_up(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     if cr[-1] == ".": cr = cr[:-1]
     return cr
@@ -1003,9 +950,6 @@ def run_gpt_prompt_act_obj_desc(act_game_object, act_desp, persona, verbose=Fals
   fail_safe = get_fail_safe(act_game_object) ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -1018,6 +962,7 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     cr = gpt_response.strip()
     cr = [i.strip() for i in cr.split(")")[0].split(",")]
     return cr
@@ -1044,12 +989,6 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
   output = (act_game_object, output[0], output[1])
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1106,6 +1045,8 @@ def run_gpt_prompt_new_decomp_schedule(persona,
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
+    print_fail_clean_up(gpt_response, prompt_template, prompt)
     new_schedule = prompt + " " + gpt_response.strip()
     new_schedule = new_schedule.split("The revised schedule:")[-1].strip()
     new_schedule = new_schedule.split("\n")
@@ -1188,12 +1129,6 @@ def run_gpt_prompt_new_decomp_schedule(persona,
   fail_safe = get_fail_safe(main_act_dur, truncated_act_dur)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1268,6 +1203,7 @@ def run_gpt_prompt_decide_to_talk(persona, target_persona, retrieved,test_input=
       return False 
 
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split("Answer in yes or no:")[-1].strip().lower()
 
   def get_fail_safe(): 
@@ -1285,12 +1221,6 @@ def run_gpt_prompt_decide_to_talk(persona, target_persona, retrieved,test_input=
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1364,6 +1294,7 @@ def run_gpt_prompt_decide_to_react(persona, target_persona, retrieved,test_input
       return False 
 
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split("Answer: Option")[-1].strip().lower() 
 
   def get_fail_safe(): 
@@ -1382,12 +1313,6 @@ def run_gpt_prompt_decide_to_react(persona, target_persona, retrieved,test_input
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1468,9 +1393,8 @@ def run_gpt_prompt_create_conversation(persona, target_persona, curr_loc,
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
-    # print ("???")
-    # print (gpt_response)
-
+    print_template(gpt_response, prompt_template, prompt)
+    print_fail_clean_up(gpt_response, prompt_template, prompt)
 
     gpt_response = (prompt + gpt_response).split("What would they talk about now?")[-1].strip()
     content = re.findall('"([^"]*)"', gpt_response)
@@ -1510,12 +1434,6 @@ def run_gpt_prompt_create_conversation(persona, target_persona, curr_loc,
   fail_safe = get_fail_safe(persona, target_persona)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1529,6 +1447,7 @@ def run_gpt_prompt_summarize_conversation(persona, conversation, test_input=None
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     ret = "conversing about " + gpt_response.strip()
     return ret
 
@@ -1543,6 +1462,7 @@ def run_gpt_prompt_summarize_conversation(persona, conversation, test_input=None
     return "conversing with a housemate about morning greetings"
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     ret = "conversing about " + gpt_response.strip()
     return ret
 
@@ -1584,9 +1504,6 @@ def run_gpt_prompt_summarize_conversation(persona, conversation, test_input=None
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -1599,8 +1516,9 @@ def run_gpt_prompt_extract_keywords(persona, description, test_input=None, verbo
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
-    print ("???")
-    print (gpt_response)
+    print_template(gpt_response, prompt_template, prompt)
+    print_fail_clean_up(gpt_response, prompt_template, prompt)
+
     gpt_response = gpt_response.strip().split("Emotive keywords:")
     factual = [i.strip() for i in gpt_response[0].split(",")]
     emotive = [i.strip() for i in gpt_response[1].split(",")]
@@ -1612,7 +1530,6 @@ def run_gpt_prompt_extract_keywords(persona, description, test_input=None, verbo
         if i[-1] == ".": 
           i = i[:-1]
         ret += [i]
-    print (ret)
     return set(ret)
 
   def __func_validate(gpt_response, prompt=""): 
@@ -1635,12 +1552,6 @@ def run_gpt_prompt_extract_keywords(persona, description, test_input=None, verbo
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1650,6 +1561,7 @@ def run_gpt_prompt_keyword_to_thoughts(persona, keyword, concept_summary, test_i
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = gpt_response.strip()
     return gpt_response
 
@@ -1673,12 +1585,6 @@ def run_gpt_prompt_keyword_to_thoughts(persona, keyword, concept_summary, test_i
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1699,6 +1605,7 @@ def run_gpt_prompt_convo_to_thoughts(persona,
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = gpt_response.strip()
     return gpt_response
 
@@ -1725,12 +1632,6 @@ def run_gpt_prompt_convo_to_thoughts(persona,
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -1743,6 +1644,7 @@ def run_gpt_prompt_event_poignancy(persona, event_description, test_input=None, 
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = int(gpt_response.strip())
     return gpt_response
 
@@ -1758,6 +1660,7 @@ def run_gpt_prompt_event_poignancy(persona, event_description, test_input=None, 
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = int(gpt_response)
     return gpt_response
 
@@ -1799,9 +1702,6 @@ def run_gpt_prompt_event_poignancy(persona, event_description, test_input=None, 
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -1815,6 +1715,7 @@ def run_gpt_prompt_thought_poignancy(persona, event_description, test_input=None
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = int(gpt_response.strip())
     return gpt_response
 
@@ -1830,6 +1731,7 @@ def run_gpt_prompt_thought_poignancy(persona, event_description, test_input=None
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = int(gpt_response)
     return gpt_response
 
@@ -1871,9 +1773,6 @@ def run_gpt_prompt_thought_poignancy(persona, event_description, test_input=None
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -1887,6 +1786,7 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = int(gpt_response.strip())
     return gpt_response
 
@@ -1902,6 +1802,7 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = int(gpt_response)
     return gpt_response
 
@@ -1943,9 +1844,6 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -1956,6 +1854,7 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = "1) " + gpt_response.strip()
     ret = []
     for i in gpt_response.split("\n"): 
@@ -1974,6 +1873,7 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     ret = ast.literal_eval(gpt_response)
     return ret
 
@@ -1984,7 +1884,6 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
     except:
       return False 
 
-  print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 12") ########
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
@@ -1996,9 +1895,6 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
   fail_safe = get_fail_safe(n) ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
   # ChatGPT Plugin ===========================================================
@@ -2012,13 +1908,6 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
   fail_safe = get_fail_safe(n)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"after faile {__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
   
@@ -2028,6 +1917,7 @@ def run_gpt_prompt_insight_and_guidance(persona, statements, n, test_input=None,
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = "1. " + gpt_response.strip()
     ret = dict()
     for i in gpt_response.split("\n"): 
@@ -2060,12 +1950,6 @@ def run_gpt_prompt_insight_and_guidance(persona, statements, n, test_input=None,
   fail_safe = get_fail_safe(n)
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -2076,6 +1960,7 @@ def run_gpt_prompt_agent_chat_summarize_ideas(persona, target_persona, statement
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2090,6 +1975,7 @@ def run_gpt_prompt_agent_chat_summarize_ideas(persona, target_persona, statement
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __chat_func_validate(gpt_response, prompt=""): ############
@@ -2130,9 +2016,6 @@ def run_gpt_prompt_agent_chat_summarize_ideas(persona, target_persona, statement
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -2143,6 +2026,7 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2157,6 +2041,7 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __chat_func_validate(gpt_response, prompt=""): ############
@@ -2197,9 +2082,6 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -2221,7 +2103,6 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
     if persona.a_mem.seq_chat: 
       if int((persona.scratch.curr_time - persona.a_mem.seq_chat[-1].created).total_seconds()/60) > 480: 
         prev_convo_insert = ""
-    print (prev_convo_insert)
 
     curr_sector = f"{maze.access_tile(persona.scratch.curr_tile)['sector']}"
     curr_arena= f"{maze.access_tile(persona.scratch.curr_tile)['arena']}"
@@ -2248,7 +2129,7 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
-    print (gpt_response)
+    print_template(gpt_response, prompt_template, prompt)
 
     gpt_response = (prompt + gpt_response).split("Here is their conversation.")[-1].strip()
     content = re.findall('"([^"]*)"', gpt_response)
@@ -2277,12 +2158,8 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     # ret = ast.literal_eval(gpt_response)
-
-    print ("a;dnfdap98fh4p9enf HEREE!!!")
-    for row in gpt_response: 
-      print (row)
-
     return gpt_response
 
   def __chat_func_validate(gpt_response, prompt=""): ############
@@ -2319,9 +2196,6 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -2332,6 +2206,7 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2346,6 +2221,7 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
 
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __chat_func_validate(gpt_response, prompt=""): ############
@@ -2375,7 +2251,6 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
   """
 
-  print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 16") ########
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
@@ -2387,9 +2262,6 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
@@ -2407,6 +2279,7 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2457,13 +2330,6 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -2473,6 +2339,7 @@ def run_gpt_prompt_generate_whisper_inner_thought(persona, whisper, test_input=N
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2495,13 +2362,6 @@ def run_gpt_prompt_generate_whisper_inner_thought(persona, whisper, test_input=N
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -2511,6 +2371,7 @@ def run_gpt_prompt_planning_thought_on_convo(persona, all_utt, test_input=None, 
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2533,13 +2394,6 @@ def run_gpt_prompt_planning_thought_on_convo(persona, all_utt, test_input=None, 
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -2549,6 +2403,7 @@ def run_gpt_prompt_memo_on_convo(persona, all_utt, test_input=None, verbose=Fals
     return prompt_input
   
   def __func_clean_up(gpt_response, prompt=""):
+    print_template(gpt_response, prompt_template, prompt)
     return gpt_response.split('"')[0].strip()
 
   def __func_validate(gpt_response, prompt=""): 
@@ -2582,9 +2437,6 @@ def run_gpt_prompt_memo_on_convo(persona, all_utt, test_input=None, verbose=Fals
   fail_safe = get_fail_safe() ########
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, True)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   if output != False: 
     return output, [output, prompt, gpt_param, prompt_input, fail_safe]
   # ChatGPT Plugin ===========================================================
@@ -2599,13 +2451,6 @@ def run_gpt_prompt_memo_on_convo(persona, all_utt, test_input=None, verbose=Fals
   fail_safe = get_fail_safe()
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
-  if verbose or debug:
-    print (f"after fail {__file__}:-:{__name__}")
-    print (output)
-  if debug or verbose: 
-    print_run_prompts(prompt_template, persona, gpt_param, 
-                      prompt_input, prompt, output)
-  
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
 
@@ -2615,6 +2460,7 @@ def run_gpt_generate_safety_score(persona, comment, test_input=None, verbose=Fal
     return prompt_input
 
   def __chat_func_clean_up(gpt_response, prompt=""): 
+    print_template(gpt_response, prompt_template, prompt)
     gpt_response = json.loads(gpt_response)
     return gpt_response["output"]
 
@@ -2632,18 +2478,12 @@ def run_gpt_generate_safety_score(persona, comment, test_input=None, verbose=Fal
   def get_fail_safe():
     return None
 
-  print ("11")
   prompt_template = "persona/prompt_template/safety/anthromorphosization_v1.txt" 
   prompt_input = create_prompt_input(comment) 
-  print ("22")
   prompt = generate_prompt(prompt_input, prompt_template)
-  print (prompt)
   fail_safe = get_fail_safe() 
   output = ChatGPT_safe_generate_response(prompt, None, None, 3, fail_safe,
                         __chat_func_validate, __chat_func_clean_up, verbose)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
@@ -2692,6 +2532,7 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
     return prompt_input
 
   def __chat_func_clean_up(gpt_response, prompt=""): 
+    print_template(gpt_response, prompt_template, prompt)
     cleaned_dict = dict()
     cleaned = []
     for key, val in gpt_response.items(): 
@@ -2726,19 +2567,31 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
   prompt_template = "persona/prompt_template/v3_ChatGPT/iterative_convo_v1.txt" 
   prompt_input = create_prompt_input(maze, init_persona, target_persona, retrieved, curr_context, curr_chat) 
   prompt = generate_prompt(prompt_input, prompt_template)
-  print (prompt)
   fail_safe = get_fail_safe() 
   example_output = """{"utterance": "Hey Glady! I'm so glad of receiving such a gift from you. I really appreciate it","end": false}"""
   special_instructions = """The above format should be inside a json like this:
 {"output": <content of above json data>}"""
   output = ChatGPT_safe_generate_response(prompt, example_output, special_instructions, 3, fail_safe,
                                           __chat_func_validate, __chat_func_clean_up, verbose)
-  if verbose or debug:
-    print (f"{__file__}:-:{__name__}")
-    print (output)
   
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
                "temperature": 0, "top_p": 1, "stream": False,
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
+
+
+def print_template(output, template_filename, prompt):
+  if not 'volcar' in dict(os.environ).keys():
+    return
+  output_file = "/home/karce/tmp/tfg/"+"_".join(template_filename.split('/')[-2:])
+  with open(output_file,'w') as of:
+    of.write("---->"+template_filename+"<----\n")
+    of.write("---->OUTPUT<----\n")
+    of.write(str(str(output)+"\n"))
+    of.write("---->INPUT<----\n")
+    of.write(str(str(prompt)+"\n"))
+
+def print_fail_clean_up(output, template_filename, prompt):
+  output_file = "/home/karce/tmp/tfg/"+"_".join(template_filename.split('/')[-2:])
+  print("Bad clean up", template_filename)
