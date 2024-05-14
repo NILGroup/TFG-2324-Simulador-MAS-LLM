@@ -372,7 +372,7 @@ def ver_simulacion(request):
   
   print("request ver simulación: ", request.GET.dict())
   # Esperamos a que se genere la simulacion que queremos
-
+  time.sleep(2)
   context = {"demos": obtener_info_demos_disponibles()}
   template = "home/ver_simulacion.html"
   return render(request, template, context)
