@@ -165,7 +165,7 @@ def generar_back(post_dict):
     return json_dict
 
   def generar_nuevo_proceso():
-    proceso = subprocess.Popen(["python3", f"{executable_file}", f"{PARAMS_IN_FILE}"])
+    proceso = subprocess.Popen(["python3", f"{executable_file}", f"{PARAMS_IN_FILE}"],cwd=backend_dir)
     return proceso.pid
 
   def guardar_pid(pid):
