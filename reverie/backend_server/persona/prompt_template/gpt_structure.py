@@ -141,44 +141,6 @@ def ChatGPT_safe_generate_response(prompt,
 # ###################[SECTION 2: ORIGINAL GPT-3 STRUCTURE] ###################
 # ============================================================================
 
-def GPT_request(prompt, gpt_parameter): 
-  """
-  Given a prompt and a dictionary of GPT parameters, make a request to OpenAI
-  server and returns the response. 
-  ARGS:
-    prompt: a str prompt
-    gpt_parameter: a python dictionary with the keys indicating the names of  
-                   the parameter and the values indicating the parameter 
-                   values.   
-  RETURNS: 
-    a str of GPT-3's response. 
-  """
-  temp_sleep()
-  try: 
-    response = client.completions.create(model='gpt-3.5-turbo-instruct',
-    prompt=prompt,
-    temperature=gpt_parameter["temperature"],
-    max_tokens=gpt_parameter["max_tokens"],
-    top_p=gpt_parameter["top_p"],
-    frequency_penalty=gpt_parameter["frequency_penalty"],
-    presence_penalty=gpt_parameter["presence_penalty"],
-    stream=gpt_parameter["stream"],
-    stop=gpt_parameter["stop"])
-    return response.choices[0].text
-  except (openai.APIConnectionError, openai.APITimeoutError,
-          openai.AuthenticationError,openai.BadRequestError,
-          openai.ConflictError,openai.InternalServerError,
-          openai.NotFoundError,openai.PermissionDeniedError,
-          openai.UnprocessableEntityError) as e:
-    print ("OPENAI TOKEN LIMIT EXCEEDED", e)
-    return "TOKEN LIMIT EXCEEDED"
-  except openai.RateLimitError as e:
-    print ("OPENAI RateLimitError TOKEN LIMIT EXCEEDED", e)
-    return "TOKEN LIMIT EXCEEDED"
-  except Exception as e:
-    print ("NO OPENAI TOKEN LIMIT EXCEEDED", e)
-    return "TOKEN LIMIT EXCEEDED"
-
 
 def generate_prompt(curr_input, prompt_lib_file): 
   """
