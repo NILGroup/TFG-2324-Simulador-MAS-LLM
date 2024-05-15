@@ -31,29 +31,6 @@ def ChatGPT_single_request(prompt):
 # #####################[SECTION 1: CHATGPT-3 STRUCTURE] ######################
 # ============================================================================
 
-def GPT4_request(prompt): 
-  """
-  Given a prompt and a dictionary of GPT parameters, make a request to OpenAI
-  server and returns the response. 
-  ARGS:
-    prompt: a str prompt
-    gpt_parameter: a python dictionary with the keys indicating the names of  
-                   the parameter and the values indicating the parameter 
-                   values.   
-  RETURNS: 
-    a str of GPT-3's response. 
-  """
-  temp_sleep()
-
-  try: 
-    completion = client.chat.completions.create(model="gpt-4", 
-    messages=[{"role": "user", "content": prompt}])
-    return completion.choices[0].message.content
-  
-  except: 
-    return "ChatGPT ERROR"
-
-
 def ChatGPT_request(prompt): 
   """
   Given a prompt and a dictionary of GPT parameters, make a request to OpenAI
