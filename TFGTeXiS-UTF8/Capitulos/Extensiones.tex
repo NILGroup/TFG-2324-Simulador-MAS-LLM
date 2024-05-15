@@ -138,6 +138,21 @@ La idea inicial de esta nueva funcionalidad era la de permitir a los usuarios co
 
 Además, otros casos reales de uso puede ser el estudio del resultado que tendría realizar ciertas acciones en algunas personas con cierta personalidad y ver cómo va avanzando el cambio en su personalidad, para saber qué conversaciones debemos tener con las personas para poder reestructurar su personalidad extrayendo los resultados de este experimento.
 
+\section{Herramientas para evaluar consumo de Tokens con el LLM}
+
+Se ha agregado al proyecto ciertas utilidades que permiten evaluar el consumo de tokens por cada tipo de prompt que necesita el sistema. Esto permite evaluar en qué consultas se obtiene la mayor carga de trabajo a la hora de interactuar con el LLM.
+
+Las utilidades en sí requieren de la variable de entorno \textit{volcar=true} para que se generen los archivos con los datos. Dichos archivos se encuentran en SimulAgents/reverie/backend\_server/logs/tokens.txt.
+
+Se trata de un archivo .csv donde se encuentran los datos en el siguiente formato:
+\begin{quote}
+    Total de tokens, Tokens Input, Tokens Output, Tipo de Consulta que lo genera
+\end{quote}
+
+Para la implementación se han añadido funciones en cada llamada al LLM que registran la cantidad de Tokens.
+
+Se ha aprovechado la estructura para generar prompts que se han enviado al modelo con la respuesta obtenida, dichos prompts se ubicarán en SimulAgents/reverie/backend\_server/logs/prompts/. Y se empezarán a generar con la variable de entorno \textit{volcar=true}
+
 \section{Funcionalidad de resúmenes de las simulaciones}
 
 Otra de las funcionalidades novedosas respecto al sistema inicial es la de generación de resúmenes automáticos al finalizar una simulación. Esta funcionalidad es otra de la que vimos con mayor sentido, ya que permitirá aportar un contexto a las simulaciones guardadas, para poder distinguirlas a simple vista.
