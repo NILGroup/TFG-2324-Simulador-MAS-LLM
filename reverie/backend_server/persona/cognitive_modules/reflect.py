@@ -19,7 +19,6 @@ from persona.prompt_template.gpt_structure import *
 from persona.cognitive_modules.retrieve import *
 
 def generate_focal_points(persona, n=3): 
-  if debug: print ("GNS FUNCTION: <generate_focal_points>")
   
   nodes = [[i.last_accessed, i]
             for i in persona.a_mem.seq_event + persona.a_mem.seq_thought
@@ -36,7 +35,6 @@ def generate_focal_points(persona, n=3):
 
 
 def generate_insights_and_evidence(persona, nodes, n=5): 
-  if debug: print ("GNS FUNCTION: <generate_insights_and_evidence>")
 
   statements = ""
   for count, node in enumerate(nodes): 
@@ -44,7 +42,6 @@ def generate_insights_and_evidence(persona, nodes, n=5):
 
   ret = run_gpt_prompt_insight_and_guidance(persona, statements, n)[0]
 
-  print (ret)
   try: 
 
     for thought, evi_raw in ret.items(): 
@@ -66,12 +63,10 @@ def generate_action_event_triple(act_desp, persona):
   EXAMPLE OUTPUT: 
     "🧈🍞"
   """
-  if debug: print ("GNS FUNCTION: <generate_action_event_triple>")
   return run_gpt_prompt_event_triple(act_desp, persona)[0]
 
 
 def generate_poig_score(persona, event_type, description): 
-  if debug: print ("GNS FUNCTION: <generate_poig_score>")
 
   if "is idle" in description: 
     return 1
@@ -85,12 +80,10 @@ def generate_poig_score(persona, event_type, description):
 
 
 def generate_planning_thought_on_convo(persona, all_utt):
-  if debug: print ("GNS FUNCTION: <generate_planning_thought_on_convo>")
   return run_gpt_prompt_planning_thought_on_convo(persona, all_utt)[0]
 
 
 def generate_memo_on_convo(persona, all_utt):
-  if debug: print ("GNS FUNCTION: <generate_memo_on_convo>")
   return run_gpt_prompt_memo_on_convo(persona, all_utt)[0]
 
 
@@ -116,7 +109,6 @@ def run_reflect(persona):
   # agent's memory. 
   for focal_pt, nodes in retrieved.items(): 
     xx = [i.embedding_key for i in nodes]
-    for xxx in xx: print (xxx)
 
     thoughts = generate_insights_and_evidence(persona, nodes, 5)
     for thought, evidence in thoughts.items(): 
@@ -146,8 +138,6 @@ def reflection_trigger(persona):
     True if we are running a new reflection. 
     False otherwise. 
   """
-  print (persona.scratch.name, "persona.scratch.importance_trigger_curr::", persona.scratch.importance_trigger_curr)
-  print (persona.scratch.importance_trigger_max)
 
   if (persona.scratch.importance_trigger_curr <= 0 and 
       [] != persona.a_mem.seq_event + persona.a_mem.seq_thought): 
@@ -186,30 +176,22 @@ def reflect(persona):
 
 
 
-  # print (persona.scratch.name, "al;sdhfjlsad", persona.scratch.chatting_end_time)
   if persona.scratch.chatting_end_time: 
-    # print("DEBUG", persona.scratch.curr_time + datetime.timedelta(0,10))
     if persona.scratch.curr_time + datetime.timedelta(0,10) == persona.scratch.chatting_end_time: 
-      # print ("KABOOOOOMMMMMMM")
       all_utt = ""
       if persona.scratch.chat: 
         for row in persona.scratch.chat:  
           all_utt += f"{row[0]}: {row[1]}\n"
 
       # planning_thought = generate_planning_thought_on_convo(persona, all_utt)
-      # print ("init planning: aosdhfpaoisdh90m     ::", f"For {persona.scratch.name}'s planning: {planning_thought}")
       # planning_thought = generate_planning_thought_on_convo(target_persona, all_utt)
-      # print ("target planning: aosdhfpaodish90m     ::", f"For {target_persona.scratch.name}'s planning: {planning_thought}")
 
       # memo_thought = generate_memo_on_convo(persona, all_utt)
-      # print ("init memo: aosdhfpaoisdh90m     ::", f"For {persona.scratch.name} {memo_thought}")
       # memo_thought = generate_memo_on_convo(target_persona, all_utt)
-      # print ("target memo: aosdhfpsaoish90m     ::", f"For {target_persona.scratch.name} {memo_thought}")
       
 
       # make sure you set the fillings as well
 
-      # print (persona.a_mem.get_last_chat(persona.scratch.chatting_with).node_id)
 
       evidence = [persona.a_mem.get_last_chat(persona.scratch.chatting_with).node_id]
 
