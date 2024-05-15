@@ -344,7 +344,7 @@ def ver_simulacion(request):
                      "fork_sim_code": simu_meta['fork_sim_code'],
                      "start_time": simu_meta['start_date'],
                      "curr_time": simu_meta['curr_time'],
-                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
+                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas" }
         info_demos.append(demo_dict)
     return info_demos
   

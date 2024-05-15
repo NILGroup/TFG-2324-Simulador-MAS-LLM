@@ -5,8 +5,46 @@ En cuanto a la interfaz de la página web, uno de los principales objetivos del 
 
 El resultado de este objetivo está recogido en este capítulo. Para alcanzarlo, se han creado vistas completamente nuevas y se han modificado algunas de las vistas previamente existentes para simplificarlas o añadir funcionalidades.
 
-Atendiendo a la movilidad entre páginas, se ha implementado una barra de navegación, la cual compartirán todas las páginas y permitirá navegar entre las diferentes funcionalidades, como se puede apreciar en las figuras \ref{fig:navBarDesktop} y \ref{fig:navBarMobile}.
-\textcolor{red}{PONER LAS FOTOS CON LA GUÍA DE USUARIO}
+\section{Proceso de diseño de la interfaz}
+
+Para desarrollar estas vistas, se ha tenido en cuenta y dado un peso importante al desarrollo empleando el diseño centrado en el usuario, empleando los métodos de colaboración con potenciales clientes de la aplicación, análisis de otras herramientas similares y adaptando el diseño dependiendo del tamaño del dispositivo, como se explica en una de las guías sobre diseño centrado en el usuario \citep{pratt2012interactive}. El siguiente paso a tomar, según esta guía, es el de experimentación y validación con los usuarios finales, el cual se realizará una vez la aplicación esté en funcionamiento, pudiendo así adaptar los \textit{workflows}, botones o maquetación a un entorno más adaptado a los usuarios.
+
+Dentro de este ámbito de diseño centrado en el usuario, y como también se mencionó en el capítulo 2 (el Estado de la Cuestión), se ha tenido especial atención a la democratización del uso de esta aplicación, por lo que uno de los objetivos principales con el diseño era implementar una interfaz sencilla, usable e intuitiva para que cualquier usuario pudiera utilizarla fácilmente.
+
+Para demostrar el uso del diseño centrado en el usuario a lo largo de este proyecto, a continuación expondremos un ejemplo en el que se siguen los pasos claros de comprensión de la experiencia de usuario, especificación de las necesidades del usuario, diseño de la solución y evaluación de la misma en el ejemplo concreto del diseño de una simulación disponible en la vista de 'Visualizar Simulaciones', del cual se pueden ver capturas más abajo, en la correspondiente sección \ref{vistaVisSim}, que trata sobre esta vista.
+
+\begin{itemize}
+	
+	\item \textbf{Comprensión}: El primer paso para diseñar este apartado, al igual que todos los elementos de nuestra interfaz, fue el de la comprensión de cómo el usuario experimentará con el producto. Visto desde un punto de vista más general, dentro de la página de 'Visualizar simulaciones' habría una lista que contendría las simulaciones, el contenido en estas tarjetas debía ser limitado pero suficientemente explicativo para que el usuario lo comprendiese.
+	
+	\item \textbf{Especificación}: Una vez investigamos y comprendimos el flujo de experiencia de usuario para este elemento, y cómo se relaciona con  los demás elementos, se especifican los requerimientos de lo que esperaría ver un usuario si interactuase con este elemento. Como ya mencionamos, es importante que esta información sea breve pero explicativa.
+		
+	Por tanto, se decidió que este elemento contuviese la información básica para distinguir la simulación entre otras. Incluimos en este elemento información sobre el mapa, la simulación sobre la que está realizada, step en el que se desea comenzar la visualización, velocidad de reproducción, botón de inicio y resto de metainformación (como puede ser fecha y hora de inicio o resumen de la simulación).
+	
+	\item \textbf{Diseño}: Una vez comprendido el contexto y requerimientos de los usuarios, se pasa a la fase de diseño de la solución en sí. Como ya se conocía el contenido que debía tener, es necesario dividir la información en el reducido espacio de la tarjeta para que resulte atractivo y sencillo.
+	
+	La decisión que tomamos respecto a esto es indicar el mapa en la sección izquierda, el título en grande, diferenciando cada simulación y acompañado de un enlace a la simulación padre en pequeño. Después, habría dos inputs donde indicar el step y velocidad, junto con el botón de inicio. Por último, se ndicaría toda la metainformación y, si esta ocupase múltiples líneas, se permitiría el 'scroll' dentro de la tarjeta, para que no ocupe demasiado espacio vertical.
+	
+	\item \textbf{Evaluación}: Finalmente, una vez hemos construido el elemento, con la información especificada y el diseño pertinente, es necesario ratificar todo el conjunto para comprobar la validez. Esto se puede hacer mediante pruebar realizadas por nosotros mismos en etapas de desarrollo, mediante pruebas de conocidos, utilizando la aplicación por su cuenta e informando de los resultados, o con el producto final funcionando, recibiendo feedback de los usuarios reales y adaptando todo el proceso de diseño, cambiando lo necesario en cada paso.
+	
+\end{itemize}
+
+Estos cuatro pasos de diseño forman parte de del proceso de diesño que explica Google en su curso de diseño de UX profesional \footnote{\url{https://www.coursera.org/google-certificates/certificado-diseno-de-experiencia-del-usuario-ux}}, y se ven indicados en la figura \ref{fig:pasosDisenoUsuario}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/pasos_DCU.png}
+	\caption{Pasos para diseño centrado en el usuario según Google}
+	\label{fig:pasosDisenoUsuario}
+\end{figure}
+
+\section{Nuevas vistas}
+
+En esta sección se presentan las vistas creadas durante el desarrollo del trabajo, las cuales sirven de apoyo para ejecutar las funcionalidades, tanto nuevas como existentes, de la aplicación.
+
+Estas vistas no existían previamente en la aplicación, y se ha realizado un proceso de ingeniería inversa de las vistas preexistentes para poder adaptar las interfaces y que se comuniquen de manera efectiva con el back end.
+
+Primeramente, atendiendo a la movilidad entre páginas, se ha implementado una barra de navegación, la cual compartirán todas las páginas y permitirá navegar entre las diferentes funcionalidades, como se puede apreciar en las figuras \ref{fig:navBarDesktop}, \ref{fig:navBarMobile1} y \ref{fig:navBarMobile2}.
 
 \begin{figure}[h]
 	\centering
@@ -17,16 +55,17 @@ Atendiendo a la movilidad entre páginas, se ha implementado una barra de navega
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/navBarMobile.png}
+	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/navBarMobile1.png}
 	\caption{Barra de navegación en el formato para dispositivos móviles}
-	\label{fig:navBarMobile}
+	\label{fig:navBarMobile1}
 \end{figure}
 
-\section{Nuevas vistas}
-
-En esta sección se presentan las vistas creadas durante el desarrollo del trabajo, las cuales sirven de apoyo para ejecutar las funcionalidades, tanto nuevas como existentes, de la aplicación.
-
-Estas vistas no existían previamente en la aplicación, y se ha realizado un proceso de ingeniería inversa de las vistas preexistentes para poder adaptar las interfaces y que se comuniquen de manera efectiva con el back end.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/navBarMobile2.png}
+	\caption{Barra de navegación en el formato para dispositivos móviles, con la barra de navegación desplegada}
+	\label{fig:navBarMobile2}
+\end{figure}
 
 \subsection{Vista de Crear nueva simulación}
 
@@ -50,18 +89,24 @@ Con esta información, se podrá inferir la personalidad completa de cada uno de
 
 Si se quisiera aportar un contexto general a toda la simulación, la solución sería indicarlo en los apartados de conocimiento aprendido y estado actual de todos los personajes. Si todos ellos tienen una pieza de conocimiento aprendido común, podrán inferir la situación en la que se encuentran e interactuar con los demás porque también estarán en la misma situación.
 
-Todas estos elementos gráficos se pueden apreciar en la figura \ref{fig:vistaCrearSimulacion}.
+Todos estos elementos gráficos se pueden apreciar en las figuras \ref{fig:vistaCrearSimulacion} y \ref{fig:vistaCrearSimulacionMobile}, donde se ve que el diseño es 'responsive' y se adapta a todo tipo de pantallas.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/vistaCrearSimulacion.png}
+	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/crearSimu.png}
 	\caption{Versión de escritorio de la vista para crear una nueva simulación}
 	\label{fig:vistaCrearSimulacion}
 \end{figure}
 
-\textcolor{red}{CAMBIAR ESTA FOTO POR LA VISTA FINAL REAL}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{Imagenes/Vectorial/crearSimuMobile.png}
+	\caption{Versión de móvil de la vista para crear una nueva simulación}
+	\label{fig:vistaCrearSimulacionMobile}
+\end{figure}
 
 \subsection{Vista de Visualizar simulación}
+\label{vistaVisSim}
 
 En esta vista es donde los usuarios pueden seleccionar las simulaciones a visualizar. Esto es, las que se han ejecutado y guardado para visualizarlas previamente. Una vez se selecciona una de estas vistas, se accede a la interfaz de visualización de una simulación, la cual está explicada en profundidad en la subsección  \ref{sec:vistaSimulacion}.
 
@@ -162,11 +207,14 @@ Una vez el usuario considera que ha terminado la simulación, tiene 3 diferentes
 
 \subsubsection{Botones de chat y susurro en la vista del personaje}
 
-Estos botones están en la sección de personajes. En cada tarjeta de personaje, habrá un botón de chat y otro de susurro. Al clicar en ellos automáticamente se detectará el personaje al cuál se quiere susurrar o con el que se quiere chatear en cada caso, y se procederá a ello.
+Estos botones están en la sección de personajes. En cada tarjeta de personaje, habrá un botón de chat y otro de susurro. Al clicar en ellos automáticamente se detectará el personaje al cual se quiere susurrar o con el que se quiere chatear en cada caso, y se procederá a ello.
+
+Estas dos funcionalidades son el ejemplo más claro y directo que hay en todo el presente trabajo del uso del procesamiento del lenguaje natural, que se comenta en el capítulo 2 (el Estado de la Cuestión). De todo el sistema, es la única funcionalidad que permite interactuar directamente con el modelo de lenguaje, el cual interpretará el lenguaje natural y lo procesará para devolver una respuesta. En el caso del chat, se comprende la petición del usuario, se interpreta, y se devuelve una respuesta sobre lo que responde el agente. Por otro lado, para el susurro, el usuario interactuará indicando una orden o directriz y el sistema la interpretará para que el usuario la tenga en cuenta y la realice en los siguientes steps de la simulación.
 
 El botón de susurro permite hablar directamente a los pensamientos del personaje e instarle a tomar ciertas decisiones o realizar ciertas acciones. Esta era una funcionalidad preexistente pero la hemos pasado completamente al front.
 
 Por su parte, el botón de chat abrirá una pantalla para chatear directamente con el personaje en tiempo real. Esta funcionalidad es novedosa y servirá para poder entrevisar a los personajes en cada punto de la simulación, viendo así sus cambios de ideas, pensamientos u opiniones a lo largo de la simulación.
 
+(\textcolor{red}{PONER LAS FIGURAS})
 
 
