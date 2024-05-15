@@ -2,6 +2,10 @@
 import os
 api_key = os.environ['OPENAI_API_KEY']
 
+log_dir = "./logs"
+if not os.path.exists(log_dir):
+    os.mkdir(log_dir)
+
 maze_assets_loc = "../../environment/frontend_server/static_dirs/assets"
 env_matrix = f"{maze_assets_loc}/the_ville/matrix"
 env_visuals = f"{maze_assets_loc}/the_ville/visuals"
