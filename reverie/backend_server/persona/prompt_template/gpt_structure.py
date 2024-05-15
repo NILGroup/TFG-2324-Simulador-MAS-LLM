@@ -154,30 +154,3 @@ def get_embedding(text, model="text-embedding-3-small"):
   response = client.embeddings.create(input=[text], model=model).data[0].embedding
   return response
 
-
-if __name__ == '__main__':
-  gpt_parameter = {"engine": "text-davinci-003", "max_tokens": 50, 
-                   "temperature": 0, "top_p": 1, "stream": False,
-                   "frequency_penalty": 0, "presence_penalty": 0, 
-                   "stop": ['"']}
-  curr_input = ["driving to a friend's house"]
-  prompt_lib_file = "prompt_template/test_prompt_July5.txt"
-  prompt = generate_prompt(curr_input, prompt_lib_file)
-
-  def __func_validate(gpt_response): 
-    if len(gpt_response.strip()) <= 1:
-      return False
-    if len(gpt_response.strip().split(" ")) > 1: 
-      return False
-    return True
-  def __func_clean_up(gpt_response):
-    cleaned_response = gpt_response.strip()
-    return cleaned_response
-
-  output = safe_generate_response(prompt, 
-                                 gpt_parameter,
-                                 5,
-                                 "rest",
-                                 __func_validate,
-                                 __func_clean_up,
-                                 True)
