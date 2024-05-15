@@ -85,7 +85,6 @@ def run_gpt_prompt_wake_up_hour(persona, test_input=None, verbose=False):
 
   def get_fail_safe(): 
     fs = 8
-    dump_validate_failed(prompt_template)
     return fs
 
   gpt_param = {"engine": "text-davinci-002", "max_tokens": 5, 
@@ -145,7 +144,6 @@ def run_gpt_prompt_daily_plan(persona,
     return True
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = ['wake up and complete the morning routine at 6:00 am', 
           'eat breakfast at 7:00 am', 
           'read a book from 8:00 am to 12:00 pm', 
@@ -242,7 +240,6 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
     return True
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = "asleep"
     return fs
     """
@@ -324,14 +321,9 @@ def run_gpt_prompt_task_decomp(persona,
 
     curr_time_range = ""
 
-    print ("DEBUG")
-    print (persona.scratch.f_daily_schedule_hourly_org)
-    print (all_indices)
-
     summ_str = f'Today is {persona.scratch.curr_time.strftime("%B %d, %Y")}. '
     summ_str += f'From '
     for index in all_indices: 
-      print ("index", index)
       if index < len(persona.scratch.f_daily_schedule_hourly_org): 
         start_min = 0
         for i in range(index): 
@@ -425,7 +417,6 @@ def run_gpt_prompt_task_decomp(persona,
     return gpt_response
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = ["asleep"]
     return fs
 
@@ -544,7 +535,6 @@ def run_gpt_prompt_action_sector(action_description,
     return prompt
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = ("kitchen")
     return fs
 
@@ -665,7 +655,6 @@ def run_gpt_prompt_action_arena(action_description,
     return True
   
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = ("kitchen")
     return fs
 
@@ -712,7 +701,6 @@ def run_gpt_prompt_action_game_object(action_description,
     return cleaned_response
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = ("bed")
     return fs
 
@@ -758,7 +746,6 @@ def run_gpt_prompt_pronunciatio(action_description, persona, verbose=False):
     return True 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = "😋"
     return fs
 
@@ -840,7 +827,6 @@ def run_gpt_prompt_event_triple(action_description, persona, verbose=False):
     return True 
 
   def get_fail_safe(persona): 
-    dump_validate_failed(prompt_template)
     fs = (persona.name, "is", "idle")
     return fs
 
@@ -912,7 +898,6 @@ def run_gpt_prompt_act_obj_desc(act_game_object, act_desp, persona, verbose=Fals
     return True 
 
   def get_fail_safe(act_game_object): 
-    dump_validate_failed(prompt_template)
     fs = f"{act_game_object} is idle"
     return fs
 
@@ -987,7 +972,6 @@ def run_gpt_prompt_act_obj_event_triple(act_game_object, act_obj_desc, persona, 
     return True 
 
   def get_fail_safe(act_game_object): 
-    dump_validate_failed(prompt_template)
     fs = (act_game_object, "is", "idle")
     return fs
 
@@ -1100,7 +1084,6 @@ def run_gpt_prompt_new_decomp_schedule(persona,
     return True 
 
   def get_fail_safe(main_act_dur, truncated_act_dur): 
-    dump_validate_failed(prompt_template)
     dur_sum = 0
     for act, dur in main_act_dur: dur_sum += dur
 
@@ -1220,7 +1203,6 @@ def run_gpt_prompt_decide_to_talk(persona, target_persona, retrieved,test_input=
     return gpt_response.split("Answer in yes or no:")[-1].strip().lower()
 
   def get_fail_safe():
-    dump_validate_failed(prompt_template) 
     fs = "yes"
     return fs
 
@@ -1312,7 +1294,6 @@ def run_gpt_prompt_decide_to_react(persona, target_persona, retrieved,test_input
     return gpt_response.split("Answer: Option")[-1].strip().lower() 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     fs = "3"
     return fs
 
@@ -1434,7 +1415,6 @@ def run_gpt_prompt_create_conversation(persona, target_persona, curr_loc,
       return False 
 
   def get_fail_safe(init_persona, target_persona): 
-    dump_validate_failed(prompt_template)
     convo = [[init_persona.name, "Hi!"], 
              [target_persona.name, "Hi!"]]
     return convo
@@ -1475,7 +1455,6 @@ def run_gpt_prompt_summarize_conversation(persona, conversation, test_input=None
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "conversing with a housemate about morning greetings"
   # ChatGPT Plugin ===========================================================
   def __chat_func_clean_up(gpt_response, prompt=""): ############
@@ -1557,7 +1536,6 @@ def run_gpt_prompt_extract_keywords(persona, description, test_input=None, verbo
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return []
 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
@@ -1591,7 +1569,6 @@ def run_gpt_prompt_keyword_to_thoughts(persona, keyword, concept_summary, test_i
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return ""
 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 40, 
@@ -1636,7 +1613,6 @@ def run_gpt_prompt_convo_to_thoughts(persona,
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return ""
 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 40, 
@@ -1676,7 +1652,6 @@ def run_gpt_prompt_event_poignancy(persona, event_description, test_input=None, 
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return 4
 
   # ChatGPT Plugin ===========================================================
@@ -1748,7 +1723,6 @@ def run_gpt_prompt_thought_poignancy(persona, event_description, test_input=None
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return 4
 
   # ChatGPT Plugin ===========================================================
@@ -1820,7 +1794,6 @@ def run_gpt_prompt_chat_poignancy(persona, event_description, test_input=None, v
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return 4
 
   # ChatGPT Plugin ===========================================================
@@ -1892,7 +1865,6 @@ def run_gpt_prompt_focal_pt(persona, statements, n, test_input=None, verbose=Fal
       return False 
 
   def get_fail_safe(n): 
-    dump_validate_failed(prompt_template)
     return ["Who am I"] * n
 
   # ChatGPT Plugin ===========================================================
@@ -1961,7 +1933,6 @@ def run_gpt_prompt_insight_and_guidance(persona, statements, n, test_input=None,
       return False 
 
   def get_fail_safe(n): 
-    dump_validate_failed(prompt_template)
     return ["I am hungry"] * n
 
 
@@ -1996,7 +1967,6 @@ def run_gpt_prompt_agent_chat_summarize_ideas(persona, target_persona, statement
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   # ChatGPT Plugin ===========================================================
@@ -2063,7 +2033,6 @@ def run_gpt_prompt_agent_chat_summarize_relationship(persona, target_persona, st
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   # ChatGPT Plugin ===========================================================
@@ -2181,7 +2150,6 @@ def run_gpt_prompt_agent_chat(maze, persona, target_persona,
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   # ChatGPT Plugin ===========================================================
@@ -2245,7 +2213,6 @@ def run_gpt_prompt_summarize_ideas(persona, statements, question, test_input=Non
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   # ChatGPT Plugin ===========================================================
@@ -2319,7 +2286,6 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
   """
   # # ChatGPT Plugin ===========================================================
@@ -2380,7 +2346,6 @@ def run_gpt_prompt_generate_whisper_inner_thought(persona, whisper, test_input=N
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
@@ -2413,7 +2378,6 @@ def run_gpt_prompt_planning_thought_on_convo(persona, all_utt, test_input=None, 
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
@@ -2446,7 +2410,6 @@ def run_gpt_prompt_memo_on_convo(persona, all_utt, test_input=None, verbose=Fals
       return False 
 
   def get_fail_safe(): 
-    dump_validate_failed(prompt_template)
     return "..."
 
   # ChatGPT Plugin ===========================================================
@@ -2509,7 +2472,6 @@ def run_gpt_generate_safety_score(persona, comment, test_input=None, verbose=Fal
       return False 
 
   def get_fail_safe():
-    dump_validate_failed(prompt_template)
     return None
 
   prompt_template = "persona/prompt_template/templates/anthromorphosization.txt" 
@@ -2540,7 +2502,6 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
     if persona.a_mem.seq_chat: 
       if int((persona.scratch.curr_time - persona.a_mem.seq_chat[-1].created).total_seconds()/60) > 480: 
         prev_convo_insert = ""
-    print (prev_convo_insert)
 
     curr_sector = f"{maze.access_tile(persona.scratch.curr_tile)['sector']}"
     curr_arena= f"{maze.access_tile(persona.scratch.curr_tile)['arena']}"
@@ -2579,7 +2540,6 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
     return cleaned_dict
 
   def __chat_func_validate(gpt_response, prompt=""): 
-    print ("ugh...")
     """
     INPUT
       dictionary with keys: ["utterance", "end"]
@@ -2593,7 +2553,6 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
       return False
 
   def get_fail_safe():
-    dump_validate_failed(prompt_template)
     cleaned_dict = dict()
     cleaned_dict["utterance"] = "..."
     cleaned_dict["end"] = False
@@ -2619,7 +2578,13 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
 def print_template(output, template_filename, prompt):
   if not 'volcar' in dict(os.environ).keys():
     return
-  output_file = "/home/karce/tmp/tfg/"+"_".join(template_filename.split('/')[-2:])
+  write_function_invoke()
+  
+  prompt_log_dir = f"{log_dir}/prompts/"
+  if not os.path.exists(prompt_log_dir):
+    os.mkdir(prompt_log_dir)
+  output_file = prompt_log_dir+template_filename.split('/')[-1]
+  
   with open(output_file,'w') as of:
     of.write("---->"+template_filename+"<----\n")
     of.write("---->OUTPUT<----\n")
@@ -2630,7 +2595,13 @@ def print_template(output, template_filename, prompt):
 def dump_validate_failed(template_filename):
   if not 'volcar' in dict(os.environ).keys():
     return
-  with open(template_filename, 'r+') as f:
+  
+  prompt_log_dir = f"{log_dir}/prompts/"
+  if not os.path.exists(prompt_log_dir):
+    os.mkdir(prompt_log_dir)
+  output_file = prompt_log_dir+template_filename.split('/')[-1]
+
+  with open(output_file, 'r+') as f:
     content = f.read()
     f.seek(0)
     f.write("######## _FUNC_VALIDATE FAILED ########")
@@ -2638,5 +2609,10 @@ def dump_validate_failed(template_filename):
 
 
 def print_fail_clean_up(output, template_filename, prompt):
-  output_file = "/home/karce/tmp/tfg/"+"_".join(template_filename.split('/')[-2:])
+  
+  prompt_log_dir = f"{log_dir}/prompts/"
+  if not os.path.exists(prompt_log_dir):
+    os.mkdir(prompt_log_dir)
+  output_file = prompt_log_dir+template_filename.split('/')[-1]
+  
   print("Bad clean up", template_filename)

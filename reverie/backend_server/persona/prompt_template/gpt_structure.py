@@ -7,9 +7,12 @@ Description: Wrapper functions for calling OpenAI APIs.
 import json
 import random
 import openai
+import inspect
 from openai import OpenAI
 
 client = OpenAI()
+import os
+TOKEN_FILENAME="logs/tokens.txt"
 
 import time 
 
@@ -49,7 +52,8 @@ def ChatGPT_request(prompt):
     messages=[{"role": "user", "content": prompt}])
     answer = completion.choices[0].message.content
     tokens = dict(completion.usage)
-    return answer, tokens
+    write_tokens(tokens)
+    return answer
   
   except (openai.APIConnectionError, openai.APITimeoutError,
           openai.AuthenticationError,openai.BadRequestError,
@@ -83,7 +87,7 @@ def ChatGPT_safe_generate_response(prompt,
   for i in range(repeat): 
 
     try: 
-      curr_gpt_response, tokens = ChatGPT_request(prompt).strip()
+      curr_gpt_response = ChatGPT_request(prompt).strip()
       end_index = curr_gpt_response.rfind('}') + 1
       curr_gpt_response = curr_gpt_response[:end_index]
       curr_gpt_response = json.loads(curr_gpt_response)["output"]
@@ -137,7 +141,7 @@ def safe_generate_response(prompt,
                            func_clean_up=None,
                            verbose=False): 
   for i in range(repeat): 
-    curr_gpt_response, tokens = ChatGPT_request(prompt).strip()
+    curr_gpt_response = ChatGPT_request(prompt).strip()
     if func_validate(curr_gpt_response, prompt=prompt): 
       return func_clean_up(curr_gpt_response, prompt=prompt)
   return fail_safe_response
@@ -150,3 +154,24 @@ def get_embedding(text, model="text-embedding-3-small"):
   response = client.embeddings.create(input=[text], model=model).data[0].embedding
   return response
 
+def write_function_invoke():
+  if not 'volcar' in dict(os.environ).keys():
+    return
+  
+  # Encontramos nombre del que llama
+  stack = inspect.stack()
+  for frame in stack:
+    if frame.frame.f_code.co_name.startswith("run_gpt_"):
+      name = frame.frame.f_code.co_name
+      break
+
+  with open(TOKEN_FILENAME, 'a') as f:
+    f.write(f"{name}\n")
+  pass
+
+def write_tokens(tokens):
+  if not 'volcar' in dict(os.environ).keys():
+    return
+  with open(TOKEN_FILENAME, 'a') as f:
+    f.write(f"{tokens['total_tokens']},{tokens['prompt_tokens']},{tokens['completion_tokens']},")
+  pass
