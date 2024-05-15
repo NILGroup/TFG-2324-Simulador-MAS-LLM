@@ -48,7 +48,8 @@ def ChatGPT_request(prompt):
     completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
     messages=[{"role": "user", "content": prompt}])
     answer = completion.choices[0].message.content
-    return answer
+    tokens = dict(completion.usage)
+    return answer, tokens
   
   except (openai.APIConnectionError, openai.APITimeoutError,
           openai.AuthenticationError,openai.BadRequestError,
@@ -73,7 +74,6 @@ def ChatGPT_safe_generate_response(prompt,
                                    func_validate=None,
                                    func_clean_up=None,
                                    verbose=True): 
-  # prompt = 'GPT-3 Prompt:\n"""\n' + prompt + '\n"""\n'
   if special_instruction and example_output:
     prompt = '"""\n' + prompt + '\n"""\n'
     prompt += f"Output the response to the prompt above in json. {special_instruction}\n"
@@ -83,15 +83,11 @@ def ChatGPT_safe_generate_response(prompt,
   for i in range(repeat): 
 
     try: 
-      curr_gpt_response = ChatGPT_request(prompt).strip()
+      curr_gpt_response, tokens = ChatGPT_request(prompt).strip()
       end_index = curr_gpt_response.rfind('}') + 1
       curr_gpt_response = curr_gpt_response[:end_index]
       curr_gpt_response = json.loads(curr_gpt_response)["output"]
 
-      # print ("---ashdfaf")
-      # print (curr_gpt_response)
-      # print ("000asdfhia")
-      
       if func_validate(curr_gpt_response, prompt=prompt): 
         return func_clean_up(curr_gpt_response, prompt=prompt)
       
@@ -141,7 +137,7 @@ def safe_generate_response(prompt,
                            func_clean_up=None,
                            verbose=False): 
   for i in range(repeat): 
-    curr_gpt_response = ChatGPT_request(prompt).strip()
+    curr_gpt_response, tokens = ChatGPT_request(prompt).strip()
     if func_validate(curr_gpt_response, prompt=prompt): 
       return func_clean_up(curr_gpt_response, prompt=prompt)
   return fail_safe_response
