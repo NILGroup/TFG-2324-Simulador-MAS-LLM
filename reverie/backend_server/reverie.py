@@ -520,7 +520,7 @@ class ReverieServer:
     # So we need to keep track of which event we added. 
     # <game_obj_cleanup> is used for that. 
     game_obj_cleanup = dict()
-
+    initial_counter = int_counter
     # The main while loop of Reverie. 
     while (True): 
       # Done with this iteration if <int_counter> reaches 0. 
@@ -628,11 +628,11 @@ class ReverieServer:
           self.curr_time += datetime.timedelta(seconds=self.sec_per_step)
 
           int_counter -= 1
-          
+          print("Steps: ", initial_counter - int_counter)
+        else:
+          print("Could not get environment")
       # Sleep so we don't burn our machines. 
-      print(f"Start sleeping: {self.server_sleep}")
       time.sleep(self.server_sleep)
-      print(f"Finish sleeping: {self.server_sleep}")
 
 
   def open_server(self): 
