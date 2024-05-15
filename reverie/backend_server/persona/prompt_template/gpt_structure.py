@@ -51,7 +51,6 @@ def GPT4_request(prompt):
     return completion.choices[0].message.content
   
   except: 
-    print ("ChatGPT ERROR")
     return "ChatGPT ERROR"
 
 
@@ -71,10 +70,6 @@ def ChatGPT_request(prompt):
   try: 
     completion = client.chat.completions.create(model="gpt-3.5-turbo-0125", 
     messages=[{"role": "user", "content": prompt}])
-    if debug :
-      print(f"DEBUG::{__file__}:-:{__name__}")
-      print(f"INPUT::{prompt}")
-      print(f"OUTPUT::{completion.choices[0].message.content}")
     answer = completion.choices[0].message.content
     return answer
   
@@ -108,10 +103,6 @@ def ChatGPT_safe_generate_response(prompt,
     prompt += "Example output json:\n"
     prompt += '{"output": "' + str(example_output) + '"}'
 
-  if verbose: 
-    print ("CHAT GPT PROMPT")
-    print (prompt)
-
   for i in range(repeat): 
 
     try: 
@@ -127,11 +118,6 @@ def ChatGPT_safe_generate_response(prompt,
       if func_validate(curr_gpt_response, prompt=prompt): 
         return func_clean_up(curr_gpt_response, prompt=prompt)
       
-      if verbose: 
-        print ("---- repeat count: \n", i, curr_gpt_response)
-        print (curr_gpt_response)
-        print ("~~~~")
-
     except: 
       pass
 
@@ -177,17 +163,10 @@ def safe_generate_response(prompt,
                            func_validate=None,
                            func_clean_up=None,
                            verbose=False): 
-  if verbose: 
-    print (prompt)
-
   for i in range(repeat): 
     curr_gpt_response = ChatGPT_request(prompt).strip()
     if func_validate(curr_gpt_response, prompt=prompt): 
       return func_clean_up(curr_gpt_response, prompt=prompt)
-    if verbose: 
-      print ("---- repeat count: ", i, curr_gpt_response)
-      print (curr_gpt_response)
-      print ("~~~~")
   return fail_safe_response
 
 
@@ -196,10 +175,6 @@ def get_embedding(text, model="text-embedding-3-small"):
   if not text: 
     text = "this is blank"
   response = client.embeddings.create(input=[text], model=model).data[0].embedding
-  if debug :
-    print(f"DEBUG::{__file__}:-:{__name__}")
-    print(f"INPUT::{text}")
-    print(f"OUTPUT::{response}")
   return response
 
 
@@ -229,5 +204,3 @@ if __name__ == '__main__':
                                  __func_validate,
                                  __func_clean_up,
                                  True)
-
-  print (output)
