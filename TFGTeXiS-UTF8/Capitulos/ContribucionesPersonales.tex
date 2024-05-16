@@ -62,7 +62,7 @@ Mi trabajo se enfocó en digerir toda la estructura lógica que habíamos hereda
 
 Procedo a detallar cada una de estas actividades a continuación:
 
-\subsection*{Valoracion del uso de LLMs}
+\subsection*{Valoración del uso de LLMs}
 
 Como se comentó en la sección \ref{subsec:Selección del modelo de lenguaje}, era necesario contar un LLM que, en el corto plazo, nos permitiera probar las funcionalidades que fuésemos agregando y, en el largo, nos ofreciera la capacidad de ejecutar la aplicación sin mucho tiempo de inferencia, poco coste y de forma local, en el caso ideal.
 
@@ -80,7 +80,7 @@ También me encargué de la adaptación de las consultas del modelo para que fue
 
 Por ello terminamos usando la API de GPT3.5 durante toda la fase de desarrollo. Lo que nos llevó a sufrir la actualización de la API de OpenAI por la que tuve que realizar una migración del código que se comunicaba con la API para emplear la nueva librería.
 
-\subsection*{Adaptacion de la estructura existente a la nueva interfaz}
+\subsection*{Adaptación de la estructura existente a la nueva interfaz}
 
 El trabajo sobre el que empezamos a trabajar ya tenía una aplicación funcionando a través de una web. Sin embargo esta forzaba toda la interacción con la aplicación a ser realizada por medio de un terminal, ajeno a la aplicación. Pensamos que esto podía suponer una gran barrera para la extensión en el uso de esta herramienta, por lo que era necesario ser capaz de acceder a la aplicación a través de un solo punto, eliminando interacciones con elementos ajenos a la aplicación.
 
@@ -88,25 +88,17 @@ Esto conllevaba adaptar los sitemas de comunicación existentes, sin afectarlos 
 
 Así me hize cargo de la implementación de los distintos métodos de comunicación desde el Front y de la adaptación de esta estructura para que funcionase con el sistema ya existente.
 
-\subsection*{Implementacion de nuevas funcionalidades}
+\subsection*{Implementación de nuevas funcionalidades}
 
 Entre estas nos encontramos 
 \begin{itemize}
-    \item Creacion de simulaciones configurando agentes
+    \item \textbf{Creación de simulaciones configurando agentes}: En la que también se vió envuelto Alberto debido a la interfaz necesaria. Pero por la parte del backend fué necesario definir las datos esenciales de una simulación y abstraerlos en estructuras que permitieran ejecutar nuevas simulaciones desde la nada.
 
-En la que también se vió envuelto Alberto debido a la interfaz necesaria. Pero por la parte del backend fué necesario definir las datos esenciales de una simulación y abstraerlos en estructuras que permitieran ejecutar nuevas simulaciones desde la nada.
+    \item \textbf{Generación de resumenes de las simulaciones existentes}: En el backend, además de estructurar la información para que se acoplase a la ya existente para una simulación, fué necesario establecer la información prioritaria que se tomaría en cuenta para la generación de un resumen para una simulación.
 
-    \item Generación de resumenes de las simulaciones existentes
+    \item \textbf{Interacción con los personajes}: También envolvió los dos extremos del desarrollo. La mayor complicación que supuso en el backend fué el diseño correcto del método de comunicación entre back y front, haciendo uso de recursos del sistema de forma correcta y recogiendo la información necesaria en el front por medio de ReverieComm.py.
 
-En el backend, además de estructurar la información para que se acoplase a la ya existente para una simulación, fué necesario establecer la información prioritaria que se tomaría en cuenta para la generación de un resumen para una simulación.
-
-    \item Interacción con los personajes
-
-También envolvió los dos extremos del desarrollo. La mayor complicación que supuso en el backend fué el diseño correcto del método de comunicación entre back y front, haciendo uso de recursos del sistema de forma correcta y recogiendo la información necesaria en el front por medio de ReverieComm.py.
-
-    \item Bifurcar simulaciones desde cualquier timestep pasado de una simulación existente
-
-Esta es una funcionalidad que supuso idear una forma eficiente de almacenar todos los timesteps de una simulación, sin afectar demasiado al almacenamiento y menos aún a la información concerniente a una simulación. Y que recayó en mí implementarla debido a su naturaleza de backend.
+    \item \textbf{Bifurcar simulaciones desde cualquier timestep pasado de una simulación existente}: Esta es una funcionalidad que supuso idear una forma eficiente de almacenar todos los timesteps de una simulación, sin afectar demasiado al almacenamiento y menos aún a la información concerniente a una simulación. Y que recayó en mí implementarla debido a su naturaleza de backend.
 
 \end{itemize}
 
