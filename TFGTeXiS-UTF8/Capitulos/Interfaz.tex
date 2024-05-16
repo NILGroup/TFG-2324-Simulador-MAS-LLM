@@ -31,7 +31,7 @@ Para demostrar el uso del diseño centrado en el usuario a lo largo de este proy
 
 Estos cuatro pasos de diseño forman parte de del proceso de diesño que explica Google en su curso de diseño de UX profesional \footnote{\url{https://www.coursera.org/google-certificates/certificado-diseno-de-experiencia-del-usuario-ux}}, y se ven indicados en la figura \ref{fig:pasosDisenoUsuario}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/pasos_DCU.png}
 	\caption{Pasos para diseño centrado en el usuario según Google}
@@ -46,21 +46,21 @@ Estas vistas no existían previamente en la aplicación, y se ha realizado un pr
 
 Primeramente, atendiendo a la movilidad entre páginas, se ha implementado una barra de navegación, la cual compartirán todas las páginas y permitirá navegar entre las diferentes funcionalidades, como se puede apreciar en las figuras \ref{fig:navBarDesktop}, \ref{fig:navBarMobile1} y \ref{fig:navBarMobile2}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/navBarDesktop.png}
 	\caption{Barra de navegación en el formato Desktop}
 	\label{fig:navBarDesktop}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/navBarMobile1.png}
 	\caption{Barra de navegación en el formato para dispositivos móviles}
 	\label{fig:navBarMobile1}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/navBarMobile2.png}
 	\caption{Barra de navegación en el formato para dispositivos móviles, con la barra de navegación desplegada}
@@ -91,32 +91,39 @@ Si se quisiera aportar un contexto general a toda la simulación, la solución s
 
 Todos estos elementos gráficos se pueden apreciar en las figuras \ref{fig:vistaCrearSimulacion} y \ref{fig:vistaCrearSimulacionMobile}, donde se ve que el diseño es 'responsive' y se adapta a todo tipo de pantallas.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 1\textwidth]{Imagenes/Vectorial/crearSimu.png}
 	\caption{Versión de escritorio de la vista para crear una nueva simulación}
 	\label{fig:vistaCrearSimulacion}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width = 0.7\textwidth]{Imagenes/Vectorial/crearSimuMobile.png}
 	\caption{Versión de móvil de la vista para crear una nueva simulación}
 	\label{fig:vistaCrearSimulacionMobile}
 \end{figure}
 
-\subsection{Vista de Visualizar simulación}
+\subsection{Vista de Visualizar simulaciones}
 \label{vistaVisSim}
 
 En esta vista es donde los usuarios pueden seleccionar las simulaciones a visualizar. Esto es, las que se han ejecutado y guardado para visualizarlas previamente. Una vez se selecciona una de estas vistas, se accede a la interfaz de visualización de una simulación, la cual está explicada en profundidad en la subsección  \ref{sec:vistaSimulacion}.
 
-Esta era una de las interfaces que no existían y tenían todo el sentido en nuestra aplicación. Antes, el usuario debía interactuar directamente con los ficheros y acceder a sus simulaciones mediante la terminal, ahora esto se gestiona automáticamente y se puede acceder mediante un par de clicks.
+Como ejemplo, se proporciona la figura \ref{fig:visSimDesktop} indicando cómo aparece esta vista representada en la página web. En este caso, también existe un diseño adaptado a dispositivos móviles, pero al ser similar a la versión de escritorio, se omite por simplicidad.
 
-En este listado de simulaciones finalizadas, se muestra información útil para el usuario como el título de la información, el título de la simulación padre (para que el usuario pueda acceder a ella y continuarla o modificarla), el step desde el que se desea comenzar a visualizar la simulación o la velocidad de reproducción de la misma.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/vistaVisSimu.png}
+	\caption{Vista de visualizar simulaciones en formato escritorio}
+	\label{fig:visSimDesktop}
+\end{figure}
+
+Esta era una de las interfaces que no existían y tenían mucho sentido en nuestra aplicación. Antes, el usuario debía interactuar directamente con los ficheros y acceder a sus simulaciones mediante la terminal, ahora esto se gestiona automáticamente y se puede acceder mediante un par de clicks, mejorando así la experiencia de usuario, centrando el diseño en el usuario final del sistema.
+
+En este listado de simulaciones finalizadas, se muestra información útil para el usuario como el título de la información, el título de la simulación padre (para que el usuario pueda acceder a ella y continuarla o modificarla), el step desde el que se desea comenzar a visualizar la simulación o la velocidad de reproducción de esta.
 
 Además de esta información, también se genera un resumen automático mediante una llamada al LLM cada vez que se guarda una simulación, el cual se incluye en cada una de las simulaciones, indicando a grandes rasgos lo que ocurre y los steps más interesantes a visualizar.
-
-Como ejemplo, se proporcionan las figuras (\textcolor{red}{PONER LAS FIGURAS}) para ver cómo aparece esta vista representada en la página web.
 
 
 \subsection{Vista de Continuar simulación}
@@ -131,17 +138,31 @@ Cuando se continúa una simulación, esta sigue con el mismo nombre y se contin�
 
 Sin embargo, al forkear una simulación, se creará una nueva, tomando como base la original. Es por este motivo por el cual, cuando un usuario va a forkear una simulación, se le pide el step desde el que quiere forkearla y se pide que se de un nombre nuevo (ya que será guardada como una nueva simulación en la lista).
 
- En las figuras (\textcolor{red}{PONER LAS FIGURAS}) se puede apreciar el resultado de esta vista
+ En la figura \ref{fig:contSimDesktop} se puede apreciar el resultado de esta vista, donde se ven una serie de simulaciones que están actualmente disponibles en la aplicación para continuar, así como el número de steps que estas tienen, el nombre de la nueva simulación y más información sobre la simulación en sí (como la duración o los tiempos de la simulación).
+ 
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width = 0.95\textwidth]{Imagenes/Vectorial/vistaContSimu.png}
+ 	\caption{Vista de continuar simulaciones en formato ecritorio}
+ 	\label{fig:contSimDesktop}
+ \end{figure}
 
 \subsection{Vista de Guía de Usuario}
 
-Además de las vistas creadas para navegar e interactuar con las simulaciones, se ha creado una página que sirve como guía de usuario. 
+Además de las vistas creadas para navegar e interactuar con las simulaciones, se ha creado una página que sirve como guía de usuario, que será de utilidad para nuevos usuarios de la aplicación, resolviendo cualquier tipo de dudas acerca de los procesos que se pueden realizar con la aplicación o explicaciones sobre las vistas existentes y cómo usarlas.
 
-Como el uso de esta herramienta lo hemos orientado a perfiles no técnicos (como psicólogos o personas que quieran estudiar las interacciones sociales), se ha añadido esta sección en la que se explican todas las funcionalidades de la aplicación, cómo utilizarlas y algunos trucos o consejos de uso, para maximizar el valor del programa.
+Como el uso de esta herramienta lo hemos orientado a perfiles no técnicos (como psicólogos o personas que quieran estudiar las interacciones sociales), se ha añadido esta sección en la que se explican todas las funcionalidades de la aplicación, cómo utilizarlas y algunos trucos o consejos de uso, para maximizar el valor de la aplicación.
 
 En esta guía se hace un repaso extensivo de las vistas existentes en la aplicación, cómo usarlas y para qué sirve cada uno de los botones.
 
-Algunos ejemplos de esta página son los que se muestran en las figuras (\textcolor{red}{PONER LAS FIGURAS})
+Algunos ejemplos de esta página son los que se muestran en la figura \ref{fig:vistaGuiaUsuario}
+
+ \begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.95\textwidth]{Imagenes/Vectorial/vistaGuiaUsuario.png}
+	\caption{Vista de la guía de usuario en versión escritorio}
+	\label{fig:vistaGuiaUsuario}
+\end{figure}
 
 \section{Vistas modificadas}
 
@@ -155,9 +176,9 @@ Originalmente, cuando el usuario arrancaba el servidor, existía una página de 
 
 Como se puede apreciar en la figura \ref{fig:landing}, hay una breve explicación del trabajo y algunas tarjetas con la información más importante de lo que puede hacer esta aplicación. Se trata de una págia meramente informativa desde la que el usuario puede navegar hacia el resto.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width = 0.8\textwidth]{Imagenes/Vectorial/landing.png}
+	\includegraphics[width = 0.7\textwidth]{Imagenes/Vectorial/landing.png}
 	\caption{Vista de landing actualizada}
 	\label{fig:landing}
 \end{figure}
@@ -171,23 +192,55 @@ Sin embargo, como hemos centralizado todo en un front end común, estas vistas a
 
 El trabajo que hemos realizado en esta vista fue básicamente el de simplificación de la misma (eliminación de botones para ver el estado en profundidad de los personajes) así como la integración de esta vista con el resto de la aplicación (añadido el navbar para navegar en ella).
 
-Un ejemplo de esta vista es el de la figura
-(\textcolor{red}{PONER LAS FIGURAS})
+Un ejemplo de esta vista es el de la figura \ref{fig:verSim}, en la que se visualiza la simulación con nombre 'nuevaSimu', la cual tiene 3 personajes, de los cuales se puede ver su estado y situación en cada momento.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{Imagenes/Vectorial/vistaVerSim.png}
+	\caption{Vista de visualización de una simulación}
+	\label{fig:verSim}
+\end{figure}
 
 
 \subsection{Vista de ejecución de simulación}
 
 Como ya se mencionó, esta vista es bastante similar a la comentada en el apartado anterior. Era una vista que ya existía, representando la ejecución de una simulación en tiempo real, con el mismo motor de juegos que se usa a la hora de visualizar una simulación, Phaser 3.0.
 
-No obstante, en esta vista sí que hemos modificado varios elementos y añadido funcionalidades críticas en esta vista, para que el usuario pueda tener una mayor interacción con el sistema en tiempo real.
+No obstante, en esta vista sí que hemos modificado varios elementos y añadido funcionalidades críticas en esta vista, para que el usuario pueda tener una mayor interacción con el sistema en tiempo real. Entre estas modificaciones están los botones de guardar, salir, chat y susurro, de los cuales hablaremos a continuación.
 
-En la figura (\textcolor{red}{PONER LAS FIGURAS}) podemos ver un ejemplo de esta página en ejecución.
+Además, hemos decidido eliminar la barra de navegación de esta página, ya que consideramos que el usuario solo debe salir de esta página si es guardando o saliendo de la presenta simulación (ya sea guardar para verla, para continuarla o eliminarla).
 
-Las modificaciones que hemos realizado se explican a continuación:
+En la figura \ref{fig:vistaEjecSim} podemos ver un ejemplo de esta página en ejecución, en la cual vemos una nueva simulación creada por nosotros, donde hemos añadido dos agentes.
 
-\subsubsection{Botón de play}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.6\textwidth]{Imagenes/Vectorial/ejecucionSimu.png}
+	\caption{Vista de ejecución de una simulación}
+	\label{fig:vistaEjecSim}
+\end{figure}
 
-Antes, para ejecutar steps de una simulación, era necesario ir a la terminal y ejecutar el comando "run <número de steps>". Ahora, hemos implementado un botón de play, situado al lado de un input de tipo número, que indicará el número de steps a ejecutar. 
+Las modificaciones que hemos realizado en esta página de ejecución de la simulación se explican a continuación en detalle:
+
+\subsubsection{Botón de 'play'}
+
+Para empezar, se distinguen dos estados de la simulación. Cuando la simulación está corriendo en segundo plano, se podrá hacer run de la simulación, pero no se podrá interactuar directamente con los personajes ni guardar ni salir de la simulación.
+
+Cuando se carga la página o cuando el usuario pulsa este botón de 'play', la simulación entrará en este modo, en que está corriendo en segundo plano, y se indicará con el texto en color verde de 'La simulación se está ejecutando', como se muestra en la figura \ref{fig:simuEjecutando}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/simEjecutando.png}
+	\caption{Texto indicativo de que la simulación está ejecutando en segundo plano}
+	\label{fig:simuEjecutando}
+\end{figure}
+
+\subsubsection{Botón de 'pause'}
+
+Por otro lado, existe otro estado en que la simulación está parada, por lo que no se puede ejecutar el botón de 'run', pero sí se podrá guardar, salir, chatear o susurrar a los personajes. Esto se puede ver en el apartado encima de <<Current time>> en la figura \ref{fig:vistaEjecSim}, donde se aprecia en rojo el texto 'La simulación está parada'.
+
+\subsubsection{Botón de 'run'}
+
+Antes, para ejecutar steps de una simulación, era necesario ir a la terminal y ejecutar el comando 'run <número de steps>'. Ahora, hemos implementado un botón de 'run', situado al lado de un input de tipo número, que indicará el número de steps a ejecutar. 
 
 Por ejemplo, si el usuario quiere ejecutar 3 steps, insertará el número en el input y le dará a play, ejecutando así 3 steps y pudiendo verlos en tiempo real en la ventana que contiene la simulación.
 
@@ -211,10 +264,25 @@ Estos botones están en la sección de personajes. En cada tarjeta de personaje,
 
 Estas dos funcionalidades son el ejemplo más claro y directo que hay en todo el presente trabajo del uso del procesamiento del lenguaje natural, que se comenta en el capítulo 2 (el Estado de la Cuestión). De todo el sistema, es la única funcionalidad que permite interactuar directamente con el modelo de lenguaje, el cual interpretará el lenguaje natural y lo procesará para devolver una respuesta. En el caso del chat, se comprende la petición del usuario, se interpreta, y se devuelve una respuesta sobre lo que responde el agente. Por otro lado, para el susurro, el usuario interactuará indicando una orden o directriz y el sistema la interpretará para que el usuario la tenga en cuenta y la realice en los siguientes steps de la simulación.
 
-El botón de susurro permite hablar directamente a los pensamientos del personaje e instarle a tomar ciertas decisiones o realizar ciertas acciones. Esta era una funcionalidad preexistente pero la hemos pasado completamente al front.
+El botón de susurro permite hablar directamente a los pensamientos del personaje e instarle a tomar ciertas decisiones o realizar ciertas acciones. Esta era una funcionalidad preexistente pero la hemos pasado completamente al front. Se puede ver en la figura \ref{fig:cuadroSusurro}, cómo el usuario susurra al personaje de Carmen Ortiz cómo debe reaccionar y actuar a partir de ese momento en la simulación, implementándolo así en su personalidad.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{Imagenes/Vectorial/cuadroSusurro.png}
+	\caption{Modal de susurro}
+	\label{fig:cuadroSusurro}
+\end{figure}
 
 Por su parte, el botón de chat abrirá una pantalla para chatear directamente con el personaje en tiempo real. Esta funcionalidad es novedosa y servirá para poder entrevisar a los personajes en cada punto de la simulación, viendo así sus cambios de ideas, pensamientos u opiniones a lo largo de la simulación.
 
-(\textcolor{red}{PONER LAS FIGURAS})
+En la figura \ref{fig:cuadroChat} se puede apreciar cómo sería la interacción con uno de los personajes de la simulación. Mediante esta interfaz de chat, se interpretaría la entrada del usuario y, mediante procesamiento del lenguaje natural y empleando el LLM, trataríamos de obtener una respuesta coherente a la interacción.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.7\textwidth]{Imagenes/Vectorial/cuadroChat.png}
+	\caption{Modal de chat con respuestas simuladas}
+	\label{fig:cuadroChat}
+\end{figure}
+
 
 
