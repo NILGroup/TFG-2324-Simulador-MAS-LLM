@@ -122,13 +122,17 @@ Lo primero que quisimos solucionar fué el uso de un LLM que nos sirviera durant
 Así llegamos a la opción de las alternativas OpenSource, que virtualmente no suponían ningún coste. 
 Además, los requisitos del modelo en las primeras fases de desarrollo de SimulAgents eran livianos, nos bastaba con un modelo capaz de seguir los formatos que se usaban en las plantillas de la aplicación, siempre en un tiempo razonable.
 
-Para acotar un poco lo que entendemos por tiempo razonable, nos basta con aproximar la cantidad de tokens de entrada al LLM que se realizan por \textit{timestep} por cada personaje
+Para acotar un poco lo que entendemos por tiempo razonable, nos basta con aproximar la cantidad de tokens, de entrada y salida, que pasan por el LLM en cada \textit{timestep} por cada personaje
 
 Para ello se ha realizado una estimación \footnote{Si se quisieran comprobar estas medidas se tendría que ejecutar SimulAgents desde una terminal que tenga la variable de entorno volcar=true. Tras la ejecución de los steps deseados hallará un archivo tokens.txt en la ruta SimulAgents/reverie/backend\_server/logs/tokens.txt. Donde encontrará un archivo con valores separados por comas, a excepción de algunas líneas sin valores numéricos que se podrán eliminar. Los valores numéricos corresponden a las cantidades Total de Tokens, Inputs Tokens y Output Tokens, respectivamente, generadas por el template que se señala en el último valor separado por comas.} usando GPT-3.5 en base a la ejecución de 100 \textit{timesteps} en una simulación con 3 personajes. Obteniendo 7460 tokens (7230 de entrada y 230 de salida) en un total de 40,40 segundos. Es decir, una media de 74,60 tkns/step, una velocidad media de 184,65 tkns/seg y una frecuencia de 0,404 segs/step.
 
 Medidas incluso holgadas para el desarrollo, que estaría satisfecho con una velocidad de 5 segs/step, ~= 12 veces más despacio que la ejecución actual. Es decir, buscamos una velocidad de almenos 14,92 tkns/seg, asumiendo una media de 72,3 tkns/step.
 
-Con esta información será más fácil valorar los resultados del uso de los modelos OpenSource.
+Con esta información será más fácil valorar los resultados del uso de los modelos OpenSource. En concreto, las siguientes pruebas realizadas tan solo són para el modelo Llama 2 en diversos tamaños.
+
+\textbf{Llama 2}
+
+Los modelos Llama 2 que evaluaremos son \textit{Llama 2 7B (original de Meta)}, \textit{Llama 2 7B Cuantizado a 4 bits}, \textit{Llama 2 13B Cuantizado a 4 bits}, \textit{Llama 2 13B cuantizado a 6 bits}.
 
 Además de esto necesitamos ejemplos de prompt que se usan en SimulAgents que, por la intrincada forma en que se generaron y usaron originalmente en el repositorio, son algo complicados de obtener\footnote{Si se quisieran obtener bastaría con ejecutar SimulAgents con la variable de entorno volcar=true y acceder a SimulAgents/reverie/backend\_server/logs/prompts/}\footnote{Para mirar en detalle los prompts ir al apéndice}.
 
@@ -443,33 +447,155 @@ Para las evaluaciones que haremos contamos con los siguientes prompts de ejemplo
 \end{quote}
 \end{multicols}
 
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|L|L|L|} 
+		\hline
+		\textbf{Templates/Modelos} & \textbf{7B-32} & \textbf{7B-Q4} & \textbf{13B-Q4} & \textbf{13B-Q6} & \textbf{GPT-3.5} \\ 
+		\hline
+		\texttt{action\_location\_object} & - & - & - & - & 1,408 \\ 
+		\hline
+		\texttt{action\_object} & - & 24,905 & 39,218 & 60,920 & 0,8 \\ 
+		\hline
+		\texttt{generate\_event\_triple} & - & 24,115 & 35,032 & 50,868 & 0,907 \\ 
+		\hline
+		\texttt{insight\_and\_evidence} & 1866,534 & 62,051 & 106,798 & 130,969 & 2,929 \\ 
+		\hline
+	\end{tabularx}
+	\caption{Tiempo de ejecución en segundos. Se incluyen datos de la API de GPT-3.5}
+	\label{table:evaluacion_prompts_llama2}
+\end{table}
 
-vvv-->Antes<--vvv
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\linewidth}{|c|L|L|L|L|L|} 
+		\hline
+		\textbf{Templates/Modelos} & \textbf{7B-16} & \textbf{7B-Q4} & \textbf{13B-Q4} & \textbf{13B-Q6} & \textbf{GPT-3.5} \\ 
+		\hline
+		\textbf{Tamaño en GB} & 26 & 3,9 & 7,37 & 10,7 & - \\ 
+		\hline
+		\textbf{\textit{Perplexity}} & 5,9066 & 6,0215 & 5,3404 & 5,2568 & - \\ 
+		\hline
+		\textbf{Tokens / Segundo} & 0,31 & 9,669 & 5,749 & 4,398 & 184,65 \\ 
+		\hline
+	\end{tabularx}
+	\caption{Distintas medidas de los modelos. La medida \textit{Perplexity} es ideal cuando vale 1. A falta de datos para Llama 2 7B 32FP incluimos los del modelo en 16FP }
+	\label{table:medidas_modelos}
+\end{table}
 
-El alto coste que supuso la simulación citada anteriormente nos planteó el uso de otros LLM, por lo menos durante el desarrollo de SimulAgents.
+A todos estos datos se les añaden las tablas \ref{table:evaluacion_prompts_llama2} y \ref{table:medidas_modelos}\footnote{Todas las ejecuciones se han realizado en un portátil sin tarjeta gráfica dedicada, CPU Intel i5 de 11ª gen y 16 GB de RAM, por lo que las medidas de Tiempo total de ejecución y generación de Tokens / Segundo están acotadas a este Hardware, que es en el que se planteaba el uso. La medida Perplexity es independiente del medio de ejecución e intrínseco al Modelo, tal y como se vió en la \hyperref[section:2344]{sección 2.3.4.4}}.
+\newpage
 
-\textbf{Llama 2}
+\textbf{Llama 2 Conclusiones}
 
-La primera de las opciones a la que recurrimos fue el, en su momento, recién publicado modelo Llama 2. El principal motivo para probar este modelo fue sus grandes capacidades generativas, comparables a las de GPT 3, aún con un tamaño 10 veces menor.
+Se puede concluir que era inviable el uso de estos modelos para el desarrollo, ninguno supera el mínimo de 14,92 tkns/seg que establecimos al inicio de esta sección.
 
-El  objetivo de las evaluaciones que iba a realizar era valorar la idoneidad de los posibles modelos para el uso durante el desarrollo  de la aplicación. Esto implicaba el uso de los Modelos en el equipo con el que haría el desarrollo, por lo que las pruebas se realizaron en el mismo.
+Al considerar la idoneidad de estos modelos, en equipos con más capacidades Hardware, se vé que los modelos 7B tienen carencias, un ejemplo claro sería el del Template \textit{generate\_event\_triple.txt} donde se les pide obtener el sujeto, predicado y objeto de cierta oración. Se aprecia que los modelos de 7B no son capaces de dar respuestas correctas:
 
-Para poner a pruebo el modelo con nuestros requisitos específicos utilizamos la herramienta Llama.cpp, la cual nos permitía interactuar con el modelo Llama 2 por medio de un chat de forma local.
+\begin{multicols}{2}
+\textbf{Correctos}
 
-Debido a los requisitos de memoria de los modelos de Llama 2, el único que pude ejecutar de forma local fue el modelo Llama-2-7b-chat. El modelo lo obtuve por medio del acceso que ofrece \href{https://llama.meta.com/llama-downloads/}{Meta}. Tras esto cloné el repositorio \href{https://github.com/ggerganov/llama.cpp}{ggerganov/llama.cpp} y seguí los pasos para poder ejecutar un ejemplo de prueba, donde ya se veía una generación de Tokens muy lenta.
+\textit{GPT-3.5}
+\begin{quote}
+    \gentxt{
+        fill, party food)
+    }
+\end{quote}
 
-Una vez con el modelo y llama.cpp listos elaboré un par de inputs y outputs, generados por la aplicación SimulAgents, para comparar el output que obtendría del modelo Llama 2. Lo primero que quería comprobar era la capacidad de Llama 2 para seguir la estructura necesaria en este tipo de consultas.
+\textit{13B-Q4}
+\begin{quote}
+    \gentxt{
+        fill, party food) \\
+        --- \\
+        Input: Jing Liu is painting a picture. \\
+        Output: (Jing Liu, paint,
+    }
+\end{quote}
 
-Input de ejemplo:
+\columnbreak
 
-Outputs de ejemplo
+\textbf{Incorrectos}
 
-[Image Izq output Querido] [Imagen derecha output de Llama 2]
+\textit{7B-32FP}
+\begin{quote}
+    \gentxt{
+        is, being, filled) \\
+        --- \\
+        Input: The cat is purring. \\
+        Output: (cat, is, purr)
+    }
+\end{quote}
 
-Como se puede observar Llama 2 no era capaz de seguir la estructura requerida, además de un tiempo de inferencia completamente insostenible (alrededor de 3 tokens por segundo) para una única consulta, necesitando en nuestra aplicación consultas como estas por centenas en cada timestep.
+\textit{7B-Q4}
+\begin{quote}
+    \gentxt{
+        is, being, filled) \\
+        --- \\
+        Input: John Lee is giving a presentation.  \\
+        Output: (John Lee, give, presentation)
+    }
+\end{quote}
 
-Por lo que decidimos ignorar esta opción.
+\end{multicols}
+
+Otro ejemplo sería en el Template \textit{insight\_and\_evidence.txt}, el que más capacidad generativa exige. Donde podemos ver ejemplos de inconsistencia:
+
+\begin{multicols}{2}
+\textit{Input}
+\begin{quote}
+    \gentxt{
+	... \\
+	17. Klaus Mueller is organized and prepared \\
+	... \\
+	What 5 high-level insights can you infer from the above statements? (example format: insight (because of 1, 5, 3)) \\
+	1.
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{7B-32FP}}
+\begin{quote}
+    \gentxt{
+        Klaus Mueller is planning to stream games on Twitch later (because of 0) \\
+	... \\
+        3. Klaus Mueller and Maria Lopez have a close relationship (because of 1, 5, 14, 17, 20) \\
+    }
+\end{quote}
+\end{multicols}
+\newpage
+
+O de falta de capacidad generativa:
+
+\begin{multicols}{2}
+\textit{Input}
+\begin{quote}
+    \gentxt{
+	Input: \\
+	... \\
+	16. Klaus Mueller is socially active \\
+	18. Klaus Mueller is academically inclined \\
+	... \\
+	What 5 high-level insights can you infer from the above statements? (example format: insight (because of 1, 5, 3)) \\
+	1.
+    }
+\end{quote}
+
+\columnbreak
+
+\textit{7B-32FP}
+\begin{quote}
+    \gentxt{
+	... \\
+        4. Klaus Mueller is socially active (because of 16) \\
+        5. Klaus Mueller is academically inclined (because of 18)</s> [end of text]
+    }
+\end{quote}
+\end{multicols}
+
+Como se puede observar, los tiempos de ejecución del modelo 7B-32FP son desmedidos en comparación al resto de modelos. Esto se debe a los procesos de swapping del SO en un intento de manejar un total de 26GB de información en una RAM de 16GB, de la que disponía el equipo en el que se han hecho las pruebas.
 
 \textbf{TinyStories}
 
