@@ -455,11 +455,11 @@ Para las evaluaciones que haremos contamos con los siguientes prompts de ejemplo
 		\hline
 		\textbf{Templates/Modelos} & \textbf{7B-32} & \textbf{7B-Q4} & \textbf{13B-Q4} & \textbf{13B-Q6} & \textbf{GPT-3.5} \\ 
 		\hline
-		\texttt{action\_location\_object} & - & - & - & - & 1,408 \\ 
+		\texttt{action\_location\_object} & 138,398 & 28,915 & 41,082 & 67,001 & 1,408 \\ 
 		\hline
-		\texttt{action\_object} & - & 24,905 & 39,218 & 60,920 & 0,8 \\ 
+		\texttt{action\_object} & 305,098 & 24,905 & 39,218 & 60,920 & 0,8 \\ 
 		\hline
-		\texttt{generate\_event\_triple} & - & 24,115 & 35,032 & 50,868 & 0,907 \\ 
+		\texttt{generate\_event\_triple} & 716,929 & 24,115 & 35,032 & 50,868 & 0,907 \\ 
 		\hline
 		\texttt{insight\_and\_evidence} & 1866,534 & 62,051 & 106,798 & 130,969 & 2,929 \\ 
 		\hline
@@ -478,7 +478,7 @@ Para las evaluaciones que haremos contamos con los siguientes prompts de ejemplo
 		\hline
 		\textbf{\textit{Perplexity}} & 5,9066 & 6,0215 & 5,3404 & 5,2568 & - \\ 
 		\hline
-		\textbf{Tokens / Segundo} & 0,31 & 9,669 & 5,749 & 4,398 & 184,65 \\ 
+		\textbf{Tokens / Segundo} & 0,984 & 10,527 & 6,912 & 4,682 & 184,65 \\ 
 		\hline
 	\end{tabularx}
 	\caption{Distintas medidas de los modelos. La medida \textit{Perplexity} es ideal cuando vale 1. A falta de datos para Llama 2 7B 32FP incluimos los del modelo en 16FP }
@@ -595,57 +595,47 @@ O de falta de capacidad generativa:
 \end{quote}
 \end{multicols}
 
-Como se puede observar, los tiempos de ejecución del modelo 7B-32FP son desmedidos en comparación al resto de modelos. Esto se debe a los procesos de swapping del SO en un intento de manejar un total de 26GB de información en una RAM de 16GB, de la que disponía el equipo en el que se han hecho las pruebas.
+con que el uso de los modelos OpenSource pueden ser viables para un equipo con las prestaciones suficientes. El uso de modelos Quantizados, o que hayan pasado por un proceso de Pruning, pueden incrementar enormemente la eficiencia de los mismos. Y, en el caso de los modelos Quantizados, tal y como acabamos de ver, aún ser capaces de conseguir resultados válidos para SimulAgents\footnote{Como se puede observar en la tabla \ref{table:medidas_modelos}, los tiempos de ejecución del modelo 7B-32FP son desmedidos en comparación al resto de modelos. Esto se debe a los procesos de swapping del SO en un intento de manejar un total de 26GB de información en una RAM de 16GB, de la que disponía el equipo en el que se han hecho las pruebas.}.
 
 \textbf{TinyStories}
 
-Posteriormente nos encontramos con cierto trabajo que nos volvió a abrir la posibilidad de usar modelos de forma local y con una inferencia, debido a su tamaño, varios ordenes de magnitud, más pequeño que modelos como los de Llama 2.
+Posteriormente nos encontramos con cierto trabajo que nos volvió a abrir la posibilidad de usar modelos de forma local y con una inferencia, debido a su tamaño, varios ordenes de magnitud más pequeño que modelos como los de Llama 2.
 
 El trabajo TinyStories \cite{eldan2023tinystories} propone modelos, con tamaños entre 1 y 28 millones de parámetros, enfocados en generar historias, que lograban un uso de la gramática y sintáxis excelente. Por lo que pensamos que unido a una capacidad de generar la información de forma estructurada podrían ser una alternativa considerable.
 
-Por ello también pusimos a prueba a estos modelos, pero enseguida se notó una falta considerable de recursos semánticos, que no sería posible suplir por medio de un fine-tuning, como habíamos pensado.
+Por ello también pusimos a prueba a estos modelos, pero enseguida se notó una falta considerable de capacidad generativa, que no sería posible suplir por medio de un fine-tuning, como habíamos pensado.
 
 [Ejemplos de conversaciones con los distintos modelos]
 
- \textbf{Quantization}
-
-El último de los de usar un LLM de forma local fue tras el conocimiento de las técnicas de Cuantización, que permitían usar modelos con tamaños mucho menores y cierto deterioro, pero que quizá podía ser asumible.
-
-Volvimos a probar Llama 2, pero en esta ocasión con la versión de 13b.
-
-[Mostrar imágenes de Outputs obtenidos con distintas cuantizaciones de Llama 13b]
-
-Sin embargo, los tiempos de inferencia siguieron siendo grandes y las repsuestas obtenidas tampoco mejoran demasiado. Por lo que decidimos movernos al uso de APIs de terceros como las de OpenAI o Google.
-
 \subsubsection{Otras APIs}
 
-Con los problemas que hemos visto en la sección anterior finalmente acabamos decidiendo volver a los Modelos de terceros, de esta forma lograríamos un tiempo de inferencia mucho menor, un umbral menor para el numero de usuarios que puedieran usar SimulAgents (evitar la carga de memoria que suponía un LLM) y una calidad de generación garantizada al ser modelos mucho más grandes y capaces.
+Con los problemas que hemos visto en la sección anterior finalmente acabamos decidiendo volver a los Modelos de terceros, de esta forma lograríamos un tiempo de inferencia mucho menor, un umbral menor para el numero de usuarios que puedieran usar SimulAgents (evitando la carga de memoria que suponía un LLM) y una calidad de generación garantizada al ser modelos mucho más grandes y capaces.
 
 Entre las alternativas posibles, la más inmediata era volver al uso de GPT 3.5, pero decidimos probar antes con otras APIs como la de PaLM.
 
 \textbf{PaLM}
 
-Esta opción prometía tener unos resultados similares a los de GPT-3.5 en cuanto a velocidad y, si no igual almenos lo suficientemente cercana, en cuanto a calidad, o esto parecía en la interacción a través del portal web de Google para interactuar con PaLM. Además de esto también nos resultó útil el acceso a la API con un total de 100 dolares de peticiones iniciales a la API. Que planeabamos usar durante la fase del desarrollo.
+Esta opción prometía tener unos resultados similares a los de GPT-3.5 en cuanto a velocidad y, si no igual almenos lo suficientemente cercana, en cuanto a calidad, o esto parecía en la interacción a través del portal web de Google para interactuar con PaLM. Además de esto también nos resultó útil el acceso a la API con un total de 100 dolares de peticiones iniciales a la API. Que planeabamos usar durante la fase de desarrollo.
 
 Por ello procedimos con la adaptación de las peticiones al LLM para que hiciese las peticiones a la API de google, en lugar de la de OpenAI. Esto quedó reflejado en los archivos gpt\_structure\_palm.py y run\_gpt\_prompt.py del repositorio, adaptados a partir de gpt\_structure.py y run\_gpt\_prompt.py que ya se usaban.
 
 La primera de las modificaciones fué el uso de las librerías de esta API, en concreto google.generativeai, y tras esto adaptar las peticiones al LLM usando las funciones definidas en la \href{https://ai.google.dev/palm_docs}{API de Google}.
 
-El modelo que usamos para las peticiones a la API de Google fue \textit{text-bison-001} y tras la adaptación de las llamadas comprobamos que, a pesar de que fuese capaz de seguir la estructura requerida en las respuestas, no era capaz de seguir un formato uniforme en todas ellas, dando lugar a errores, además de esto, era bastante menos elocuente a la hora de generar acciones para lo agentes. Y esto unido a la necesidad de una VPN para poder usar, debido a que España estaba entre los paises vetados para el uso de esta API, nos hicieron por decantarnos por GPT-3.5 que ya tenía una eficacia comprobada.
+El modelo que usamos para las peticiones a la API de Google fue \textit{text-bison-001} y tras la adaptación de las llamadas comprobamos que, a pesar de que fuese capaz de seguir la estructura requerida en las respuestas, no era capaz de seguir un formato uniforme en todas ellas, dando lugar a errores, además de esto, era bastante menos elocuente a la hora de generar acciones para lo agentes. Y esto unido a la necesidad de una VPN para poder usar, debido a que España estaba entre los paises vetados para el uso de esta API, nos hicieron decantarnos por GPT-3.5 que ya tenía una eficacia comprobada.
 
 \textbf{OpenAI}
 
-Tras la vuelta al uso de GPT-3.5 y la solución de diversos problemas, relativos a las plantillas de prompt y que venían del repositorio tal y como estaba implementado, lo primero que vimos fué que a la hora de ejecutar el proyecto al completo contabamos con una cantidad de rate limits en varios de los tipos de solicitudes que hacíamos.
+Tras la vuelta al uso de GPT-3.5 y la solución de diversos problemas, relativos a las plantillas de prompt, que venían del repositorio tal y como estaba implementado, lo primero que vimos fué que a la hora de ejecutar el proyecto al completo contabamos con una cantidad de rate limits en varios de los tipos de solicitudes que hacíamos.
 
-Estos iban en función del tipo de usuario, usando un sistema de Tiers en el que ascendias según la cantidad de uso que habías hecho de la API, uso que se traducía en dinero. La limitación que nos suponía a la hora de interactuar con el modelo a través de la aplicación era enorme. La cantidad de peticiones que se hacían a la API por cada Agente por step de simulación eran más de 100. Y la restricción que teníamos en la API era de 2 requests por minuto.
+Estos iban en función del tipo de usuario, usando un sistema de Tiers en el que ascendias según la cantidad de uso que habías hecho de la API, uso que se traducía en dinero. La limitación que nos suponía a la hora de interactuar con el modelo a través de la aplicación era enorme. La cantidad de peticiones que se hacían a la API por cada Agente por step de simulación eran más de un par de decenas. Y la restricción que teníamos en la API era de 2 requests por minuto.
 
 Debido a esto optamos por avanzar en otro tipo de problemas de nuestro proyecto, como el front o la adaptación del backend a una interacción por medio de una UI.
 
-Este parón se vió finalizado con las sucesivas actualizaciones que OpenAI hizo de su API y políticas, llegando el momento en que ya podíamos hacer uso de la API, debido al aumento del Rate Limit y además el abaratamiento de la API.
+Este parón se vió finalizado con las sucesivas actualizaciones que OpenAI hizo de su API y políticas, llegando el momento en que ya podíamos hacer uso de la API, debido al aumento del Rate Limit y unido al abaratamiento de la API.
 
-En este momento decidimos retomar el uso de la API y enlazarlo ya finalmente con el resto del proyecto. Sin embargo estas actualizaciones vinieron acompañadas de fuertes cambios en la implementación de la API. Lo que implicó realizar una migración del mismo a la versión más reciente de la API para poder utilizarla. La actualización de la API fue de la versión 0.27.0 a la versión 1.13.3. 
+En este momento decidimos retomar el uso de la API y enlazarlo, ya finalmente, con el resto del proyecto. Sin embargo estas actualizaciones vinieron acompañadas de fuertes cambios en la implementación de la API. Lo que implicó realizar una migración de la misma a la versión más reciente de la API para poder utilizarla. La actualización de la API fue de la versión 0.27.0 a la versión 1.13.3. 
 
-Tras migrar correctamente la versión de la API se consiguió ejecutar satisfactoriamente la totalidad del proyecto haciendo uso del LLM. Sin embargo la velocidad no era, ni mucho menos, a tiempo real, la cantidad de peticiones que se hacian era grande, al rededor de 2 centenas por Agente por timestep. Vimos que había varias fases de la simulación que se podían optimizar, ejecutando en una única consulta más de una petición que hiciera SimulAgents y así reducir significativamente el tiempo de simulación. Este tipo de mejoras plantemos implementarlas en caso de que nos diese tiempo.
+Tras migrar correctamente la versión de la API se consiguió ejecutar satisfactoriamente la totalidad del proyecto haciendo uso del LLM. Sin embargo la velocidad no era, ni mucho menos, a tiempo real, la cantidad de peticiones que se hacian era grande, al rededor de 2 decenas por Agente por timestep. Vimos que había varias fases de la simulación que se podían optimizar, ejecutando en una única consulta más de una petición que hiciera SimulAgents y así reducir significativamente el tiempo de simulación. Este tipo de mejoras planteámos implementarlas en caso de que nos diese tiempo.
 
 \section{Problemas encontrados}
 
