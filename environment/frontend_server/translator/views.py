@@ -347,9 +347,9 @@ def ver_simulacion(request):
       meta_f = f"{simu_f}/meta.json"
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
-
+        print(simu_meta)
         # Indicar que no hay resumen disponible si no se ha podido generar
-        if (simu_meta['summary'] == None or not simu_meta['summary']):
+        if (not 'summary' in simu_meta.keys() or simu_meta['summary'] == None or not simu_meta['summary']):
           simu_meta['summary'] = "No hay resumen disponible para esta simulación"
 
         if (simu_meta['fork_sim_code'] == None or not simu_meta['fork_sim_code']):
