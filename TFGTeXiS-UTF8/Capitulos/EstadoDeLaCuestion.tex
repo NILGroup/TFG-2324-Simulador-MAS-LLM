@@ -3,9 +3,88 @@
 
 En este capítulo, se estudiarán detalladamente las simulaciones basadas en agentes de inteligencia artificial y modelos de lenguaje, así como las complejidades en las relaciones sociales y la interacción persona-ordenador. El objetivo fundamental es contextualizar la evolución histórica y actual de estos temas, destacando la relevancia de su estudio y desarrollo, subrayando la importancia de que estos sistemas puedan ser fácilmente extensibles y utilizados por profesionales de distintos ámbitos. El capítulo se dividirá en varios puntos, los cuales se pueden englobar en dos secciones.
 
-La primera sección del estado de la cuestión se centra en las simulaciones basadas en agentes y su aplicación en entornos de inteligencia artificial. Se explorarán los avances tecnológicos, las metodologías y los desarrollos más recientes que han influido en la creación de sistemas de simulación avanzados. Asimismo, se examinará la relación de estos agentes con modelos de lenguaje, identificando los desafíos de esta convergencia tecnológica.
+La primera mitad del presente capítulo del Estado de la Cuestión se centra en las simulaciones basadas en agentes y su aplicación en entornos de inteligencia artificial. Se explorarán los avances tecnológicos, las metodologías y los desarrollos más recientes que han influido en la creación de sistemas de simulación avanzados. Asimismo, se examinará la relación de estos agentes con modelos de lenguaje, identificando los desafíos de esta convergencia tecnológica.
 
 Después, se revisarán los desarrollos más destacados en procesamiento del lenguaje natural (PLN) y cómo estos contribuyen a la mejora de la interacción entre humanos y sistemas de inteligencia artificial. Además, se explorarán los aspectos psicológicos relacionados con las relaciones sociales en el contexto de la informática. También se centrará en la interacción persona-ordenador, se analizarán las tendencias actuales en diseño centrado en el usuario y las estrategias para garantizar que las simulaciones de inteligencia artificial sean accesibles a todos los públicos, independientemente de su desconocimiento sobre la tecnología.
+
+\section{Generative Agents: el estudio original del que se parte}
+Como se ha mencionado en la introducción, el desarrollo del presente trabajo parte inicialmente de otro estudio realizado previamente, en el que se emplea un sistema multiagente para la simulación social (los cuales serán tratados en la sección \ref{sistemasMultiagente}) y cuyo foco es demostrar que pueden emerger ciertos fenómenos sociales a partir de esta simulación \citep{park2023generative}.
+
+Este estudio logra demostrar de manera exitosa la generación de relaciones sociales y de recuerdos en la memoria, indicando así que mediante el diseño y arquitectura iniciales, podían estudiar el comportamiento humano en cierta medida.
+
+En el presente capítulo, trataremos por un lado el diseño existente en el estudio de \textit{Generative Agents}, así como las funcionalidades que ejecutaba inicialmente la aplicación, para tener claro el funcionamiento inicial de nuestro sistema y qué era lo que ya había previamente implementado.
+
+\subsection{Diseño original del sistema}
+El sistema fue diseñado para los propósitos previamente mencionados, por lo que, como los objetivos principales de este trabajo se apoyan en el desarrollo realizado en este estudio, no hemos cambiado este diseño y esta arquitectura, ya que se ha demostrado que funciona. Lo que hemos realizado son adaptaciones y extensiones al programa previamente existente.
+
+La arquitectura básica sobre la que se basa el artículo de \ga se puede apreciar en la figura \ref{fig:arquitecturaGenAgents}. En esta, se ve cómo la información y memorias que generan los usuarios se percibe por tres medios distintos: la percepción (\textit{perceive}), el plan y la reflexión(\textit{reflection}). Estos tres modos de obtención son muy importantes y se explicará más en detalle en qué consiste cada uno.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.9\textwidth]{Imagenes/Vectorial/arquitecturaGenAgents.png}
+	\caption{Arquitectura del estudio \ga \citep{park2023generative}}
+	\label{fig:arquitecturaGenAgents}
+\end{figure}
+
+\begin{itemize}
+	\item\textbf{Percepción} de la información: La primera manera de los agentes para obtener información del exterior, y la más obvia, es mediante la percepción que estos agentes tienen respecto del ambiente que les rodea. Es decir, todo su entorno con el que pueen interactuar, como pueden ser objetos, lugares u otros personajes de la simulación.
+	
+	Mediante la percepción de información externa, los personajes la procesan y la guardan en su memoria de una manera directa.
+	
+	\item\textbf{Plan} de las siguientes acciones a realizar: Una vez el agente ya ha almacenado varias memorias y recuerdos (ya sea por el contexto inicial que se le otorga o porque las ha percibido del entorno), el personaje podrá utilizar esta información para planear cierta acción, que esta se mueva al flujo de memoria y que finalmente se guarde con el resto de memorias.
+	
+	Así, un usuario podría elaborar un plan a partir de ciertos conocimientos que tenga en ese momento, por lo que el plan será la siguiente acción que realizará el agente.
+	
+	\item\textbf{Reflexión} de los conocimientos adquiridos: Por último, los agentes podrán reflexionar sobre la información que ya conocen. Una vez tienen cierto volumen de memorias y reciben nueva información que se contradice con alguna de sus memorias, estos agentes realizarán una tarea de reflexión, comparando así los dos datos y decidiento cuál tomar como referencia.
+	
+	Esto es un claro ejemplo de cómo los agentes pueden cambiar de opinión a medida que avanza la simulación, si estos reciben estímulos u opiniones que se contradigan con lo que ellos inicialmente piensan.
+\end{itemize}
+
+Estos tres métodos alteran la memoria de cada personaje, de la cual se extraerá el contenido necesario para realizar la acción pertinente en cada momento. Los tres son sumamente importantes para la correcta ejecución de la aplicación, ya que, como se aprecia en la figura \ref{fig:difGenAgents} si alguno de estos se extrae de la arquitectura, esta deja de tener tanta solidez en cuanto a resultados.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = 0.6\textwidth]{Imagenes/Vectorial/difGenAgents.png}
+	\caption{Diferencia de rendimiento de \textit{Generative Agents}  con diferentes arquitecturas \citep{park2023generative}}
+	\label{fig:difGenAgents}
+\end{figure}
+
+La figura \ref{fig:difGenAgents} representa el grado en que las diferentes arquitecturas producen un comportamiento parecido al humano. Tras desarrollar el sistema completo, los creadores del artículo original llevaron a cabo un estudio en el que se comparaban las distintas arquitecturas para ver cuál producía unos resultados más similares a como lo haría un humano. Para esto, pidieron a cada arquitectura que simulara ciertas situaciones y extrayese conclusiones, y después contrataron una serie de personas que revisasen todos los resultados, los cuales determinarían el grado de 'humanidad' de cada uno.
+
+La primera barra, de color rojo, es la que usa la arquitectura completa, implementando observación, plan y reflexión de los hechos. Vemos que esta arquitectura produce unos resultados más humanos incluso que los propios humanos a los que se pidió realizar este experimento (representados en la barra de color negro) en este experimento, lo cual sorprende en gran medida, ya que simulan un comportamiento más humano que los propios humanos, según la percepción de los evaluadores humanos de la encuesta.
+
+Seguidamente, en tres tonos de gris distintos, vemos cuáles son los resultados de extraer la observación, el plan y/o la reflexión de la ecuación. Vemos que, a medida que se van extrayendo medios de captación de información de los agentes, la carga 'humana' en los resultados se va disminuyendo, por lo que dan resultados más artificiales que usando la arquitectura completa.
+
+\subsection{Funcionalidades preexistentes}
+\label{genAgents}
+
+Una vez conocido el diseño y la arquitectura principales del sistema, se indicarán las funcionalidades más importantes de la aplicación desarrollada en el estudio de \ga. Para cada una de estas se realizará un análisis y el impacto que tienen en el sistema.
+
+Conociendo esto, podremos saber cuáles eran las funcionalidades que ya se habían implementado inicialmente. Así, en los capítulos posteriores se explicará el proceso de trabajo para desarrollar nuevas funcionalidades y, finalmente, en el capítulo \ref{cap:conclusiones}, correspondiente al apartado de conclusiones, se definirán los resultados finales de las funcionalidades que se han ampliado e implementado durante el presente desarrollo.
+
+\begin{itemize}
+	\item\textbf{Creación de simulaciones}: El sistema inicial ya permitía la creación de simulaciones entre agentes independientes. De hecho, este era el propósito principal del estudio, observar si los agentes independientes eran capaces de compartir y retener información. Finalmente se concluyó que sí, lo cual abre un mundo de posibilidades para realizar estudios con este programa.
+	
+	Uno de los principales problemas encontrados en la creación de simulaciones era que los personajes estaban muy estrechamente vinculados al propio mapa. Las simulaciones siempre se realizaban con los mismos personajes y sus personalidades eran siempre las mismas, lo cual no permitía ningún tipo de estudio de las relaciones sociales.
+	
+	\item\textbf{Ejecución de simulaciones}: Además de poder crear, el sistema permitía ejecutar las simulaciones creadas. Como estas siempre contenían los mismos personajes, la única interacción real para el estudio era que el ususario se comunicase con los personajes y les indicara qué debían hacer, lo cual también estaba implementado.
+	
+	El problema con esto es que, tanto la ejecución de cada paso de la simulación como los susurros a los personajes, se realizaban desde la terminal, lo cual no era completamente intuitivo.
+	
+	\item\textbf{Visualización de simulaciones pasadas}: A la hora de visualizar simulaciones pasadas, ya existe un modo conocido como demo, en el cual los usuarios pueden ver el estado actual de cada uno de los personajes, pudiendo visualizar su estado y la acción que están realizando.
+	
+	El problema de esta visualización, de nuevo, es que deben ser cargadas desde la terminal y están limitadas a simplemente observar lo que hace el personaje en cada momento. 
+	
+	\item\textbf{Vistas relacionadas}: Además de estas funcionalidades anteriormente mencionadas, en la aplicación están disponibles las vistas que acompañan a la visualización y ejecución de simulaciones. 
+	Sin embargo, estas vistas no están interconectadas entre sí y no existe una aplicación como tal, sino que desde la terminal se ejecutan ciertas acciones y se accede a algunas de las vistas aisladas.
+	
+\end{itemize}
+
+\section{Sistemas multiagente para la simulación social}
+\label{sistemasMultiagente}
+
+\textcolor{red}{ESTO AÚN FALTA POR ESCRIBIR}
+
 \section{Agentes}
 
 Los sistemas informáticos se asumen como obedientes máquinas que siguen todas las instrucciones que les solicitamos o programamos, resultando en un fallo del sistema o pérdida de archivos en el mejor de los casos o en la pérdida de vidas en el peor. Sin embargo hay ciertas aplicaciones o tareas en las que necesitamos una capacidad de resiliencia y decisión que con los sistemas tradicionales no es posible obtener. Sobre todo en entornos de rápido cambio, impredecibles y donde la cantidad de posibles situaciones no permita la posibilidad de plantearse cualquier escenario desde el diseño.

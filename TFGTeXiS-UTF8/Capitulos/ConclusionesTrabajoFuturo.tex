@@ -1,9 +1,59 @@
 \chapter{Conclusiones y Trabajo Futuro}
 \label{cap:conclusiones}
 
-En el presente trabajo se ha desarrollado un sistema que permite el acceso a la simulación multiagente para el estudio de las relaciones sociales e investigación de la emergencia de fenómenos sociales. Esto permitirá que sea una herramienta muy útil para que psicólogos puedan analizar el comportamiento humano simulado, y se puedan predecir ciertas situaciones.
+En el presente trabajo se ha desarrollado un sistema que permite el acceso a la simulación multiagente para el estudio de las relaciones sociales e investigación de la emergencia de fenómenos sociales. Esto permitirá que sea una herramienta muy útil para que cualquier tipo de usuario sin conocimiento de informática, como psicólogos (especialmente interesados en las simulaciones sociales) puedan analizar el comportamiento humano simulado, y se puedan predecir ciertas situaciones.
 
-En el presente capítulo, se describen las conclusiones tras analizar el trabajo una vez finalizado, además de posibles futuras extensiones que se habrían incluído en este trabajo si se hubiese dispuesto del tiempo necesario, ya que sería interesante verlas implementadas en el futuro.
+En el presente capítulo se describen tres subapartados. El primero de ellos es una especie de discusión en la que, tras exponer el sistema original en el capítulo del Estado de la Cuestión y tras ver las implementaciones y trabajo que hemos realizado a lo largo del resto de capítulos, pretendemos mostrar el impacto que los cambios realizados han tenido en el resultado final del sistema, mostrando así las diferencias en la aplicación al principio respecto a ahora. En el segundo subapartado se tratan las conclusiones tras analizar el trabajo una vez finalizado. Finalmente, en el último subapartado se profundizan en algunas de las posibles futuras extensiones que se habrían incluido en este trabajo si se hubiese dispuesto del tiempo necesario, ya que sería interesante verlas implementadas en el futuro.
+
+\section{Diferencias entre el Sistema Original y el Actual}
+
+Teniendo en cuenta las funcionalidades que existían originalmente en el sistema, discutidas en profundidad en la sección \ref{genAgents}, y conociendo la serie de desarrollos que se han realizado para modificar esta aplicación discutidos en los capítulos anteriores, dividimos estas modificaciones en dos apartados: las funcionalidades ampliadas y las nuevas funcionalidades.
+
+\subsection{Funcionalidades ampliadas}
+Este primer apartado aborda las funcionalidades que ya se encontraban originalmente desarrolladas. Para estas, existen algunas nuevas características que se han implantado durante el desarrollo de este trabajo que se basan en ellas para funcionar, las cuales son las mencionadas a continuación.
+
+\subsubsection{Susurros a los personajes mediante la interfaz}
+Como se mencionó en el apartado \ref{genAgents}, la funcionalidad de susurrar a los personajes ya estaba implementada en el sistema original. Sin embargo, para poder hacer esto era necesario acudir a la terminal y desde ahí seleccionar el personaje y la información. 
+
+Tal y como se ha extendido, se podrá acceder a uno de los personajes clicando en su persona en la parte inferior de la simulación y una vez hecho esto, habrá un botón en el que el usuario se podrá comunicar directamente y susurrar la acción o la personalidad que quiera que interprete el personaje.
+
+Este flujo de acción se ha visto en el capítulo 5 de la interfaz, más específicamente en el apartado  \ref{botonSusurro}, donde se puede ver el botón de susurro y el modal resultante al clicar este botón.
+
+\subsubsection{Nuevas vistas}
+Además de las vistas existentes, se han creado nuevas páginas, de modo que la aplicación se pueda usar exclusivamente desde la interfaz gráfica, sin necesidad de acceder a la terminal (esto ayuda a usar la aplicación a las personas no técnicas) y uniéndolas todas en diferentes vistas.
+
+Por un lado, se han creado vistas como la landing, una página para crear simuaciones desde la web, y otras páginas para visualizar y continuar simulaciones para poder acceder directamente desde ahí a ellas, simplemente clicando. Por el otro, también se han enriquecido las vistas ya existentes añadiendo botones como los de susurrar o chatear con los agentes durante la siulación.
+
+Además, se ha añadido una barra de navegación mediante la cual se podrá navegar por la aplicación y acceder a todas las vistas necesarias para ejecutar y visualizar simulaciones.
+
+\subsection{Nuevas funcionalidades}
+Finalmente, existen funcionalidades que no existían en la aplicación original y hemos añadido, aportando así valor al sistema ya existende y reiterando su importancia para el uso en investigación psicológica.
+
+\subsubsection{Interacción total mediante la interfaz}
+Además de lo visto anteriormente, en cuanto al botón de susurrar a los personajes, y siguiendo con el objetivo principal de acercar esta herramienta a perfiles menos tecnológicos, una adaptación que se ha realizado es que todas las interacciones con la herramienta se pueden desarrollar desde el frontend de la aplicación.
+
+Antes era necesario crear una instancia del backend, mediante la cual conocer los archivos que componían el sistema e interactuar con el programa mediante la terminal. Ahora, los usuarios serán agnósticos de la implementación y cuando se ejecute una simulación, se creará e interactuará con la terminal mediante el frontend. Esta funcionalidad está explicada a bajo nivel en el capítulo \ref{cap:extensiones}.
+
+\subsubsection{Función de chat en tiempo real con los agentes}
+Similar a la funcionalidad de susurro, hemos implementado una nueva característica en la que los usuarios podrán, en medio de una simulación, chatear con cualquiera de los personajes para preguntarles su opinión sobre ciertos temas, para ver cómo va avanzando a medida que avanza la simulación.
+
+En este caso, se diferencia del susurro ya que la interacción en el chat no influirá en el comportamiento del agente en la simulación.
+
+Al igual que ocurría con el botón de susurro, el flujo de interacción con el botón y la ventana emergente del chat se puede ver en el apartado \ref{botonSusurro}.
+
+\subsubsection{Guardado y gestión de nuevas simulaciones}
+
+En cuanto al guardado de simulaciones, tal y como estaba organizado inicialmente, mediante el uso de los comandos se podía salir de la ejecución de la simulación y esta se guardaba en una carpeta dentro del propio sistema del usuario. El problema a la hora de volver a estas simulaciones, tanto para visualizarlas como para continuarlas, era que se guardaban todas en la misma carpeta, y era difícil de recuperarlas, ya que tenías que añadir el nombre exacto de la simulación mediante el uso de la consola.
+
+Ahora, las simulaciones se seguirán guardando en el mismo sitio y reteniendo la misma información, pero para recuperarlas y poder ejecutarlas o verlas, estarán disponibles en una sola vista todas las que el usuario tenga guardadas, y con un simple clic podrá acceder a ellas para realizar la acción que desee. Ya sea continuar con la simulación o visualizarla. Además, en el apartado de visualizar simulación, también habrá un link que redirigirá a los usuarios a la simulación de la que parte esa repetición, para que así puedan modificarla a su gusto si quisiesen experimentar con ella.
+
+Además, se añade la funcionalidad de la gestión de las nuevas simulaciones, pudiendo crearlas y editarlas fácilmente, así como visualizarlas, ejecutarlas o modificarlas puramente desde la interfaz gráfica.
+
+\subsubsection{Resúmenes de simulaciones}
+
+Para aportar valor y contexto a las simulaciones, se ha añadido la función de la generación automática de resúmenes. Una vez el usuario realiza una simulación y la desea guardar para poder visualizarla en el futuro, dentro del proceso de guardado de la simulación y compresión de los datos, también se generará un resumen automáticamente, llamando al modelo de lenguaje para ello, en el que se indique a alto nivel lo ocurrido durante la simulación y los momento en los que ocurren las situaciones más interesantes a estudiar (momentos de interacción entre agentes, en los que el usuario ha interactuado con ellos, en los que cambia algo importante en la simulación, etc.) para que el investigador pueda visualizar los momentos más interesantes o modificar la simulación desde ese punto.
+
+Estos resúmenes estarán disponibles una vez se finalice y se guarde la simulación, a modo de indicativo sobre lo que ha ocurrido durante esta a alto nivel. Si tras leer el resumen el usuario quiere modificar la simulación, puede tomar uno de los tiempos de referencia y editar la simulación desde ese punto, para así estudiar las diferencias dependiendo de qué cambie a partir de ciertas modificaciones en determinados puntos clave de la simulación.\\
 
 \section{Conclusiones}
 
