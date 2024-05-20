@@ -1,4 +1,380 @@
-\chapter{Título del Apéndice A}
-\label{Appendix:Key1}
+\chapter{Templates evaluados}
+\label{Appendix:TemplatesEvaluados}
 
-Los apéndices son secciones al final del documento en las que se agrega texto con el objetivo de ampliar los contenidos del documento principal.
+\section{Input}
+\subsection{action\_location\_object}
+\begin{quote}
+	\gentxt{
+		Jane Anderson is in kitchen in Jane Anderson's house. \\
+		Jane Anderson is going to Jane Anderson's house that has the following areas: \{kitchen,  bedroom, bathroom\} \\
+		Stay in the current area if the activity can be done there. Never go into other people's rooms unless necessary. \\
+		For cooking, Jane Anderson should go to the following area in Jane Anderson's house: \\
+		Answer: \{kitchen\} \\
+		--- \\
+		Tom Watson is in common room in Tom Watson's apartment.  \\
+		Tom Watson is going to Hobbs Cafe that has the following areas: \{cafe\} \\
+		Stay in the current area if the activity can be done there. Never go into other people's rooms unless necessary. \\
+		For getting coffee, Tom Watson should go to the following area in Hobbs Cafe: \\
+		Answer: \{cafe\} \\
+		--- \\
+		 \\
+		Isabella Rodriguez is going to Isabella Rodriguez's apartment that has the following areas: \{main room, bathroom\} \\
+		* Stay in the current area if the activity can be done there.  \\
+		* NEVER go into other people's rooms unless necessary. \\
+		Isabella Rodriguez is preparing the upcoming Valentine's Day party. For ordering food for the party, Isabella Rodriguez should go to the following area in Isabella Rodriguez's apartment (MUST pick one of \{main room, bathroom\}): \\
+		Answer: \{
+	}
+\end{quote}
+\newpage
+
+\subsection{action\_object}
+\begin{quote}
+	\gentxt{
+		Current activity: sleep in bed \\
+		Objects available: \{bed, easel, closet, painting\} \\
+		Pick ONE most relevant object from the objects available: bed \\
+		--- \\
+		Current activity: painting \\
+		Objects available: \{easel, closet, sink, microwave\} \\
+		Pick ONE most relevant object from the objects available: easel \\
+		--- \\
+		Current activity: cooking \\
+		Objects available: \{stove, sink, fridge, counter\} \\
+		Pick ONE most relevant object from the objects available: stove \\
+		--- \\
+		Current activity: watch TV \\
+		Objects available: \{couch, TV, remote, coffee table\} \\
+		Pick ONE most relevant object from the objects available: TV \\
+		--- \\
+		Current activity: study \\
+		Objects available: \{desk, computer, chair, bookshelf\} \\
+		Pick ONE most relevant object from the objects available: desk \\
+		--- \\
+		Current activity: talk on the phone \\
+		Objects available: \{phone, charger, bed, nightstand\} \\
+		Pick ONE most relevant object from the objects available: phone \\
+		--- \\
+		Current activity: ordering food for the party \\
+		Objects available: \{bed, desk, refrigerator, closet, shelf\} \\
+		Pick ONE most relevant object from the objects available:
+	}
+\end{quote}
+\newpage
+
+\subsection{generate\_event\_triple}
+\begin{quote}
+	\gentxt{
+		Task: Turn the input into (subject, predicate, object).  \\
+		 \\
+		Input: Sam Johnson is eating breakfast.  \\
+		Output: (Dolores Murphy, eat, breakfast)  \\
+		---  \\
+		Input: Joon Park is brewing coffee. \\
+		Output: (Joon Park, brew, coffee) \\
+		--- \\
+		Input: Jane Cook is sleeping.  \\
+		Output: (Jane Cook, is, sleep) \\
+		--- \\
+		Input: Michael Bernstein is writing email on a computer.  \\
+		Output: (Michael Bernstein, write, email) \\
+		--- \\
+		Input: Percy Liang is teaching students in a classroom.  \\
+		Output: (Percy Liang, teach, students) \\
+		--- \\
+		Input: Merrie Morris is running on a treadmill.  \\
+		Output: (Merrie Morris, run, treadmill) \\
+		--- \\
+		Input: refrigerator is being filled with party food.  \\
+		Output: (refrigerator,
+	}
+\end{quote}
+\newpage
+
+\subsection{insight\_and\_evidence}
+\begin{quote}
+	\gentxt{
+		Input: \\
+		0. Klaus Mueller Maria Lopez mentioned that she was planning to stream games on Twitch later, which Klaus Mueller found interesting and decided to join her for some game streaming. \\
+		1. Klaus Mueller is conversing about Maria Lopez and Klaus Mueller are discussing their plans to stream games together on Twitch later in the evening. \\
+		2. Klaus Mueller is waiting to start writing the introduction \\
+		3. Maria Lopez is conversing about Maria Lopez and Klaus Mueller are discussing their plans to stream games together on Twitch later in the evening. \\
+		4. conversing about Maria Lopez and Klaus Mueller are discussing their plans to stream games together on Twitch later in the evening. \\
+		5. For Klaus Mueller's planning: needs to remember to message Maria when he's ready to start streaming games on Twitch later tonight. \\
+		6. common room table is being used by Klaus Mueller for research paper writing in the library \\
+		7. reviewing her notes \\
+		8. Klaus Mueller is actively researching a topic \\
+		9. researching new topics related to the class \\
+		10. preparing for the next lecture \\
+		11. writing the introduction \\
+		12. writing the introduction \\
+		13. leaving for college \\
+		14. Klaus Mueller Maria Lopez is heading off to college. \\
+		15. researching the topic \\
+		16. Klaus Mueller is socially active \\
+		17. Klaus Mueller is organized and prepared \\
+		18. Klaus Mueller is academically inclined \\
+		19. Klaus Mueller is organized \\
+		20. Klaus Mueller and Maria Lopez have a close relationship \\
+		21. Klaus Mueller has a close relationship with Maria Lopez \\
+		22. Klaus Mueller has a crush on Maria Lopez. \\
+		23. closing the cafe \\
+		24. Klaus Mueller frequents the Hobbs Cafe \\
+		25. Klaus Mueller and Maria Lopez have a strong bond \\
+		26. closing the cafe \\
+		27. Klaus Mueller has a close relationship with Maria Lopez \\
+		28. Klaus Mueller is a sociable person \\
+		29. Klaus Mueller is socially active \\
+		 \\
+		What 5 high-level insights can you infer from the above statements? (example format: insight (because of 1, 5, 3)) \\
+		1.
+	}
+\end{quote}
+\newpage
+
+
+\section{Output}
+
+\subsection{GPT-3.5}
+
+\begin{multicols}{2}
+\gentxt{\textit{action\_location\_object}}
+\begin{quote}
+    \gentxt{
+main room\}
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{action\_object}}
+\begin{quote}
+    \gentxt{
+refrigerator
+    }
+\end{quote}
+\end{multicols}
+
+\begin{multicols}{2}
+\gentxt{\textit{generate\_event\_triple}}
+\begin{quote}
+    \gentxt{
+fill, party food)
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{inisght\_and\_evidence}}
+\begin{quote}
+    \gentxt{
+Klaus Mueller and Maria Lopez have a close relationship (20, 25) \\
+2. Klaus Mueller is academically inclined and organized (18, 19) \\
+3. Klaus Mueller is socially active and sociable (16, 29, 28) \\
+4. Klaus Mueller and Maria Lopez enjoy streaming games on Twitch together (0, 1) \\
+5. Klaus Mueller frequents the Hobbs Cafe, indicating a routine or habit (24)
+    }
+\end{quote}
+\end{multicols}
+\newpage
+
+\subsection{7B-32}
+
+\begin{multicols}{2}
+\gentxt{\textit{action\_location\_object}}
+\begin{quote}
+    \gentxt{
+main room\}</s> [end of text]
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{action\_object}}
+\begin{quote}
+    \gentxt{
+refrigerator \\
+--- \\
+Current activity: cleaning the house
+    }
+\end{quote}
+\end{multicols}
+
+\begin{multicols}{2}
+\gentxt{\textit{generate\_event\_triple}}
+\begin{quote}
+    \gentxt{
+ is, being, filled) \\
+--- \\
+Input: The cat is purring. \\
+Output: (cat, is, purr)
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{inisght\_and\_evidence}}
+\begin{quote}
+    \gentxt{
+Klaus Mueller is planning to stream games on Twitch later (because of 0) \\
+2. Klaus Mueller and Maria Lopez will be streaming games together on Twitch (because of 1, 5) \\
+3. Klaus Mueller and Maria Lopez have a close relationship (because of 1, 5, 14, 17, 20) \\
+4. Klaus Mueller is socially active (because of 16) \\
+5. Klaus Mueller is academically inclined (because of 18)</s> [end of text]
+    }
+\end{quote}
+\end{multicols}
+\newpage
+
+\newpage
+
+\subsection{7B-Q4}
+
+\begin{multicols}{2}
+\gentxt{\textit{action\_location\_object}}
+\begin{quote}
+    \gentxt{
+main room\} \\
+---
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{action\_object}}
+\begin{quote}
+    \gentxt{
+refrigerator</s> [end of text]
+    }
+\end{quote}
+\end{multicols}
+
+\begin{multicols}{2}
+\gentxt{\textit{generate\_event\_triple}}
+\begin{quote}
+    \gentxt{
+is, being, filled) \\
+--- \\
+Input: John Lee is giving a presentation. \\
+Output: (John Lee, give, presentation)
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{inisght\_and\_evidence}}
+\begin{quote}
+    \gentxt{
+Klaus Mueller is planning to stream games with Maria Lopez on Twitch (because of 0, 2, 4). \\
+2. Klaus Mueller is interested in Maria Lopez (because of 1, 5, 20). \\
+3. Klaus Mueller is organized and prepared (because of 15, 18, 20). \\
+4. Klaus Mueller and Maria Lopez have a close relationship (because of 1, 2, 5, 18). \\
+5. Klaus Mueller has a crush on Maria Lopez (because of 2, 15).</s> [end of text]
+    }
+\end{quote}
+\end{multicols}
+\newpage
+
+\newpage
+
+\subsection{13B-Q4}
+
+\begin{multicols}{2}
+\gentxt{\textit{action\_location\_object}}
+\begin{quote}
+    \gentxt{
+main room\}</s> [end of text]
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{action\_object}}
+\begin{quote}
+    \gentxt{
+refrigerator \\
+--- \\
+Current activity: decorate the party ven
+    }
+\end{quote}
+\end{multicols}
+
+\begin{multicols}{2}
+\gentxt{\textit{generate\_event\_triple}}
+\begin{quote}
+    \gentxt{
+fill, party food) \\
+--- \\
+Input: Jing Liu is painting a picture. \\
+Output: (Jing Liu, paint,
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{inisght\_and\_evidence}}
+\begin{quote}
+    \gentxt{
+Klaus Mueller is planning to stream games on Twitch later in the evening (because of 1, 5, 3) \\
+2. Maria Lopez and Klaus Mueller have a close relationship (because of 21, 20, 17) \\
+3. Klaus Mueller is organized (because of 18, 13, 5) \\
+4. Klaus Mueller has a crush on Maria Lopez (because of 22, 3) \\
+5. Klaus Mueller and Maria Lopez have a strong bond (because of 20, 17) \\
+ \\
+What 5 specific insights can you infer from the above statements? (example format:
+    }
+\end{quote}
+\end{multicols}
+\newpage
+
+\newpage
+
+\subsection{13B-Q6}
+
+\begin{multicols}{2}
+\gentxt{\textit{action\_location\_object}}
+\begin{quote}
+    \gentxt{
+main room\}</s> [end of text]
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{action\_object}}
+\begin{quote}
+    \gentxt{
+refrigerator \\
+--- \\
+ \\
+Please note that the objects available in
+    }
+\end{quote}
+\end{multicols}
+
+\begin{multicols}{2}
+\gentxt{\textit{generate\_event\_triple}}
+\begin{quote}
+    \gentxt{
+fill, party food) \\
+--- \\
+Input: the dog is barking loudly. \\
+Output: (dog, bark, loud
+    }
+\end{quote}
+
+\columnbreak
+
+\gentxt{\textit{inisght\_and\_evidence}}
+\begin{quote}
+    \gentxt{
+Klaus Mueller and Maria Lopez have a close relationship (because of 21, 25) \\
+2. Klaus Mueller is socially active (because of 16, 17) \\
+3. Klaus Mueller is organized (because of 18, 19) \\
+4. Klaus Mueller is academically inclined (because of 13, 15) \\
+5. Klaus Mueller has a crush on Maria Lopez (because of 22, 24)</s> [end of text]
+    }
+\end{quote}
+\end{multicols}
+\newpage
+
+\newpage

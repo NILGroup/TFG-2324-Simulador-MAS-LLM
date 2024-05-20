@@ -635,11 +635,15 @@ En este momento decidimos retomar el uso de la API y enlazarlo, ya finalmente, c
 
 Tras migrar correctamente la versión de la API se consiguió ejecutar satisfactoriamente la totalidad del proyecto haciendo uso del LLM. Sin embargo la velocidad no era, ni mucho menos, a tiempo real, la cantidad de peticiones que se hacian era grande, al rededor de 2 decenas por Agente por timestep. Vimos que había varias fases de la simulación que se podían optimizar, ejecutando en una única consulta más de una petición que hiciera SimulAgents y así reducir significativamente el tiempo de simulación. Este tipo de mejoras planteámos implementarlas en caso de que nos diese tiempo.
 
+Por concluir, la selección del modelo de lenguaje conllevó la prueba de distintas opciones, tanto privadas como públicas, encontrando problemas desde el versionado, la calidad generativa y los requisitos en el tiempo de respuesta, llevandonos finálmente a quedarnos con la opción inicial. La API de OpenAI. Elección que, gracias al desarrollo acelerado en el campo de la IA a dado resultados bastante más favorables de lo esperado. Beneficiándonos de velocidades incrementadas de respuesta y de calidades generativas mayores a la vez que el coste de ejecución se reducía.
+
+Por ello creemos que esta herramienta solo verá mejoras con el tiempo desde el punto presente.
+
 \section{Problemas encontrados}
 
 En esta sección se tratarán algunos de los problemas surgidos durante el desarrollo de todo el proyecto. Teniendo en cuenta el planteamiento inicial, y debido a que el tema tratado en este trabajo es una investigación novedosa implementada por terceros, surgieron varios problemas e imprevistos que tuvimos que superar y resolver.
 
-\subsection{Llamadas al back end durante la simulación}
+\subsection{Llamadas al Back End durante la simulación}
 
 Uno de los principales problemas con el que nos encontramos fueron las dificultades de hacer llamadas al back end mientras se ejecutaba una simulación. Esto era debido a que, mientras una simulación se ejecuta, en la interfaz se puede ver el mapa con todos los personajes, ejecutando las acciones en cada momento. Este mapa se renderiza y ejecuta utilizando la tecnología de Phaser, un framework usado para desarrollar videojuegos usando HTML.
 
@@ -649,6 +653,14 @@ Tras investigar y dar con la raíz del problema, se abrían varias opciones para
 
 La segunda opción, y la que decidimos implementar finalmente, fue la de intentar pausar la ejecución de la simulación para que así Phaser "libere" los recursos y permita a los usuarios usar la barra espaciadora. Esto nos resultó con mayor sentido ya que así el usuario no tendría que estar constantemente cambiand entre vistas y resultaría en una mejor experiencia. Por tanto, implementamos unos botones para pausar y reanudar la simulación, que cuando se pulsan activan y desactivan otros ciertos botones. Por ejemplo, cuando se reanuda la simulación, no se permite al usuario chatear o susurrar con los personajes (se desactivan estos botones), pero cuando se pausa la simulación, el botón que se desactiva es el de ejecutar steps de la simulación.
 
+\subsubsection{Readaptación de Back End para interacción con Front}
+
+El trabajo inicial se había pensado para recibir la fuente de información desde un único punto, una terminal. El objetivo principal del trabajo en que nos basámos fué la evaluación de fenómenos sociales, en lugar de desarrollar una aplicación para el público general.
+
+Esto se nota en la intrincada relación que se encuentra entre la implementación del Back, la comunicación con el LLM y la implementación de la arquitectura de personalidad propuesta. Debido al tamaño del proyecto existente una refactorización bien hecha era realmente complicada, por lo que se optó por reutilizar la estructura existente, que sí permitía la extracción de información generada por el sistema de una forma sencilla (con lo que se podrían añadir extensiones al programa), y ponerle capas por encima para adaptarla a la infraestructura que buscábamos. Con el objetivo de encontrar una interacción con el sistema que fuera más natural.
+
+Esta readaptación conllevó el uso de recursos de sistema como Pipes de comunicación entre procesos de forma nativa, para poder redirigir el flujo de comunicación que la aplicación tenía con la terminal, a un proceso gestionado por el Front que enviase y recibiese la información deseada. La infraestructura propuesta se discute en más detalle en la sección \ref{section:adaptacionEjecucionComandosBackFront}.
+
 \subsection{Acoplo de los personajes al mapa original}
 \label{problemaPersonajes}
 Como se ha mencionado en varias ocasiones, el sistema original no estaba pensado para ser extensible en multitud de aspectos. Uno de los aspectos más importantes es que todos los personajes tenían nombres, apariencias y personalidades predefinidas, lo que no permitía a los usuarios modificar los personajes y sus personalidades, por tanto, se verían encorsetados a siempre utilizar los mismos personajes con las mismas relaciones entre ellos y generar experimentos a partir de esto, lo cual limita muchísimo el uso de esta aplicación.
@@ -657,7 +669,7 @@ Uno de los mayores retos que nos propusimos fue despegar a los personajes de sus
 
 Al no estar inicialmente pensado el sistema para esto, todos los nombres de los personajes, sus pensamientos, experiencias y objetos en el mapa, estaban directamente "hardcodeados" en el programa. Es decir, que estaban escritos directamente y no se permitía que se cambiasen.
 
-El mayor problema fue hacer que los personajes fuesen agnósticos del mapa en el que se encontraban. El mapa inicial trataba de simular una villa, por lo que cada casa y cada objeto tenía el nombre de la familia o personaje que fuese su dueño, lo cual hacía muy fácil la interacción con los objetos de los distintos personajes. Nuestra solución fue que los personajes mantuviesen los nombres originales, pero que eso no influyese en la simulación, ya que ahora no importarían los objetos dentro de la simulación y los usuarios podrían decidir el contexto en el que se encuentran los persoajes, por lo que el mapa servirá ahora simplemente como un contenedor para visualizar la simulación.
+El mayor problema fue hacer que los personajes fuesen agnósticos del mapa en el que se encontraban. El mapa inicial trataba de simular una villa, por lo que cada casa y cada objeto tenía el nombre de la familia o personaje que fuese su dueño, lo cual hacía muy fácil la interacción con los objetos de los distintos personajes. Nuestra solución fue que los personajes mantuviesen los nombres originales, pero que eso no influyese en la simulación, ya que ahora no importarían los objetos dentro de la simulación y los usuarios podrían decidir el contexto en el que se encuentran los personajes, por lo que el mapa servirá ahora simplemente como un contenedor para visualizar la simulación.
 
 \subsection{Problema instalación de requerimientos del proyecto}
 

@@ -63,9 +63,9 @@ Una vez conocido el diseño y la arquitectura principales del sistema, se indica
 Conociendo esto, podremos saber cuáles eran las funcionalidades que ya se habían implementado inicialmente. Así, en los capítulos posteriores se explicará el proceso de trabajo para desarrollar nuevas funcionalidades y, finalmente, en el capítulo \ref{cap:conclusiones}, correspondiente al apartado de conclusiones, se definirán los resultados finales de las funcionalidades que se han ampliado e implementado durante el presente desarrollo.
 
 \begin{itemize}
-	\item\textbf{Creación de simulaciones}: El sistema inicial ya permitía la creación de simulaciones entre agentes independientes. De hecho, este era el propósito principal del estudio, observar si los agentes independientes eran capaces de compartir y retener información. Finalmente se concluyó que sí, lo cual abre un mundo de posibilidades para realizar estudios con este programa.
+	\item\textbf{Bifurcación de Simulaciones}: El sistema inicial permitía la creación de una simulación en base a una existente, siempre desde el último punto en el tiempo de la simulación preexistente. Esto implicaba una restricción muy grande a la hora de realizar simulaciones. Tan solo se permitía modificar lo ocurrido desde el momento presente en una simulación. Había que arrastrar todos los sucesos anteriores.
 	
-	Uno de los principales problemas encontrados en la creación de simulaciones era que los personajes estaban muy estrechamente vinculados al propio mapa. Las simulaciones siempre se realizaban con los mismos personajes y sus personalidades eran siempre las mismas, lo cual no permitía ningún tipo de estudio de las relaciones sociales.
+	Uno de los problemas ocasionados por esta forma de creación de simulaciones era que los personajes ya estaban muy condicionados con la historia existente. A esto habría que incluir la imposibilidad de definir la personalidad de los personajes. Estando siempre sujetos a la que se definió en el trabajo inicial.
 	
 	\item\textbf{Ejecución de simulaciones}: Además de poder crear, el sistema permitía ejecutar las simulaciones creadas. Como estas siempre contenían los mismos personajes, la única interacción real para el estudio era que el ususario se comunicase con los personajes y les indicara qué debían hacer, lo cual también estaba implementado.
 	
@@ -77,7 +77,9 @@ Conociendo esto, podremos saber cuáles eran las funcionalidades que ya se habí
 	
 	\item\textbf{Vistas relacionadas}: Además de estas funcionalidades anteriormente mencionadas, en la aplicación están disponibles las vistas que acompañan a la visualización y ejecución de simulaciones. 
 	Sin embargo, estas vistas no están interconectadas entre sí y no existe una aplicación como tal, sino que desde la terminal se ejecutan ciertas acciones y se accede a algunas de las vistas aisladas.
-	
+
+	\item\textbf{Implementación de la arquitectura de personalidad}: El estudio previo había implementado la arquitectura de personalidad propuesta. Con el objetivo de evaluar su validez para distintos fenómenos sociales como la difusión de información. Dicha arquitectura se comprobaba válida y ya aportaba diversa información sobre los nodos de memoria, que contenían sucesos como conversaciones, pensamientos o eventos. Por lo que aprovecharemos estas estructuras implementadas para distintas ampliaciones.
+
 \end{itemize}
 
 \section{Agentes}
