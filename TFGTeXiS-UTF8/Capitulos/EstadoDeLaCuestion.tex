@@ -80,11 +80,6 @@ Conociendo esto, podremos saber cuáles eran las funcionalidades que ya se habí
 	
 \end{itemize}
 
-\section{Sistemas multiagente para la simulación social}
-\label{sistemasMultiagente}
-
-\textcolor{red}{ESTO AÚN FALTA POR ESCRIBIR}
-
 \section{Agentes}
 
 Los sistemas informáticos se asumen como obedientes máquinas que siguen todas las instrucciones que les solicitamos o programamos, resultando en un fallo del sistema o pérdida de archivos en el mejor de los casos o en la pérdida de vidas en el peor. Sin embargo hay ciertas aplicaciones o tareas en las que necesitamos una capacidad de resiliencia y decisión que con los sistemas tradicionales no es posible obtener. Sobre todo en entornos de rápido cambio, impredecibles y donde la cantidad de posibles situaciones no permita la posibilidad de plantearse cualquier escenario desde el diseño.
@@ -238,6 +233,27 @@ Esta ventaja se ve aún más potenciada al ser alimentada con comportamientos hu
 Como ejemplo tenemos \cite{nasrinpour2016agent}, donde se propone una Simulación  basada en agentes a gran escala con la intención de estudiar como se comportaba el fenómeno de la difusión de la información en base al tipo de usuarios modelados, tomando como referencia la red social Facebook.
 	\item \textbf{Economía} Tras la crisis de 2008, se han buscado modelos que permitan un mejor y mayor nivel de análisis de los mercados financieros \cite {bookstaber2017end}, \cite{farmer2009economy}. Con este objetivo, las Simulaciones Basadas en agentes ofrecen una forma de diseñar experimentos desde un enfoque bottom-up. Vemos además que el enfoque que adoptan este tipo de simulaciones permite la aparición de dinámicas muy complejas a nivel de sistema. Esto se refleja en trabajos como \cite{tesfatsion2006handbook} y Agents of Change\footnote{\url{https://web.archive.org/web/20110123110948/http://www.economist.com/node/16636121}}. En los cuales se explora la validez de este tipo de modelos a la hora de analizar cuestiones tan complejas y dinámicas como la economía.
 \end{itemize}
+
+\section{Sistemas multi-agente para la simulación social}
+\label{sistemasMultiagente}
+
+Después de comentar la historia, principios y uso reciente de las simulaciones basadas en agentes en la sección anterior, esta sección se centrará en profundizar en los sistemas multi-agente (SMA) para la simulación social específicamente. Estos son una clase de sistemas que simulan el comportamiento de agentes de Inteligencia Artificial para replicar comportamientos sociales y estudiar los mismos.
+
+\subsection{Historia de los SMA para la simulación social}
+El uso de los SMA para simulaciones sociales se remonta a la década de 1990, con la creación del modelo Sugarscape, el cual se utilizó para investigar fenónemos sociales como la contaminación o la migración, entre otros \citep{axtell1996aligning}.
+
+A lo largo de los años ha sido un tema interesante de estudio, pero muchas veces limitado por la tecnología, ya que no existían unos modelos capaces de realizar simulaciones verosímiles con las que se pudiesen estudiar relaciones sociales verosímiles. Un ejemplo de un estudio de esta índole es el realizado por varios profesores de la UCM en 2006, en el que se exploraba la investigación de SMA para sistemas sociales con agentes software, empleando el lenguaje de modelado INGENIAS y donde lo extienden para poder realizar simulaciones sociales, permitiendo así llevar a cabo el estudio de la religiosidad de la sociedad española que tiene lugar en el artículo \citep{arroyo2006simulacion}.
+
+A día de hoy, con los avances que ha habido en el campo de la Inteligencia Artficial y con la proliferación de sistemas de IA generativa, es posible realizar SMAs verosímiles y que tengan un comportamiento humano, como se ha visto en el caso de \textit{Generative Agents} \citep{park2023generative}, el estudio en el que nos basamos para este trabajo.
+
+\subsection{Ejemplos de aplicaciones de los SMA en simulaciones sociales}
+Además de los vistos en el apartado anterior, hay algunas otras áreas en las que se han implementado estas simulaciones exitosamente, como son las siguientes:
+
+Estudios sobre la difusión de información en redes sociales, como es el caso de uno particular, realizado en la plataforma de Facebool. En este estudio, se investiga sobre cómo la información (o desinformación) se propaga entre usuarios y qué factores pueden acelerar o frenar esta difusión \citep{gambo2020investigative}.
+
+Investigación del comportamiento de multitudes. Como se mencionó anteriormente, los SMA se pueden utilizar para simular el comportamiento de las masas ante desastres naturales como terremotos o inundaciones, entre otros. Para así ver cuál es la opción óptima de evacuación \citep{Marks_2012}.
+
+Análisis de mercados financieros, analizando cómo los gentes interactúan en la compra y venta de activos financieros, lo que ayudaría a prever posibles crisis financieras y diseñas políticas regulatorias más efectivas \citep{Marks_2012}.
 
 \section{Modelos de lenguaje}
 
