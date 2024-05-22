@@ -16,7 +16,7 @@ function gestionarVisibilidad(simulacionCorriendo, problemaBack) {
     input_steps.prop('disabled', disableButtons);
     boton_guardar_ver.prop('disabled', disableButtons);
 
-    boton_guardar_y_salir.prop('disabled', simulacionCorriendo);
+    boton_guardar_y_salir.prop('disabled', !problemaBack && simulacionCorriendo);
     
     boton_salir.prop('disabled', disableButtons);
     boton_abrir_chat.prop('disabled', disableButtons);
