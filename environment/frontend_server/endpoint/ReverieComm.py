@@ -91,7 +91,15 @@ class ReverieComm():
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
     if psutil.pid_exists(reverie_pid):
-      os.waitpid(reverie_pid, 0)
+      try:
+        os.waitpid(reverie_pid, 0)
+      except ChildProcessError:
+        print(f"El proceso {reverie_pid} no es un proceso hijo del proceso actual.")
+      except OSError as e:
+        if e.errno == os.errno.ECHILD:
+            print(f"No hay proceso hijo con PID {reverie_pid}.")
+        else:
+            raise
     os.remove(PID_INFO_FILE)
   
 
