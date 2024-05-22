@@ -374,7 +374,6 @@ def ver_simulacion(request):
         info_demos.append(demo_dict)
     return info_demos
   
-  print("request ver simulación: ", request.GET.dict())
   # Esperamos a que se genere la simulacion que queremos
   time.sleep(2)
   context = {"demos": obtener_info_demos_disponibles()}

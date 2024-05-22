@@ -58,8 +58,9 @@ $(document).ready(function() {
     });
 
     boton_guardar_ver.click(function() {
+        console.log(step, sim_code)
         console.log("Guardando la simulación para ver después")
-        sendAjaxCall('guardar_ver', {sim_code: sim_code});
+        sendAjaxCall('guardar_ver', {sim_code: sim_code, step: step});
     });
     
     boton_guardar_y_salir.click(function() {
@@ -110,7 +111,6 @@ $(document).ready(function() {
             data: JSON.stringify(dataToSend),
             dataType: 'json',
             success: function(response) {
-                console.log("La acción del botón fue enviada correctamente:", response);
             },
             error: function(error) {
                 console.error("Error enviando la acción del botón:", error);

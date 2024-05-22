@@ -10,14 +10,20 @@ from global_methods import *
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 
-def compress(sim_code):
+def compress(sim_code,step):
   # Cambiar el valor de raiz si se ejecuta según el MD original
   # raiz = "../environment/frontend_server"
   # raiz = "."
+
+  sim_code_compressed_name = "_".join([sim_code, str(step)])
   raiz = os.path.join(local_dir, "../environment/frontend_server")
+  compressed_storage = f"{raiz}/compressed_storage/{sim_code_compressed_name}"
+  if os.path.exists(compressed_storage):
+    print("No se genera el compressed_storage por que ya existe")
+    return
 
   sim_storage = f"{raiz}/storage/{sim_code}"
-  compressed_storage = f"{raiz}/compressed_storage/{sim_code}"
+  # compressed_storage = f"{raiz}/compressed_storage/{sim_code}"
   persona_folder = sim_storage + "/personas"
   move_folder = sim_storage + "/movement"
   meta_file = sim_storage + "/reverie/meta.json"

@@ -52,7 +52,7 @@
                     <h3 class="fw-bold">{{ demo.sim_code }}</h3>
                     <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">{{demo.fork_sim_code}}</a></p>
                     <form method="POST" action="/comenzar-demo-simulacion/" class="select-wrapper info-ver-sim row">
-                        <input type="hidden" name="sim_code" value="{{ demo.sim_code }}">
+                        <input type="hidden" name="sim_code" value="{{ demo.sim_code }}_{{ demo.max_step }}">
                         <div class="col-sm-6">
                             <label for="step-select">Empezar la demo en el Step:</label>
                             <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}" required>
