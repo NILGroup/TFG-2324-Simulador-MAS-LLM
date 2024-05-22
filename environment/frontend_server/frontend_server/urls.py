@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^path_tester/$', translator_views.path_tester, name='path_tester'),
     url(r'^path_tester_update/$', translator_views.path_tester_update, name='path_tester_update'),
     path('admin/', admin.site.urls),
+    url(r'^comprobar_error/$', translator_views.comprobar_error, name='comprobar_error'),
     # a partit de aquí, las urls definidas por nosotros
     path('crear-simulacion/', translator_views.crear_simulacion, name='crear_simulacion'),
     path('ver-simulacion/', translator_views.ver_simulacion, name='ver_simulacion'),

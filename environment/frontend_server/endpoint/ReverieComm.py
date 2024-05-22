@@ -5,6 +5,7 @@ import datetime
 import json
 import subprocess
 import psutil
+from pathlib import Path
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 frontend_dir = os.path.join(local_dir, '../')
@@ -37,6 +38,11 @@ from reverie import ReverieServer
 class ReverieComm():
   def __init__(self):
     pass
+
+  def comprobar_error(self):
+    archivo_error = Path(ERR_ENDPOINT)
+    huboError = archivo_error.stat().st_size > 0
+    return huboError
 
   def write_command(self, command):
     in_file = open(INPUT_ENDPOINT, 'w')

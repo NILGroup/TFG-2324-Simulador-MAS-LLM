@@ -31,6 +31,7 @@
 	// a step. We use this to link the steps in the backend. 
 	let step = parseInt(document.getElementById('step').innerHTML);
 	let desired_step = step;
+	var problemaBack = false;
 	let sim_code = document.getElementById('sim_code').innerHTML;
 	// let persona_names = document.getElementById('persona_name_list').innerHTML.split(",");
 
@@ -372,8 +373,8 @@
 		// El desired_step se actualiza al interactuar con el botón run
 		// El comportamiento del botón run se define en static_dirs/js/llamadas_home.js
 		let simulacionCorriendo = step != desired_step;
-		gestionarVisibilidad(simulacionCorriendo);
-		actualizarTextoSimulacion(simulacionCorriendo, desired_step - step);
+		gestionarVisibilidad(simulacionCorriendo, problemaBack);
+		actualizarTextoSimulacion(simulacionCorriendo, desired_step - step, problemaBack);
 
 	  // console.log("phase: " + phase + ", step: " + step);
 	  // *** MOVE PERSONAS ***
@@ -416,6 +417,9 @@
 	    // over-querying; so, we have a timer set so we only query it once every
 	    // timer_max cycles. 
 	    if (timer <= 0) {
+				hayErrores("{% url 'comprobar_error' %}", function(huboError) {
+					problemaBack = huboError;
+				});
 	      var update_xobj = new XMLHttpRequest();
 	      update_xobj.overrideMimeType("application/json");
 	      update_xobj.open('POST', "{% url 'update_environment' %}", true);

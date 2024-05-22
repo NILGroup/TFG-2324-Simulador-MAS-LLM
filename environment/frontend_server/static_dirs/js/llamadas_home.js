@@ -1,7 +1,7 @@
 // Código JQuery para la gestión de las llamadas al backend en relación con la gestión de una simulación
 // (play, pase, guardar para ver, guardar para continuar y salir sin guardar)
 
-function gestionarVisibilidad(simulacionCorriendo) {
+function gestionarVisibilidad(simulacionCorriendo, problemaBack) {
     const boton_run = $('#boton_run');
     const input_steps = $('#num_steps'); 
     const boton_guardar_ver = $('#boton_guardar_ver');
@@ -9,20 +9,50 @@ function gestionarVisibilidad(simulacionCorriendo) {
     const boton_salir = $('#boton_salir');
     const boton_abrir_chat = $('.abrir_chat');
     const boton_abrir_susurro = $('.abrir_susurro');
-    boton_run.prop('disabled', simulacionCorriendo);
-    input_steps.prop('disabled', simulacionCorriendo);
-    boton_guardar_ver.prop('disabled', simulacionCorriendo);
+
+    let disableButtons = simulacionCorriendo | problemaBack;
+
+    boton_run.prop('disabled', disableButtons);
+    input_steps.prop('disabled', disableButtons);
+    boton_guardar_ver.prop('disabled', disableButtons);
+
     boton_guardar_y_salir.prop('disabled', simulacionCorriendo);
-    boton_salir.prop('disabled', simulacionCorriendo);
-    boton_abrir_chat.prop('disabled', simulacionCorriendo);
-    boton_abrir_susurro.prop('disabled', simulacionCorriendo);
+    
+    boton_salir.prop('disabled', disableButtons);
+    boton_abrir_chat.prop('disabled', disableButtons);
+    boton_abrir_susurro.prop('disabled', disableButtons);
 }
 
-function actualizarTextoSimulacion(simulacionCorriendo, steps) {
+function actualizarTextoSimulacion(simulacionCorriendo, steps, problemaBack) {
     const simulationStateText = $('#textoEstadoSimulacion');
-    const message = simulacionCorriendo ? "Quedan "+steps+" steps por ejecutar" : "";
-    const color = simulacionCorriendo ? 'red' : 'green';
-    simulationStateText.text(message).css('color', color);
+    if (problemaBack) {
+        const message = "Hubo un problema con el LLM reinicie la simulación";
+        const color = 'red';
+        simulationStateText.text(message).css('color', color);
+    } else {
+        const message = simulacionCorriendo ? "Quedan "+steps+" steps por ejecutar" : "";
+        const color = simulacionCorriendo ? 'red' : 'green';
+        simulationStateText.text(message).css('color', color);
+    }
+}
+
+function sendAjaxCall(action, values = {}) {
+    const dataToSend = {
+        action: action,
+        values: values
+    };
+
+    $.ajax({
+        url: '/manejador-acciones-simulacion/', 
+        type: 'POST',
+        data: JSON.stringify(dataToSend),
+        dataType: 'json',
+        success: function(response) {
+        },
+        error: function(error) {
+            console.error("Error enviando la acción del botón:", error);
+        }
+    });
 }
 
 $(document).ready(function() {
@@ -98,24 +128,5 @@ $(document).ready(function() {
 
         sendAjaxCall('susurro', values);
     });
-
-    function sendAjaxCall(action, values = {}) {
-        const dataToSend = {
-            action: action,
-            values: values
-        };
-
-        $.ajax({
-            url: '/manejador-acciones-simulacion/', 
-            type: 'POST',
-            data: JSON.stringify(dataToSend),
-            dataType: 'json',
-            success: function(response) {
-            },
-            error: function(error) {
-                console.error("Error enviando la acción del botón:", error);
-            }
-        });
-    }
 
 });

@@ -381,31 +381,38 @@ def ver_simulacion(request):
   return render(request, template, context)
 
 def continuar_simulacion(request):
-  def obtener_info_simulaciones_disponibles():
+  def obtener_info_simulaciones_disponibles(max_intentos):
     simulaciones_disponibles = dirs_from('storage')
     
-    info_simulaciones = []
+    if max_intentos == 0:
+      raise Exception("Maximo numero de intentos superado")
+    
+    try:
+      info_simulaciones = []
+      for simu in simulaciones_disponibles:
+        simu_f = f"./storage/{simu}"
+        meta_f = f"{simu_f}/reverie/meta.json"
+        with open(meta_f) as meta_content:
+          simu_meta = json.load(meta_content)
+          
+          start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
+          curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
+          diff_time = curr_time - start_time
 
-    for simu in simulaciones_disponibles:
-      simu_f = f"./storage/{simu}"
-      meta_f = f"{simu_f}/reverie/meta.json"
-      with open(meta_f) as meta_content:
-        simu_meta = json.load(meta_content)
-        
-        start_time = datetime.datetime.strptime(simu_meta['start_date'] + ", 00:00:00", '%B %d, %Y, %H:%M:%S')
-        curr_time = datetime.datetime.strptime(simu_meta['curr_time'], "%B %d, %Y, %H:%M:%S")
-        diff_time = curr_time - start_time
-
-        simu_dict = {"sim_code": simu,
-                     "step": simu_meta['step'],
-                     "fork_sim_code": simu_meta['fork_sim_code'],
-                     "start_time": simu_meta['start_date'],
-                     "curr_time": simu_meta['curr_time'],
-                     "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
-        info_simulaciones.append(simu_dict)
-    return info_simulaciones
+          simu_dict = {"sim_code": simu,
+                      "step": simu_meta['step'],
+                      "fork_sim_code": simu_meta['fork_sim_code'],
+                      "start_time": simu_meta['start_date'],
+                      "curr_time": simu_meta['curr_time'],
+                      "duration": f"{diff_time.days} dias, {diff_time.seconds // 3600} horas, {diff_time.seconds % 3600} segundos" }
+          info_simulaciones.append(simu_dict)
+      return info_simulaciones
+    except:
+      print("------------------Intentando sacar la info:", max_intentos)
+      time.sleep(0.2)
+      return obtener_info_simulaciones_disponibles(max_intentos-1)
   
-  context = {"simulaciones": obtener_info_simulaciones_disponibles()}
+  context = {"simulaciones": obtener_info_simulaciones_disponibles(5)}
   template = "home/fork_simulacion.html"
   return render(request, template, context)
 
@@ -440,11 +447,12 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'guardar_ver':
           sim_code = json_dict['sim_code']
+          step = json_dict['step']
           # ... Lógica del "guardar_ver"
           rc = ReverieComm()
-          rc.sum_up()
+          # rc.sum_up()
           rc.save()
-          compress(sim_code)
+          compress(sim_code, step)
           rc.finish()
           # Compress -> Emplaza la simulacion comprimida en compressed_storage
       elif action == 'guardar_salir':
@@ -481,3 +489,22 @@ def comenzar_demo_simulacion(request):
     return redirect('http://localhost:8000/demo/July1_the_ville_isabella_maria_klaus-step-3-20/1/3/')
   else:
     return HttpResponse('Request method must be POST.')
+
+def comprobar_error(request): 
+  """
+  <FRONTEND to BACKEND> 
+  Checks if there is any error in the running simulation
+
+  it makes it by checking the reverieError file placed at endpoint/reverieError
+
+  ARGS:
+    request: Django request
+  RETURNS: 
+    HttpResponse
+  """
+  huboError = False
+  rc = ReverieComm()
+  huboError = rc.comprobar_error()
+  response_data = {"<error>": huboError}
+  return JsonResponse(response_data)
+
