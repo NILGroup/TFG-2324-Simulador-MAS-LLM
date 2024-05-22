@@ -1,6 +1,30 @@
 // Código JQuery para la gestión de las llamadas al backend en relación con la gestión de una simulación
 // (play, pase, guardar para ver, guardar para continuar y salir sin guardar)
 
+function gestionarVisibilidad(simulacionCorriendo) {
+    const boton_run = $('#boton_run');
+    const input_steps = $('#num_steps'); 
+    const boton_guardar_ver = $('#boton_guardar_ver');
+    const boton_guardar_y_salir = $('#boton_guardar_y_salir');
+    const boton_salir = $('#boton_salir');
+    const boton_abrir_chat = $('.abrir_chat');
+    const boton_abrir_susurro = $('.abrir_susurro');
+    boton_run.prop('disabled', simulacionCorriendo);
+    input_steps.prop('disabled', simulacionCorriendo);
+    boton_guardar_ver.prop('disabled', simulacionCorriendo);
+    boton_guardar_y_salir.prop('disabled', simulacionCorriendo);
+    boton_salir.prop('disabled', simulacionCorriendo);
+    boton_abrir_chat.prop('disabled', simulacionCorriendo);
+    boton_abrir_susurro.prop('disabled', simulacionCorriendo);
+}
+
+function actualizarTextoSimulacion(simulacionCorriendo, steps) {
+    const simulationStateText = $('#textoEstadoSimulacion');
+    const message = simulacionCorriendo ? "Quedan "+steps+" steps por ejecutar" : "";
+    const color = simulacionCorriendo ? 'red' : 'green';
+    simulationStateText.text(message).css('color', color);
+}
+
 $(document).ready(function() {
     let simulacionCorriendo = true;
 
@@ -18,48 +42,18 @@ $(document).ready(function() {
     const boton_abrir_chat = $('.abrir_chat');
     const boton_abrir_susurro = $('.abrir_susurro');
 
-    function gestionarVisibilidad() {
-        boton_run.prop('disabled', !simulacionCorriendo);
-        input_steps.prop('disabled', !simulacionCorriendo);
-        boton_guardar_ver.prop('disabled', simulacionCorriendo);
-        boton_guardar_y_salir.prop('disabled', simulacionCorriendo);
-        boton_salir.prop('disabled', simulacionCorriendo);
-        boton_abrir_chat.prop('disabled', simulacionCorriendo);
-        boton_abrir_susurro.prop('disabled', simulacionCorriendo);
-    }
-
-    function actualizarTextoSimulacion() {
-        const message = simulacionCorriendo ? "La simulación se está ejecutando..." : "La simulación está parada";
-        const color = simulacionCorriendo ? 'green' : 'red';
-        simulationStateText.text(message).css('color', color);
-    }
-
-    gestionarVisibilidad();
-    actualizarTextoSimulacion();
-
-    boton_play.click(function() {
-        simulacionCorriendo = true; // Estado de la simulación corriendo (se realizan llamadas a process environment)
-        gestionarVisibilidad();
-        actualizarTextoSimulacion();
-        console.log("Iniciando la simulación " + simulacionCorriendo)
-    });
-
-    boton_pause.click(function() {
-        simulacionCorriendo = false; // Estado de la simulación pausada (no se realizan llamadas a process environment)
-        gestionarVisibilidad();
-        actualizarTextoSimulacion();
-
-        console.log("Pausando la simulación " + simulacionCorriendo)
-        // sendAjaxCall('pause');
-    });
+    // Se desactivan por que són para la interacción con la demo
+    boton_play.css('display', 'none');
+    boton_pause.css('display', 'none');
 
     boton_run.click(function() {
         // Obtener el valor del select de pasos
         let values = {};
-        let steps = $('#step-select').val();
+        let steps = $('#num_steps').val();
         values['steps'] = steps;
-
-        console.log(steps);
+        console.log("Estamos en ", step, steps);
+        desired_step = step + parseInt(steps);
+        console.log("Queremos", desired_step);
         sendAjaxCall('run', values);
     });
 

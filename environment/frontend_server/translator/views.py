@@ -279,7 +279,6 @@ def process_environment(request):
 
   with open(f"storage/{sim_code}/environment/{step}.json", "w") as outfile:
     outfile.write(json.dumps(environment, indent=2))
-
   return HttpResponse("received")
 
 
@@ -305,10 +304,16 @@ def update_environment(request):
   sim_code = data["sim_code"]
 
   response_data = {"<step>": -1}
-  if (check_if_file_exists(f"storage/{sim_code}/movement/{step}.json")):
-    with open(f"storage/{sim_code}/movement/{step}.json") as json_file: 
-      response_data = json.load(json_file)
-      response_data["<step>"] = step
+  curr_json_file = f"storage/{sim_code}/movement/{step}.json"
+  if (check_if_file_exists(curr_json_file)):
+    try:
+      with open(curr_json_file) as json_file: 
+        response_data = json.load(json_file)
+        response_data["<step>"] = step
+    except json.JSONDecodeError as error:
+      print(f"Error {error} al decodificar {curr_json_file}")
+    except Exception as error:
+      print(f"Error {error} al abrir {curr_json_file}")
 
   return JsonResponse(response_data)
 
@@ -347,7 +352,6 @@ def ver_simulacion(request):
       meta_f = f"{simu_f}/meta.json"
       with open(meta_f) as meta_content:
         simu_meta = json.load(meta_content)
-        print(simu_meta)
         # Indicar que no hay resumen disponible si no se ha podido generar
         if (not 'summary' in simu_meta.keys() or simu_meta['summary'] == None or not simu_meta['summary']):
           simu_meta['summary'] = "No hay resumen disponible para esta simulación"
@@ -426,7 +430,7 @@ def manejador_acciones_simulacion(request):
       json_dict = json_dict['values']
 
       # TODO: Procesar la acción correspondiente
-      if action == 'play':
+      if action == 'run':
           # ... Lógica del "play" (hacer un run)
           steps = json_dict['steps']
           rc = ReverieComm()
@@ -468,7 +472,6 @@ def manejador_acciones_simulacion(request):
 def comenzar_demo_simulacion(request):
   if request.method == 'POST':
     datos = request.POST.dict()
-    print("datos de la simulacion", datos)
     sim_code = datos['sim_code']
     step = int(datos['step-select'])
     speed = datos['speed-select']
