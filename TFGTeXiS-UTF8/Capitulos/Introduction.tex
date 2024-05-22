@@ -1,84 +1,81 @@
 \chapter*{Introduction}
 \label{cap:introduction}
-\addcontentsline{toc}{chapter}{Introduction}
 
 \chapterquote{Creativity is just connecting things}{Steve Jobs}
 
-Social relationships have been a topic of study on multiple occasions throughout time. The behavior of human beings is certainly complex and, in many cases, unpredictable. This is what makes us unique and inimitable... or not?
+Social relationships have been a subject of study on multiple occasions over time. Human behavior is certainly complex and, in many cases, unpredictable. Therefore, there arises a need to try to understand the basis of these relationships and attempt to predict behaviors through simulations.
 
-In recent years, and especially during the past year, we have seen a rapid development of Artificial Intelligences. One of the most interesting use cases of these technologies are the Large Language Models (LLMs), of general purpose, which allow us to interact through natural language directly with the AI.
+In recent years, and especially in the last year, we have witnessed a rapid development of generative Artificial Intelligence. One of the most interesting use cases of these technologies is the Large Language Models, of general purpose, which allow us to interact using natural language directly with these generative AI systems.
 
-When developing these Language Models, if you have a large enough set of examples, the program will be able to generate completely unique and original situations, imitating already known examples but without reusing them literally.
+When developing these Language Models, if there is a sufficiently large series of examples, the program can generate completely unique and original situations, imitating already known examples but without reusing them literally.
 
-At this point, human behavior comes into play. If we have very large models, capable of obeying input schemes and creating unique situations, could we simulate realistic human social relationships using these technologies?
+At this point, human behavior comes into play. If we have very large models, capable of following input schemas and creating unique situations, could we simulate plausible human social relationships using these technologies?
 
-This experiment was carried out in the study of \cite{park2023generative}, on which we have based ourselves when carrying out our Final Degree Project. In this experiment they manage to create independent agents which interact with each other, have memories of events that have occurred and are capable of developing social relationships with each other.
+This experiment was carried out in the study by \cite{park2023generative}, on which we have based our Final Degree Project. In this experiment, they manage to create independent agents that interact with each other, have memories of events that occurred, and are capable of developing social relationships among themselves.
 
-\section*{Motivation}
+\section{Motivation}
+The initial motivation for this work was to be able to create stories from simulations of Artificial Intelligence agents. However, upon finding the study by \ga \citep{park2023generative}, we decided to change the objective and focus on how people with non-technological profiles, especially psychologists, can study human social relationships, based on a simulation that already worked and achieved that the characters had memories and interacted plausibly.
 
-The initial motivation of this work was to be able to create stories from simulations of Artificial Intelligence agents. However, when we found the study of \ga, we decided to pivot and focus on how people with non-technological profiles, especially psychologists, can study social relationships between humans, starting from a simulation that already worked and achieved that the characters had memories and interacted in a realistic way.
+Therefore, from that moment, our main objective became to create an application in which psychologists or other types of users can study social relationships by indicating different situations and facilitating changes between simulations to study behavioral differences.
 
-Therefore, from that moment on, our main objective became to create an application in which psychologists could study social relationships by indicating different situations and facilitating the changes between simulations to study the differences in behavior.
+With a system like the one mentioned, we have what is necessary to create an environment where several agents intervene and interact with each other. An implementation of this idea is what we have in the repository {\textit{generative\_agents}}\footnote{\url{https://github.com/joonspk-research/generative_agents}} created by the authors of the aforementioned paper.
 
-With an architecture such as the one mentioned, we have what is necessary to create an environment in which several agents intervene and interact with each other. An implementation of this idea is the one we have in the repository {\textit{generative\_agents}}\footnote{\url{https://github.com/joonspk-research/generative_agents}} created by the authors of the paper mentioned above.
+Having a technology capable of simulating human behavior in social contexts creates the need to experiment with these capabilities in different situations. This need is reflected in another study, which tests and expands the same original work by \cite{park2023generative}, but this time measuring the ability of a group of agents to generate software \citep{qian2023communicative}. In this study, it is verified that these same agents are capable of associating, forming teams, and generating functional video games with real code.
 
-Having a technology capable of simulating human behavior in social contexts creates the need to experiment with these capabilities in different situations. This need is reflected in works such as \cite{qian2023communicative}, which also tests and expands the same work, that of \cite{park2023generative}, but this time measuring the ability of a group of agents to generate software. This study shows that these same agents are capable of associating, forming teams and generating functional video games with real code.
+Thus, the potential of this technology and the interest of people in defining its limits, applications, or simply experimenting is evident. However, all these motivations are very curtailed when it comes to implementing this work in new scenarios due to the complexity of executing the application, which is difficult to use for profiles outside the programming world, and very difficult to extend due to the initial state of the code (preselected characters and maps, non-interchangeable, rigidity in executing simulations, lack of modification of the application context...).
 
-This shows the potential of this technology and the interest of people in defining its limits, applications or simply experimenting. However, all these motivations are very limited when it comes to putting this work into operation in new scenarios.
+That is why in this Final Degree Project we propose to facilitate access and interaction with the technology provided in \ga, as well as offering new functionalities to explore and interact with the simulation in real-time.
 
-That is why we propose in this Final Degree Project to facilitate the access and interaction with the technology provided in \ga, in addition to offering new functionalities with which to explore and interact with the simulation in real time.
+\section{Objectives}
 
-\section*{Objectives}
-
-To achieve the main objective of the TFG mentioned above, which is to facilitate access and interaction and extend the functionalities of the study of \ga, we have decided to section it into the following points:
+To achieve the main objective of the Final Degree Project mentioned above, which is to facilitate access and interaction and extend functionalities of the study by \ga, we have decided to structure it in the following points:
 
 \begin{itemize}
-	\item Simulation creation by configuring agents and/or the scenario. Currently, there is only a predefined map and a series of predefined agents. The aim is to allow greater interaction with the environment, adding maps and being able to customize the agents.
+	\item Creation of simulations by configuring agents and/or the scenario. Currently, there is only a predetermined map and a series of predefined agents. The goal is to allow greater interactivity with the environment, adding maps and being able to customize the agents.
 	
-	\item Allow interaction with the state of the agents during the simulation. At any time, the user will be able to interact with the agents, chatting with them in real time or "whispering" the next actions they should take.
+	\item Allowing interaction with the state of the agents during the simulation. At any time, the user can interact with the agents, chatting in real-time with them or 'whispering' the next actions they should take.
 	
-	\item Visualization of the simulation, either through a character or in a general and synthesized way. It will also allow users, once a simulation has finished, to be able to summarize the entire simulation as a whole or from the point of view of one of the agents.
+	\item Visualization of the simulation, through a character or in a general and summarized way. Also allowing users, once a simulation is finished, to make a summary of the entire simulation as a whole or from the point of view of one of the agents.
 	
-	\item Simulation management, allowing them to be saved and created based on previous ones. This will allow repeated simulations to be viewed or extended.
+	\item Management of simulations, allowing them to be saved and created based on previous ones. This will allow repeated simulations to be seen or extended.
 	
-	\item Integration of all of the above into a novel web interface, communicating with the backend in real time and without the need to use a terminal to communicate.
+	\item Integration of all the above into a new web interface created completely from scratch, communicating with the backend in real-time and without the need to use a terminal to communicate.
 	
-	\item Integration with the language model and the updated OpenAI API, since the original calls used an older API that did not work properly.
+	\item Integration with the updated OpenAI language model and API, as the original calls used a previous API that did not work correctly.
 	
 \end{itemize}
 
-\section*{Work plan}
 
-In order to fulfill the objectives outlined in the previous section, a planning has been established divided into the following stages:
-
-\begin{itemize}
-	
-	\item \textbf{Research and objective definition stage}. In this first part of the development, we will focus on researching scientific articles and books that deal with topics similar to the interaction of AI agents, as well as defining the basic objectives, in what sense we are going to extend the original article of \ga and begin to write initial drafts of the introduction and state of the art of the memory.
-	
-	\item After concluding with the initial research and adaptation to the topic, we will begin the \textbf{project development stage}, carrying out the designs of the different interfaces, their development and the production of the main chapters of the paper.
-	
-	\item Finally, we will reach the \textbf{finalization and review of the development stage}, in which we will finalize all the details and additional objectives that we want to include in the project, once the proposed objectives have been finalized. In this stage we will also add the summary, results, conclusions and future work, as well as review the final result of the memory and the work as a whole.
-\end{itemize}
-
-\section*{Document structure}
-
-This document consists of seven chapters, including this introductory chapter as the first one in order to know the motivation that leads to the development of the project and its objectives. In addition, there is a last chapter in which each of the students explain the work we have done individually. Next, the rest of the chapters that make up the memory are presented:
+\section{Work Plan}
+To meet the objectives set out in the previous section, a plan has been established divided into the following stages:
 
 \begin{itemize}
 	
-	\item \textbf{Chapter 2}: In the State of the Art, topics that provide important context for this work are addressed. On the one hand, technical topics are addressed, such as intelligent agents, simulations and language models, on the other hand, the union between technology and human behavior, with the processing of natural language and human-centered computing, and finally topics related purely to social relationships and the democratization of computer systems are addressed.
+	\item \textbf{Research and definition of objectives stage}. In this first part of the development, we will focus on researching scientific articles and books that deal with topics similar to the interaction of AI agents, as well as defining the basic objectives, in what way we are going to extend the work described in the original article by \ga and begin drafting initial sketches of the introduction and state of the art of the report.
 	
-	\item \textbf{Chapter 3}: In this chapter, we address the differences between the functionalities that already existed in the system that we use, those that existed but we expanded, and the new ones that we created during this work. In this chapter, we only address the work from a functional point of view, at a high level and not the technological state at a low level.
+	\item After concluding the initial research and adaptation to the topic, we will begin the \textbf{project development phase}, thus carrying out the designs of the different interfaces, their development, and the production of the main chapters of the report.
 	
-	\item \textbf{Chapter 4}: In the Approach to the Solution, several points are addressed to provide context and to emphasize milestones that have occurred during the development. On the one hand, the state of the system is initially provided from a technological and low-level point of view. After this, all the adjustments, changes and reconsiderations that took place while the work itself was being developed are addressed, as well as the problems encountered and how they were solved.
-	
-	\item \textbf{Chapter 5}: In this chapter, we discuss all the extensions that have been made to the original system, at a low level and explaining the changes, their importance and the reason for them.
-	
-	\item \textbf{Chapter 6}: From the point of view of the interface, all the changes, new views and pages that have been created so that the application can be completely used from the web, since originally it was necessary to execute commands in the terminal to perform certain actions.
-	
-	\item \textbf{Chapter 7}: In the chapter of Conclusions and Future Work, possible extensions to the system or objectives that we would have implemented if we had had more time are added, to be taken into account for the future.
+	\item Finally, we will reach the \textbf{completion and review of development phase}, in which we will finalize all the details and additional objectives that we want to include in the project, once the proposed objectives are completed. In this stage, we will also add the summary, results, conclusions, and future work, as well as review the final result of the report and the work as a whole.
 	
 \end{itemize}
 
 
 
+\section{Document Structure}
+This document is composed of seven chapters, including this introductory chapter as the first one to understand the motivation behind the project development and its objectives. Additionally, there is a final chapter where each student explains the work we have done individually. Below, the rest of the chapters that make up the report are presented:
+
+\begin{itemize}
+	
+	\item \textbf{Chapter 2}: In the State of the Art, topics that provide important context to the present work are addressed. On one hand, technical topics such as intelligent agents, simulations, and language models are discussed, on the other hand, the union between technology and human behavior, with natural language processing and human-centered computing, and finally, topics purely related to social relationships and the democratization of computer systems are addressed.
+	
+	\item \textbf{Chapter 3}: In this chapter, the differences between the functionalities that already existed in the system we used, those that existed but were expanded, and the new ones we created during the present work are addressed. In this chapter, the work is only approached from a functionality point of view, at a high level and not the technological state at a low level.
+	
+	\item \textbf{Chapter 4}: In the Solution Approach, several points are addressed to provide context and highlight milestones that occurred during the development. On one hand, the initial state of the system is provided from a technological and low-level point of view. After this, all the adjustments, changes, and reconsiderations that occurred while the work was being developed, as well as problems encountered and how they were solved, are addressed.
+	
+	\item \textbf{Chapter 5}: In which all the extensions made to the original system are addressed, at a low level and explaining the changes, their importance, and the reason.
+	
+	\item \textbf{Chapter 6}: From the interface point of view, all the changes, new views, and pages that have been created so that the application can be completely used from the web, as originally certain actions had to be executed through terminal commands.
+	
+	\item \textbf{Chapter 7}: In the Conclusions and Future Work chapter, possible extensions to the system or objectives that we would have implemented if we had more time are added, to be considered for the future.
+	
+\end{itemize}
