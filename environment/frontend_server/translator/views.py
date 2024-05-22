@@ -442,15 +442,12 @@ def manejador_acciones_simulacion(request):
           rc = ReverieComm()
           rc.run(steps)
           pass 
-      elif action == 'pause':
-          # ... Lógica del "pause"
-          pass
       elif action == 'guardar_ver':
           sim_code = json_dict['sim_code']
           step = json_dict['step']
           # ... Lógica del "guardar_ver"
           rc = ReverieComm()
-          # rc.sum_up()
+          rc.sum_up()
           rc.save()
           compress(sim_code, step)
           rc.finish()
