@@ -1,0 +1,164 @@
+{
+  "persona": {
+    "Isabella Rodriguez": {
+      "movement": [
+        73,
+        16
+      ],
+      "pronunciatio": "\ud83e\ude91",
+      "description": "preparing the upcoming Valentine's Day party (creating a seating plan for the party) @ the Ville:Isabella Rodriguez's apartment:main room:desk",
+      "chat": null
+    },
+    "Maria Lopez": {
+      "movement": [
+        100,
+        36
+      ],
+      "pronunciatio": "\ud83d\udcac",
+      "description": "conversing about Maria and Klaus are discussing various topics including gentrification, quantum computing, cryptography, artificial intelligence, renewable energy technologies, potential research collaborations, gene editing in medicine, and environmental policies over lunch at the library tomorrow. @ <persona> Klaus Mueller",
+      "chat": [
+        [
+          "Maria Lopez",
+          "Hey Klaus! I saw you from across the room and wanted to come say hi. How's your day going?"
+        ],
+        [
+          "Klaus Mueller",
+          "Hey Maria! My day is going well, thanks for asking. I was just finishing up my dinner. How about you?"
+        ],
+        [
+          "Maria Lopez",
+          "I was just studying some new topics for my physics class. Have you come across anything interesting lately?"
+        ],
+        [
+          "Klaus Mueller",
+          "Hey Maria! That sounds fascinating. I've been diving deep into the effects of gentrification in low-income communities for my research paper. Maybe we can exchange insights sometime."
+        ],
+        [
+          "Maria Lopez",
+          "That's really interesting, Klaus! I'd love to hear more about your research on the effects of gentrification. Maybe we can discuss it over lunch sometime?"
+        ],
+        [
+          "Klaus Mueller",
+          "I would love to discuss my research with you over lunch, Maria. How about we meet up at the library tomorrow?"
+        ],
+        [
+          "Maria Lopez",
+          "Great, the library sounds like a perfect place to discuss our research papers. I'm looking forward to tomorrow's lunch, Klaus!"
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we continue discussing your research paper on the potential of quantum computing in revolutionizing cryptography over lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "That sounds like a great plan, Klaus! I can't wait to discuss the potential of quantum computing in revolutionizing cryptography over lunch at the library tomorrow."
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also exchange ideas on the potential impacts of artificial intelligence on social structures during our lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "That sounds like a fascinating discussion, Klaus! I'm excited to dive into those topics with you over lunch tomorrow."
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also discuss the recent advancements in renewable energy technologies during our lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "That sounds like a great idea, Klaus! I'm also curious about the recent advancements in renewable energy technologies. Let's definitely add that to our lunch discussion topics for tomorrow."
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also brainstorm ideas on potential collaborations for future research projects during our lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "Shall we also explore the ethical implications of gene editing in medicine during our lunch at the library tomorrow, Klaus?"
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also discuss the recent developments in environmental policies during our lunch at the library tomorrow, Maria?"
+        ]
+      ]
+    },
+    "Klaus Mueller": {
+      "movement": [
+        105,
+        32
+      ],
+      "pronunciatio": "\ud83d\udcac",
+      "description": "conversing about Maria and Klaus are discussing various topics including gentrification, quantum computing, cryptography, artificial intelligence, renewable energy technologies, potential research collaborations, gene editing in medicine, and environmental policies over lunch at the library tomorrow. @ <persona> Maria Lopez",
+      "chat": [
+        [
+          "Maria Lopez",
+          "Hey Klaus! I saw you from across the room and wanted to come say hi. How's your day going?"
+        ],
+        [
+          "Klaus Mueller",
+          "Hey Maria! My day is going well, thanks for asking. I was just finishing up my dinner. How about you?"
+        ],
+        [
+          "Maria Lopez",
+          "I was just studying some new topics for my physics class. Have you come across anything interesting lately?"
+        ],
+        [
+          "Klaus Mueller",
+          "Hey Maria! That sounds fascinating. I've been diving deep into the effects of gentrification in low-income communities for my research paper. Maybe we can exchange insights sometime."
+        ],
+        [
+          "Maria Lopez",
+          "That's really interesting, Klaus! I'd love to hear more about your research on the effects of gentrification. Maybe we can discuss it over lunch sometime?"
+        ],
+        [
+          "Klaus Mueller",
+          "I would love to discuss my research with you over lunch, Maria. How about we meet up at the library tomorrow?"
+        ],
+        [
+          "Maria Lopez",
+          "Great, the library sounds like a perfect place to discuss our research papers. I'm looking forward to tomorrow's lunch, Klaus!"
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we continue discussing your research paper on the potential of quantum computing in revolutionizing cryptography over lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "That sounds like a great plan, Klaus! I can't wait to discuss the potential of quantum computing in revolutionizing cryptography over lunch at the library tomorrow."
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also exchange ideas on the potential impacts of artificial intelligence on social structures during our lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "That sounds like a fascinating discussion, Klaus! I'm excited to dive into those topics with you over lunch tomorrow."
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also discuss the recent advancements in renewable energy technologies during our lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "That sounds like a great idea, Klaus! I'm also curious about the recent advancements in renewable energy technologies. Let's definitely add that to our lunch discussion topics for tomorrow."
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also brainstorm ideas on potential collaborations for future research projects during our lunch at the library tomorrow, Maria?"
+        ],
+        [
+          "Maria Lopez",
+          "Shall we also explore the ethical implications of gene editing in medicine during our lunch at the library tomorrow, Klaus?"
+        ],
+        [
+          "Klaus Mueller",
+          "Shall we also discuss the recent developments in environmental policies during our lunch at the library tomorrow, Maria?"
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "curr_time": "February 13, 2023, 17:52:20"
+  }
+}

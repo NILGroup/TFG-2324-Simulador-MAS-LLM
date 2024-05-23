@@ -1,0 +1,156 @@
+{
+  "persona": {
+    "Isabella Rodriguez": {
+      "movement": [
+        75,
+        19
+      ],
+      "pronunciatio": "\ud83d\udcac",
+      "description": "conversing about organizing a Valentine's Day party at Hobbs Cafe and inviting Klaus Mueller to join, with Klaus expressing excitement and gratitude for the invitation, discussing activities and a special cake, and planning to bring friends along @ <persona> Klaus Mueller",
+      "chat": [
+        [
+          "Isabella Rodriguez",
+          "Hey Klaus! Are you enjoying your meal? By the way, have you heard about the Valentine's Day party I'm organizing at Hobbs Cafe tomorrow from 5pm to 7pm? I'd love for you to join us!"
+        ],
+        [
+          "Klaus Mueller",
+          "Hey Isabella! Thank you for inviting me to the Valentine's Day party. I'm looking forward to it!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "That's great to hear, Klaus! I'm glad you're looking forward to the party. We have some exciting activities planned, so I hope you'll enjoy yourself tomorrow evening!"
+        ],
+        [
+          "Klaus Mueller",
+          "It sounds like the Valentine's Day party will be a lot of fun! I'm excited to see what activities you have planned"
+        ],
+        [
+          "Isabella Rodriguez",
+          "I'm also planning to have a special cake at the party, hope you like desserts, Klaus!"
+        ],
+        [
+          "Klaus Mueller",
+          "That sounds wonderful, Isabella! I'm sure the special cake will be delicious. Thank you for all your hard work in organizing this party. I'm really looking forward to it!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "I'm thrilled that you're excited for the party, Klaus! Make sure to bring your friends along too, it's going to be a great time. See you tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to bring some friends along with me tomorrow. I'm really looking forward to the party!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "Thank you, Klaus! I'm glad you're looking forward to the party. Don't forget to RSVP so I can finalize the preparations. See you tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to RSVP for the party. I'm really excited to join you tomorrow at 5pm!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "Thank you, Klaus! I'll make sure to note down your RSVP. I'm really looking forward to seeing you and your friends at the party tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to RSVP for the party. I'm really excited to join you tomorrow at 5pm!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "I'm glad you're excited, Klaus! Make sure to come hungry, we'll have plenty of delicious food at the party. See you tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to RSVP for the party. I'm really excited to join you tomorrow at 5pm!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "Thank you, Klaus! I'll make sure to note down your RSVP. I'm really looking forward to seeing you and your friends at the party tomorrow at 5pm!"
+        ]
+      ]
+    },
+    "Maria Lopez": {
+      "movement": [
+        112,
+        30
+      ],
+      "pronunciatio": "\ud83d\udd0e",
+      "description": "studying physics at Hobbs Cafe (researching new topics) @ the Ville:Oak Hill College:library:library table",
+      "chat": null
+    },
+    "Klaus Mueller": {
+      "movement": [
+        75,
+        20
+      ],
+      "pronunciatio": "\ud83d\udcac",
+      "description": "conversing about organizing a Valentine's Day party at Hobbs Cafe and inviting Klaus Mueller to join, with Klaus expressing excitement and gratitude for the invitation, discussing activities and a special cake, and planning to bring friends along @ <persona> Isabella Rodriguez",
+      "chat": [
+        [
+          "Isabella Rodriguez",
+          "Hey Klaus! Are you enjoying your meal? By the way, have you heard about the Valentine's Day party I'm organizing at Hobbs Cafe tomorrow from 5pm to 7pm? I'd love for you to join us!"
+        ],
+        [
+          "Klaus Mueller",
+          "Hey Isabella! Thank you for inviting me to the Valentine's Day party. I'm looking forward to it!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "That's great to hear, Klaus! I'm glad you're looking forward to the party. We have some exciting activities planned, so I hope you'll enjoy yourself tomorrow evening!"
+        ],
+        [
+          "Klaus Mueller",
+          "It sounds like the Valentine's Day party will be a lot of fun! I'm excited to see what activities you have planned"
+        ],
+        [
+          "Isabella Rodriguez",
+          "I'm also planning to have a special cake at the party, hope you like desserts, Klaus!"
+        ],
+        [
+          "Klaus Mueller",
+          "That sounds wonderful, Isabella! I'm sure the special cake will be delicious. Thank you for all your hard work in organizing this party. I'm really looking forward to it!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "I'm thrilled that you're excited for the party, Klaus! Make sure to bring your friends along too, it's going to be a great time. See you tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to bring some friends along with me tomorrow. I'm really looking forward to the party!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "Thank you, Klaus! I'm glad you're looking forward to the party. Don't forget to RSVP so I can finalize the preparations. See you tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to RSVP for the party. I'm really excited to join you tomorrow at 5pm!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "Thank you, Klaus! I'll make sure to note down your RSVP. I'm really looking forward to seeing you and your friends at the party tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to RSVP for the party. I'm really excited to join you tomorrow at 5pm!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "I'm glad you're excited, Klaus! Make sure to come hungry, we'll have plenty of delicious food at the party. See you tomorrow at 5pm!"
+        ],
+        [
+          "Klaus Mueller",
+          "Thank you, Isabella! I'll make sure to RSVP for the party. I'm really excited to join you tomorrow at 5pm!"
+        ],
+        [
+          "Isabella Rodriguez",
+          "Thank you, Klaus! I'll make sure to note down your RSVP. I'm really looking forward to seeing you and your friends at the party tomorrow at 5pm!"
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "curr_time": "February 13, 2023, 17:31:30"
+  }
+}
