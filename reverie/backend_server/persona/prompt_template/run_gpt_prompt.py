@@ -242,40 +242,6 @@ def run_gpt_prompt_generate_hourly_schedule(persona,
   def get_fail_safe(): 
     fs = "asleep"
     return fs
-    """
-      # ChatGPT Plugin ===========================================================
-      def __chat_func_clean_up(gpt_response, prompt=""): ############
-        cr = gpt_response.strip()
-        if cr[-1] == ".":
-          cr = cr[:-1]
-        return cr
-
-      def __chat_func_validate(gpt_response, prompt=""): ############
-        try: __func_clean_up(gpt_response, prompt="")
-        except: return False
-        return True
-
-      print ("asdhfapsh8p9hfaiafdsi;ldfj as DEBUG 10") ########
-      gpt_param = {"engine": "text-davinci-002", "max_tokens": 15, 
-                  "temperature": 0, "top_p": 1, "stream": False,
-                  "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
-      prompt_template = "persona/prompt_template/v3_ChatGPT/generate_hourly_schedule_v2.txt" ########
-      prompt_input = create_prompt_input(persona, 
-                                        curr_hour_str, 
-                                        p_f_ds_hourly_org,
-                                        hour_str, 
-                                        intermission2,
-                                        test_input)  ########
-      prompt = generate_prompt(prompt_input, prompt_template)
-      example_output = "studying for her music classes" ########
-      special_instruction = "The output should ONLY include the part of the sentence that completes the last line in the schedule above." ########
-      fail_safe = get_fail_safe() ########
-      output = ChatGPT_safe_generate_response(prompt, example_output, special_instruction, 3, fail_safe,
-                                              __chat_func_validate, __chat_func_clean_up, True)
-      if output != False: 
-        return output, [output, prompt, gpt_param, prompt_input, fail_safe]
-      # ChatGPT Plugin ===========================================================
-    """
 
   gpt_param = {"engine": "text-davinci-003", "max_tokens": 50, 
                "temperature": 0.5, "top_p": 1, "stream": False,
@@ -2573,7 +2539,71 @@ def run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retr
                "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
+def run_gpt_generate_summary(curr_time, maze_name, importantEvents, importantThoughts):
+  def create_prompt_input(curr_time, maze_name, importantEvents, importantThoughts): 
+    """
+    Input
+      curr_time: datetime.datetime with current time
+      maze_name: str with the name of the maze
+      importantEvents, importantThoughts: dict() with str() -> InformationNode
 
+        the str() is the name of the persona
+        InformationNode: dict() with this fields:
+          node_id str("node_[num]"),
+          depth int,
+          created datetime.datetime.strftime("%Y-%M-%d, %H:%M:%S"),
+          description str,
+          poignancy int,
+          keywords [str],
+          filling [node_id]
+    Output:
+      A list with
+      [curr_time in str format,
+      maze_name in str format,
+      list of events as unique str with the format
+        '''
+        persona_name1 witnessed InformationNode1.description
+        persona_name1 witnessed InformationNode1.description
+        '''
+      ,
+      list of thoughts as unique str with the format
+        '''
+        persona_name thought1 InformationNode1.description
+        persona_name thought2 InformationNode2.description
+        '''
+      ]
+    """
+    events = str()
+    for name in importantEvents:
+      for node in importantEvents[name]:
+        description = node["description"]
+        events += f"{name} witnessed {description}\n"
+    thoughts = str()
+    for name in importantThoughts:
+      for node in importantThoughts[name]:
+        description = node["description"]
+        thoughts += f"{name} thought {description}\n"
+    prompt_input = [curr_time.strftime("%B %d, %Y, %H:%M:%S"),
+                    maze_name,
+                    events,
+                    thoughts]
+    return prompt_input
+  
+  def __func_clean_up(gpt_response, prompt=""):
+    return gpt_response
+
+  def __func_validate(gpt_response, prompt=""): 
+    return True
+
+  def get_fail_safe(): 
+    return "There was some problem at generating the summary of the simulation"
+
+  prompt_template = "persona/prompt_template/templates/generate_summary.txt"
+  prompt_input = create_prompt_input(curr_time, maze_name, importantEvents, importantThoughts) 
+  prompt = generate_prompt(prompt_input, prompt_template)
+  output = safe_generate_response(prompt, None, 3, get_fail_safe,
+                                  __func_validate, __func_clean_up, False)
+  return output
 
 def print_template(output, template_filename, prompt):
   if not 'volcar' in dict(os.environ).keys():
