@@ -19,12 +19,13 @@ from global_methods import *
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from translator.models import *
 
-from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID_INFO_FILE
+from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID_INFO_FILE, backend_dir
 
 sys.path.append('../../reverie/')
+sys.path.append('../../reverie/backend_server')
 
 from compress_sim_storage import compress
-
+from reverie import ReverieServer 
 
 """
 No encuentra el archivo para comprimir
@@ -392,6 +393,9 @@ def continuar_simulacion(request):
       for simu in simulaciones_disponibles:
         simu_f = f"./storage/{simu}"
         meta_f = f"{simu_f}/reverie/meta.json"
+
+        recuperar_cierre_forzoso(simu_f, meta_f)
+
         with open(meta_f) as meta_content:
           simu_meta = json.load(meta_content)
           
@@ -504,3 +508,28 @@ def comprobar_error(request):
   response_data = {"<error>": huboError}
   return JsonResponse(response_data)
 
+
+def recuperar_cierre_forzoso(simu_folder, meta_file):
+  
+  def numero_real_steps(simu_folder):
+    archivos = os.listdir(simu_folder+"/environment")
+    numeros = []
+    for f_name in archivos:
+      if f_name.count(".json") > 0:
+        try:
+          numeros.append(int(f_name.split(".")[0]))
+        except:
+          pass
+    return max(numeros)
+
+  with open(meta_file) as f:
+    reverie_meta = json.load(f)
+    step_saved = int(reverie_meta['step'])
+  step_real = numero_real_steps(simu_folder)
+  if step_saved < step_real:
+    simu_name = simu_folder.split("/")[-1]
+    rc = ReverieServer.instancia_sencilla(simu_name, 5)
+    rc.step = step_real
+    rc.save()
+  return step_real
+  
