@@ -385,7 +385,7 @@ def continuar_simulacion(request):
     simulaciones_disponibles = dirs_from('storage')
     
     if max_intentos == 0:
-      raise Exception("Maximo numero de intentos superado")
+      raise Exception(f"Maximo numero de intentos superado en {__file__}::{__name__}")
     
     try:
       info_simulaciones = []
@@ -408,7 +408,6 @@ def continuar_simulacion(request):
           info_simulaciones.append(simu_dict)
       return info_simulaciones
     except:
-      print("------------------Intentando sacar la info:", max_intentos)
       time.sleep(0.2)
       return obtener_info_simulaciones_disponibles(max_intentos-1)
   
