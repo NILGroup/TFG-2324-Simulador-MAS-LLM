@@ -108,7 +108,33 @@ class AssociativeMemory:
     if kw_strength_load["kw_strength_thought"]: 
       self.kw_strength_thought = kw_strength_load["kw_strength_thought"]
 
-    
+
+  def getRelevantEvents(self,n_events):
+    events = sorted(self.seq_event, key=lambda x: (x.poignancy, x.created), reverse=True)
+    return [ {
+              "node_id": x.node_id,
+              "depth": x.depth,
+              "created": x.created,
+              "description": x.description,
+              "poignancy": x.poignancy,
+              "keywords": x.keywords,
+              "filling": x.filling
+              }
+             for x in events[:min([n_events, len(events)])]]
+
+  def getRelevantThoughts(self,n_thoughts):
+    events = sorted(self.seq_thought, key=lambda x: (x.poignancy, x.created), reverse=True)
+    return [ {
+              "node_id": x.node_id,
+              "depth": x.depth,
+              "created": x.created,
+              "description": x.description,
+              "poignancy": x.poignancy,
+              "keywords": x.keywords,
+              "filling": x.filling
+              }
+             for x in events[:min([n_thoughts, len(events)])]]
+
   def save(self, out_json): 
     r = dict()
     for count in range(len(self.id_to_node.keys()), 0, -1): 
