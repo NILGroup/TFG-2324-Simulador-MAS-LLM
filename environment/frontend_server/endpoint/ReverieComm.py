@@ -196,7 +196,7 @@ def generar_back(post_dict):
   return post_dict['sim_code']
 
 def generar_context(sim_code):
-  def create_context(rc):
+  def create_context(rc, max_try):
     context = {"sim_code": rc.sim_code,
             "step": rc.step,
             "mode": "simulate"}
@@ -218,5 +218,5 @@ def generar_context(sim_code):
   if i == 10:
     raise Exception("No se pudo crear el ReverieServer")
 
-  rc = ReverieServer.instancia_sencilla(sim_code)
-  return create_context(rc)
+  rc = ReverieServer.instancia_sencilla(sim_code, 5)
+  return create_context(rc, 5)
