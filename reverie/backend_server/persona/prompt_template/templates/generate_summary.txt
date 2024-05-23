@@ -1,0 +1,23 @@
+generate_summary.txt
+
+!<INPUT 0>!: curr_time
+!<INPUT 1>!: maze_name
+!<INPUT 2>!: events
+!<INPUT 3>!: thoughts
+
+<commentblockmarker>###</commentblockmarker>
+We need to summarize the most relevant information about a social simulation
+This is the information related to the simulation
+
+Current Time: !<INPUT 0>!
+Map name: !<INPUT 1>!
+Most relevant Events (they are not ordered by relevance):
+
+!<INPUT 2>!
+
+Most relevant Thoughts (they are not ordered by relevance):
+
+!<INPUT 3>!
+
+Generate a summary of the current state the simulation with the information given above:
+
