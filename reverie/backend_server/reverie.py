@@ -27,14 +27,13 @@ import math
 import os
 import shutil
 import traceback
-
 from selenium import webdriver
 
 from global_methods import *
 from utils import *
 from maze import *
 from persona.persona import *
-
+from persona.prompt_template.run_gpt_prompt import run_gpt_generate_summary
 """
 LO DE AQUI ABAJO HAY QUE BORRARLO
 """
@@ -855,9 +854,7 @@ class ReverieServer:
       return True
 
     elif command == "summ_up":
-      self.summary = "El resumen aun no se solicita al Modelo\nUna vez decidido se enviará la solicitud y en el front se esperará la respuesta"
-      self.summary_step = self.step
-      print("Resumen y step", self.summary, self.summary_step)
+      self.generateSummary()
       return False
 
     elif command == "start path tester mode": 
@@ -1038,6 +1035,23 @@ class ReverieServer:
       print("Not supported command")
       return True
     print (ret_str)
+
+  def generateSummary(self):
+    self.summary = "El resumen aun no se solicita al Modelo\nUna vez decidido se enviará la solicitud y en el front se esperará la respuesta"
+    self.summary_step = self.step
+
+    importantEvents = dict()
+    importantThoughts = dict()
+    for name in self.personas:
+      persona = self.personas[name]
+      memoria = persona.a_mem
+      importantEvents[name] = memoria.getRelevantEvents(1)
+      importantThoughts[name] = memoria.getRelevantThoughts(3)
+    resumen = run_gpt_generate_summary(self.curr_time, self.maze.maze_name, importantEvents, importantThoughts)
+    if resumen:
+      self.summary = resumen
+    else:
+      self.summary = "There was some problem at generating the summary of the simulation"
 
   @staticmethod
   def instancia_sencilla(sim_code,max_try):
