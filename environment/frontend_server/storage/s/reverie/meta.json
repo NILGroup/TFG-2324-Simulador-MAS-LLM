@@ -1,6 +1,6 @@
 {
   "fork_sim_code": "July1_the_ville_isabella_maria_klaus-step-3-9",
-	"sim_code": "s",
+  "sim_code": "s",
   "start_date": "February 13, 2023",
   "curr_time": "February 13, 2023, 14:12:50",
   "sec_per_step": 10,
@@ -11,6 +11,6 @@
     "Klaus Mueller"
   ],
   "step": 5117,
-  "summary": null,
-  "summary_step": null
+  "summary": "In the social simulation, Isabella Rodriguez is heavily involved in planning a Valentine's Day party at Hobbs Cafe, where she is a regular. Maria Lopez is preparing for college and researching new topics related to her class, with Klaus Mueller mentioning her research paper. Klaus Mueller is actively researching a topic and has a close relationship with Maria Lopez. Isabella Rodriguez and Maria Lopez have been witnessed closing the cafe and asking questions, respectively. Overall, the simulation reflects interactions and activities related to Valentine's Day, college preparation, and social research.",
+  "summary_step": 5117
 }

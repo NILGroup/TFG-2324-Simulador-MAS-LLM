@@ -24,6 +24,9 @@ from endpoint.ReverieComm import generar_back, generar_context, ReverieComm, PID
 sys.path.append('../../reverie/')
 sys.path.append('../../reverie/backend_server')
 
+DEMO_GENERADA="generada"
+CONFIRMACION_DEMO_RECIBIDA="recibida"
+
 from compress_sim_storage import compress
 from reverie import ReverieServer 
 
@@ -375,9 +378,22 @@ def ver_simulacion(request):
         info_demos.append(demo_dict)
     return info_demos
   
+  def esperar_back_demo_creada(dict_peticion):
+    max_wait = float(15)
+    waited = float(0)
+    if 'demo' in dict_peticion.keys():
+      while not os.path.isfile(DEMO_GENERADA) and waited < max_wait:
+        time.sleep(0.2)
+        waited += 0.2
+      with open(CONFIRMACION_DEMO_RECIBIDA, 'w') as f:
+        f.write(CONFIRMACION_DEMO_RECIBIDA)
+    return waited < max_wait
+      
+
+
   # Esperamos a que se genere la simulacion que queremos
-  time.sleep(2)
-  context = {"demos": obtener_info_demos_disponibles()}
+  context = {"success": esperar_back_demo_creada(request.GET.dict())}
+  context["demos"] = obtener_info_demos_disponibles()
   template = "home/ver_simulacion.html"
   return render(request, template, context)
 
@@ -433,6 +449,23 @@ def simulacion(request):
 
 # Manejador de ruta para los botones que gestionan la simulación (play, pause, guardar...)
 def manejador_acciones_simulacion(request):
+
+  def notificar_front_demo_creada():
+    with open(DEMO_GENERADA, 'w') as f:
+      f.write(DEMO_GENERADA)
+
+  def borrar_notificacion():
+    max_wait = float(15)
+    waited = float(0)
+    while not os.path.isfile(CONFIRMACION_DEMO_RECIBIDA) and waited < max_wait:
+      time.sleep(0.2)
+      waited += 0.2
+
+    if os.path.exists(DEMO_GENERADA):
+      os.remove(DEMO_GENERADA)
+    if os.path.exists(CONFIRMACION_DEMO_RECIBIDA):
+      os.remove(CONFIRMACION_DEMO_RECIBIDA)
+
   if request.method == 'POST':
       json_dict = json.load(request)
       action = json_dict['action']
@@ -452,9 +485,11 @@ def manejador_acciones_simulacion(request):
           rc = ReverieComm()
           rc.sum_up()
           rc.save()
+          # Compress -> Emplaza la simulacion comprimida en compressed_storage
           compress(sim_code, step)
           rc.finish()
-          # Compress -> Emplaza la simulacion comprimida en compressed_storage
+          notificar_front_demo_creada()
+          borrar_notificacion()
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
           rc = ReverieComm()
