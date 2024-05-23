@@ -2,7 +2,7 @@
 \label{cap:planteamiento}
 \section{Planteamiento inicial}
 
-Una vez vistas las diferencias esenciales entre el sistema original que hemos heredado y las ampliaciones que hemos realizado durante el desarrollo del presente trabajo, se tratará las ideas iniciales de cómo pensábamos realizar el trabajo, indicando desde el punto de vista técnico, organizativo y general, la manera de afrontar este proyecto.
+Una vez vistas las diferencias esenciales entre el sistema original que hemos heredado y las ampliaciones que hemos realizado durante el desarrollo del presente trabajo, se tratarán las ideas iniciales de cómo pensábamos realizar el trabajo, indicando desde el punto de vista técnico, organizativo y general, la manera de afrontar este proyecto.
 
 En cuanto a la organización, la planificación inicial era clara: invertir la mayor parte de los primeros meses investigando el proyecto, y a partir del final del primer cuatrimestre y durante todo el segundo cuatrimestre, realizar el trabajo de desarrollo completo del proyecto.
 
@@ -22,7 +22,7 @@ En esta sección se analizará, a grandes rasgos, el estado inicial desde el pun
 
 En cuanto al diseño, originalmente, existían 2 backends. El primero de ellos era el backend de Django, el cual era el encargado de gestionar todas las llamadas del frontend, o interfaz, que inicialmente no eran muchas, ya que el frontend solamente servía como apoyo para poder visualizar las simulaciones. 
 
-El segundo backend era el de reverie, como lo llaman los autores del código. Este se encargaba de procesar todos los comandos que los usuarios deseaban ejecutar, calculaba el resultado de estos y se comunicaba con el backend de django para que procesase el resultado de las ejecuciones y se reflejara en la interfaz.
+El segundo backend era el conocido como reverie, llamado así por los autores del programa original. Este se encargaba de procesar todos los comandos que los usuarios deseaban ejecutar, calculaba el resultado de estos y se comunicaba con el backend de django para que procesase el resultado de las ejecuciones y se reflejara en la interfaz.
 
 \begin{figure}[h]
 	\centering
@@ -34,13 +34,13 @@ El segundo backend era el de reverie, como lo llaman los autores del código. Es
 Como se puede ver en la figura \ref{fig:sistemaOriginal}, se ve reflejado el estado del sistema desde el punto del diseño. El flujo habitual sería el siguiente:
 
 \begin{enumerate}
-	\item El usuario iría a la terminal en la que se está ejecutando el backend de reverie (que gestiona todas las llamadas a los modelos de lenguaje) y ejecutaría alguno de los comandos (run, whisper, exit, save...)
+	\item El usuario iría a la terminal en la que se está ejecutando el backend de reverie (que gestiona todas las llamadas a los modelos de lenguaje) y ejecutaría alguno de los comandos (run, whisper, exit, save...).
 	
-	\item El backend de reverie realizaría la serie de llamadas al modelo de lenguaje pertinentes, así como la organización de las respuestas y almacenamiento de las mismas, y pasaría el resultado de la ejecución al backend de django
+	\item El backend de reverie realizaría la serie de llamadas al modelo de lenguaje pertinentes, así como la organización de las respuestas y almacenamiento de las mismas, y pasaría el resultado de la ejecución al backend de django.
 	
-	\item El backend de Django, con la nueva información obtenida de reverie, adaptaría la información a un formato para que pueda ser procesado en el frontend
+	\item El backend de Django, con la nueva información obtenida de reverie, adaptaría la información a un formato para que pueda ser procesado en el frontend.
 	
-	\item Se procesaría la información de django en el frontend y se enseñaría al usuario final. Como se ha mencionado, el usuario no podría interactuar con esta información para realizar llamadas al backend desde la interfaz, sino que tendría que acudir a la terminal de reverie para comunicarse
+	\item Se procesaría la información de django en el frontend y se enseñaría al usuario final. Como se ha mencionado, el usuario no podría interactuar con esta información para realizar llamadas al backend desde la interfaz, sino que tendría que acudir a la terminal de reverie para comunicarse.
 	
 \end{enumerate}
 
@@ -57,23 +57,23 @@ Este análisis permitirá comprender mejor la evolución del proyecto, los desaf
 Inicialmente, se fijaron una serie de objetivos sin tener un conocimiento claro sobre la arquiterctura y funcionamiento del sistema. Estos objetivos estaban enfocados en la extensibilidad y modificación de lo previamente existente. A grandes rasgos, los objetivos inicialmente marcados eran los siguientes:
 
 \begin{enumerate}
-	\item Añadir uno o varios mapas complementarios a mayores del existente, además de poder modificar las apariencias, nombres y personalidades de los agentes de la simulación
+	\item Añadir uno o varios mapas complementarios a mayores del existente, además de poder modificar las apariencias, nombres y personalidades de los agentes de la simulación.
 	
-	\item Permitir la interacción directa con los agentes y el entorno, pudiendo clicar directamente sobre el mapa y que se reconociese el objeto que se estaba indicando, para así poder modificar su estado (indicar que se está quemando el objeto, por ejemplo)
+	\item Permitir la interacción directa con los agentes y el entorno, pudiendo clicar directamente sobre el mapa y que se reconociese el objeto que se estaba indicando, para así poder modificar su estado (indicar que se está quemando el objeto, por ejemplo).
 	
-	\item Permitir a los usuarios utilizar su propio modelo del lenguaje, ya sea descargado en local o empleando diferentes APIs externas alternativas al modelo del lenguaje original
+	\item Permitir a los usuarios utilizar su propio modelo del lenguaje, ya sea descargado en local o empleando diferentes APIs externas alternativas al modelo del lenguaje original.
 \end{enumerate}
 
 Tras evaluar todo el sistema, se decidió pivotar sobre estos objetivos iniciales, ya que conllevaban una gran cantidad de trabajo y apenas aportaban valor añadido al programa original, por lo que se propusieron unos nuevos objetivos, sobre los cuales se ha construído la base de los objetivos finales que se pueden consultar en la introducción de este documento. El resultado de pivotar los objetivos fue, en líneas generales, el siguiente:
 
 \begin{enumerate}
-	\item Modificación de las personalidades de los personajes, enfocándose así en la importancia de crear nuevas simulaciones con distintas relaciones sociales, siendo agnósticos al mapa e imagen de los agentes, ya que cambiar esto no aporta tanto valor
+	\item Modificación de las personalidades de los personajes, enfocándose así en la importancia de crear nuevas simulaciones con distintas relaciones sociales, siendo agnósticos al mapa e imagen de los agentes, ya que cambiar esto no aporta tanto valor.
 	
-	\item Interacción en tiempo real con los agentes, mediante un menú en el que poder entrevistar al personaje, así como crearle inquietudes y nuevas memorias para ver cómo reacciona
+	\item Interacción en tiempo real con los agentes, mediante un menú en el que poder entrevistar al personaje, así como crearle inquietudes y nuevas memorias para ver cómo reacciona.
 	
-	\item Generación automática de resúmenes
+	\item Generación automática de resúmenes.
 	
-	\item Englobar todas las funcionalidades en una interfaz sencilla e intuitiva
+	\item Englobar todas las funcionalidades en una interfaz sencilla e intuitiva.
 \end{enumerate}
 
 \subsection{Limpieza de archivos del repositorio}
@@ -84,17 +84,17 @@ Al haber heredado el sistema original, realizado por terceros, pudimos apreciar 
 En esta sección hemos recogido algunas de estas piezas de código que hemos eliminado, explicando qué hacían y el porqué de su eliminación:
 
 \begin{itemize}
-	\item \textbf{Carpeta \textit{path\_tester}:} Contenía un archivo como el main\_script.html y una vista especial que los desarrolladores usaron para depurar el código de las colisiones de los personajes con los bordes del mapa. No tenía utilidad ahora, solo a la hora de depurar esto en su momento
+	\item \textbf{Carpeta \textit{path\_tester}:} Contenía un archivo como el main\_script.html y una vista especial que los desarrolladores usaron para depurar el código de las colisiones de los personajes con los bordes del mapa. No tenía utilidad ahora, solo a la hora de depurar esto en su momento.
  
-	\item \textbf{Función \textit{replay} del archivo \textit{views.py}:} Era una función que gestionaba la visualización de repeticiones de simulaciones. Estas eran similares a la demo de las simulaciones, pero con propósito de depuración de la vista de ejecución de simulación, por lo que no tenía ya valor
+	\item \textbf{Función \textit{replay} del archivo \textit{views.py}:} Era una función que gestionaba la visualización de repeticiones de simulaciones. Estas eran similares a la demo de las simulaciones, pero con propósito de depuración de la vista de ejecución de simulación, por lo que no tenía ya valor.
 	
-	\item \textbf{Carpeta \textit{persona\_state} y funciones asociadas:} En esta carpeta estaban los datos para poder ver en tiempo real todos los parámetros que afectaban a cada uno de los personajes. Esta información solo era usado en las repeticiones, que eliminamos del sistema
+	\item \textbf{Carpeta \textit{persona\_state} y funciones asociadas:} En esta carpeta estaban los datos para poder ver en tiempo real todos los parámetros que afectaban a cada uno de los personajes. Esta información solo era usado en las repeticiones, que eliminamos del sistema.
 	
-	\item \textbf{Entornos virtuales preexistentes:} Los desarrolladores de la aplicación inicial, dejaron sus propios entornos virtuales que habían usado para la creación de este proyecto. Como es recomendable que cada persona instale su entorno virtual particular, decidimos eliminar estas carpetas ya que no estaban siendo utilizadas para nada
+	\item \textbf{Entornos virtuales preexistentes:} Los desarrolladores de la aplicación inicial, dejaron sus propios entornos virtuales que habían usado para la creación de este proyecto. Como es recomendable que cada persona instale su entorno virtual particular, decidimos eliminar estas carpetas ya que no estaban siendo utilizadas para nada.
 
     \item \textbf{Templates usados por los Prompts del LLM:} Estos templates estaban desperdigados en diversas carpetas, siguiendo algún criterio de versionado parecido a \textit{v1}, \textit{v2}, \textit{v3\_ChatGPT}. Todos han sido reubicados a SimulAgents/reverie/backend\_server/persona/prompt\_template/templates/, sus nombres han sido estandarizados, quitando cualquier relación a una versión y se han eliminado aquellos que no se usasen.
 	
-	\item \textbf{Ficheros \textit{admin.py, models.py y tests.py} de la carpeta translator:} Ya que estos eran archivos vacíos que no estaban siendo utilizados,  necesarios para la configuración inicial pero obsoletos en este punto
+	\item \textbf{Ficheros \textit{admin.py, models.py y tests.py} de la carpeta translator:} Ya que estos eran archivos vacíos que no estaban siendo utilizados,  necesarios para la configuración inicial pero obsoletos en este punto.
 	
 \end{itemize}
 
@@ -110,7 +110,9 @@ SimulAgents pretende ofrecer al público general este tipo de simulaciones.
 Por ello el LLM a usar es un punto fundamental ya que implica un gran compromiso entre Tiempo de simulacion, Calidad generativa y Coste.
 
 Al tomar en consideración la fase de desarrollo de SimulAgents también se nos volvía necesario contar con un LLM con el que poner a prueba las funcionalidades que fueramos integrando.
+
 Esto nos llevó a buscar alternativas OpenSource, ya que no se cuenta con apoyo financiero por parte de la universidad.
+
 Como acabaremos viendo, las opciones OpenSource no fueron satisfactorias, por lo que optamos por probar con APIs distintas. Lo que tampoco nos acabó convenciendo por motivos que veremos más adelante.
 
 También detallaremos las evaluaciones realizadas, el proceso para replicarlas, los resultados y conclusiones. En especial en las alternativas OpenSource.
@@ -120,6 +122,7 @@ También detallaremos las evaluaciones realizadas, el proceso para replicarlas, 
 Lo primero que quisimos solucionar fué el uso de un LLM que nos sirviera durante la fase de desarrollo. Para ello, nuestra mayor exigencia era un modelo barato, que nos permitiese equivocarnos y probar sin tener apenas consecuencias.
 
 Así llegamos a la opción de las alternativas OpenSource, que virtualmente no suponían ningún coste. 
+
 Además, los requisitos del modelo en las primeras fases de desarrollo de SimulAgents eran livianos, nos bastaba con un modelo capaz de seguir los formatos que se usaban en las plantillas de la aplicación, siempre en un tiempo razonable.
 
 Para acotar un poco lo que entendemos por tiempo razonable, nos basta con aproximar la cantidad de tokens, de entrada y salida, que pasan por el LLM en cada \textit{timestep} por cada personaje
@@ -134,7 +137,7 @@ Con esta información será más fácil valorar los resultados del uso de los mo
 
 Los modelos Llama 2 que evaluaremos son \textit{Llama 2 7B (original de Meta)}, \textit{Llama 2 7B Cuantizado a 4 bits}, \textit{Llama 2 13B Cuantizado a 4 bits}, \textit{Llama 2 13B cuantizado a 6 bits}.
 
-Además de esto necesitamos ejemplos de prompt que se usan en SimulAgents que, por la intrincada forma en que se generaron y usaron originalmente en el repositorio, son algo complicados de obtener\footnote{Si se quisieran obtener bastaría con ejecutar SimulAgents con la variable de entorno volcar=true y acceder a SimulAgents/reverie/backend\_server/logs/prompts/}\footnote{Para mirar en detalle los prompts ir al apéndice}.
+Además de esto, necesitamos ejemplos de prompt que se usan en SimulAgents que, por la intrincada forma en que se generaron y usaron originalmente en el repositorio, son algo complicados de obtener\footnote{Si se quisieran obtener bastaría con ejecutar SimulAgents con la variable de entorno volcar=true y acceder a SimulAgents/reverie/backend\_server/logs/prompts/}\footnote{Para mirar en detalle los prompts ir al apéndice}.
 
 Para las evaluaciones que haremos contamos con los siguientes prompts de ejemplo (También mostramos los resultados obtenidos con los distintos modelos de Llama 2 Evaluados):
 
@@ -703,12 +706,12 @@ Mediante esta interacción, los usuarios pueden ejecutar todos los comandos, ver
 El flujo de ejecución ahora es algo diferente:
 
 \begin{enumerate}
-	\item El usuario interactúa mediante la interfaz decidiendo la acción que desee
+	\item El usuario interactúa mediante la interfaz decidiendo la acción que desee.
 	
-	\item Si el usuario desea ejecutar un comando de la simulación, se captará mediante la interfaz, se redirigirá al backend de django, el cual gestionará la llamada al gestor de comandos (nos permite ejecutar comandos mientras la aplicación sigue funcionando) y esta se encargará de llamar al backend de reverie para que ejecute el comando
+	\item Si el usuario desea ejecutar un comando de la simulación, se captará mediante la interfaz, se redirigirá al backend de django, el cual gestionará la llamada al gestor de comandos (nos permite ejecutar comandos mientras la aplicación sigue funcionando) y esta se encargará de llamar al backend de reverie para que ejecute el comando.
 	
-	\item El backend de reverie devolverá la ejecución del comando a Django
+	\item El backend de reverie devolverá la ejecución del comando a Django.
 	
-	\item Al igual que antes, Django procesará esta información y la devolverá a la interfaz, donde el usuario podrá visualizarla y volver a interactuar con esta nueva información
+	\item Al igual que antes, Django procesará esta información y la devolverá a la interfaz, donde el usuario podrá visualizarla y volver a interactuar con esta nueva información.
 	
 \end{enumerate}
