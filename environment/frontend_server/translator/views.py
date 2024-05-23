@@ -482,12 +482,12 @@ def manejador_acciones_simulacion(request):
           sim_code = json_dict['sim_code']
           step = json_dict['step']
           # ... Lógica del "guardar_ver"
-          rc = ReverieComm()
-          rc.sum_up()
-          rc.save()
           # Compress -> Emplaza la simulacion comprimida en compressed_storage
-          compress(sim_code, step)
-          rc.finish()
+          if compress(sim_code, step):
+            rc = ReverieComm()
+            rc.sum_up()
+            rc.save()
+            rc.finish()
           notificar_front_demo_creada()
           borrar_notificacion()
       elif action == 'guardar_salir':

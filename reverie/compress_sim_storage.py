@@ -20,7 +20,7 @@ def compress(sim_code,step):
   compressed_storage = f"{raiz}/compressed_storage/{sim_code_compressed_name}"
   if os.path.exists(compressed_storage):
     print("No se genera el compressed_storage por que ya existe")
-    return
+    return False
 
   sim_storage = f"{raiz}/storage/{sim_code}"
   # compressed_storage = f"{raiz}/compressed_storage/{sim_code}"
@@ -70,6 +70,7 @@ def compress(sim_code,step):
 
   shutil.copyfile(meta_file, f"{compressed_storage}/meta.json")
   shutil.copytree(persona_folder, f"{compressed_storage}/personas/")
+  return True
 
 
 if __name__ == '__main__':
