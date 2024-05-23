@@ -1040,9 +1040,15 @@ class ReverieServer:
     print (ret_str)
 
   @staticmethod
-  def instancia_sencilla(sim_code):
-    rc = ReverieServer(new=False,forked=False,params=[sim_code])
-    return rc
+  def instancia_sencilla(sim_code,max_try):
+    if max_try == 0:
+      raise Exception(f"Maximo numero de intentos superado en {__file__}::{__name__}")
+    try:
+      rc = ReverieServer(new=False,forked=False,params=[sim_code])
+      return rc
+    except:
+      time.sleep(0.4)
+      return ReverieServer.instancia_sencilla(sim_code, max_try-1)
   
 
 def available_personas():
