@@ -30,6 +30,8 @@
 	// <step> -- one full loop around all three phases determined by <phase> is 
 	// a step. We use this to link the steps in the backend. 
 	let step = parseInt(document.getElementById('step').innerHTML);
+	let desired_step = step;
+	var problemaBack = false;
 	let sim_code = document.getElementById('sim_code').innerHTML;
 	// let persona_names = document.getElementById('persona_name_list').innerHTML.split(",");
 
@@ -109,7 +111,7 @@
 
 	// <timer_max> determines how frequently our update function will query the 
 	// frontend server. If it's higher, we wait longer cycles. 
-	let timer_max = 0;
+	let timer_max = 20;
 	let timer = timer_max;
 
 	// <phase> -- there are three phases: "process," "update," and "execute."
@@ -367,6 +369,13 @@
 	    player.body.setVelocityY(camera_speed);
 	  }
 
+		// Devolvemos el control al usuario
+		// El desired_step se actualiza al interactuar con el botón run
+		// El comportamiento del botón run se define en static_dirs/js/llamadas_home.js
+		let simulacionCorriendo = step != desired_step;
+		gestionarVisibilidad(simulacionCorriendo, problemaBack);
+		actualizarTextoSimulacion(simulacionCorriendo, desired_step - step, problemaBack);
+
 	  // console.log("phase: " + phase + ", step: " + step);
 	  // *** MOVE PERSONAS ***
 	  // Moving personas take place in three distinct phases: "process," "update,"
@@ -408,6 +417,9 @@
 	    // over-querying; so, we have a timer set so we only query it once every
 	    // timer_max cycles. 
 	    if (timer <= 0) {
+				hayErrores("{% url 'comprobar_error' %}", function(huboError) {
+					problemaBack = huboError;
+				});
 	      var update_xobj = new XMLHttpRequest();
 	      update_xobj.overrideMimeType("application/json");
 	      update_xobj.open('POST', "{% url 'update_environment' %}", true);
@@ -456,7 +468,6 @@
 	        pronunciatios[curr_persona_name].setText(initials + ": " + pronunciatio_content);
 	      }
 
-	      console.log(curr_persona_name);
 	      if (execute_count > 0) {
 	        if (curr_persona.body.x < movement_target[curr_persona_name][0]) {
 	          curr_persona.body.x += movement_speed; 

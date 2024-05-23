@@ -4,6 +4,8 @@ import time
 import datetime
 import json
 import subprocess
+import psutil
+from pathlib import Path
 
 local_dir = os.path.dirname(os.path.abspath(__file__))
 frontend_dir = os.path.join(local_dir, '../')
@@ -37,6 +39,11 @@ class ReverieComm():
   def __init__(self):
     pass
 
+  def comprobar_error(self):
+    archivo_error = Path(ERR_ENDPOINT)
+    huboError = archivo_error.stat().st_size > 0
+    return huboError
+
   def write_command(self, command):
     in_file = open(INPUT_ENDPOINT, 'w')
     with open(OUTPUT_ENDPOINT, 'r') as out_file:
@@ -45,6 +52,12 @@ class ReverieComm():
       in_file.close()
       ret = out_file.readlines()
     return ret
+
+  def sum_up(self):
+    """
+    Solicita el resumen de la simulacion al backend
+    """
+    return self.write_command("summ_up")
 
   def run(self, n_steps=1):
     """
@@ -82,11 +95,32 @@ class ReverieComm():
   def cerrar_back(self):
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
-    os.waitpid(reverie_pid, 0)
+    if psutil.pid_exists(reverie_pid):
+      try:
+        os.waitpid(reverie_pid, 0)
+      except ChildProcessError:
+        print(f"El proceso {reverie_pid} no es un proceso hijo del proceso actual.")
+      except OSError as e:
+        if e.errno == os.errno.ECHILD:
+            print(f"No hay proceso hijo con PID {reverie_pid}.")
+        else:
+            raise
+    os.remove(PID_INFO_FILE)
   
 
 
 def generar_back(post_dict):
+  def eliminar_back_antiguo():
+    if os.path.exists(PID_INFO_FILE):
+      with open(PID_INFO_FILE) as reverie_pid_f:
+        reverie_pid = int(json.load(reverie_pid_f)["pid"])
+      if psutil.pid_exists(reverie_pid):
+        ReverieComm().finish()
+      else:
+        os.remove(PID_INFO_FILE)
+    else:
+      print("No existe")
+
   def gen_json(post_dict):
     def traducir_para_back(post_dict):
       """
@@ -144,7 +178,7 @@ def generar_back(post_dict):
     return json_dict
 
   def generar_nuevo_proceso():
-    proceso = subprocess.Popen(["python3", f"{executable_file}", f"{PARAMS_IN_FILE}"])
+    proceso = subprocess.Popen(["python3", f"{executable_file}", f"{PARAMS_IN_FILE}"],cwd=backend_dir)
     return proceso.pid
 
   def guardar_pid(pid):
@@ -154,6 +188,7 @@ def generar_back(post_dict):
     with open(PID_INFO_FILE, 'w') as pid_file:
       pid_file.write(json.dumps(pid_file_meta, indent=2))
 
+  eliminar_back_antiguo()
   gen_json(post_dict)
   pid = generar_nuevo_proceso()
   guardar_pid(pid)
@@ -161,7 +196,7 @@ def generar_back(post_dict):
   return post_dict['sim_code']
 
 def generar_context(sim_code):
-  def create_context(rc):
+  def create_context(rc, max_try):
     context = {"sim_code": rc.sim_code,
             "step": rc.step,
             "mode": "simulate"}
@@ -183,5 +218,5 @@ def generar_context(sim_code):
   if i == 10:
     raise Exception("No se pudo crear el ReverieServer")
 
-  rc = ReverieServer.instancia_sencilla(sim_code)
-  return create_context(rc)
+  rc = ReverieServer.instancia_sencilla(sim_code, 5)
+  return create_context(rc, 5)

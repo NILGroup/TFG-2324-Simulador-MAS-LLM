@@ -68,8 +68,6 @@ def generate_agent_chat(maze,
                                               curr_context, 
                                               init_summ_idea, 
                                               target_summ_idea)[0]
-  for i in summarized_idea: 
-    print (i)
   return summarized_idea
 
 
@@ -114,21 +112,17 @@ def generate_one_utterance(maze, init_persona, target_persona, retrieved, curr_c
               f"is initiating a conversation with " +
               f"{target_persona.scratch.name}.")
 
-  if debug:
-    print (f"DEBUG::{__file__}:-:{__name__}")
   x = run_gpt_generate_iterative_chat_utt(maze, init_persona, target_persona, retrieved, curr_context, curr_chat)[0]
 
   return x["utterance"], x["end"]
 
 def agent_chat_v2(maze, init_persona, target_persona): 
   curr_chat = []
-  print ("July 23")
 
   for i in range(8): 
     focal_points = [f"{target_persona.scratch.name}"]
     retrieved = new_retrieve(init_persona, focal_points, 50)
     relationship = generate_summarize_agent_relationship(init_persona, target_persona, retrieved)
-    print ("-------- relationshopadsjfhkalsdjf", relationship)
     last_chat = ""
     for i in curr_chat[-4:]:
       last_chat += ": ".join(i) + "\n"
@@ -150,7 +144,6 @@ def agent_chat_v2(maze, init_persona, target_persona):
     focal_points = [f"{init_persona.scratch.name}"]
     retrieved = new_retrieve(target_persona, focal_points, 50)
     relationship = generate_summarize_agent_relationship(target_persona, init_persona, retrieved)
-    print ("-------- relationshopadsjfhkalsdjf", relationship)
     last_chat = ""
     for i in curr_chat[-4:]:
       last_chat += ": ".join(i) + "\n"
@@ -168,10 +161,6 @@ def agent_chat_v2(maze, init_persona, target_persona):
     if end:
       break
 
-  print ("July 23 PU")
-  for row in curr_chat: 
-    print (row)
-  print ("July 23 FIN")
 
   return curr_chat
 
@@ -216,12 +205,10 @@ def generate_action_event_triple(act_desp, persona):
   EXAMPLE OUTPUT: 
     "🧈🍞"
   """
-  if debug: print ("GNS FUNCTION: <generate_action_event_triple>")
   return run_gpt_prompt_event_triple(act_desp, persona)[0]
 
 
 def generate_poig_score(persona, event_type, description): 
-  if debug: print ("GNS FUNCTION: <generate_poig_score>")
 
   if "is idle" in description: 
     return 1
@@ -262,8 +249,7 @@ def open_convo_session(persona, convo_mode):
         break
 
       if int(run_gpt_generate_safety_score(persona, line)[0]) >= 8: 
-        print (f"{persona.scratch.name} is a computational agent, and as such, it may be inappropriate to attribute human agency to the agent in your communication.")        
-
+        pass
       else: 
         retrieved = new_retrieve(persona, [line], 50)[line]
         summarized_idea = generate_summarize_ideas(persona, retrieved, line)

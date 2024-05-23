@@ -42,7 +42,7 @@
         
         <div class="simulacion mb-3">
             {% for demo in demos %}
-            <div class="row mb-3 contenedor-simulacion">
+            <div class="row mb-3 contenedor-simulacion" id="{{ demo.sim_code }}.id">
                 <div class="col-md-4 col-xl-3 simulacion-imagen">
                     <img src="{% static 'assets/the_ville/visuals/the_ville collision.png' %}" alt="Mapa de la Simulación">
                     <figcaption class="text-center">The ville</figcaption>
@@ -50,10 +50,11 @@
                 <div class="col-md-8 simulacion-detalles">
                     <!-- TODO: pasar estas rutas estáticas a dinámicas cuando haya varias simulaciones, así como el id de la simulación y demás datos -->
                     <h3 class="fw-bold">{{ demo.sim_code }}</h3>
-                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">Simulación Isabella, Maria y Klaus</a></p>
+                    <p>Hecha a partir de: <a href="{% url 'continuar_simulacion' %}">{{demo.fork_sim_code}}</a></p>
                     <form method="POST" action="/comenzar-demo-simulacion/" class="select-wrapper info-ver-sim row">
+                        <input type="hidden" name="sim_code" value="{{ demo.sim_code }}_{{ demo.max_step }}">
                         <div class="col-sm-6">
-                            <label for="step-select">Visualizar la demo desde el Step:</label>
+                            <label for="step-select">Empezar la demo en el Step:</label>
                             <input type="number" class="form-control" name="step-select" id="step-select" min="0" max={{demo.max_step}} placeholder="máximo {{demo.max_step}}" required>
                         </div>
                         <div class="col-sm-6">
@@ -64,6 +65,7 @@
                                 <option value="3">3 (Medio)</option>
                                 <option value="4">4 (Medio-rápido)</option>
                                 <option value="5">5 (Rápido)</option>
+                                <option value="6">6 (Más Rápido)</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary view-simulation-btn boton-ver-sim" data-simulation-id="idEjemplo">Ver simulación</button>
@@ -72,8 +74,7 @@
                     <div class="fecha info-ver-sim"><b>Tiempo creación:</b> {{ demo.start_time }}</div>
                     <div class="tiempo_actual info-cont-sim"><b>Tiempo actual:</b> {{ demo.curr_time }}</div>
                     <div class="duracion info-ver-sim"><b>Duración:</b> {{ demo.duration }}</div>
-                    <p class="contexto info-ver-sim"><b>Resumen:</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt libero in, asperiores repellendus dignissimos accusantium tempore reiciendis harum non iusto cupiditate nemo maiores adipisci ipsum perferendis eius quo illo ducimus!</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ullam quidem necessitatibus perferendis expedita illo, vel vero quas aspernatur ratione, laudantium ipsa fugiat quibusdam veniam nemo totam consectetur iusto excepturi?</p>
+                    <p class="contexto info-ver-sim"><b>Resumen:</b> {{demo.summary}}</p>
                 </div>
             </div>
             {% endfor %}
