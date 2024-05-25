@@ -384,4 +384,73 @@ Klaus Mueller and Maria Lopez have a close relationship (because of 21, 25) \\
 \end{multicols}
 \newpage
 
+\chapter{Template y Prompt}
+\label{Appendix:Template y Prompt}
+
+Aquí mostramos un ejemplo de Template y Prompt asociado al mismo, tras el relleno con la información de la simulación
+
+\textbf{Template}
+
+\begin{quote}
+    \gentxt{
+	generate\_summary.txt \\
+	 \\
+	!<INPUT 0>!: curr\_time \\
+	!<INPUT 1>!: maze\_name \\
+	!<INPUT 2>!: events \\
+	!<INPUT 3>!: thoughts \\
+	 \\
+	<commentblockmarker>\#\#\#</commentblockmarker> \\
+	We need to summarize the most relevant information about a social simulation \\
+	This is the information related to the simulation \\
+	 \\
+	Current Time: !<INPUT 0>! \\
+	Map name: !<INPUT 1>! \\
+	Most relevant Events (they are not ordered by relevance): \\
+	 \\
+	!<INPUT 2>! \\
+	 \\
+	Most relevant Thoughts (they are not ordered by relevance): \\
+	 \\
+	!<INPUT 3>! \\
+	 \\
+	Generate a summary of the current state the simulation with the information given above: \\
+    }
+\end{quote}
+
 \newpage
+\textbf{Prompt}
+
+\begin{quote}
+    \gentxt{
+	We need to summarize the most relevant information about a social simulation \\
+	This is the information related to the simulation \\
+	 \\
+	Current Time: February 13, 2023, 18:10:00 \\
+	Map name: the\_ville \\
+	Most relevant Events (they are not ordered by relevance): \\
+	 \\
+	Isabella Rodriguez witnessed Isabella Rodriguez is conversing about organizing a Valentine's Day party at Hobbs Cafe and inviting Klaus Mueller to join, with Klaus expressing excitement and gratitude for the invitation, discussing activities and a special cake, and planning to bring friends along \\
+	Maria Lopez witnessed Maria Lopez is conversing about Maria and Klaus are discussing various topics including gentrification, quantum computing, cryptography, artificial intelligence, renewable energy technologies, potential research collaborations, gene editing in medicine, and environmental policies over lunch at the library tomorrow. \\
+	Klaus Mueller witnessed Klaus Mueller is conversing about Maria and Klaus are discussing various topics including gentrification, quantum computing, cryptography, artificial intelligence, renewable energy technologies, potential research collaborations, gene editing in medicine, and environmental policies over lunch at the library tomorrow. \\
+	 \\
+	 \\
+	Most relevant Thoughts (they are not ordered by relevance): \\
+	 \\
+	Isabella Rodriguez thought Isabella Rodriguez is heavily involved in planning a Valentine's Day party at Hobbs Cafe \\
+	Isabella Rodriguez thought Isabella Rodriguez is heavily involved in the Valentine's Day party at Hobbs Cafe \\
+	Isabella Rodriguez thought Isabella Rodriguez is very invested in the Valentine's Day party at Hobbs Cafe \\
+	Maria Lopez thought Maria Lopez is an ambitious student \\
+	Maria Lopez thought Maria Lopez is preparing for college \\
+	Maria Lopez thought Maria Lopez Maria Lopez found Klaus Mueller's research on the effects of gentrification and potential collaborations for future research projects interesting. \\
+	Klaus Mueller thought Klaus Mueller is actively researching a topic \\
+	Klaus Mueller thought Klaus Mueller Maria's interest in discussing the effects of gentrification in low-income communities and potential collaborations for future research projects with Klaus. \\
+	Klaus Mueller thought this is blank \\
+	 \\
+	 \\
+	Generate a summary of the current state the simulation with the information given above: \\
+    }
+\end{quote}
+
+\newpage
+
