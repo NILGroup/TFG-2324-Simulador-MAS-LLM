@@ -479,6 +479,7 @@ Este estudio logra demostrar de manera exitosa la generación de relaciones soci
 En el presente capítulo, trataremos por un lado el diseño existente en el estudio de \textit{Generative Agents} \citep{park2023generative}, así como las funcionalidades que ejecutaba inicialmente la aplicación, para tener claro el funcionamiento inicial de nuestro sistema y qué era lo que ya había previamente implementado.
 
 \subsection{Diseño original del sistema}
+\label{subsect:Diseño original del sistema}
 El sistema fue diseñado para los propósitos previamente mencionados, por lo que, como los objetivos principales de este trabajo se apoyan en el desarrollo realizado en este estudio, no hemos cambiado este diseño y esta arquitectura, ya que se ha demostrado que funciona. Lo que hemos realizado son adaptaciones y extensiones al programa previamente existente.
 
 La arquitectura básica sobre la que se basa el artículo de \textit{Generative Agents} se puede apreciar en la figura \ref{fig:arquitecturaGenAgents}. En esta, se ve cómo la información y memorias que generan los usuarios se percibe por tres medios distintos: la percepción (\textit{perceive}), el plan y la reflexión (\textit{reflection}). Estos tres modos de obtención son muy importantes y se explicará más en detalle en qué consiste cada uno.
@@ -545,6 +546,104 @@ Conociendo esto, podremos saber cuáles eran las funcionalidades que ya se habí
 	\item\textbf{Implementación de la arquitectura de personalidad}: El estudio previo había implementado la arquitectura de personalidad propuesta. Con el objetivo de evaluar su validez para distintos fenómenos sociales como la difusión de información. Dicha arquitectura se comprobaba válida y ya aportaba diversa información sobre los nodos de memoria, que contenían sucesos como conversaciones, pensamientos o eventos. Por lo que aprovecharemos estas estructuras implementadas para distintas ampliaciones.
 	
 \end{itemize}
+
+\subsection{Partes relevantes de la Implementación}
+
+Aquí detallaremos algo más las partes con las que nos toparemos durante el desarrollo de nuestro trabajo. Entre estas se encuentra la comunicación con el LLM y la implementación de la Arquitectura que se ha explicado en la sección \ref{subsect:Diseño original del sistema}.
+
+\subsubsection{Comunicación con el LLM}
+
+La comunicación con el LLM es central en este trabajo, se trata del motor que lleva acabo toda la simulación. El enfoque que se dió desde \ga \citep{park2023generative}, la mayor preocupación fué obtener respuestas acordes a las estructuras esperadas. Por ello nos encontramos con una estructura algo enrevesada que involucra funciones de orden superior.
+
+En \textit{reverie/backend\_server/persona/prompt\_template/} se implementa toda la comunicación que estamos por ver. Aquí nos encontramos con cada uno de los tipos de peticiones que se realizan al LLM. En esta comunicación hay dos puntos esenciales, el Prompt y la Respuesta.
+
+\textbf{Respuesta}
+
+La generación de información para guiar el comportamiento y reacción de los Agentes pretende ser general, así se ofrece cabida a la emergencia de fenómenos sociales. Con este objetivo en mente se implementa la comunicación con el LLM, contemplando siempre el error en la respuesta.
+
+Por ello se envían consultas al LLM que después pasan por una fase de verificación, en la que se comprueba la suficiencia de las respuestas. Para esto se utilizan las funciones de orden superior comentadas anteriormente. Esto se vé en \textit{reverie/backend\_server/persona/prompt\_template/templates/gpt\_structure.py}, en las funciones \textit{safe\_generate\_response()} y \textit{ChatGPT\_safe\_generate\_response()}, donde tienen los parámetros \textit{func\_clean\_up, func\_validate, repeat} y \textit{fail\_safe\_response}. Para confirmar la validez; obtener la respuesta destilada de cualquier información innecesaria; el número de veces que se intenta lograr una respuesta válida y la respuesta que se dará en caso de que el LLM no cumpla lo pedido.
+
+\textit{reverie/backend\_server/persona/prompt\_template/templates/gpt\_structure.py} contiene todas las llamadas a esas funciones, donde habrá una función por cada tipo de petición que se haga al LLM. Cada una de estas funciones define su respuesta por defecto, el tipo de respuesta esperada y la información estrictamente necesaria con la que se queda.
+
+Es en este archivo, y con este formato, donde se añadiría cualquier tipo de extensión que se haga al programa y que haga uso del LLM. Un ejemplo de ello es la generación de resumenes que se detallará en la sección \ref{sect:Funcionalidad de resúmenes de las simulaciones}.
+
+\textbf{Prompt}
+
+\textit{reverie/backend\_server/persona/prompt\_template/templates/}\footnote{La ruta mencionada es la vigente tras el desarrollo de este trabajo, previamente se encontraban desperdigadas y sin ningún criterio de nomenclatura en diversas direcciones} tiene las llamadas a estas funciones. Un ejemplo sería el siguiente Template\footnote{El template se puede encontrar en la ruta mencionada con el nombre \textit{generate\_summary.txt}}:
+
+\begin{multicols}{2}
+\textbf{Template}
+\begin{quote}
+    \gentxt{
+	generate\_summary.txt \\
+	 \\
+	!<INPUT 0>!: curr\_time \\
+	!<INPUT 1>!: maze\_name \\
+	!<INPUT 2>!: events \\
+	!<INPUT 3>!: thoughts \\
+	 \\
+	<commentblockmarker>\#\#\#</commentblockmarker> \\
+	We need to summarize the most relevant information about a social simulation \\
+	This is the information related to the simulation \\
+	 \\
+	Current Time: !<INPUT 0>! \\
+	Map name: !<INPUT 1>! \\
+	Most relevant Events (they are not ordered by relevance): \\
+	 \\
+	!<INPUT 2>! \\
+	 \\
+	Most relevant Thoughts (they are not ordered by relevance): \\
+	 \\
+	!<INPUT 3>! \\
+	 \\
+	Generate a summary of the current state the simulation with the information given above: \\
+    }
+\end{quote}
+
+\columnbreak
+
+\textbf{Prompt}
+\begin{quote}
+    \gentxt{
+	We need to summarize the most relevant information about a social simulation \\
+	This is the information related to the simulation \\
+	 \\
+	Current Time: February 13, 2023, 18:10:00 \\
+	Map name: the\_ville \\
+	Most relevant Events (they are not ordered by relevance): \\
+	Isabella Rodriguez witnessed ... \\
+	Klaus Mueller witnessed Klaus Mueller is conversing about Maria and Klaus ... \\
+	 \\
+	Most relevant Thoughts (they are not ordered by relevance): \\
+	Isabella Rodriguez thought Isabella Rodriguez is heavily involved in ... \\
+	Klaus Mueller thought Isabella Rodriguez is heavily involved ... \\
+	 \\
+	Generate a summary of the current state the simulation with the information given above: \\
+    }
+\end{quote}
+\end{multicols}
+
+Como se puede observar es un fichero de texto parametrizado donde, a através de la información existente en el simulación, generaremos un prompt que se enviará a el LLM\footnote{La información completa del Prompt y el Template se añade en el Apéndice \ref{Appendix:Template y Prompt}}.
+
+\subsubsection{Implementación de la Arquitectura}
+
+En este apartado diseccionaremos la implementación del diseño comentado en la sección \ref{subsect:Diseño original del sistema} para las fases que más se han entrelazado con nuestro trabajo.
+
+El flujo de ejecución que pone en marcha la Arquitectura es la función \textit{move()} de \textit{reverie/backend\_server/persona/persona.py}. Esta función, entre otras cosas, se encarga de percibir el entorno en que se encuentra el agente (\textit{perceive}), en función de lo que perciba trae de vuelta pensamientos, eventos o conversaciones (\textit{retrieve}), decide las acciones que ejecutará el Agente(\textit{plan}) y finalmente hará al Agente reflexionar sobre todos los sucesos que ha vivido (\textit{reflect}).
+
+La fase de \textit{perceive} la ejecuta el Agente por medio de guardar en su memoria el espacio en que se encuentra, haciendo uso de la estructura Maze, que guarda información de cada sección del Mapa. La memoria espacial del Agente se representa por medio de una estructura arbórea.
+
+Tras guardar en su memoria el espacio que le rodea, interactúa con su entorno más cercano, percibiendo los eventos que ocurren. Se guarda los eventos más recientes que no haya presenciado aún y les dá un grado de relevancia (\textit{poignancy}). De esta forma el Agente habrá percibido todo lo que se encontraba dentro de sus posibilidades.
+
+Todo este proceso añade a la memoria asociativa crea \textit{ConceptNodes} para cada Evento que haya sido capaz de percibir el Agente.
+
+La fase de \textit{retrieve} utiliza la información previamente percibida para retomar recuerdos que ya tuviera guardados. La forma de obtener los recuerdos previos utiliza la asociación existente entre \textit{ConceptNodes} y \textit{Keywords}.
+
+Los ConceptNodes son la estructura que almacena toda la información relativa a un recuerdo. Estos pueden ser Eventos presenciados, Pensamientos que ya se hayan tenido o Conversaciones previas. Cuenta con dos campos que toman relevancia en el trabajo que hacemos. \textit{keywords} y \textit{filling}. El campo \textit{keywords} se utiliza para asociar a cada ConceptNode una serie de palabras con las que describir el contenido del Nodo. El campo \textit{filling} es para relacionar los Pensamientos que se hayan tenido con los Pensamientos, Eventos o Conversaciones previas que hayan dado lugar al Pensamiento. Creando una estructura arbórea.
+
+De esta forma, utilizando los objetos, predicados y sujetos de los eventos que se han percibido, podemos evocar los pensamientos previos relacionados a un evento concreto. Así acabamos con una asociación entre Eventos percibidos y los eventos y pensamientos que más se le aproximan\footnote{La implementación de estas y el resto de fases se encuentra en \textit{reverie/backend\_server/persona/cognitive\_modules/}}.
+
+Con esto hemos detallado un póco más la implementación que ya se encontraba en el proyecto. Permitiendonos acceder a toda la memoria de los Agentes y habiendo definido ya una forma de percibir e interactuar con la memoria, además de proponer un método para generar las consultas que se harán al LLM.
 
 \section{Procesamiento del lenguaje natural}
 
