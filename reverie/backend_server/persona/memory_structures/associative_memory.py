@@ -110,7 +110,22 @@ class AssociativeMemory:
 
 
   def getRelevantEvents(self,n_events):
-    events = sorted(self.seq_event, key=lambda x: (x.poignancy, x.created), reverse=True)
+    id_to_node = self.id_to_node
+    thoughts = self.seq_thought
+
+    events = dict()
+    for t in thoughts:
+      if t.filling:
+        for e in t.filling:
+          if e in id_to_node.keys() and id_to_node[e].type == 'event':
+            if e not in events.keys():
+              events[e] = set()
+            if t not in events[e]:
+              events[e].add(t)
+    events = [id_to_node[x]
+              for x in sorted(list(events),
+                              key=lambda x: (len(events[x]), id_to_node[x].poignancy),
+                              reverse=True)]
     return [ {
               "node_id": x.node_id,
               "depth": x.depth,

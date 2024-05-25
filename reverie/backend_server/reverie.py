@@ -1038,13 +1038,25 @@ class ReverieServer:
 
   def generateSummary(self):
 
-    importantEvents = dict()
-    importantThoughts = dict()
-    for name in self.personas:
-      persona = self.personas[name]
-      memoria = persona.a_mem
-      importantEvents[name] = memoria.getRelevantEvents(1)
-      importantThoughts[name] = memoria.getRelevantThoughts(3)
+    def getRelevantEvents():
+      importantEvents = dict()
+      for name in self.personas:
+        persona = self.personas[name]
+        memoria = persona.a_mem
+        importantEvents[name] = memoria.getRelevantEvents(2)
+      return importantEvents
+    
+    def getRelevantThoughts():
+      importantThoughts = dict()
+      for name in self.personas:
+        persona = self.personas[name]
+        memoria = persona.a_mem
+        importantThoughts[name] = memoria.getRelevantThoughts(3)
+      return importantThoughts
+
+    importantEvents = getRelevantEvents()
+    importantThoughts = getRelevantThoughts()
+    
     resumen = run_gpt_generate_summary(self.curr_time, self.maze.maze_name, importantEvents, importantThoughts)
     if resumen:
       self.summary = resumen
