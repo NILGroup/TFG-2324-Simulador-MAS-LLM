@@ -552,8 +552,9 @@ Conociendo esto, podremos saber cuáles eran las funcionalidades que ya se habí
 Aquí detallaremos algo más las partes con las que nos toparemos durante el desarrollo de nuestro trabajo. Entre estas se encuentra la comunicación con el LLM y la implementación de la Arquitectura que se ha explicado en la sección \ref{subsect:Diseño original del sistema}.
 
 \subsubsection{Comunicación con el LLM}
+\label{subsubsection:Comunicación con el LLM}
 
-La comunicación con el LLM es central en este trabajo, se trata del motor que lleva acabo toda la simulación. El enfoque que se dió desde \ga \citep{park2023generative}, la mayor preocupación fué obtener respuestas acordes a las estructuras esperadas. Por ello nos encontramos con una estructura algo enrevesada que involucra funciones de orden superior.
+La comunicación con el LLM es central en este trabajo, se trata del motor que lleva acabo toda la simulación. En el enfoque que se dió desde \ga \citep{park2023generative}, la mayor preocupación fué obtener respuestas acordes a los formatos esperados. Por ello nos encontramos con una estructura algo enrevesada que involucra funciones de orden superior.
 
 En \textit{reverie/backend\_server/persona/prompt\_template/} se implementa toda la comunicación que estamos por ver. Aquí nos encontramos con cada uno de los tipos de peticiones que se realizan al LLM. En esta comunicación hay dos puntos esenciales, el Prompt y la Respuesta.
 
@@ -563,7 +564,7 @@ La generación de información para guiar el comportamiento y reacción de los A
 
 Por ello se envían consultas al LLM que después pasan por una fase de verificación, en la que se comprueba la suficiencia de las respuestas. Para esto se utilizan las funciones de orden superior comentadas anteriormente. Esto se vé en \textit{reverie/backend\_server/persona/prompt\_template/templates/gpt\_structure.py}, en las funciones \textit{safe\_generate\_response()} y \textit{ChatGPT\_safe\_generate\_response()}, donde tienen los parámetros \textit{func\_clean\_up, func\_validate, repeat} y \textit{fail\_safe\_response}. Para confirmar la validez; obtener la respuesta destilada de cualquier información innecesaria; el número de veces que se intenta lograr una respuesta válida y la respuesta que se dará en caso de que el LLM no cumpla lo pedido.
 
-\textit{reverie/backend\_server/persona/prompt\_template/templates/gpt\_structure.py} contiene todas las llamadas a esas funciones, donde habrá una función por cada tipo de petición que se haga al LLM. Cada una de estas funciones define su respuesta por defecto, el tipo de respuesta esperada y la información estrictamente necesaria con la que se queda.
+\textit{reverie/backend\_server/persona/prompt\_template/templates/run\_gpt\_prompt.py} contiene todas las llamadas a esas funciones, donde habrá una función por cada tipo de petición que se haga al LLM. Cada una de estas funciones define su respuesta por defecto, el tipo de respuesta esperada y la información estrictamente necesaria con la que se queda.
 
 Es en este archivo, y con este formato, donde se añadiría cualquier tipo de extensión que se haga al programa y que haga uso del LLM. Un ejemplo de ello es la generación de resumenes que se detallará en la sección \ref{sect:Funcionalidad de resúmenes de las simulaciones}.
 

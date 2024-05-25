@@ -664,6 +664,56 @@ Esto se nota en la intrincada relación que se encuentra entre la implementació
 
 Esta readaptación conllevó el uso de recursos de sistema como Pipes de comunicación entre procesos de forma nativa, para poder redirigir el flujo de comunicación que la aplicación tenía con la terminal, a un proceso gestionado por el Front que enviase y recibiese la información deseada. La infraestructura propuesta se discute en más detalle en la sección \ref{section:adaptacionEjecucionComandosBackFront}.
 
+\subsection{Generación de resúmenes}
+
+Para la funcionalidad de la generación de resumenes nos encontramos con dos problemas principales. La selección de la información y la generación del Prompt.
+
+\subsubsection{Selección de la información}
+
+En el proceso de la generación de resúmenes contábamos con toda la información que pudiéramos necesitar. Por lo que el problema principal era decidir cuál de esta usar. Es inviable emplear toda la información generada por cada uno de los Agentes debido a la cantidad de Tokens que se emplearían. Por ello decidimos seleccionar la información en base a ciertos criterios que detallaremos.
+
+Entendemos que la simulación se puede explorar desde dos perspectivas, la global y desde el punto de vista de los Agentes. Es por ello que en el resumen decidimos tener en cuenta ambos datos de forma separada. Por un lado los eventos más relevantes que ocurren en la simulación, por otro las ideas y pensamientos más relevantes que tuvo cada Agente. Con estos dos datos generámos el resumen.
+
+Con este enfoque nos vemos obligados a filtrar mucha información. Para la selección de los eventos más relevantes, tan solo nos enfocamos en los eventos que más pensamientos hayan generado, seleccionando una cantidad de cada Agente.
+
+Por otro lado había que elegir los pensamientos mas relevantes de cada Agente. Esto implica decidir aquellos que hayan tenido una mayor influencia o que hayan sido más elaborados.
+
+En una primera instancia nos encontramos con funcionalidades ya implementadas que eran parecidas a los requisitos que teníamos. Hablamos de las funciones \textit{retrieve\_relevant\_thoughts()} de AssociativeMemory. Sin embargo no era del todo adecuado ya que se centraba en buscar los pensamientos relevantes asociados a unos sujeto, predicado y objeto concretos.
+
+La segunda tentativa fue usar los pesos asociados a los \textit{keywords} de cada ConceptNode. Con esto conseguiríamos ConceptNodes asociados a temáticas muy repetidas, sin embargo esta información no nos aporta nada sobre el desarrollo del ConceptNode ni su relación con el resto de pensamientos.
+
+Tras esto decidimos realizar una búsqueda más centrada en la idea de que la relevancia del pensamiento era proporcional a cuán elaborada había sido este a lo largo del tiempo. Al contar para cada ConceptNode con la información de en qué ConceptNodes se basa, teníamos toda la información necesaria para establecer la forma de encontrar los pensamientos más relevantes.
+
+Los criterios concretos para elegir los pensamientos más relevantes han sido los siguientes:
+
+\begin{itemize}
+	\item En primer lugar establecemos un umbral con el que ignoraremos a cualquier ConceptNode que no tenga un score igual o superior a dicho umbral.
+Dicho umbral se encarga de valorar dos aspectos. El primero y más sencillo es que no permitirá considerar ConceptNodes que den lugar a nuevos pensamientos. El segundo establece un valor númerico mínimo para el score mínimo del ConceptNode.
+	\item El valor del umbral es el siguiente
+\[
+	umbral(Node) = Node.depth! * (5 + 2^{Node.depth - 1} * 3)
+\]
+El valor de dicho umbral equivale al score de un ConceptNode con \textit{poignancy} 5 y una media de \textit{poignancy} 3 para los antecesores del Nodo, suponiendo un factor de ramificación 2.
+	\item El valor del score para un ConceptNode lo calculamos de la siguiente manera:
+\[
+score(Thgt) =
+\begin{cases} 
+     0 & \text{si } Thgt = null \\
+     Thgt.depth * (Thgt.poignancy + \sum_{p \in Thgt.prevs} score(p)) & \text{si } Thgt \neq null
+\end{cases}
+\]
+\end{itemize}
+
+Toda la implementación se encuentra en la función \textit{generateSummary()} de la estructura \textit{ReverieServer} que se encuentra en \textit{reverie/backend\_server/reverie.py}
+
+\subsubsection{Generación del Prompt}
+
+una vez tenemos la información necesaria lo único que nos queda es plantear el Prompt que presentamos al LLM para obtener el resumen que necesitamos. Para la generación del Prompt seguimos la estructura detallada en la sección \ref{subsubsection:Comunicación con el LLM}. Por ello terminamos generando una función que se encargaba de generar el Prompt en base a la plantilla\footnote{La plantilla se muestra en el Apéndice \ref{Appendix:Template y Prompt}} y más tarde llamar a la función correspondiente para el resumen final. Las fases de verificar la respuesta eran triviales, puesto que lo que queríamos era un resumen y por tanto nos bastaba con texto plano.
+
+Este resúmen se podría enriquecer con referencias a los momentos de tiempo en que ocurren los hechos detallados, y sería a través de estas funciones de verificación que se comprobaría que las referencias existiesen, por ejemplo.
+
+Finalmente, decidimos asociar un resúmen a cada par (simulación, step) de forma que puediéramos tener varios resúmenes de una simulación en distintos instántes de tiempo, todos accesibles desde la vista \textit{Visualizar Simulaciones} de la Interfaz. Para esto tuvimos que añadir el resúmen como información asociada a la simulación. Por ello hubo que modificar ligéramente la forma de guardar y crear simulaciones, que se encargan de generar estos campos en las simulaciones.
+
 \subsection{Acoplo de los personajes al mapa original}
 \label{problemaPersonajes}
 Como se ha mencionado en varias ocasiones, el sistema original no estaba pensado para ser extensible en multitud de aspectos. Uno de los aspectos más importantes es que todos los personajes tenían nombres, apariencias y personalidades predefinidas, lo que no permitía a los usuarios modificar los personajes y sus personalidades, por tanto, se verían encorsetados a siempre utilizar los mismos personajes con las mismas relaciones entre ellos y generar experimentos a partir de esto, lo cual limita muchísimo el uso de esta aplicación.
