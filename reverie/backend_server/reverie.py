@@ -1037,8 +1037,6 @@ class ReverieServer:
     print (ret_str)
 
   def generateSummary(self):
-    self.summary = "El resumen aun no se solicita al Modelo\nUna vez decidido se enviará la solicitud y en el front se esperará la respuesta"
-    self.summary_step = self.step
 
     importantEvents = dict()
     importantThoughts = dict()
@@ -1052,6 +1050,7 @@ class ReverieServer:
       self.summary = resumen
     else:
       self.summary = "There was some problem at generating the summary of the simulation"
+    self.summary_step = self.step
 
   @staticmethod
   def instancia_sencilla(sim_code,max_try):
