@@ -714,6 +714,55 @@ Este resúmen se podría enriquecer con referencias a los momentos de tiempo en 
 
 Finalmente, decidimos asociar un resúmen a cada par (simulación, step) de forma que puediéramos tener varios resúmenes de una simulación en distintos instántes de tiempo, todos accesibles desde la vista \textit{Visualizar Simulaciones} de la Interfaz. Para esto tuvimos que añadir el resúmen como información asociada a la simulación. Por ello hubo que modificar ligéramente la forma de guardar y crear simulaciones, que se encargan de generar estos campos en las simulaciones.
 
+\subsection{Enviar información al Back}
+
+Al permitir el uso de la aplicación desde una interfáz web, se hizo necesario el uso de un proceso extra que hiciera de servidor que realiza todos los cálculos. Para mantener la comunicación entre estos dos procesos empleamos los Pipes, como detallamos en la sección \ref{section:adaptacionEjecucionComandosBackFront}. El uso de estos Pipes permite emular el uso de una terminal, a través de la que se envían las peticiones de Front. Esta emulación pone ciertas restricciones a la hora de comunicarse.
+
+Una que nos supuso varios problemas fué que tan solo se podía enviar una línea de información en cada comunicación que se efectuase. Esto afectó a la implementación/rediseño de funcionalidades como chat y susurro. Obligandonos a enviar toda la información comprimida en un único string. Y recibir la información de vuelta de una forma similar.
+
+\subsection{Implementación del chat}
+\label{subsection:Implementación del chat}
+
+Para mantener un chat con los Agentes es necesario establecer un flujo de comunicación entre front y back en el que se mantenga la información de la conversación mantenida.
+
+El principal problema que nos encontramos fué la gestión de la lectura a través de los Pipes con los que se comunican Front y Back.
+
+Por ello esta sección se puede dividir en dos partes. Diseño de la comunicación enfocado en los Pipes y Generar respuesta del Agente.
+
+\textbf{Diseño de la comunicación enfocado en los Pipes}
+
+Al hacer uso de ese recurso del sistema de la forma en que lo hacemos, nos vemos obligados a enviar un mensaje y recibir una respuesta.
+
+Por ello nos hemos visto obligados a colapsar toda la información de la conversación en un único string. Las preguntas que se hagan generan un string que llega al \textit{ReverieServer} con el siguiente formato:
+
+\begin{quote}
+	\gentxt{
+		chat:--Agent Name; Interviewer: Question; Agent Name: Answer; Interviewer: ...; Last question
+	}
+\end{quote}
+
+De esta forma podemos reconstruir la información de la conversación y ofrecemos una respuesta al Front en el formato:
+
+\begin{quote}
+	\gentxt{
+		Interviewer: Question; Agent Name: Answer; Interviewer: ...; Interviewer: Last question; Agent Name: Last Answer; LastAnswer
+	}
+\end{quote}
+
+Con la que ofrecemos la respuesta dada en el Front y permitimos mantener guardada la conversación mantenida.
+
+\textbf{Generar respuesta del Agente}
+
+Con el formato visto previamente tenemos disponibles en el back toda la conversación mantenida y al Agente al que entrevistamos.
+
+De esta forma podemos acceder al Agente y usar sus recuerdos para obtener información relativa a las preguntas y así contestar de una forma coherente.
+
+Hacemos uso de toda esta información desde el código que se encuentra en el archivo \textit{reverie/backend\_server/persona/cognitive\_modules/converse.py}. Concretamente en la función \textit{chat()}.
+
+Aquí empleamos funciones que ya se usaban en el proyecto, \textit{new\_retrieve()}, que se encarga de extraer recuerdos de la persona relevantes en base a eventos o descripciones que le proporciones y \textit{run\_gpt\_prompt\_generate\_next\_convo\_line()} que se encarga de generar la siguiente respuesta en una conversacion.
+
+Con esto tenemos generada la respuesta del Agente entrevistado.
+
 \subsection{Acoplo de los personajes al mapa original}
 \label{problemaPersonajes}
 Como se ha mencionado en varias ocasiones, el sistema original no estaba pensado para ser extensible en multitud de aspectos. Uno de los aspectos más importantes es que todos los personajes tenían nombres, apariencias y personalidades predefinidas, lo que no permitía a los usuarios modificar los personajes y sus personalidades, por tanto, se verían encorsetados a siempre utilizar los mismos personajes con las mismas relaciones entre ellos y generar experimentos a partir de esto, lo cual limita muchísimo el uso de esta aplicación.
