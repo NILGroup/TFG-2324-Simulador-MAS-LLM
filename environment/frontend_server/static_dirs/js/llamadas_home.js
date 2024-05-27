@@ -87,6 +87,17 @@ $(document).ready(function() {
         susurro.val("");
     });
 
+    boton_run.click(function() {
+        // Obtener el valor del select de pasos
+        let values = {};
+        let steps = $('#num_steps').val();
+        values['steps'] = steps;
+        console.log("Estamos en ", step, steps);
+        desired_step = step + parseInt(steps);
+        console.log("Queremos", desired_step);
+        sendAjaxCall('run', values);
+    });
+
     boton_guardar_ver.click(function() {
         console.log(step, sim_code)
         console.log("Guardando la simulación para ver después")
