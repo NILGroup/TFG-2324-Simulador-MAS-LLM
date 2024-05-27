@@ -68,23 +68,23 @@ $(document).ready(function() {
     const boton_guardar_y_salir = $('#boton_guardar_y_salir');
     const boton_salir = $('#boton_salir');
     const boton_chat = $('.boton_chat');
-    const boton_susurro = $('.boton_susurro');
     const boton_abrir_chat = $('.abrir_chat');
     const boton_abrir_susurro = $('.abrir_susurro');
+    const boton_cerrar_susurro = $('.cerrar_susurro');
+    const boton_susurro = $('.boton_susurro');
 
     // Se desactivan por que són para la interacción con la demo
     boton_play.css('display', 'none');
     boton_pause.css('display', 'none');
 
-    boton_run.click(function() {
-        // Obtener el valor del select de pasos
-        let values = {};
-        let steps = $('#num_steps').val();
-        values['steps'] = steps;
-        console.log("Estamos en ", step, steps);
-        desired_step = step + parseInt(steps);
-        console.log("Queremos", desired_step);
-        sendAjaxCall('run', values);
+    boton_abrir_susurro.click(function() {
+        game.input.keyboard.enabled = false;
+    });
+
+    boton_cerrar_susurro.click(function() {
+        game.input.keyboard.enabled = true;
+        const susurro = $(this).closest('.modal').find('textarea'); 
+        susurro.val("");
     });
 
     boton_guardar_ver.click(function() {
@@ -140,5 +140,9 @@ $(document).ready(function() {
         console.log(values);
 
         sendAjaxCall('susurro', values);
+
+        // Vaciamos el textarea y reanudamos el control de Phaser
+        $(this).closest('.modal').find('textarea').val("");
+        game.input.keyboard.enabled = true;
     });
 });
