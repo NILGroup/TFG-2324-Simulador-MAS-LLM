@@ -1,7 +1,7 @@
 // Código JQuery para la gestión de las llamadas al backend en relación con la gestión de una simulación
 // (play, pase, guardar para ver, guardar para continuar y salir sin guardar)
 
-function gestionarVisibilidad(simulacionCorriendo, problemaBack) {
+function gestionarVisibilidad(simulacionCorriendo, problemaBack, commEnCurso) {
     const boton_run = $('#boton_run');
     const input_steps = $('#num_steps'); 
     const boton_guardar_ver = $('#boton_guardar_ver');
@@ -10,33 +10,37 @@ function gestionarVisibilidad(simulacionCorriendo, problemaBack) {
     const boton_abrir_chat = $('.abrir_chat');
     const boton_abrir_susurro = $('.abrir_susurro');
 
-    let disableButtons = simulacionCorriendo | problemaBack;
+    let disableButtons = simulacionCorriendo | problemaBack | commEnCurso;
 
     boton_run.prop('disabled', disableButtons);
     input_steps.prop('disabled', disableButtons);
     boton_guardar_ver.prop('disabled', disableButtons);
 
-    boton_guardar_y_salir.prop('disabled', !problemaBack && simulacionCorriendo);
+    boton_guardar_y_salir.prop('disabled', commEnCurso || (!problemaBack && simulacionCorriendo));
     
     boton_salir.prop('disabled', disableButtons);
     boton_abrir_chat.prop('disabled', disableButtons);
     boton_abrir_susurro.prop('disabled', disableButtons);
 }
 
-function actualizarTextoSimulacion(simulacionCorriendo, steps, problemaBack) {
+function actualizarTextoSimulacion(simulacionCorriendo, steps, problemaBack, commEnCurso) {
     const simulationStateText = $('#textoEstadoSimulacion');
     if (problemaBack) {
         const message = "Hubo un problema con el LLM reinicie la simulación";
         const color = 'red';
         simulationStateText.text(message).css('color', color);
-    } else {
+    } else if(commEnCurso) {
+        const message = "Hay una comunicación con el LLM en marcha";
+        const color = 'red';
+        simulationStateText.text(message).css('color', color);
+    }else {
         const message = simulacionCorriendo ? "Quedan "+steps+" steps por ejecutar" : "";
         const color = simulacionCorriendo ? 'red' : 'green';
         simulationStateText.text(message).css('color', color);
     }
 }
 
-function sendAjaxCall(action, values = {}) {
+function sendAjaxCall(action, values = {}, callback = function (response) {}) {
     const dataToSend = {
         action: action,
         values: values
@@ -47,8 +51,7 @@ function sendAjaxCall(action, values = {}) {
         type: 'POST',
         data: JSON.stringify(dataToSend),
         dataType: 'json',
-        success: function(response) {
-        },
+        success: callback,
         error: function(error) {
             console.error("Error enviando la acción del botón:", error);
         }
@@ -148,9 +151,11 @@ $(document).ready(function() {
         let values = {};
         values['persona_name'] = personaName;
         values['susurro'] = susurro;
-        console.log(values);
 
-        sendAjaxCall('susurro', values);
+        comunicacionEnCurso = true;
+        sendAjaxCall('susurro', values, function(response) {
+            comunicacionEnCurso = false;
+        });
 
         // Vaciamos el textarea y reanudamos el control de Phaser
         $(this).closest('.modal').find('textarea').val("");
