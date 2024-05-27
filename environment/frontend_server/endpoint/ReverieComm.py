@@ -59,6 +59,9 @@ class ReverieComm():
       ret = out_file.readlines()
     return ret
 
+  def whisper(self, name, whisper):
+    return self.write_command(f"whisper {name}:{whisper}")
+
   def sum_up(self):
     """
     Solicita el resumen de la simulacion al backend

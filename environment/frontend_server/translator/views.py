@@ -505,7 +505,9 @@ def manejador_acciones_simulacion(request):
           pass
       elif action == 'susurro':
           # ... Lógica del "susurro" (también se recibirá el id o nombre del personaje al que quiere susurrar)
-          pass
+          name = json_dict['persona_name']
+          whisper = json_dict['susurro']
+          ReverieComm().whisper(name, whisper)
 
       return JsonResponse({'success': True})
   else:
