@@ -221,6 +221,15 @@ def generate_poig_score(persona, event_type, description):
 
 
 def load_history_via_whisper(personas, whispers):
+  """
+  Input:
+    personas: dict(persona_name -> persona object)
+    whispers: list(
+                    list([persona_name, whisper]),
+                    list([persona_name, whisper]),
+                    list([persona_name, whisper])
+                  )
+  """
   for count, row in enumerate(whispers): 
     persona = personas[row[0]]
     whisper = row[1]

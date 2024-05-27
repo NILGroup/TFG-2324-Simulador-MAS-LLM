@@ -82,7 +82,7 @@ def cerrar_comunicacion(o_f):
   o_f.clear()
 
 def exec_command(rc):
-  command = input().strip().lower()
+  command = input().strip()
   rc.exec_command(command)
 
 

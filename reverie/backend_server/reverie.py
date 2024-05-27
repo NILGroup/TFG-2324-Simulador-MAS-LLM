@@ -840,7 +840,7 @@ class ReverieServer:
       Probablemente sea mejor usarlo para saber si ha ido todo bien pero en ese caso habría que manejar excepciones que a lo mejor ya se están capturando
     """
     sim_folder = f"{fs_storage}/{self.sim_code}"
-    command = command.lower().strip()
+    command = command.strip()
     if command in ["test"]:
       print(f"Enviando peticion a LLM con api_key: {api_key}")
       completion = client.chat.completions.create(model="gpt-3.5-turbo-0125",
@@ -855,6 +855,19 @@ class ReverieServer:
 
     elif command == "summ_up":
       self.generateSummary()
+      return False
+    
+    elif ("whisper"
+          in command):
+      """
+      This function expects to receive something like 
+        whisper Isabella Rodriguez:this is the new thing you want
+      """
+      command = command[len("whisper"):].strip()
+      name = command.split(":")[0]
+      whisper = command.split(":")[1].strip()
+      if name in self.personas.keys():
+        self.whisper(name, whisper)
       return False
 
     elif command == "start path tester mode": 
@@ -903,20 +916,8 @@ class ReverieServer:
       return False
 
     elif ("call -- load history" # Whisper
-          in command.lower()): 
-      curr_file = maze_assets_loc + "/" + command[len("call -- load history"):].strip() 
-      # call -- load history the_ville/agent_history_init_n3.csv
-
-      rows = read_file_to_list(curr_file, header=True, strip_trail=True)[1]
-      clean_whispers = []
-      for row in rows: 
-        agent_name = row[0].strip() 
-        whispers = row[1].split(";")
-        whispers = [whisper.strip() for whisper in whispers]
-        for whisper in whispers: 
-          clean_whispers += [[agent_name, whisper]]
-
-      load_history_via_whisper(self.personas, clean_whispers)
+          in command.lower()):
+      self.chat(command[len("call -- load history"):].strip())
       return False
     
     elif ("print persona schedule" 
@@ -1063,6 +1064,9 @@ class ReverieServer:
     else:
       self.summary = "There was some problem at generating the summary of the simulation"
     self.summary_step = self.step
+
+  def whisper(self, name, whisper):
+    load_history_via_whisper(self.personas, [[name, whisper]])
 
   @staticmethod
   def instancia_sencilla(sim_code,max_try):
