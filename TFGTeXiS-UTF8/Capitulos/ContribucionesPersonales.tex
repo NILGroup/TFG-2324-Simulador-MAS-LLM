@@ -2,37 +2,37 @@
 \label{cap:contribucionesPersonales}
 \addcontentsline{toc}{chapter}{Contribuciones Personales}
 
-Como este no es un trabajo unipersonal, se ha añadido este capítulo de contribuciones personales, en el cual cada uno de los dos alumnos que hemos realizado este trabajo, añadiremos en qué apartados nos hemos enfocado cada uno.
+Como este no es un trabajo unipersonal, se ha añadido este capítulo de contribuciones personales, en el cual cada uno de los dos alumnos que hemos realizado este trabajo añadirá en qué apartados nos hemos enfocado cada uno.
 
 \section*{Estudiante 1: Alberto Ramos Suárez}
 
 Tras la división del trabajo, decidimos que yo realizara la parte de frontend, enfocándome más en la interfaz y todo lo relacionado con la interacción del cliente con la página, así como la interacción con el backend, siendo algo más agnóstico de los procesos que tenían lugar por detrás.
 
-A continuación, enunciaré algunos de los puntos en los que más enfoqué mi trabajo y el desarrollo del proyecto.
+A continuación, enunciaré algunos de los puntos en los que más me enfoqué en mi trabajo y el desarrollo del proyecto.
 
 \subsection*{Diseño de la interfaz}
 
 Todo el frontend está realizado por nosotros (exceptuando los mapas y algunas secciones de las páginas de ejecución de simulación y de demo). Por tanto, esto necesitaba ser diseñado y pensado siguiendo ciertos patrones, para que los usuarios pudiesen interactuar completamente con la web.
 
-Lo primero que diseñé fue la landing page, a la que lo usuarios llegarán al cargar la aplicación. En esta, se muestra información sobre el proyecto que hemos desarrollado, algunas de las características que tiene la aplicación y el propósito de la misma.
+Lo primero que diseñé fue la landing page, a la que los usuarios llegarán al cargar la aplicación. En esta, se muestra información sobre el proyecto que hemos desarrollado, algunas de las características que tiene la aplicación y el propósito de la misma.
 
-Después de esto, era necesaria una barra de navegación, que permitiese a los usuarios moverse entre las distintas páginas de la aplicación fácilmente. Esta barra de navegación permite saltar a las páginas de creación, continuación y visualización de simulación, la guía de usuario y la landing.
+Después de esto, era necesaria una barra de navegación, que permitiera a los usuarios moverse entre las distintas páginas de la aplicación fácilmente. Esta barra de navegación permite saltar a las páginas de creación, continuación y visualización de simulación, la guía de usuario y la landing.
 
-Las vistas de continuación y visualización de simulaciones son similares, ya que ambas cargan las simulaciones disponibles en el backend, y permiten elegir una de ellas para las acciones que se deseen tomar. El diseño de estas fue pensado para que los usuarios tuvieran libertad a la hora de elegir qué parte de la simulación quieren ver y de dónde salen las simulaciones, tratando de hacer el proceso lo más intuitivo posible.
+Las vistas de continuación y visualización de simulaciones son similares, ya que ambas cargan las simulaciones disponibles en el backend, y permiten elegir una de ellas para las acciones que se deseen tomar. El diseño de estas fue pensado para que los usuarios tuvieran libertad a la hora de elegir qué parte de la simulación quieren ver y de dónde provienen las simulaciones, tratando de hacer el proceso lo más intuitivo posible.
 
 En cuanto a la vista de creación de simulación, es una de las más complejas del sistema, ya que es donde los usuarios tendrán que definir varios parámetros para que las simulaciones funcionen sin problemas. Entre estos parámetros están el contexto, personalidad y actitud de cada uno de los personajes, o el contexto de la simulación.
 
-La vista de guía de usuario es muy sencilla y está pensada para enseñar a los usuarios a usar la aplicación, así como dar trucos de cómo optimizar las ejecuciones de simulaciones y experimentos interesantes.
+La vista de guía de usuario es muy sencilla y está pensada para enseñar a los usuarios a usar la aplicación, así como dar trucos sobre cómo optimizar las ejecuciones de simulaciones y experimentos interesantes.
 
-Para conseguir implementar todas estas vistas, también fue necesaria la investigación a fondo del funcionamiento de la aplicación. Comprendiendo el backend de Django para crear nuevas vistas, así como el flujo de información desde y hacia el backend.
+Para conseguir implementar todas estas vistas, también fue necesaria la investigación a fondo del funcionamiento de la aplicación. Comprendiendo el backend de Django para crear nuevas vistas, así como el flujo de información desde y hacia este.
 
 \subsection*{Contribuciones a la memoria}
 
-Ambos tuvimos implicación en esta memoria, pero como Kevin tenía una mayor carga en el área de investigación e implementación de las funcionalidades en el backend, me encargué de hacer varias de las secciones que no tenían "dueño", así como la mayoría de las imágenes que sirven para explicar gráficamente los aspectos del diseño de la aplicación en general.
+Ambos tuvimos implicación en esta memoria. Sin embargo, como Kevin tenía una mayor carga en el área de investigación e implementación de las funcionalidades en el backend, me encargué de hacer varias de las secciones que no tenían "dueño", así como la mayoría de las imágenes que sirven para explicar gráficamente los aspectos del diseño de la aplicación en general.
 
 Además, la sección del Estado de la Cuestión la dividimos en 2. Decidimos que yo hiciera las secciones de la 4 a la 7, ya que eran secciones que tenían menos que ver con la lógica por detrás de la aplicación, y más con el propósito general de este trabajo, que es la democratización y accesibilidad de una herramienta para experimentar con la emergencia de relaciones sociales mediante el uso de tecnologías multiagente.
 
-El capítulo 6 de la memoria, en el cuel se tratan las interfaces, también lo realicé yo, ya que es esencialmente el trabajo en el que invertí la mayor parte de mi tiempo. Este capítulo trata esencialmente de las vistas en detalle, mostrando ejemplos del resultado final de las mismas y explicándolas.
+El capítulo 6 de la memoria, en el cual se tratan las interfaces, también lo realicé yo, ya que es esencialmente el trabajo en el que invertí la mayor parte de mi tiempo. Este capítulo trata esencialmente de las vistas en detalle, mostrando ejemplos del resultado final de las mismas y explicándolas.
 
 Sin embargo, aunque nos hayamos dividido las diferentes secciones de la memoria, tanto Kevin como yo revisamos las secciones realizadas por el otro, para comprobar que no haya errores ortográficos y que la información sea validada por ambos antes de publicarla.
 
@@ -52,29 +52,29 @@ Al hilo de esto, también decidí incorporar la guía de usuario en la interfaz.
 
 \subsection*{Gestión de la comunicación entre el frontend y el backend de Django}
 
-En esta parte del desarrollo contribuímos tanto Kevin como yo. Se trata básicamente del contrato de API entre el front y el back, mediante el cual el frontend le pedirá al backend información, la cual este deberá ejecutar y devolver la respuesta.
+En esta parte del desarrollo contribuimos tanto Kevin como yo. Se trata básicamente del contrato de API entre el front y el back, mediante el cual el frontend le pedirá al backend información, la cual este deberá ejecutar y devolver la respuesta.
 
 En el desarrollo de este contrato intervinimos los dos, pero yo tomé la iniciativa de crear las primeras llamadas (de los comandos, de la creación de simulaciones...) y a partir de ahí luego veíamos qué más información necesitábamos y en qué formato.
 
 \section*{Estudiante 2: Kevin Óscar Arce Vera}
 
-Mi trabajo se enfocó en digerir toda la estructura lógica que habíamos heredado, con el objetivo de comprender la lógica que se había seguido para implementar todo lo pretendido en \cite{park2023generative}. De esta forma era posible ampliar el trabajo existente con las funcionalidades que hemos discutido y desarrollado en este documento. Entre las actividades en las que más tiempo he invertido se encuentran: la valoración LLMs alternativos al que se usaba,  adaptar la infraestructura usada en backend para lograr el uso de la aplicación a través de una interfaz web, implementación de funcionalidades, adaptación de las existentes a nuestros requisitos, redacción de memoria y gestionar la comunicación entre backed y frontend.
+Mi trabajo se enfocó en digerir toda la estructura lógica que habíamos heredado, con el objetivo de comprender la lógica que se había seguido para implementar todo lo pretendido en \cite{park2023generative}. De esta forma era posible ampliar el trabajo existente con las funcionalidades que hemos discutido y desarrollado en este documento. Entre las actividades en las que más tiempo he invertido se encuentran: la valoración de  LLMs alternativos al que se usaba,  adaptar la infraestructura usada en backend para lograr el uso de la aplicación a través de una interfaz web, implementación de funcionalidades, adaptación de las existentes a nuestros requisitos, redacción de memoria y gestionar la comunicación entre backed y frontend.
 
 Procedo a detallar cada una de estas actividades a continuación:
 
 \subsection*{Valoración del uso de LLMs}
 
-Como se comentó en la sección \ref{subsec:Selección del modelo de lenguaje}, era necesario contar un LLM que, en el corto plazo, nos permitiera probar las funcionalidades que fuésemos agregando y, en el largo, nos ofreciera la capacidad de ejecutar la aplicación sin mucho tiempo de inferencia, poco coste y de forma local, en el caso ideal.
+Como se comentó en la sección \ref{subsec:Selección del modelo de lenguaje}, era necesario contar con un LLM que, en el corto plazo, nos permitiera probar las funcionalidades que fuésemos agregando y, en el largo, nos ofreciera la capacidad de ejecutar la aplicación sin mucho tiempo de inferencia, poco coste y de forma local, en el caso ideal.
 
-Por ello surgió el problema de la búsqueda de un LLM, del cual me encargué. La primera de las aproximaciones que planteé fué la de usar el mismo modelo que ya funcionaban en la aplicación, por lo menos durante el desarrollo. Pero debido a la ignorancia del coste que pudiera acarrear y la existencia de modelos Open Source, decidí probar con otros modelos.
+Por ello surgió el problema de la búsqueda de un LLM, del cual me encargué. La primera de las aproximaciones que planteé fue la de usar el mismo modelo que ya funcionaban en la aplicación, por lo menos durante el desarrollo. Pero debido a la ignorancia del coste que pudiera acarrear y la existencia de modelos Open Source, decidí probar con otros modelos.
 
-La primera de las alternativas que surgieron fue, el recien estrenado, Llama 2. La principal razón era su equidad a modelos que eran referencia en ese momento y también por la variedad de tamaños que ofrecían. La prueba de este modelo la realicé a través de Repositorios que permitían cargar modelos para los que habían adaptado la herramienta, permitiendome evaluar la proximidad de este modelo a los requisitos que exigía nuestra aplicación. Como ya comenté, los diversos problemas que surgian del uso de Llama 2 me decantaron por otras alternativas.
+La primera de las alternativas que surgieron fue, el recién estrenado, Llama 2. La principal razón era su equidad a modelos que eran referencia en ese momento y también por la variedad de tamaños que ofrecían. La prueba de este modelo la realicé a través de Repositorios que permitían cargar modelos para los que habían adaptado la herramienta, permitiéndome evaluar la proximidad de este modelo a los requisitos que exigía nuestra aplicación. Como ya comenté, los diversos problemas que surgían del uso de Llama 2 me decantaron por otras alternativas.
 
-La siguiente fué emplear modelos que habían sido cuantizados, de los que encontré multitud en HuggingFace y, que por suerte, ofrecían versiones de Llama 2, con los que, en principio, se podían solventar los problemas de latencia.
+La siguiente fue emplear modelos que habían sido cuantizados, de los que encontré multitud en HuggingFace y, que por suerte, ofrecían versiones de Llama 2, con los que, en principio, se podían solventar los problemas de latencia.
 
-Las prueba de proximidad a los requisitos de la aplicación las realicé manualmente, elaborando consultas tipo que se realizarían al modelo a través de la aplicación y ofreciendoselas a los modelos que estaba evaluando. Para comprobar si eran capaces de estructurar la información de la forma adecuada.
+Las prueba de proximidad a los requisitos de la aplicación las realicé manualmente, elaborando consultas tipo que se realizarían al modelo a través de la aplicación y ofreciéndoselas a los modelos que estaba evaluando. Para comprobar si eran capaces de estructurar la información de la forma adecuada.
 
-Como ya se vio, no fue posible. En este punto me encontraba sin demasiadas alternativas a modelos Privativos. Hasta que encontré el paper \cite{eldan2023tinystories} . Que ofrecía modelos bastante pequeños, en comparación a los LLM que habían surgido, y con un entrenamiento distinto al de los LLMs convencionales, que parecía ajustarse al tipo de actividad que se realiza en nuestra herramienta y capaces de generar texto con una gramática en inglés rozando el nivel humano. Por ello probé varios de estos modelos por medio de la respuesta a consultas sencillas que les iba haciendo a través de la misma herramienta que use con Llama 2 y los modelos cuantizados.. Pruebas en las que se vieron las grandes carencias generativas que tenían.
+Como ya se vio, no fue posible. En este punto me encontraba sin demasiadas alternativas a modelos Privativos. Hasta que encontré el paper \cite{eldan2023tinystories} . Que ofrecía modelos bastante pequeños, en comparación a los LLM que habían surgido, y con un entrenamiento distinto al de los LLMs convencionales, que parecía ajustarse al tipo de actividad que se realiza en nuestra herramienta y capaces de generar texto con una gramática en inglés rozando el nivel humano. Por ello probé varios de estos modelos por medio de la respuesta a consultas sencillas que les iba haciendo a través de la misma herramienta que usé con Llama 2 y los modelos cuantizados.. Pruebas en las que se vieron las grandes carencias generativas que tenían.
 
 También me encargué de la adaptación de las consultas del modelo para que fuera capaz de utilizar la API de PaLM, el LLM de Google en aquel entonces. Teniendo que bordear las restricciones de su uso en España. Finalmente de forma infructuosa debido a que era bastante deficiente también.
 
@@ -84,7 +84,7 @@ Por ello terminamos usando la API de GPT3.5 durante toda la fase de desarrollo. 
 
 El trabajo sobre el que empezamos a trabajar ya tenía una aplicación funcionando a través de una web. Sin embargo esta forzaba toda la interacción con la aplicación a ser realizada por medio de un terminal, ajeno a la aplicación. Pensamos que esto podía suponer una gran barrera para la extensión en el uso de esta herramienta, por lo que era necesario ser capaz de acceder a la aplicación a través de un solo punto, eliminando interacciones con elementos ajenos a la aplicación.
 
-Esto conllevaba adaptar los sitemas de comunicación existentes, sin afectarlos en gran medida, ya que, debido a sus dimensiones, no conocíamos el alcance del efecto que suponía la modificación. Debido a mi mayor familiaridad con sistemas Linux y a que me encargaba de la parte backend de la aplicación me encargué de diseñar e implementar la estructura mostrada en la figura \ref{fig:DiagramaComandos}
+Esto conllevaba adaptar los sitemas de comunicación existentes, sin afectarlos en gran medida, ya que, debido a sus dimensiones, no conocíamos el alcance del efecto que suponía la modificación. Debido a mi mayor familiaridad con sistemas Linux y a que me encargaba de la parte backend de la aplicación, me encargué de diseñar e implementar la estructura mostrada en la figura \ref{fig:DiagramaComandos}
 
 Así me hize cargo de la implementación de los distintos métodos de comunicación desde el Front y de la adaptación de esta estructura para que funcionase con el sistema ya existente.
 
@@ -92,11 +92,11 @@ Así me hize cargo de la implementación de los distintos métodos de comunicaci
 
 Entre estas nos encontramos 
 \begin{itemize}
-    \item \textbf{Creación de simulaciones configurando agentes}: En la que también se vió envuelto Alberto debido a la interfaz necesaria. Pero por la parte del backend fué necesario definir las datos esenciales de una simulación y abstraerlos en estructuras que permitieran ejecutar nuevas simulaciones desde la nada.
+    \item \textbf{Creación de simulaciones configurando agentes}: En la que también se vió envuelto Alberto debido a la interfaz necesaria. Pero por la parte del backend fue necesario definir las datos esenciales de una simulación y abstraerlos en estructuras que permitieran ejecutar nuevas simulaciones desde la nada.
 
-    \item \textbf{Generación de resumenes de las simulaciones existentes}: En el backend, además de estructurar la información para que se acoplase a la ya existente para una simulación, fué necesario establecer la información prioritaria que se tomaría en cuenta para la generación de un resumen para una simulación.
+    \item \textbf{Generación de resúmenes de las simulaciones existentes}: En el backend, además de estructurar la información para que se acoplase a la ya existente para una simulación, fue necesario establecer la información prioritaria que se tomaría en cuenta para la generación de un resumen para una simulación.
 
-    \item \textbf{Interacción con los personajes}: También envolvió los dos extremos del desarrollo. La mayor complicación que supuso en el backend fué el diseño correcto del método de comunicación entre back y front, haciendo uso de recursos del sistema de forma correcta y recogiendo la información necesaria en el front por medio de ReverieComm.py.
+    \item \textbf{Interacción con los personajes}: También envolvió los dos extremos del desarrollo. La mayor complicación que supuso en el backend fue el diseño correcto del método de comunicación entre back y front, haciendo uso de recursos del sistema de forma correcta y recogiendo la información necesaria en el front por medio de ReverieComm.py.
 
     \item \textbf{Bifurcar simulaciones desde cualquier timestep pasado de una simulación existente}: Esta es una funcionalidad que supuso idear una forma eficiente de almacenar todos los timesteps de una simulación, sin afectar demasiado al almacenamiento y menos aún a la información concerniente a una simulación. Y que recayó en mí implementarla debido a su naturaleza de backend.
 
@@ -106,4 +106,4 @@ Entre estas nos encontramos
 
 Como comentó Alberto el contrato entre los dos extremos se encontraba aquí, donde contribuímos ambos.
 
-En especial yo contribuí a exponer la información requerida por el front para que pudiera proceder de la forma necesaria. Así mismo fuí el encargado de tratar la información recibida del front y adaptarla al formato requerido por el backend.
+En especial yo contribuí a exponer la información requerida por el front para que pudiera proceder de la forma necesaria. Así mismo fui el encargado de tratar la información recibida del front y adaptarla al formato requerido por el backend.

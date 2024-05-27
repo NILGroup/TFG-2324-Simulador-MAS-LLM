@@ -5,43 +5,43 @@ In the present work, a system has been developed that allows access to multi-age
 
 This chapter describes three subsections. The first one is a kind of discussion where, after presenting the original system in the State of the Art chapter and after seeing the implementations and work we have done throughout the rest of the chapters, we aim to show the impact that the changes made have had on the final result of the system, thus showing the differences in the application from the beginning to now. The second subsection deals with the conclusions after analyzing the work once completed. Finally, the last subsection delves into some of the possible future extensions that would have been included in this work if there had been enough time, as it would be interesting to see them implemented in the future.
 
-\section{Differences between the Original and Current System}
+\section*{Differences between the Original and Current System}
 
 Considering the functionalities that originally existed in the system, discussed in depth in section \ref{genAgents}, and knowing the series of developments that have been made to modify this application discussed in the previous chapters, we divide these modifications into two sections: extended functionalities and new functionalities.
 
-\subsection{Extended functionalities}
+\subsection*{Extended functionalities}
 This first section addresses the functionalities that were already originally developed. For these, there are some new features that have been implemented during the development of this work that are based on them to function, which are mentioned below.
 
-\subsubsection{Whispers to characters through the interface}
+\subsubsection*{Whispers to characters through the interface}
 As mentioned in section \ref{genAgents}, the functionality of whispering to the characters was already implemented in the original system. However, to do this, it was necessary to go to the terminal and from there select the character and the information.
 
 As extended, one will be able to access one of the characters by clicking on their persona at the bottom of the simulation and once this is done, there will be a button where the user can directly communicate and whisper the action or personality they want the character to interpret.
 
 This action flow is seen in Chapter 5 of the interface, more specifically in section \ref{botonSusurro}, where the whisper button and the resulting modal upon clicking this button can be seen.
 
-\subsubsection{New views}
+\subsubsection*{New views}
 In addition to the existing views, new pages have been created so that the application can be used exclusively from the graphical interface, without the need to access the terminal (this helps non-technical people use the application) and unifying them all in different views.
 
 On one hand, views such as the landing page, a page to create simulations from the web, and other pages to view and continue simulations have been created so that one can directly access them by simply clicking. On the other hand, existing views have also been enriched by adding buttons such as whispering or chatting with agents during the simulation.
 
 Furthermore, a navigation bar has been added through which one can navigate the application and access all the necessary views to execute and visualize simulations.
 
-\subsection{New functionalities}
+\subsection*{New functionalities}
 Finally, there are functionalities that did not exist in the original application and we have added, thus adding value to the existing system and reiterating its importance for use in psychological research.
 
-\subsubsection{Total interaction through the interface}
+\subsubsection*{Total interaction through the interface}
 In addition to what was seen earlier regarding the whisper button to the characters, and continuing with the main goal of bringing this tool closer to less technological profiles, an adaptation that has been made is that all interactions with the tool can be developed from the frontend of the application.
 
 Previously, it was necessary to create a backend instance to know the files that made up the system and interact with the program through the terminal. Now, users will be agnostic of the implementation, and when a simulation is executed, it will be created and interacted with through the terminal via the frontend. This functionality is explained in low detail in chapter \ref{cap:extensiones}.
 
-\subsubsection{Real-time chat function with agents}
+\subsubsection*{Real-time chat function with agents}
 Similar to the whisper functionality, we have implemented a new feature where users can, in the middle of a simulation, chat with any of the characters to ask their opinion on certain topics, to see how they progress as the simulation advances.
 
 In this case, it differs from the whisper as the chat interaction will not influence the agent's behavior in the simulation.
 
 As with the whisper button, the interaction flow with the chat button and the pop-up window can be seen in section \ref{botonSusurro}.
 
-\subsubsection{Saving and managing new simulations}
+\subsubsection*{Saving and managing new simulations}
 
 Regarding the saving of simulations, as it was initially organized, by using commands, one could exit the simulation execution, and it would be saved in a folder within the user's own system. The problem when returning to these simulations, both to view and continue them, was that they were all saved in the same folder, making them difficult to retrieve, as one had to add the exact name of the simulation through the console.
 
@@ -49,13 +49,13 @@ Now, simulations will continue to be saved in the same place and retain the same
 
 Furthermore, the functionality of managing new simulations has been added, allowing them to be easily created and edited, as well as viewed, executed, or modified purely from the graphical interface.
 
-\subsubsection{Simulation summaries}
+\subsubsection*{Simulation summaries}
 
 To add value and context to the simulations, an automatic summary generation function has been added. Once the user performs a simulation and wants to save it to view it in the future, within the process of saving the simulation and compressing the data, a summary will also be generated automatically, calling the language model for this purpose, indicating at a high level what happened during the simulation and the moments when the most interesting situations to study occur (moments of interaction between agents, where the user interacted with them, where something important changes in the simulation, etc.) so that the researcher can visualize the most interesting moments or modify the simulation from that point.
 
 These summaries will be available once the simulation is completed and saved, as an indication of what happened during it at a high level. If after reading the summary, the user wants to modify the simulation, they can take one of the reference times and edit the simulation from that point to study the differences depending on what changes from certain modifications at key moments in the simulation.
 
-\section{Conclusions}
+\section*{Conclusions}
 
 The initial intention of this Final Degree Project was to democratize the use of a multi-agent simulation system, which already existed previously, so that profiles such as psychologists could study social phenomena and experiment with relationships between different Artificial Intelligence agents.
 
@@ -75,6 +75,7 @@ The integration of the application with other language models alternative to the
 
 Finally, a final result of the system was reached where we managed to meet almost all the marked objectives (once reconsidered), thus democratizing the use of this new tool for the investigation of social phenomena with Artificial Intelligence agents. It is also worth noting that, despite the development being completed, the costs of operating this application today with the OpenAI API we are using are extremely high. This is a problem for all multi-agent systems in general. If in a few years this cost is reduced or models small and powerful enough to execute this code credibly are released, it will be a highly potent tool, but today's technological limitations do not allow us to demonstrate all the application's capabilities.
 
+\section*{Future work}
 
 Despite meeting the objectives and requirements specified at the beginning of the development, it is also true that as the work progressed, certain ideas emerged that would have had a positive impact on the project if there had been enough time to implement them all.
 
