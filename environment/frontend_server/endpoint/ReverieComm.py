@@ -66,6 +66,7 @@ class ReverieComm():
     answer = answer[0]
     next_line = answer.split(";")[-1]
     curr_convo = answer.split(";")[:-1]
+    curr_convo = ";".join(curr_convo)
     
     return curr_convo, next_line
 
