@@ -869,7 +869,6 @@ class ReverieServer:
       for l in old_curr_convo:
         if ":" in l:
           curr_convo.append(l)
-      curr_convo = [[x.split(":")[0].strip(), x.split(":")[1].strip()] for x in curr_convo]
       with open("wtf", 'w') as f:
         lines = [f"Persona_name: {persona_name}\n",
                  f"Line: {line}\n","curr_convo:\n"]
@@ -878,6 +877,7 @@ class ReverieServer:
         lines.append("No more curr_convo\n")
         lines.append(f"Commando:{old_command}:FinComando\n")
         f.writelines(lines)
+      curr_convo = [[x.split(":")[0].strip(), x.split(":")[1].strip()] for x in curr_convo]
       curr_convo, new_line = self.chat(persona_name, curr_convo, line)
       curr_convo = [f"{x[0]}: {x[1]}" for x in curr_convo]
       curr_convo = ";".join(curr_convo+[new_line])
