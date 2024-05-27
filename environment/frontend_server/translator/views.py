@@ -505,7 +505,13 @@ def manejador_acciones_simulacion(request):
 
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
-          return JsonResponse({'success': True})
+          rc = ReverieComm()
+          json_dict = json_dict["values"]
+          curr_convo = json_dict["curr_convo"]
+          line = json_dict["line"]
+          persona_name = json_dict["persona_name"]
+          curr_convo, next_line = rc.chat(persona_name, curr_convo, line)
+          return JsonResponse({'success': True, "curr_convo": curr_convo, "next_line": next_line})
       elif action == 'susurro':
           # ... Lógica del "susurro" (también se recibirá el id o nombre del personaje al que quiere susurrar)
           name = json_dict['persona_name']

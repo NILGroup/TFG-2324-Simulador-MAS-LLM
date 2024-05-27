@@ -40,7 +40,7 @@ function actualizarTextoSimulacion(simulacionCorriendo, steps, problemaBack, com
     }
 }
 
-function sendAjaxCall(action, values = {}, callback = function (response) {}) {
+function sendAjaxCall(action, values = {}, callback = function (response) {}, errorCallbakc=function(){console.error("Error enviando la acción del botón:", error);}) {
     const dataToSend = {
         action: action,
         values: values
@@ -52,9 +52,7 @@ function sendAjaxCall(action, values = {}, callback = function (response) {}) {
         data: JSON.stringify(dataToSend),
         dataType: 'json',
         success: callback,
-        error: function(error) {
-            console.error("Error enviando la acción del botón:", error);
-        }
+        error: errorCallbakc
     });
 }
 
@@ -123,23 +121,34 @@ $(document).ready(function() {
         event.preventDefault();
 
         const modal = $(this).closest('.modal'); 
-        const chat = modal.find('textarea').val();
-        const personaName = modal.find('input').val();
-        const chat_history_id = 'chat-history_'+personaName.replace(/ /g, '_')
-        const chat_container_id = 'chat-container_'+personaName.replace(/ /g, '_')
+        const line = modal.find('textarea').val();
+        const personaName = modal.find('.actual_persona_name').val();
+        const personaNameOs = personaName.replace(/ /g, '_');
+        const curr_convo = $("#curr_convo_"+personaNameOs);
+        const chat_history_id = 'chat-history_'+personaNameOs;
+        const chat_container_id = 'chat-container_'+personaNameOs;
 
-        console.log(chat_history_id, chat_container_id);
-
-        mostrarMensaje(chat, 'mensaje-usuario', chat_history_id, chat_container_id);
+        console.log(chat_history_id, chat_container_id, modal.attr("id"));
+        console.log(curr_convo.val());
+        mostrarMensaje(line, 'mensaje-usuario', chat_history_id, chat_container_id);
         values = {};
-        values['chat'] = chat;
+        values['line'] = line;
         values['persona_name'] = personaName;
-        sendAjaxCall('chat', {values});
+        values['curr_convo'] = curr_convo.val();
+        sendAjaxCall('chat', {values}, function(response) {
+            modal.find('textarea').val('Alright');
+            curr_convo.val(response["curr_convo"]);
+            console.log(response["curr_convo"])
+            mostrarMensaje(response["next_line"], 'mensaje-bot', chat_history_id, chat_container_id);
+        },
+        function(response) {
+            modal.find('textarea').val('Bad');
+        });
 
-        setTimeout(() => {
-            const botResponse = "Respuesta simulada desde el backend: " + chat;
-            mostrarMensaje(botResponse, 'mensaje-bot', chat_history_id, chat_container_id);
-        }, 1000);
+        // setTimeout(() => {
+        //     const botResponse = "Respuesta simulada desde el backend: " + line;
+        //     mostrarMensaje(botResponse, 'mensaje-bot', chat_history_id, chat_container_id);
+        // }, 1000);
 
         modal.find('textarea').val('');
     });

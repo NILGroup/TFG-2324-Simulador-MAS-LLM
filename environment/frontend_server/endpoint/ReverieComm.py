@@ -59,6 +59,16 @@ class ReverieComm():
       ret = out_file.readlines()
     return ret
 
+  def chat(self, persona_name, curr_convo, line):
+    answer = self.write_command(f"chat:--{persona_name};{curr_convo};{line}")
+    if len(answer) == 0:
+      return "Error", "Error"
+    answer = answer[0]
+    next_line = answer.split(";")[-1]
+    curr_convo = answer.split(";")[:-1]
+    
+    return curr_convo, next_line
+
   def whisper(self, name, whisper):
     return self.write_command(f"whisper {name}:{whisper}")
 

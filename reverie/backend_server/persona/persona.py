@@ -246,3 +246,6 @@ class Persona:
 
   def open_convo_session(self, convo_mode): 
     open_convo_session(self, convo_mode)
+
+  def chat(self, curr_convo, line):
+    return chat(self, curr_convo, line)
