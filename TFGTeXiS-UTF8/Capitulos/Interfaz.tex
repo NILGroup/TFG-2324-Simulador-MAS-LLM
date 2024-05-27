@@ -1,15 +1,15 @@
 \chapter{Interfaz}
 \label{cap:interfaz}
 
-En cuanto a la interfaz de la página web, uno de los principales objetivos del presente trabajo era aunar todas las funcionalidades de la aplicación original, así como las extensiones implementadas en este desarrollo, en una única interfaz web, mediante la cual el usuario pueda navegar y acceder a todas las funcionalidades disponibles.
+En cuanto a la interfaz de la página web, no de los principales objetivos del presente trabajo era unificar todas las funcionalidades de la aplicación original, así como las extensiones implementadas en este desarrollo, en una única interfaz web, mediante la cual el usuario pueda navegar y acceder a todas las funcionalidades disponibles.
 
 El resultado de este objetivo está recogido en este capítulo. Para alcanzarlo, se han creado vistas completamente nuevas y se han modificado algunas de las vistas previamente existentes para simplificarlas o añadir funcionalidades.
 
 \section{Proceso de diseño de la interfaz}
 
-Para desarrollar estas vistas, se ha tenido en cuenta y dado un peso importante al desarrollo empleando el diseño centrado en el usuario, empleando los métodos de colaboración con potenciales clientes de la aplicación, análisis de otras herramientas similares y adaptando el diseño dependiendo del tamaño del dispositivo, como se explica en una de las guías sobre diseño centrado en el usuario \citep{pratt2012interactive}. El siguiente paso a tomar, según esta guía, es el de experimentación y validación con los usuarios finales, el cual se realizará una vez la aplicación esté en funcionamiento, pudiendo así adaptar los \textit{workflows}, botones o maquetación a un entorno más adaptado a los usuarios.
+Para desarrollar estas vistas, se ha tenido en cuenta y dado un peso importante al desarrollo utilizando el diseño centrado en el usuario, empleando los métodos de colaboración con potenciales clientes de la aplicación, análisis de otras herramientas similares y adaptando el diseño dependiendo del tamaño del dispositivo, como se explica en una de las guías sobre diseño centrado en el usuario \citep{pratt2012interactive}. El siguiente paso a tomar, según esta guía, es el de experimentación y validación con los usuarios finales, el cual se realizará una vez la aplicación esté en funcionamiento, pudiendo así adaptar los \textit{workflows}, botones o maquetación a un entorno más adaptado a los usuarios.
 
-Dentro de este ámbito de diseño centrado en el usuario, y como también se mencionó en el capítulo 2 (el Estado de la Cuestión), se ha tenido especial atención a la democratización del uso de esta aplicación, por lo que uno de los objetivos principales con el diseño era implementar una interfaz sencilla, usable e intuitiva para que cualquier usuario pudiera utilizarla fácilmente.
+Dentro de este ámbito de diseño centrado en el usuario, y como también se mencionó en el capítulo 2 (el Estado de la Cuestión), se ha tenido especial atención a la democratización del uso de esta aplicación, por lo que uno de los objetivos principales con el diseño era implementar una interfaz sencilla, fácil de usar e intuitiva para que cualquier usuario pudiera utilizarla fácilmente.
 
 Para demostrar el uso del diseño centrado en el usuario a lo largo de este proyecto, a continuación expondremos un ejemplo en el que se siguen los pasos claros de comprensión de la experiencia de usuario, especificación de las necesidades del usuario, diseño de la solución y evaluación de la misma en el ejemplo concreto del diseño de una simulación disponible en la vista de 'Visualizar Simulaciones', del cual se pueden ver capturas más abajo, en la correspondiente sección \ref{vistaVisSim}, que trata sobre esta vista.
 
@@ -130,13 +130,13 @@ Además de esta información, también se genera un resumen automático mediante
 
 La vista de continuar simulación es ciertamente similar a la anterior de visualizar simulación, ya que también habrá una lista con simulaciones. Sin embargo, la diferencia crucial entre las simulaciones que se pueden ver y aquellas que se pueden continuar, es que en las segundas, el usuario podrá interactuar directamente con la simulación y alterar el curso de la misma.
 
-De nuevo, es una vista que tenía sentido que existiese, ya que son funcionalidades que estaban muy escondidas y eran difíciles de ejecutar anteriormente, y lo hemos simplificado, permitiendo acceder a ellas mediante una interfaz intuitiva y usable.
+De nuevo, es una vista que tenía sentido que existiese, ya que son funcionalidades que estaban muy escondidas y eran difíciles de ejecutar anteriormente, y lo hemos simplificado, permitiendo acceder a ellas mediante una interfaz intuitiva y fácil de usar.
 
 En este caso, dado el listado de simulaciones, los usuarios tendrán la opción de continuar la simulación o forkearla, comentaremos las diferencias:
 
 Cuando se continúa una simulación, esta sigue con el mismo nombre y se continúa siempre desde el mismo step. Esta funcionalidad ya estaba disponible, y sirve para continuar una simulación desde el punto en el que el usuario lo había dejado, como indica el nombre.
 
-Sin embargo, al forkear una simulación, se creará una nueva, tomando como base la original. Es por este motivo por el cual, cuando un usuario va a forkear una simulación, se le pide el step desde el que quiere forkearla y se pide que se de un nombre nuevo (ya que será guardada como una nueva simulación en la lista).
+Sin embargo, al forkear una simulación, se creará una nueva, tomando como base la original. Es por este motivo por el cual, cuando un usuario va a forkear una simulación, se le pide el step desde el que quiere forkearla y se pide que se dé un nombre nuevo (ya que será guardada como una nueva simulación en la lista).
 
  En la figura \ref{fig:contSimDesktop} se puede apreciar el resultado de esta vista, donde se ven una serie de simulaciones que están actualmente disponibles en la aplicación para continuar, así como el número de steps que estas tienen, el nombre de la nueva simulación y más información sobre la simulación en sí (como la duración o los tiempos de la simulación).
  
@@ -208,7 +208,7 @@ Como ya se mencionó, esta vista es bastante similar a la comentada en el aparta
 
 No obstante, en esta vista sí que hemos modificado varios elementos y añadido funcionalidades críticas en esta vista, para que el usuario pueda tener una mayor interacción con el sistema en tiempo real. Entre estas modificaciones están los botones de guardar, salir, chat y susurro, de los cuales hablaremos a continuación.
 
-Además, hemos decidido eliminar la barra de navegación de esta página, ya que consideramos que el usuario solo debe salir de esta página si es guardando o saliendo de la presenta simulación (ya sea guardar para verla, para continuarla o eliminarla).
+Además, hemos decidido eliminar la barra de navegación de esta página, ya que consideramos que el usuario solo debe salir de esta página si es guardando o saliendo de la presente simulación (ya sea guardar para verla, para continuarla o eliminarla).
 
 En la figura \ref{fig:vistaEjecSim} podemos ver un ejemplo de esta página en ejecución, en la cual vemos una nueva simulación creada por nosotros, donde hemos añadido dos agentes.
 
@@ -250,7 +250,7 @@ Una vez el usuario considera que ha terminado la simulación, tiene 3 diferentes
 
 \begin{itemize}
 	
-	\item \textbf{Guardar para ver}: Si el usuario desea guardar la simulación y que esté disponible entre aquellas que se pueden visualizar (desde la página de visualizar simulación) deberá darle a este botón. Una vez clicado, se guardará la repetición, la simulación también estará disponible para ser continuada y se redirigirá al usuario a la página de "visualizar simulación", par que pueda ver la nueva repetición.
+	\item \textbf{Guardar para ver}: Si el usuario desea guardar la simulación y que esté disponible entre aquellas que se pueden visualizar (desde la página de visualizar simulación) deberá darle a este botón. Una vez clicado, se guardará la repetición, la simulación también estará disponible para ser continuada y se redirigirá al usuario a la página de "visualizar simulación", para que pueda ver la nueva repetición.
 	
 	\item \textbf{Guardar y salir}: Si el usuario quiere guardar la simulación, pero no la repetición, deberá clicar este botón. Al hacerlo, se guardará la simulación para poder continuarla o forkearla, y se redirigirá al usuario a la página de continuar simulación.
 	
@@ -274,7 +274,7 @@ El botón de susurro permite hablar directamente a los pensamientos del personaj
 	\label{fig:cuadroSusurro}
 \end{figure}
 
-Por su parte, el botón de chat abrirá una pantalla para chatear directamente con el personaje en tiempo real. Esta funcionalidad es novedosa y servirá para poder entrevisar a los personajes en cada punto de la simulación, viendo así sus cambios de ideas, pensamientos u opiniones a lo largo de la simulación.
+Por su parte, el botón de chat abrirá una pantalla para chatear directamente con el personaje en tiempo real. Esta funcionalidad es novedosa y servirá para poder entrevistar a los personajes en cada punto de la simulación, viendo así sus cambios de ideas, pensamientos u opiniones a lo largo de la simulación.
 
 En la figura \ref{fig:cuadroChat} se puede apreciar cómo sería la interacción con uno de los personajes de la simulación. Mediante esta interfaz de chat, se interpretaría la entrada del usuario y, mediante procesamiento del lenguaje natural y empleando el LLM, trataríamos de obtener una respuesta coherente a la interacción.
 
