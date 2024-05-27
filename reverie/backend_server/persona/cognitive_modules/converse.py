@@ -165,31 +165,6 @@ def agent_chat_v2(maze, init_persona, target_persona):
   return curr_chat
 
 
-
-
-
-
-def generate_summarize_ideas(persona, nodes, question): 
-  statements = ""
-  for n in nodes:
-    statements += f"{n.embedding_key}\n"
-  summarized_idea = run_gpt_prompt_summarize_ideas(persona, statements, question)[0]
-  return summarized_idea
-
-
-def generate_next_line(persona, interlocutor_desc, curr_convo, summarized_idea):
-  # Original chat -- line by line generation 
-  prev_convo = ""
-  for row in curr_convo: 
-    prev_convo += f'{row[0]}: {row[1]}\n'
-
-  next_line = run_gpt_prompt_generate_next_convo_line(persona, 
-                                                      interlocutor_desc, 
-                                                      prev_convo, 
-                                                      summarized_idea)[0]  
-  return next_line
-
-
 def generate_inner_thought(persona, whisper):
   inner_thought = run_gpt_prompt_generate_whisper_inner_thought(persona, whisper)[0]
   return inner_thought
@@ -246,42 +221,6 @@ def load_history_via_whisper(personas, whispers):
                               thought, keywords, thought_poignancy, 
                               thought_embedding_pair, None)
 
-
-def open_convo_session(persona, convo_mode): 
-  if convo_mode == "analysis": 
-    curr_convo = []
-    interlocutor_desc = "Interviewer"
-
-    while True: 
-      line = input("Enter Input: ")
-      if line == "end_convo": 
-        break
-
-      if int(run_gpt_generate_safety_score(persona, line)[0]) >= 8: 
-        pass
-      else: 
-        retrieved = new_retrieve(persona, [line], 50)[line]
-        summarized_idea = generate_summarize_ideas(persona, retrieved, line)
-        curr_convo += [[interlocutor_desc, line]]
-
-        next_line = generate_next_line(persona, interlocutor_desc, curr_convo, summarized_idea)
-        curr_convo += [[persona.scratch.name, next_line]]
-
-
-  elif convo_mode == "whisper": 
-    whisper = input("Enter Input: ")
-    thought = generate_inner_thought(persona, whisper)
-
-    created = persona.scratch.curr_time
-    expiration = persona.scratch.curr_time + datetime.timedelta(days=30)
-    s, p, o = generate_action_event_triple(thought, persona)
-    keywords = set([s, p, o])
-    thought_poignancy = generate_poig_score(persona, "event", whisper)
-    thought_embedding_pair = (thought, get_embedding(thought))
-    persona.a_mem.add_thought(created, expiration, s, p, o, 
-                              thought, keywords, thought_poignancy, 
-                              thought_embedding_pair, None)
-
 def chat(persona, curr_convo, line):
   interlocutor_desc = "Interviewer"
 
@@ -294,31 +233,21 @@ def chat(persona, curr_convo, line):
   return curr_convo, next_line
 
 
+def generate_summarize_ideas(persona, nodes, question): 
+  statements = ""
+  for n in nodes:
+    statements += f"{n.embedding_key}\n"
+  summarized_idea = run_gpt_prompt_summarize_ideas(persona, statements, question)[0]
+  return summarized_idea
 
 
+def generate_next_line(persona, interlocutor_desc, curr_convo, summarized_idea):
+  prev_convo = ""
+  for row in curr_convo: 
+    prev_convo += f'{row[0]}: {row[1]}\n'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  next_line = run_gpt_prompt_generate_next_convo_line(persona, 
+                                                      interlocutor_desc, 
+                                                      prev_convo, 
+                                                      summarized_idea)[0]  
+  return next_line

@@ -9,6 +9,7 @@ function gestionarVisibilidad(simulacionCorriendo, problemaBack, commEnCurso) {
     const boton_salir = $('#boton_salir');
     const boton_abrir_chat = $('.abrir_chat');
     const boton_abrir_susurro = $('.abrir_susurro');
+    const boton_chat = $('.boton_chat');
 
     let disableButtons = simulacionCorriendo | problemaBack | commEnCurso;
 
@@ -21,6 +22,8 @@ function gestionarVisibilidad(simulacionCorriendo, problemaBack, commEnCurso) {
     boton_salir.prop('disabled', disableButtons);
     boton_abrir_chat.prop('disabled', disableButtons);
     boton_abrir_susurro.prop('disabled', disableButtons);
+
+    boton_chat.prop('disabled', disableButtons);
 }
 
 function actualizarTextoSimulacion(simulacionCorriendo, steps, problemaBack, commEnCurso) {
@@ -135,14 +138,15 @@ $(document).ready(function() {
         values['line'] = line;
         values['persona_name'] = personaName;
         values['curr_convo'] = curr_convo.val();
+        comunicacionEnCurso = true;
         sendAjaxCall('chat', {values}, function(response) {
-            modal.find('textarea').val('Alright');
             curr_convo.val(response["curr_convo"]);
             console.log(response["curr_convo"])
             mostrarMensaje(response["next_line"], 'mensaje-bot', chat_history_id, chat_container_id);
+            comunicacionEnCurso = false;
         },
         function(response) {
-            modal.find('textarea').val('Bad');
+            
         });
 
         // setTimeout(() => {

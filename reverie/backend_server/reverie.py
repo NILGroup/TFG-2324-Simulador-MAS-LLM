@@ -800,14 +800,6 @@ class ReverieServer:
           for key, val in self.maze.access_tile(cooordinate).items(): 
             ret_str += f"{key}: {val}\n"
 
-        elif ("call -- analysis" 
-              in sim_command.lower()): 
-          # Starts a stateless chat session with the agent. It does not save 
-          # anything to the agent's memory. 
-          # Ex: call -- analysis Isabella Rodriguez
-          persona_name = sim_command[len("call -- analysis"):].strip() 
-          self.personas[persona_name].open_convo_session("analysis")
-
         elif ("call -- load history" 
               in sim_command.lower()): 
           curr_file = maze_assets_loc + "/" + sim_command[len("call -- load history"):].strip() 
@@ -917,15 +909,6 @@ class ReverieServer:
       self.stopped = True
       return False
 
-    elif ("call -- analysis"  # Interview
-          in command.lower()): 
-      # Starts a stateless chat session with the agent. It does not save 
-      # anything to the agent's memory. 
-      # Ex: call -- analysis Isabella Rodriguez
-      persona_name = command[len("call -- analysis"):].strip() 
-      self.personas[persona_name].open_convo_session("analysis")
-      return False
-
     else:
       print("Not supported command", command)
       return True
@@ -963,10 +946,6 @@ class ReverieServer:
     load_history_via_whisper(self.personas, [[name, whisper]])
 
   def chat(self, persona_name, curr_convo, line):
-    # Starts a stateless chat session with the agent. It does not save 
-    # anything to the agent's memory. 
-    # Ex: call -- analysis Isabella Rodriguez
-    # self.personas[persona_name].open_convo_session("analysis")
     curr_convo, next_line = self.personas[persona_name].chat(curr_convo, line)
     return curr_convo, next_line
 
