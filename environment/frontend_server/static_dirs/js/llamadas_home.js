@@ -72,6 +72,7 @@ $(document).ready(function() {
     const boton_salir = $('#boton_salir');
     const boton_chat = $('.boton_chat');
     const boton_abrir_chat = $('.abrir_chat');
+    const boton_cerrar_chat = $('.cerrar_chat');
     const boton_abrir_susurro = $('.abrir_susurro');
     const boton_cerrar_susurro = $('.cerrar_susurro');
     const boton_susurro = $('.boton_susurro');
@@ -79,16 +80,6 @@ $(document).ready(function() {
     // Se desactivan por que són para la interacción con la demo
     boton_play.css('display', 'none');
     boton_pause.css('display', 'none');
-
-    boton_abrir_susurro.click(function() {
-        game.input.keyboard.enabled = false;
-    });
-
-    boton_cerrar_susurro.click(function() {
-        game.input.keyboard.enabled = true;
-        const susurro = $(this).closest('.modal').find('textarea'); 
-        susurro.val("");
-    });
 
     boton_run.click(function() {
         // Obtener el valor del select de pasos
@@ -117,14 +108,29 @@ $(document).ready(function() {
         sendAjaxCall('salir');
     });
 
+    boton_abrir_chat.click(function() {
+        game.input.keyboard.enabled = false;
+    });
+
+    boton_cerrar_chat.click(function() {
+        game.input.keyboard.enabled = true;
+        const modal = $(this).closest('.modal'); 
+        const chat = modal.find('textarea');
+        chat.val("");
+    });
+
     boton_chat.click(function(event) {  
         event.preventDefault();
 
         const modal = $(this).closest('.modal'); 
         const chat = modal.find('textarea').val();
         const personaName = modal.find('input').val();
+        const chat_history_id = 'chat-history_'+personaName.replace(/ /g, '_')
+        const chat_container_id = 'chat-container_'+personaName.replace(/ /g, '_')
 
-        mostrarMensaje(chat, 'mensaje-usuario');
+        console.log(chat_history_id, chat_container_id);
+
+        mostrarMensaje(chat, 'mensaje-usuario', chat_history_id, chat_container_id);
         values = {};
         values['chat'] = chat;
         values['persona_name'] = personaName;
@@ -132,17 +138,30 @@ $(document).ready(function() {
 
         setTimeout(() => {
             const botResponse = "Respuesta simulada desde el backend: " + chat;
-            mostrarMensaje(botResponse, 'mensaje-bot');
+            mostrarMensaje(botResponse, 'mensaje-bot', chat_history_id, chat_container_id);
         }, 1000);
 
         modal.find('textarea').val('');
     });
 
-    function mostrarMensaje(message, messageClass) {
+    function mostrarMensaje(message, messageClass, chat_history_id, chat_container_id) {
         const messageDiv = $('<div class="chat-message ' + messageClass + '">' + message + '</div>');
-        $('.chat-history').append(messageDiv);
-        $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
+        chat_history_id = "#"+chat_history_id;
+        chat_container_id = "#"+chat_container_id;
+        
+        $(chat_history_id).append(messageDiv);
+        $(chat_container_id).scrollTop($(chat_container_id)[0].scrollHeight);
     }
+
+    boton_abrir_susurro.click(function() {
+        game.input.keyboard.enabled = false;
+    });
+
+    boton_cerrar_susurro.click(function() {
+        game.input.keyboard.enabled = true;
+        const susurro = $(this).closest('.modal').find('textarea'); 
+        susurro.val("");
+    });
 
     boton_susurro.click(function() {
         const susurro = $(this).closest('.modal').find('textarea').val(); 

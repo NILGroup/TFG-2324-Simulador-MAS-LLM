@@ -128,7 +128,6 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Susurrar a {{p_name}}</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<form>
@@ -152,10 +151,9 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">Chatear con {{p_name}}</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
-						<div class="modal-body chat-container"> 
-							<div class="chat-history"> 
+						<div class="modal-body chat-container" id="chat-container_{{p_name_os}}"> 
+							<div class="chat-history" id="chat-history_{{p_name_os}}"> 
 							</div>
 							<form class="chat-input">
 								<input type="hidden" class="actual_persona_name" value="{{p_name}}">
@@ -165,7 +163,7 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-secondary cerrar_chat" data-bs-dismiss="modal">Cerrar</button>
 							<button type="button" class="btn btn-primary boton_chat">Enviar</button>
 						</div>
 					</div>
