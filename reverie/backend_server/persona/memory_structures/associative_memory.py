@@ -138,7 +138,66 @@ class AssociativeMemory:
              for x in events[:min([n_events, len(events)])]]
 
   def getRelevantThoughts(self,n_thoughts):
-    events = sorted(self.seq_thought, key=lambda x: (x.poignancy, x.created), reverse=True)
+    
+    def filtrar_no_finales(thought_ids):
+      
+      rem_ids = set(thought_ids)
+      rem_ids_aux = set(rem_ids)
+      for id in rem_ids_aux:
+        eliminar_no_finales(rem_ids, id)
+      return list(rem_ids)
+
+    def eliminar_no_finales(rem_ids, id):
+      if type(id) != type(""):
+        return
+      if id not in self.id_to_node.keys():
+        return
+      node = self.id_to_node[id]
+      if node.type != "thought":
+        rem_ids.discard(node.node_id)
+      filling = node.filling
+      if not filling:
+        return
+      for id in filling:
+        if type(id) == type(""):
+          rem_ids.discard(id)
+          eliminar_no_finales(rem_ids, id)
+
+    def filtrar_umbral(ids):
+
+      def score(id):
+        if type(id) != type("") or id not in self.id_to_node.keys():
+          return 0
+        node = self.id_to_node[id]
+        score_val = node.depth * node.poignancy
+
+        if not node.filling or node.type != "thought":
+          return score_val
+        for id in node.filling:
+          score_val += score(id)
+        return score_val
+
+      def umbral(id):
+        if type(id) != type("") or id not in self.id_to_node:
+          return math.factorial(30)
+        node = self.id_to_node[id]
+        return math.factorial(node.depth) * (4 + 3*2**(node.depth-1))
+
+      good_ids = []
+      for id in ids:
+        if score(id) >= umbral(id):
+          good_ids.append(id)
+      return good_ids
+
+    thought_ids = []
+    for x in self.seq_thought:
+      if type(x.node_id) == type("") and x.type == "thought" and x.depth > 0: 
+        thought_ids.append(x.node_id)
+
+    filtered_ids = filtrar_no_finales(thought_ids)
+    filtered_ids = filtrar_umbral(filtered_ids)
+
+    events = [ self.id_to_node[x] for x in filtered_ids]
     return [ {
               "node_id": x.node_id,
               "depth": x.depth,
