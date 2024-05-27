@@ -93,6 +93,8 @@ if __name__ == '__main__':
   json_path = sys.argv[1]
   rc = cargar_reverieServer(json_path=json_path)
   os.remove(json_path)
+  if os.path.exists(ERR_ENDPOINT):
+    os.remove(ERR_ENDPOINT)
   old_fds = []
   while not rc.stopped:
     configurar_comunicacion(old_fds)

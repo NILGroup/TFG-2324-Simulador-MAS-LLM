@@ -40,11 +40,17 @@ class ReverieComm():
     pass
 
   def comprobar_error(self):
+    if not os.path.exists(ERR_ENDPOINT):
+      return False
     archivo_error = Path(ERR_ENDPOINT)
     huboError = archivo_error.stat().st_size > 0
     return huboError
 
   def write_command(self, command):
+
+    if self.comprobar_error():
+      return "Error"
+
     in_file = open(INPUT_ENDPOINT, 'w')
     with open(OUTPUT_ENDPOINT, 'r') as out_file:
       in_file.write(command)
@@ -93,6 +99,11 @@ class ReverieComm():
     print("test terminado")
   
   def cerrar_back(self):
+
+    if self.comprobar_error():
+      os.remove(PID_INFO_FILE)
+      return
+
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
     if psutil.pid_exists(reverie_pid):
