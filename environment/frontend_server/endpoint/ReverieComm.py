@@ -40,11 +40,17 @@ class ReverieComm():
     pass
 
   def comprobar_error(self):
+    if not os.path.exists(ERR_ENDPOINT):
+      return False
     archivo_error = Path(ERR_ENDPOINT)
     huboError = archivo_error.stat().st_size > 0
     return huboError
 
   def write_command(self, command):
+
+    if self.comprobar_error():
+      return "Error"
+
     in_file = open(INPUT_ENDPOINT, 'w')
     with open(OUTPUT_ENDPOINT, 'r') as out_file:
       in_file.write(command)
@@ -52,6 +58,20 @@ class ReverieComm():
       in_file.close()
       ret = out_file.readlines()
     return ret
+
+  def chat(self, persona_name, curr_convo, line):
+    answer = self.write_command(f"chat:--{persona_name};{curr_convo};{line}")
+    if len(answer) == 0:
+      return "Error", "Error"
+    answer = answer[0]
+    next_line = answer.split(";")[-1]
+    curr_convo = answer.split(";")[:-1]
+    curr_convo = ";".join(curr_convo)
+    
+    return curr_convo, next_line
+
+  def whisper(self, name, whisper):
+    return self.write_command(f"whisper {name}:{whisper}")
 
   def sum_up(self):
     """
@@ -93,6 +113,11 @@ class ReverieComm():
     print("test terminado")
   
   def cerrar_back(self):
+
+    if self.comprobar_error():
+      os.remove(PID_INFO_FILE)
+      return
+
     with open(PID_INFO_FILE) as reverie_pid_f:
       reverie_pid = int(json.load(reverie_pid_f)["pid"])
     if psutil.pid_exists(reverie_pid):

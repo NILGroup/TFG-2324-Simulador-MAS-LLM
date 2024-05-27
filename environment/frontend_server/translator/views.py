@@ -477,7 +477,7 @@ def manejador_acciones_simulacion(request):
           steps = json_dict['steps']
           rc = ReverieComm()
           rc.run(steps)
-          pass 
+          return JsonResponse({'success': True})
       elif action == 'guardar_ver':
           sim_code = json_dict['sim_code']
           step = json_dict['step']
@@ -490,24 +490,35 @@ def manejador_acciones_simulacion(request):
             rc.finish()
           notificar_front_demo_creada()
           borrar_notificacion()
+          return JsonResponse({'success': True})
       elif action == 'guardar_salir':
           # ... Lógica del "guardar_continuar"
           rc = ReverieComm()
           rc.finish()
+          return JsonResponse({'success': True})
           
       elif action == 'salir':
           rc = ReverieComm()
           rc.exit()
           # La eliminacion de este proceso se deberia hacer desde ReverieComm.py
+          return JsonResponse({'success': True})
 
       elif action == 'chat':
           # ... Lógica del "chat" (también se recibirá el id o nombre del personaje con el que se quiere chatear)
-          pass
+          rc = ReverieComm()
+          json_dict = json_dict["values"]
+          curr_convo = json_dict["curr_convo"]
+          line = json_dict["line"]
+          persona_name = json_dict["persona_name"]
+          curr_convo, next_line = rc.chat(persona_name, curr_convo, line)
+          return JsonResponse({'success': True, "curr_convo": curr_convo, "next_line": next_line})
       elif action == 'susurro':
           # ... Lógica del "susurro" (también se recibirá el id o nombre del personaje al que quiere susurrar)
-          pass
+          name = json_dict['persona_name']
+          whisper = json_dict['susurro']
+          ReverieComm().whisper(name, whisper)
 
-      return JsonResponse({'success': True})
+      return JsonResponse({'success': True, 'name': name, 'whisper': whisper})
   else:
       return HttpResponse('Request method must be POST.')
 

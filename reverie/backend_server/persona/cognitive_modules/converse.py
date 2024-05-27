@@ -221,6 +221,15 @@ def generate_poig_score(persona, event_type, description):
 
 
 def load_history_via_whisper(personas, whispers):
+  """
+  Input:
+    personas: dict(persona_name -> persona object)
+    whispers: list(
+                    list([persona_name, whisper]),
+                    list([persona_name, whisper]),
+                    list([persona_name, whisper])
+                  )
+  """
   for count, row in enumerate(whispers): 
     persona = personas[row[0]]
     whisper = row[1]
@@ -273,7 +282,16 @@ def open_convo_session(persona, convo_mode):
                               thought, keywords, thought_poignancy, 
                               thought_embedding_pair, None)
 
+def chat(persona, curr_convo, line):
+  interlocutor_desc = "Interviewer"
 
+  retrieved = new_retrieve(persona, [line], 50)[line]
+  summarized_idea = generate_summarize_ideas(persona, retrieved, line)
+  curr_convo.append([interlocutor_desc, line])
+
+  next_line = generate_next_line(persona, interlocutor_desc, curr_convo, summarized_idea)
+  curr_convo.append([persona.scratch.name, next_line])
+  return curr_convo, next_line
 
 
 
