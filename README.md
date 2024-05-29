@@ -8,6 +8,8 @@ Repositorio para el TFG de Kevin Arce y Alberto Ramos sobre un simulador multiag
 
 El objetivo principal de este Trabajo de Fin de Grado es democratizar el uso del estudio realizado en el siguiente paper: "[Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)", así como extender algunas de las funcionalidades existentes en el mismo y modificar la manera de ejecutar de la aplicación completamente.
 
+Dejar claro que todo el trabajo aquí presente es una continuación del repositorio "[joonspk-research/generative_agents](https://github.com/joonspk-research/generative_agents/tree/main)"
+
 Por ello, hemos realizado esta documentación, la cual era algo complicada en el programa inicial, para que cualquier persona pueda ejecutar la aplicación sin problemas. Además, la hemos escrito en castellano para mayor facilidad.
 
 ## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Isabella_Rodriguez.png" alt="Generative Isabella">   Configurando el entorno 
