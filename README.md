@@ -45,22 +45,9 @@ Para poder ejecutar la aplicación, es necesario declarar la clave de la API de 
 
 Para ejecutar una nueva simulación, será necesario iniciar dos servidores simultáneamente: el servidor de entorno y el servidor de simulación de agentes.
 
-### Paso 1. Iniciar el servidor de entorno
+### Paso 1. Movernos a la raíz del repositorio
 
-El entorno se implementa como un proyecto de Django, y como tal, deberá iniciar el servidor de Django. Para ello, primero navegue hasta `environment/frontend_server` (aquí es donde se encuentra `manage.py`) en su línea de comandos. Luego, ejecute el siguiente comando:
-
-    python manage.py runserver
-
-A continuación, en su navegador favorito, vaya a [http://localhost:8000/](http://localhost:8000/). Aquí ya podremos ver la página de landing, pero no será posible ejecutar simulaciones hasta que no se inicie el segundo servidor. Asegúrese de que el servidor de entorno siga funcionando mientras ejecuta la simulación, ¡así que mantenga esta pestaña de línea de comandos abierta! (Nota: Se recomienda usar Chrome o Safari. Firefox podría producir algunos errores en el frontend, aunque no debería interferir con la simulación en sí).
-
-### Paso 2. Iniciar el servidor de simulación
-
-Abra otra línea de comandos (la que utilizó en el Paso 1 debería seguir ejecutando el servidor de entorno, así que déjela como está). Navegue hasta `reverie/backend_server` y ejecute `reverie.py`.
-
-    python reverie.py
-
-Esto iniciará el servidor de la simulación. Aparecerá un prompt de línea de comandos pero podemos ignorarlo ya que toda la interacción con la simulación se realizará mediante la interfaz gráfica.
-
+### Paso 2. Ejecutar ./run.sh
 
 ## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Isabella_Rodriguez.png" alt="Generative Isabella">   Interactuar con la simulación
 
