@@ -47,7 +47,13 @@ Para ejecutar una nueva simulación, será necesario iniciar dos servidores simu
 
 ### Paso 1. Movernos a la raíz del repositorio
 
-### Paso 2. Ejecutar ./run.sh
+### Paso 2.
+
+Exportar la variable de entorno "debug=false"
+
+### Paso 3.
+
+Ejecutar ./run.sh
 
 ## <img src="https://joonsungpark.s3.amazonaws.com:443/static/assets/characters/profile/Isabella_Rodriguez.png" alt="Generative Isabella">   Interactuar con la simulación
 
